@@ -18,7 +18,6 @@ lm1100
 lrzsz
 mobile-broadband-provider-info
 oki4linux
-pcc-libs
 pnm2ppa
 psmisc
 sipcalc

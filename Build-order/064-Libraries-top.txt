@@ -1,10 +1,8 @@
 cryptopp
-mplayer-w32codecs
 musl
 pam-smb
 utf8filename
 lightning
-ppl
 pam-krb5
 gflags
 pam-ssh

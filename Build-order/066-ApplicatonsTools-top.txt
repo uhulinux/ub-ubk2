@@ -21,7 +21,6 @@ help2info
 ico2xpm
 jhead
 localepurge
-mailcount
 multitail
 nload
 nrg2iso
@@ -64,7 +63,6 @@ jp2a
 vacation
 ocrad
 pdmenu
-tbt
 cfv
 comparator
 imediff2
@@ -112,7 +110,6 @@ wikidpad
 freemind
 calcoo
 doodle
-paco
 catfish
 parcellite
 truecrypt

@@ -1,4 +1,0 @@
-#!/usr/bin/env dl
-
-tcc-${UB_VERSION}.tar.gz tinycc-5420bb8/
-	git://repo.or.cz/tinycc.git@5420bb8

@@ -1,4 +1,0 @@
-#!/usr/bin/env dl
-
-pcc-${UB_VERSION_TAIL1/0~b+/}.tgz pcc-${UB_VERSION_TAIL1/0~b+/}/
-	ftp://pcc.ludd.ltu.se/pub/pcc/

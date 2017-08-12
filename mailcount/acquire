@@ -1,4 +1,0 @@
-#!/usr/bin/env dl
-
-mailcount-${UB_VERSION}.tar.gz mailcount-${UB_VERSION}/
-	http://download.ubk.hu/src/uhu/mailcount/

@@ -1,4 +1,0 @@
-#!/usr/bin/env dl
-
-bitchx-${UB_VERSION}.tar.gz bitchx-${UB_VERSION}/
-	http://www.bitchx.com/download/

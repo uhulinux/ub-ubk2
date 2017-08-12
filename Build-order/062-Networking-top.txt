@@ -18,7 +18,6 @@ pptpclient
 tcpcgi
 p0f
 tcptrack
-bitchx
 fetchmail
 mailx
 whois

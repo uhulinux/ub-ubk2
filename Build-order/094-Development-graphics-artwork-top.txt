@@ -18,7 +18,6 @@ griffith-extra-artwork
 hla
 icon-theme-snow-apple
 patchutils
-pcc
 sddm-theme-acidhub
 sddm-theme-deepspace
 sddm-theme-futuristic
@@ -29,7 +28,6 @@ shc
 slim-themes
 sparse
 subversion-tools
-tcc
 xpenguins-themes
 rxwrap
 png2ico
