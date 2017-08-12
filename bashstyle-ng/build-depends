@@ -3,7 +3,7 @@ bind
 dmidecode
 ghostscript
 less
-net-tools
+inetutils
 pciutils
 py3gobject
 python-configobj

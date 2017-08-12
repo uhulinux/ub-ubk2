@@ -2,7 +2,7 @@ groff
 krb5-dev
 libedit-dev
 libx11-dev
-net-tools
+inetutils
 openssl-dev
 procps-dev
 tcp-wrappers-dev

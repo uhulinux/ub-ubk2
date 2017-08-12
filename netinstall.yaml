@@ -49,7 +49,6 @@
     - mpfr
     - gawk
     - sed
-    - timeslide
     - uhu-utils
     - util-linux
     - systemd
@@ -176,6 +175,7 @@
     - elfutils
     - gmp
     - hdparm
+    - inetutils
     - iproute2
     - iptables
     - iputils
@@ -190,7 +190,6 @@
     - libplist
     - mdadm
     - mtools
-    - net-tools
     - parted
     - pciutils
     - procps
@@ -198,7 +197,6 @@
     - squashfs-tools
     - sysfsutils
     - tzdata
-    - uhu-initscripts
     - upower
     - usbmuxd
     - usbutils
@@ -483,7 +481,6 @@
     - fuse-smbnetfs
     - fuse-sshfs
     - tigervnc
-    - mailcount
     - networkmanager-openvpn
     - networkmanager-pptp
     - nmap
@@ -502,6 +499,7 @@
   packages:
     - autoconf
     - automake
+    - build
     - bzr
     - ccache
     - d-feet
@@ -609,7 +607,6 @@
     - libevdev
     - libxv
     - mtdev
-    - x.org-apps
     - x.org-bitmaps
     - x.org-font-utils
     - x.org-input-evdev
