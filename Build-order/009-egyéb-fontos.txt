@@ -52,4 +52,4 @@ neon
 fltk
 wxwidgets
 wxwidgets2.8
-libxml++2
+libxml++3

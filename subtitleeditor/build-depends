@@ -6,5 +6,5 @@ gtk-dev
 gtkmm-dev
 intltool
 iso-codes
-libxml++2-dev
+libxml++3-dev
 libxshmfence-dev

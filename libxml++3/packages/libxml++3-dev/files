@@ -11,7 +11,7 @@
 	/usr/lib/pkgconfig
 	/usr/share/aclocal
 	/usr/share/devhelp
-	/usr/share/doc/libxml++-2.6
+	/usr/share/doc/libxml++-*
 	/usr/share/gtk-doc
 	/usr/share/man/**/man1/*-config.1*
 	/usr/share/man/**/man3

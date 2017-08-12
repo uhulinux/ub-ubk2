@@ -13,7 +13,7 @@ libepc-dev
 libgda-dev
 libgdamm-dev
 libsecret-dev
-libxml++2-dev
+libxml++3-dev
 libxslt-dev
 postgresql-dev
 py3gobject

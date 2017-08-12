@@ -8,7 +8,7 @@ freetype2-dev
 glew-dev
 glu-dev
 gperf
-libxml++2-dev
+libxml++3-dev
 mesa-dev
 ruby
 sdl-dev
