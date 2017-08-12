@@ -1,4 +1,7 @@
 ftp
+net-tools
+ntalk
+ntalkd
 rsh
 rshd
 telnet

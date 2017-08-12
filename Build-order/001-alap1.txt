@@ -6,7 +6,6 @@ xz
 cppp
 gcc
 kmod
-net-tools
 kernel
 b43-fwcutter
 linux-firmware

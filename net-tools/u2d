@@ -1,1 +1,0 @@
-sflist net-tools | parsever | sort -V | tail -n 1

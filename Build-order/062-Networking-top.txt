@@ -12,7 +12,6 @@ iodine
 iperf
 ncftp
 noip-duc
-ntalk
 phpmyfaq
 pptpclient
 tcpcgi
