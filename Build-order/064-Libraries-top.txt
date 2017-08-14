@@ -2,7 +2,6 @@ cryptopp
 musl
 pam-smb
 utf8filename
-lightning
 pam-krb5
 gflags
 pam-ssh
@@ -12,7 +11,6 @@ pam-usb
 pam-chroot
 sdl2-net
 g2
-gtk-engine-unico
 obexfs
 opensc
 ntrack
