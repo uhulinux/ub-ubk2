@@ -1,4 +1,4 @@
 grub
 kmod
 linux-firmware
-mkinitrd
+mkinitrd (>= 0.117)
