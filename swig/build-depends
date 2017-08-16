@@ -1,8 +1,5 @@
 boost-dev
-gcj
-gcj-lib
 guile-dev
-java-jdk
 libx11-dev
 libxext-dev
 libxt-dev
