@@ -8,20 +8,17 @@
 
 mv {usb,pci}.ids ma-{large,medium,small}.txt hwdb/
 
-# compile fix
-sed -i "s/\-flto/\-fno\-lto/g" configure.ac
-
-./autogen.sh
+rm -f autogen.sh
 
 ub_compile \
-	--with-pamlibdir=/lib/security \
-	--with-ntp-servers=pool.ntp.org \
-	--with-default-dnssec=no \
-	--enable-manpages \
-	--enable-split-usr \
-	--disable-libcurl \
-	--disable-microhttpd \
-	--disable-coredump
+	-Dkill-path=/bin/kill \
+	-Dpamlibdir=/lib/security \
+	-Dntp-servers=pool.ntp.org \
+	-Ddefault-dnssec=no \
+	-Dsplit-usr=false \
+	-Dlibcurl=false \
+	-Dmicrohttpd=false \
+	-Dcoredump=false
 
 cd hwdb
 ./ids-update.pl

@@ -18,6 +18,7 @@ libtasn1-dev
 libxkbcommon-dev
 libxslt
 lvm-dev
+meson
 python-dev
 python-lxml
 tcp-wrappers-dev
