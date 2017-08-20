@@ -2,4 +2,3 @@
 
 cracklib-${UB_VERSION}.tar.gz cracklib-cracklib-${UB_VERSION}/
 	https://github.com/cracklib/cracklib/archive/
-

@@ -89,7 +89,6 @@
 	/etc/sgml/xml-docbook-4.4.cat \
 	/usr/share/sgml/docbook/xml-dtd-4.4/catalog
 
-
 CATALOG=/usr/share/sgml/docbook/xmlcatalog
 
 # DocBook XML V4.1.2

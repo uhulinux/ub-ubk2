@@ -13,7 +13,6 @@ grep
 gzip
 hdparm
 hwdata
-inetutils
 iproute2
 iputils
 joe
@@ -23,6 +22,7 @@ less
 libatasmart
 lvm
 mdadm
+net-tools
 pciutils
 polkit
 procps

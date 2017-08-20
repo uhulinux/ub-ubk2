@@ -1,0 +1,30 @@
+diff -Naur orig/include/aal/types.h patched/include/aal/types.h
+--- orig/include/aal/types.h	2014-06-08 20:28:22.134739579 +0200
++++ patched/include/aal/types.h	2017-08-19 00:09:19.234984963 +0200
+@@ -10,6 +10,8 @@
+ #  include <config.h>
+ #endif
+ 
++#include <stdint.h>
++
+ /* Some usefull return codes */
+ #undef EINVAL
+ #define EINVAL                  22
+@@ -31,8 +33,6 @@
+ typedef signed char             int8_t;
+ typedef short int               int16_t;
+ typedef int                     int32_t;
+-__extension__
+-typedef long long int           int64_t;
+ #endif
+  
+ typedef unsigned char           uint8_t;
+@@ -40,8 +40,6 @@
+ #ifndef __uint32_t_defined
+ #define __uint32_t_defined
+ typedef unsigned int            uint32_t;
+-__extension__
+-typedef unsigned long long int  uint64_t;
+ #endif
+ 
+ #define MAX_UINT8  ((uint8_t)~0)

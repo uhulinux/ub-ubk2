@@ -6,4 +6,3 @@ rm autogen.sh
 
 autoreconf -vif
 ub_compile
-

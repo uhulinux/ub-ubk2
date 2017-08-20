@@ -15,6 +15,7 @@ UB_CONFIGURE_DIR="$UB_COMPILEDIR" ub_configure \
 	--enable-add-ons \
 	--enable-kernel=2.6.33 \
 	--enable-obsolete-rpc \
+	--enable-obsolete-nsl \
 	--enable-bind-now \
 	--disable-profile \
 	--enable-lock-elision \
@@ -27,6 +28,7 @@ UB_CONFIGURE_DIR="$UB_COMPILEDIR" ub_configure \
 	--enable-add-ons \
 	--enable-kernel=2.6.33 \
 	--enable-obsolete-rpc \
+	--enable-obsolete-nsl \
 	--with-cpu=i686 \
 	--disable-werror
 fi

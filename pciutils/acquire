@@ -2,4 +2,3 @@
 
 pciutils-${UB_VERSION}.tar.gz pciutils-${UB_VERSION}/
 	ftp://atrey.karlin.mff.cuni.cz/pub/linux/pci/
-

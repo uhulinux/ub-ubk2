@@ -2,4 +2,3 @@
 
 tcp_wrappers_${UB_VERSION}.tar.gz tcp_wrappers_${UB_VERSION}/
 	ftp://ftp.porcupine.org/pub/security/
-

@@ -25,6 +25,8 @@ mkdir -p "$UB_INSTALLDIR"/usr/lib/tmpfiles.d/
 install -m 644 "$UB_COMPILEDIR"/nscd/nscd.tmpfiles "$UB_INSTALLDIR"/usr/lib/tmpfiles.d/nscd.conf
 install -m 644 "$UB_COMPILEDIR"/nscd/nscd.service "$UB_INSTALLDIR"/usr/lib/systemd/system
 
+#  ln -s /usr/include/locale.h "$UB_INSTALLDIR"/usr/include/xlocale.h
+
 if [ "$UB_ARCH" == "amd64" ];then
 mkdir -p "$UB_INSTALLDIR"/lib64
 cd "$UB_INSTALLDIR"/lib64
