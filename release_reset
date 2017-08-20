@@ -1,7 +1,0 @@
-#! /bin/bash
-
-for pkg in `ls -d */`; do
-
-sed -i 's/[0-9]/1/' "$pkg"/release
-
-done
