@@ -132,6 +132,7 @@ zip
 7zip
 po4a
 dpkg
+inetutils
 mkinitrd
 optipng
 help2man
