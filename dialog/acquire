@@ -2,4 +2,4 @@
 
 dialog-${UB_VERSION/~/-}.tgz dialog-${UB_VERSION/~/-}/
     http://download.openpkg.org/components/cache/dialog/
-	ftp://invisible-island.net/dialog/
+	http://invisible-mirror.net/archives/dialog/
