@@ -1,5 +1,4 @@
 cmake
-doxygen
 gavl-dev
 gstreamer-dev
 gtk2-dev

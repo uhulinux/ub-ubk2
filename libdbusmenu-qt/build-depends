@@ -1,5 +1,4 @@
 cmake
 dbus-dev
-doxygen
 qt5-dev
 qt5-test-dev

@@ -1,8 +1,6 @@
 boost-dev
 cmake
-doxygen
 freetype2-dev
-graphviz-dev
 libx11-dev
 ogre-dev
 ois-dev

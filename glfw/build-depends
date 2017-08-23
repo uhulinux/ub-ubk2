@@ -1,5 +1,4 @@
 cmake
-doxygen
 glibc-dev
 glu-dev
 libx11-dev

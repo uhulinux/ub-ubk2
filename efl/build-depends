@@ -1,6 +1,5 @@
 bullet-dev
 dbus-dev
-doxygen
 ffmpeg-dev
 glib-dev
 gst-plugins-base-dev
@@ -31,5 +30,5 @@ pango-dev
 poppler-dev
 pulseaudio-dev
 wayland-dev
-x.org-server-dev
 xine-lib-dev
+x.org-server-dev

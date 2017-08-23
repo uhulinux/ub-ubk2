@@ -1,7 +1,6 @@
 boost-dev
 cmake
 devil-dev
-doxygen
 expat-dev
 freeglut-dev
 freeimage-dev
@@ -11,7 +10,6 @@ glew-dev
 glfw-dev
 glm-dev
 glu-dev
-graphviz-dev
 gtk2-dev
 libjpeg-turbo-dev
 libpng-dev

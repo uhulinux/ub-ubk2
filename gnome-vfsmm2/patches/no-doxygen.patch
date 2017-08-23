@@ -1,0 +1,21 @@
+diff -Naur orig/Makefile.am patched/Makefile.am
+--- orig/Makefile.am	2008-07-14 10:27:38.134739579 +0200
++++ patched/Makefile.am	2017-08-23 14:57:46.419082251 +0200
+@@ -1,4 +1,4 @@
+-SUBDIRS		= tools libgnomevfs docs examples
++SUBDIRS		= tools libgnomevfs
+ DIST_SUBDIRS	= $(SUBDIRS) scripts
+ 
+ EXTRA_DIST	= gnome-vfsmm.spec.in \
+diff -Naur orig/Makefile.in patched/Makefile.in
+--- orig/Makefile.in	2009-03-16 18:20:42.134739579 +0100
++++ patched/Makefile.in	2017-08-23 14:58:04.637370395 +0200
+@@ -197,7 +197,7 @@
+ top_build_prefix = @top_build_prefix@
+ top_builddir = @top_builddir@
+ top_srcdir = @top_srcdir@
+-SUBDIRS = tools libgnomevfs docs examples
++SUBDIRS = tools libgnomevfs
+ DIST_SUBDIRS = $(SUBDIRS) scripts
+ EXTRA_DIST = gnome-vfsmm.spec.in \
+ 		  build_shared/Makefile_build.am_fragment \
