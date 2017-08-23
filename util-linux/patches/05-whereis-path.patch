@@ -1,25 +1,6 @@
-diff -Naur util-linux-2.27.1-orig/misc-utils/whereis.1 util-linux-2.27.1/misc-utils/whereis.1
---- util-linux-2.27.1-orig/misc-utils/whereis.1	2015-10-06 08:59:51.587589616 +0200
-+++ util-linux-2.27.1/misc-utils/whereis.1	2016-02-16 16:37:35.165714611 +0100
-@@ -130,13 +130,13 @@
- .B /usr/\:bin
- which are not documented
- in
--.B /usr/\:man/\:man1
-+.B /usr/share/\:man/\:man1
- or have no source in
- .BR /usr/\:src :
- .IP
- .B cd /usr/bin
- .br
--.B whereis \-u \-ms \-M /usr/man/man1 \-S /usr/src \-f *
-+.B whereis \-u \-ms \-M /usr/share/man/man1 \-S /usr/src \-f *
- .SH "FILE SEARCH PATHS"
- By default
- .B whereis
-diff -Naur util-linux-2.27.1-orig/misc-utils/whereis.c util-linux-2.27.1/misc-utils/whereis.c
---- util-linux-2.27.1-orig/misc-utils/whereis.c	2015-10-06 08:59:51.587589616 +0200
-+++ util-linux-2.27.1/misc-utils/whereis.c	2016-02-16 16:40:16.297714506 +0100
+diff -Naur util-linux-2.30.1-orig/misc-utils/whereis.c util-linux-2.30.1/misc-utils/whereis.c
+--- util-linux-2.30.1-orig/misc-utils/whereis.c	2017-07-20 10:16:26.354984891 +0200
++++ util-linux-2.30.1/misc-utils/whereis.c	2017-08-22 22:51:35.002551095 +0200
 @@ -96,75 +96,21 @@
  static const char *bindirs[] = {
  	"/usr/bin",

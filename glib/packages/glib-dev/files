@@ -10,12 +10,12 @@
 	/usr/bin/gtester*
 	/usr/include
 	/usr/lib/**/*.a
-	/usr/lib/**/*.la
-@	/usr/lib/**/*.so
-	/usr/lib/*/include
 	/usr/lib/*Conf.sh
 	/usr/lib/gdbus-2.0/codegen
+	/usr/lib/*/include
+	/usr/lib/**/*.la
 	/usr/lib/pkgconfig
+@	/usr/lib/**/*.so
 	/usr/share/aclocal
 	/usr/share/devhelp
 	/usr/share/gdb/auto-load/*

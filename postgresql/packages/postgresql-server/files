@@ -21,8 +21,8 @@
 	/usr/share/postgresql/pg_service.conf.sample
 	/usr/share/postgresql/postgres.bki
 	/usr/share/postgresql/postgres.description
-	/usr/share/postgresql/postgres.shdescription
 	/usr/share/postgresql/postgresql.conf.sample
+	/usr/share/postgresql/postgres.shdescription
 	/usr/share/postgresql/psqlrc.sample
 	/usr/share/postgresql/recovery.conf.sample
 	/usr/share/postgresql/snowball_create.sql

@@ -1,1 +1,2 @@
-urllist http://ftp.osuosl.org/pub/blfs/conglomeration/krb5/ | splitver '^krb5-([0-9.]+)-signed.tar$' | sort -V | tail -n 1
+minor=$(urllist http://web.mit.edu/kerberos/dist/krb5 | splitver '^([0-9.]+)$' | sort -V | tail -n 1)
+urllist http://web.mit.edu/kerberos/dist/krb5/"$minor"/ | splitver '^krb5-([0-9.]+).tar.(gz|bz2|xz)$' | sort -V | tail -n 1

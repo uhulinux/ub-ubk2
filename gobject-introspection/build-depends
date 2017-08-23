@@ -4,6 +4,7 @@ freetype2-dev
 gettext
 glib-dev
 gnome-common
+harfbuzz-dev
 intltool
 libffi-dev
 mesa-dev

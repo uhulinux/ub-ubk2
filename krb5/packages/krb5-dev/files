@@ -1,15 +1,15 @@
 	/lib/*.a
 	/lib/*.la
 @	/lib/*.so
-	/usr/bin/*-config
 	/usr/bin/compile_et
+	/usr/bin/*-config
 	/usr/include
 	/usr/lib/**/*.a
-	/usr/lib/**/*.la
-@	/usr/lib/**/*.so
 	/usr/lib/*Conf.sh
+	/usr/lib/**/*.la
 	/usr/lib/pkgconfig
+@	/usr/lib/**/*.so
 	/usr/share/aclocal
 	/usr/share/et
-	/usr/share/man/**/man3
 	/usr/share/man/man1/compile_et.1*
+	/usr/share/man/**/man3
