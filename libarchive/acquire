@@ -2,4 +2,3 @@
 
 libarchive-${UB_VERSION}.tar.gz libarchive-${UB_VERSION}/
 	http://www.libarchive.org/downloads/
-	

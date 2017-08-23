@@ -57,6 +57,11 @@ graphite2
 harfbuzz
 gobject-introspection
 cairo
+re2c
+asciidoc
+ninja
+python3
+meson
 util-linux
 systemd
 util-linux
