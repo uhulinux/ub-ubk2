@@ -3,7 +3,6 @@ cmake
 docbook2man
 docbook-dtds
 docbook-xsl
-doxygen
 freetype2-dev
 glew-dev
 glib-dev
