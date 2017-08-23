@@ -2,6 +2,5 @@
 
 ub_install
 
-ln -sf libmysqlclient.so.18 "$UB_INSTALLDIR"/usr/lib/libmysqlclient_r.so.18
-ln -sf libmysqlclient.so.18.0.0 "$UB_INSTALLDIR"/usr/lib/libmysqlclient_r.so.18.0.0
+ln -sf libmariadb.so.3 "$UB_INSTALLDIR"/usr/lib/libmysqlclient.so.18
 ln -sf mariadb.pc "$UB_INSTALLDIR"/usr/lib/pkgconfig/mysql.pc
