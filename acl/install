@@ -12,3 +12,9 @@ cd "$UB_INSTALLDIR"/bin/
 for progs in chacl getfacl setfacl; do
 	cp $progs "$UB_INSTALLDIR"/usr/bin/
 done
+# kompatibilitás
+mkdir -p "$UB_INSTALLDIR"/usr/lib
+ln -s /lib/libacl.la "$UB_INSTALLDIR"/usr/lib/libacl.la
+ln -s /lib/libacl.so "$UB_INSTALLDIR"/usr/lib/libacl.so
+ln -s /lib/libacl.so.1 "$UB_INSTALLDIR"/usr/lib/libacl.so.1
+ln -s /lib/libacl.so.1.1.0 "$UB_INSTALLDIR"/usr/lib/libacl.so.1.1.0

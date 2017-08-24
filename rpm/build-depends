@@ -1,3 +1,5 @@
+acl-dev
+binutils-dev
 bzip2-dev
 db4-dev
 file-dev
