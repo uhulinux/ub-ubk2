@@ -2,7 +2,7 @@ cmake
 eigen3
 glew-dev
 hdf5
-molequeue
+molequeue-dev
 qt5-dev
 qtwebengine-dev
 spglib
