@@ -1,6 +1,5 @@
 boost-dev
 cmake
-doxygen
 fftw3-dev
 hdf5
 libpng-dev
