@@ -15,6 +15,7 @@ ub_compile \
 	-Dpamlibdir=/lib/security \
 	-Dntp-servers=pool.ntp.org \
 	-Ddefault-dnssec=no \
+	-Dlink-udev-shared=true \
 	-Dsplit-usr=false \
 	-Dlibcurl=false \
 	-Dmicrohttpd=false \
