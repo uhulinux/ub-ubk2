@@ -1,0 +1,4 @@
+#!/usr/bin/env dl
+
+umockdev-${UB_VERSION}.tar.xz umockdev-${UB_VERSION}/
+	https://launchpad.net/umockdev/trunk/${UB_VERSION}/+download/
