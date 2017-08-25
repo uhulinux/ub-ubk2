@@ -3,7 +3,6 @@ atk
 pango
 gdk-pixbuf
 gtk2
-vala
 colord
 at-spi2-atk
 gtk #cups nélkül
