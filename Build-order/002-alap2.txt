@@ -76,7 +76,11 @@ cmake
 libedit
 llvm
 nss
-libgudev
+vala
+umockdev # régi libgudevvel
+libgudev # régi libgudeves umockdevvel
+umockdev # újabb libgudevvel és extrarelease vissza
+libgudev # újabb umockdevvel és extrarelease vissza
 libgusb
 libesmtp
 boost
