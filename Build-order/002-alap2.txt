@@ -101,3 +101,5 @@ build
 libsodium
 run-parts
 ca-certificates
+libmcrypt
+mcrypt

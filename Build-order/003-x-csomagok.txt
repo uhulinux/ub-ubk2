@@ -44,14 +44,8 @@ xcb-util-renderutil
 xcb-util-cursor
 xcb-util-wm
 libclc
+yasm
 libomxil-bellagio
-libva
-mesa
-libva
-mesa
-x.org-server
-mesa
-x.org-server
 x.org-input-acecad
 x.org-input-aiptek
 x.org-input-elographics

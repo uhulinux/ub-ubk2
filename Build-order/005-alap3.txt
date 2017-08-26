@@ -143,4 +143,13 @@ system-tools-backends
 check
 js
 gjs
+ocaml
 swig
+llvm
+libva
+mesa
+libva
+mesa
+x.org-server
+mesa
+x.org-server

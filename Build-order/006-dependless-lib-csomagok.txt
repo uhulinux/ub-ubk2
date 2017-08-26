@@ -24,7 +24,6 @@ libiptcdata
 liblo
 liblockfile
 libmad
-libmcrypt
 libmodplug
 libmowgli
 libnet

@@ -142,7 +142,6 @@ gstreamermm
 gst-libav
 gtksourceviewmm
 mash
-mcrypt
 openconnect
 openobex
 openvpn
