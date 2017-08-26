@@ -79,7 +79,6 @@ traceroute
 tre-agrep
 tree
 utf8proc
-valgrind
 wavpack
 words
 zeromq

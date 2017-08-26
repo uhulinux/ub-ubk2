@@ -26,6 +26,7 @@ libsm
 libxt
 libxkbui
 libxmu
+valgrind
 libdrm
 pixman
 freetype2
