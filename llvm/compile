@@ -1,25 +1,20 @@
 #!/bin/sh -eux
 
+# export UB_MAKE_PROCS=1
+
 ub_compile \
+	-DBUILD_SHARED_LIBS=ON \
 	-DCMAKE_BUILD_TYPE=Release \
-	-DLLVM_ENABLE_FFI=ON \
-	-DLLVM_INCLUDE_TESTS=OFF \
-	-DLLVM_ENABLE_RTTI=ON \
-	-DLLVM_DYLIB_EXPORT_ALL=ON \
-	-DLLVM_LINK_LLVM_DYLIB=ON \
-	-DLLVM_ENABLE_SPHINX=ON \
-	-DLLVM_BUILD_DOCS=ON \
-	-DLLVM_ENABLE_DOXYGEN=OFF \
-	-DSPHINX_WARNINGS_AS_ERRORS=OFF \
-	-DLLVM_BINUTILS_INCDIR=/usr/include \
 	-DLLDB_DISABLE_PYTHON=ON \
-	-DFFI_LIBRARY_DIR=/usr/lib \
-	-DFFI_INCLUDE_DIR=/usr/lib/libffi-3.1/include/ \
-	--disable-expensive-checks \
-	--disable-debug-runtime \
-	--disable-assertions \
-	--enable-optimized \
-	--enable-experimental-targets=R600 \
-	--enable-shared \
-	--enable-targets=all \
-..
+	-DLLVM_BINUTILS_INCDIR=/usr/include \
+	-DLLVM_BUILD_DOCS=ON \
+	-DLLVM_CCACHE_BUILD=ON \
+	-DLLVM_ENABLE_ASSERTIONS=OFF \
+	-DLLVM_ENABLE_DOXYGEN=OFF \
+	-DLLVM_ENABLE_EXPENSIVE_CHECKS=OFF \
+	-DLLVM_ENABLE_FFI=ON \
+	-DLLVM_ENABLE_RTTI=ON \
+	-DLLVM_ENABLE_SPHINX=ON \
+	-DLLVM_INCLUDE_TESTS=OFF \
+	-DLLVM_LINK_LLVM_DYLIB=ON \
+	-DSPHINX_WARNINGS_AS_ERRORS=OFF
