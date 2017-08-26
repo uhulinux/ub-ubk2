@@ -1,9 +1,9 @@
 AUTHORS
-COPYING
 ChangeLog
+COPYING
+doc/FORMAT
+doc/sample.mcryptrc
 NEWS
 README
 THANKS
 TODO
-doc/FORMAT
-doc/sample.mcryptrc

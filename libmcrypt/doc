@@ -1,11 +1,11 @@
 AUTHORS
-COPYING.LIB
 ChangeLog
+COPYING.LIB
+doc/example.c
+doc/README.key
+doc/README.xtea
 KNOWN-BUGS
 NEWS
 README
 THANKS
 TODO
-doc/README.key
-doc/README.xtea
-doc/example.c
