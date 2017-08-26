@@ -1,6 +1,7 @@
 binutils-dev
 glibc-dev
 libedit-dev
+libffi-dev
 libxml2-dev
 python-dev
 python-markupsafe
