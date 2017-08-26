@@ -1,4 +1,4 @@
 glib-dev
 gobject-introspection-dev
 systemd-dev
-umockdev
+umockdev-dev
