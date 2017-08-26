@@ -48,7 +48,6 @@ acquire fix - freedesktop source
 build-depends fix - udev
 remove debian patchset
 
-
 ------------------------------------------------------------------------
 r28004 | galamb15@kabelszat2002.hu | 2012-03-30 17:03:02 +0200 (Fri, 30 Mar 2012) | 3 lines
 
@@ -61,7 +60,6 @@ r26514 | galamb15@kabelszat2002.hu | 2011-10-04 18:37:23 +0200 (Tue, 04 Oct 2011
 0.31.1~1+sds4 -> 0.31.1~1+sds5
 build-depends fix
 refresh patches
-
 
 ------------------------------------------------------------------------
 r24000 | galamb15@kabelszat2002.hu | 2010-07-14 20:31:46 +0200 (Wed, 14 Jul 2010) | 3 lines
