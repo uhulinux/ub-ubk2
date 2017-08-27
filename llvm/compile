@@ -1,12 +1,17 @@
 #!/bin/sh -eux
 
-# export UB_MAKE_PROCS=1
+ffi_cflags=$(pkg-config --cflags-only-I libffi)
+ffi_ldflags=$(pkg-config --libs-only-L libffi)
 
 ub_compile \
 	-DCMAKE_BUILD_TYPE=Release \
-	-DBUILD_SHARED_LIBS=ON \
+	-DBUILD_SHARED_LIBS=OFF \
+	-DFFI_INCLUDE_DIR="${ffi_cflags#-I}" \
+	-DFFI_LIBRARY_DIR="${ffi_ldflags#-L}" \
 	-DLLDB_DISABLE_PYTHON=ON \
+	-DLLVM_BINUTILS_INCDIR=/usr/include \
 	-DLLVM_BUILD_DOCS=ON \
+	-DLLVM_BUILD_LLVM_DYLIB=ON \
 	-DLLVM_CCACHE_BUILD=ON \
 	-DLLVM_ENABLE_ASSERTIONS=OFF \
 	-DLLVM_ENABLE_DOXYGEN=OFF \
