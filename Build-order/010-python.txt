@@ -125,10 +125,16 @@ python-polib
 python-postmarkup
 python-psutil
 python-ptyprocess
-python-pygments
 python-qrcode
 python-rdflib
+python-pygments
+python-urllib3
+python-idna
 python-requests
+python-imagesize
+python-sphinxcontrib-websupport
+python-typing
+python-certifi
 python-sphinx
 python-urlgrabber
 gst-python
