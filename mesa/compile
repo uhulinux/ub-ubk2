@@ -9,17 +9,23 @@ ub_compile \
 	--enable-xa \
 	--enable-xvmc \
 	--enable-vdpau \
-	--enable-osmesa \
 	--enable-gbm \
 	--enable-glx-tls \
 	--enable-dri \
 	--enable-glx \
 	--enable-gallium-llvm \
 	--enable-egl \
-	--with-egl-platforms=x11,drm,wayland \
+	--with-platforms=x11,drm,wayland \
+	--enable-llvm \
+	--enable-llvm-shared-libs \
 	--enable-shared-glapi \
-	--with-gallium-drivers=i915,ilo,nouveau,r300,r600,radeonsi,svga,swrast \
+	--with-gallium-drivers=r300,r600,radeonsi,nouveau,svga,swrast,virgl,swr \
 	--with-dri-drivers=i915,i965,r200,radeon,nouveau,swrast \
+	--with-vulkan-drivers=intel,radeon \
+	--enable-libunwind \
+	--enable-lmsensors \
+	--enable-gallium-osmesa \
+	--enable-gallium-extra-hud \
 	--enable-omx \
 	--enable-nine \
 	--enable-opencl \
