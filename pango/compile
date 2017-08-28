@@ -1,4 +1,10 @@
 #!/bin/sh -eux
 
-ub_compile \
-	--enable-gtk-doc=no
+mkdir build
+cd build
+meson \
+	-Denable_docs=false \
+	--prefix=/usr \
+	--buildtype=release ../ \
+    --libexecdir=/usr/lib
+ninja
