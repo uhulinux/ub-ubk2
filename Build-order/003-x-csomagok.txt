@@ -64,7 +64,7 @@ x.org-video-chips
 x.org-video-cirrus
 x.org-video-dummy
 x.org-video-i128
-x.org-video-i740
+x.org-video-i740x.org-bitmaps
 x.org-video-neomagic
 x.org-video-rendition
 x.org-video-s3
@@ -89,6 +89,12 @@ libxscrnsaver
 libepoxy
 libxshmfence
 libxxf86dga
+libxkbfile
+xkbcomp
+xkbevd
+xkbprint
+setxkbmap
+xkbutils
 xkb-utils
 xkeyboard-config
 glamor-egl
