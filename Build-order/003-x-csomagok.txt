@@ -89,7 +89,6 @@ libxscrnsaver
 libepoxy
 libxshmfence
 libxxf86dga
-libxkbfile
 xkbcomp
 xkbevd
 xkbprint
