@@ -71,7 +71,6 @@ regina-rexx
 silc-toolkit
 soundtouch
 spice-protocol
-sysfsutils
 tclap
 tcsh
 toolame

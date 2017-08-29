@@ -146,9 +146,14 @@ gjs
 ocaml
 swig
 llvm
+sysfsutils
+libart-lgpl
+rrdtool
+lmsensors
 libva
 mesa
 libva
+glu
 mesa
 x.org-server
 mesa

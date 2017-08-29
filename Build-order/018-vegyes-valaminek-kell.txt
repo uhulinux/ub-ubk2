@@ -50,7 +50,6 @@ kbd
 lame
 libyajl
 libytnef
-lmsensors
 lsdvd
 luasocket
 miniupnpc
@@ -204,7 +203,6 @@ python-gammu
 glfw
 gnokii
 gnumeric
-rrdtool
 sane-backends
 sdl2
 x11vnc

@@ -1,6 +1,5 @@
 liba52
 libaio
-libart-lgpl
 libassuan
 libasyncns
 libbsd
