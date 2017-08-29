@@ -1,3 +1,6 @@
 libxcb-dev
-x.org-util-macros
+meson
+wayland-dev
+wayland-protocols
 xkeyboard-config
+x.org-util-macros
