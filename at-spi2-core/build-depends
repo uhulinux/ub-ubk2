@@ -6,4 +6,6 @@ libcap-dev
 libgcrypt-dev
 libsm-dev
 libxext-dev
+libxkbcommon-dev
 libxtst-dev
+meson
