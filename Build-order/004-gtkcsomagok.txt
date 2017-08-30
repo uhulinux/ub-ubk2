@@ -3,6 +3,16 @@ atk
 pango
 gdk-pixbuf
 gtk2
+jam
+argyllcms
+perl-sgmls
+perl-libxml
+perl-xml-namespacesupport
+perl-xml-sax
+perl-xml-libxml
+perl-xml-sax-base
+docbook2x
+docbook-sgml
 colord
 at-spi2-atk
 gtk #cups nélkül

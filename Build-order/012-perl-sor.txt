@@ -50,7 +50,6 @@ perl-ipc-run
 perl-ipc-sharelite
 perl-json
 perl-libintl
-perl-libxml
 perl-list-moreutils
 perl-log-log4perl
 perl-math-calc-units
@@ -104,8 +103,6 @@ perl-unix-syslog
 perl-version
 perl-xml-generator
 perl-xml-grove
-perl-xml-namespacesupport
-perl-xml-sax-base
 perl-xml-simple
 perl-yaml
 perl-berkeleydb
@@ -141,7 +138,6 @@ perl-mime-tools
 perl-module-implementation
 perl-sub-exporter
 perl-test-output
-perl-xml-sax
 perl-xml-semanticdiff
 perl-cairo
 perl-dbd-mysql
@@ -171,7 +167,6 @@ perl-linux-desktopfiles
 perl-convert-tnef
 perl-file-mimeinfo
 perl-xml-filter-buffertext
-perl-xml-libxml
 perl-xml-sax-writer
 perl-mail-dkim
 perl-test-most
