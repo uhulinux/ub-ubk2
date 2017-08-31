@@ -25,5 +25,4 @@ xf86driproto >=
 xf86miscproto >=
 xf86vidmodeproto >=
 xineramaproto >=
-x.org-proto-dev >=
 xproto >=
