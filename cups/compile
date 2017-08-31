@@ -19,3 +19,6 @@ ub_compile \
 	--enable-libpaper \
 	--enable-gnutls \
 	--enable-webif \
+	--with-cupsd-file-perm=0755 \
+	--with-log-file-perm=0600 \
+	--enable-relro \

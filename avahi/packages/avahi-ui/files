@@ -5,8 +5,8 @@
 	/usr/lib/libavahi-ui*.so.*
 @	/usr/lib/libavahi-ui*.so.*
 	/usr/lib/mono/avahi-ui-sharp
-	/usr/lib/mono/gac/avahi-ui-sharp
 	/usr/lib/monodoc/sources/avahi-ui*
+	/usr/lib/mono/gac/avahi-ui-sharp
 	/usr/share/applications
 	/usr/share/avahi/interfaces
 	/usr/share/man/man1/bssh1

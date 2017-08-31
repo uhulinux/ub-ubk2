@@ -17,6 +17,7 @@ libxcomposite-dev
 libxi-dev
 libxinerama-dev
 libxkbcommon-dev
+libxtst-dev
 libxv-dev
 p11-kit-dev
 pango-dev

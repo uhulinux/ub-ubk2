@@ -1,4 +1,4 @@
 #!/usr/bin/env dl
 
-cups-${UB_VERSION}-source.tar.bz2 cups-${UB_VERSION}/
-	http://www.cups.org/software/${UB_VERSION}/
+v${UB_VERSION}.tar.gz cups-${UB_VERSION}/
+	 https://github.com/apple/cups/archive/

@@ -40,4 +40,3 @@ rm -rf ${UB_INSTALLDIR}/usr/share/icons
 # there are pdf-banners shipped with cups-filters (#919489)
 rm -rf ${UB_INSTALLDIR}/usr/share/cups/banners
 rm -f ${UB_INSTALLDIR}/usr/share/cups/data/testprint
-

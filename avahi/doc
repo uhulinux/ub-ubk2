@@ -1,7 +1,7 @@
-LICENSE
-docs/*.dia
 docs/AUTHORS
 docs/COMPAT-LAYERS
+docs/*.dia
 docs/NEWS
 docs/README
 docs/TODO
+LICENSE
