@@ -105,6 +105,8 @@ geocode-glib
 geoclue
 gpg #pinentry-runtime-depends-nélkül
 gcr
+pinentry #qt5 nélkül
+gpg #pinentry-runtime-depends-el
 libsecret
 libungif
 libwebp
@@ -117,8 +119,7 @@ libwacom
 libinput
 qt5
 poppler
-pinentry
-gpg #pinentry-runtime-depends-el
+pinentry #qt5-el
 apr
 apr-util
 apache
