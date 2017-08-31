@@ -2,5 +2,5 @@
 
 ub_install
 
-ln -s gpg2 "$UB_INSTALLDIR/usr/bin/gpg"
-ln -s gpgv2 "$UB_INSTALLDIR/usr/bin/gpgv"
+ln -s gpg "$UB_INSTALLDIR/usr/bin/gpg2"
+ln -s gpgv "$UB_INSTALLDIR/usr/bin/gpgv2"

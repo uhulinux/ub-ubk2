@@ -1,8 +1,9 @@
-at-spi2-core-dev
 atk-dev
+at-spi2-core-dev
 dbus-glib-dev
-gconf2-dev
 intltool
 libsm-dev
 libx11-dev
+libxkbcommon-dev
 libxml2-dev
+libxtst-dev
