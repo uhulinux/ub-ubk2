@@ -4,8 +4,6 @@
 	/usr/include/clang-c
 	/usr/lib/clang
 	/usr/lib/cmake/clang
-	/usr/lib/libclang*
-	/usr/lib/libmodernizeCore.a
 	/usr/share/clang
 	/usr/share/doc/clang
 	/usr/share/doc/clang-tools

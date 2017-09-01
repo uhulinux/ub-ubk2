@@ -1,7 +1,4 @@
-	/usr/bin/argdumper
 	/usr/bin/lldb*
-@	/usr/bin/lldb*
 	/usr/include/lldb
 	/usr/lib/liblldb*
-@	/usr/lib/liblldb*
 	/usr/share/man/man1/lldb.1
