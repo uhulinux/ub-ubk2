@@ -1,3 +1,4 @@
-libfontenc-dev
-libx11-dev
-libxfont-dev
+bdftopcf
+font-util
+mkfontdir
+mkfontscale

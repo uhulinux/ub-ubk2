@@ -1,2 +1,5 @@
+bdftopcf
 fontconfig
-x.org-font-utils
+font-util
+mkfontdir
+mkfontscale
