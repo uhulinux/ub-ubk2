@@ -41,7 +41,15 @@ libxfixes
 libxi
 libxkbfile
 libfontenc
+font-util
+libfontenc
+mkfontscale
 libxfont
+bdftopcf
+fonttosfnt
+mkfontdir
+libxfont
+x.org-font-utils
 libxdamage
 libxv
 libxvmc
@@ -125,7 +133,6 @@ xkb-utils
 xkeyboard-config
 glamor-egl
 glew
-x.org-font-utils
 mtdev
 fonts-x.org
 x.org-video-ati
