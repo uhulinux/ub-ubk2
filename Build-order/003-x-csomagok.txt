@@ -124,6 +124,17 @@ libxscrnsaver
 libepoxy
 libxshmfence
 libxxf86dga
+xdpyinfo
+xdriinfo
+xev
+xfd
+xfontsel
+xlsatoms
+xlsclients
+xlsfonts
+xprop
+xvinfo
+xwininfo
 xkbcomp
 xkbevd
 xkbprint
