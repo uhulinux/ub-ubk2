@@ -4,5 +4,4 @@ libxft-dev
 libxmu-dev
 libxrandr-dev
 pam-dev
-x.org-server-utils
 xauth

@@ -168,5 +168,16 @@ iso-codes
 libxklavier
 nickle
 x.org-utils
-x.org-server-utils
+iceauth
+sessreg
+xcmsdb
+xgamma
+xhost
+xmodmap
+xrandr
+xinput
+xrdb
+xrefresh
+xscope
+xset
 xsetroot
