@@ -5,3 +5,4 @@ expat-dev
 gnutls-dev
 libffi-dev
 libgcrypt-dev
+libunistring-dev
