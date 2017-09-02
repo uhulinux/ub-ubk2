@@ -1,6 +1,7 @@
 gmp
 mpfr
 mpc
+isl
 zlib
 xz
 cppp
