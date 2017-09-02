@@ -1,5 +1,7 @@
 clang
+dri2proto
 expat-dev
+glproto
 libclc-dev
 libdrm-dev
 libelf-dev
