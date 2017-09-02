@@ -1,4 +1,4 @@
 #!/usr/bin/env dl
 
-imake-${UB_VERSION}.tar.bz2 imake-${UB_VERSION}/
+xorg-cf-files-${UB_VERSION}.tar.bz2 xorg-cf-files-${UB_VERSION}/
   http://xorg.freedesktop.org/releases/individual/util/

@@ -1,6 +1,6 @@
-diff -Naur imake.orig/xorg-cf-files-1.0.4/host.def imake/xorg-cf-files-1.0.4/host.def
---- imake.orig/xorg-cf-files-1.0.4/host.def	1970-01-01 01:00:00.000000000 +0100
-+++ imake/xorg-cf-files-1.0.4/host.def	2006-06-30 15:41:00.000000000 +0200
+diff -Naur xorg-cf-files-1.0.4/host.def xorg-cf-files-1.0.4/host.def
+--- xorg-cf-files-1.0.4/host.def	1970-01-01 01:00:00.000000000 +0100
++++ xorg-cf-files-1.0.4/host.def	2006-06-30 15:41:00.000000000 +0200
 @@ -0,0 +1,30 @@
 +#define LinuxDistName "UHU-Linux"
 +

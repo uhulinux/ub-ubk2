@@ -29,6 +29,10 @@ xf86miscproto
 xf86vidmodeproto
 xineramaproto
 x.org-xtrans-dev
+gccmakedep
+lndir
+makedepend
+xorg-cf-files
 imake
 libxdmcp
 xcb-proto
