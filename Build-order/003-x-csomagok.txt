@@ -53,7 +53,6 @@ bdftopcf
 fonttosfnt
 mkfontdir
 libxfont
-x.org-font-utils
 libxdamage
 libxv
 libxvmc
@@ -109,7 +108,6 @@ xkbevd
 xkbprint
 setxkbmap
 xkbutils
-xkb-utils
 xkeyboard-config
 mtdev
 fonts-x.org
