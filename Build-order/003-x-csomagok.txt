@@ -111,7 +111,6 @@ setxkbmap
 xkbutils
 xkb-utils
 xkeyboard-config
-glamor-egl
 glew
 mtdev
 fonts-x.org
