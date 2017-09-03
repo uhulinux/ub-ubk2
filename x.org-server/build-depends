@@ -2,7 +2,6 @@ bigreqsproto
 compositeproto
 dri2proto
 dri3proto
-font-util
 glproto
 libdmx-dev
 libepoxy-dev
@@ -37,4 +36,5 @@ xf86bigfontproto
 xf86dgaproto
 xf86driproto
 xineramaproto
+x.org-font-util
 x.org-xtrans-dev
