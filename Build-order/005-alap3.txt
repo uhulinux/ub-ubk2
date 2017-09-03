@@ -159,6 +159,7 @@ mesa
 x.org-server
 mesa
 x.org-server
+glew
 glamor-egl
 x.org-input-acecad
 x.org-input-aiptek

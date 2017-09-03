@@ -111,7 +111,6 @@ setxkbmap
 xkbutils
 xkb-utils
 xkeyboard-config
-glew
 mtdev
 fonts-x.org
 x.org-video-ati
