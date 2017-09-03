@@ -1,2 +1,3 @@
 imake
-x.org-font-utils
+mkfontdir
+xorg-cf-files

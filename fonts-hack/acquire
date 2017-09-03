@@ -3,12 +3,11 @@
 Hack-v${UB_VERSION/./_}-ttf.tar.xz .
 	https://github.com/chrissimpkins/Hack/releases/download/v${UB_VERSION}/
 
-CHANGELOG.md	
+CHANGELOG.md
 	https://raw.githubusercontent.com/chrissimpkins/Hack/master/CHANGELOG.md
 
-LICENSE.md	
+LICENSE.md
 	https://raw.githubusercontent.com/chrissimpkins/Hack/master/LICENSE.md
-	
-README.md	
-	https://raw.githubusercontent.com/chrissimpkins/Hack/master/README.md
 
+README.md
+	https://raw.githubusercontent.com/chrissimpkins/Hack/master/README.md
