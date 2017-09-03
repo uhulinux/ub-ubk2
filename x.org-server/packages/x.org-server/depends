@@ -1,4 +1,15 @@
 fonts-x.org-base
+iceauth
+sessreg
+xcmsdb
+xgamma
+xhost
+xinput
 xkb-utils
 xkeyboard-config
-x.org-server-utils
+xmodmap
+xrandr
+xrdb
+xrefresh
+xscope
+xset
