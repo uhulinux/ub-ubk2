@@ -1,4 +1,8 @@
 #!/bin/sh -eux
 
-./waf install \
-	--destdir="$UB_INSTALLDIR"
+python setup.py install \
+	--root="$UB_INSTALLDIR"
+python3 setup.py install \
+	--root="$UB_INSTALLDIR"
+mkdir -p ${UB_INSTALLDIR}/usr/share/doc/Packages/py3cairo
+cp COPYING* NEWS README* ${UB_INSTALLDIR}/usr/share/doc/Packages/py3cairo/

@@ -1,7 +1,6 @@
 python-docutils
 python-lxml
 pycairo
-py3cairo
 gconf2
 pygobject
 pygobject2
