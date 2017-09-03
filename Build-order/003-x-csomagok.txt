@@ -123,7 +123,6 @@ tslib
 iso-codes
 libxklavier
 nickle
-x.org-utils
 iceauth
 sessreg
 xcmsdb
