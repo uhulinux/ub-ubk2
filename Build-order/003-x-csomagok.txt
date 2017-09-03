@@ -45,7 +45,7 @@ libxfixes
 libxi
 libxkbfile
 libfontenc
-font-util
+x.org-font-util
 libfontenc
 mkfontscale
 libxfont
