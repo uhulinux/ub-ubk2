@@ -196,3 +196,14 @@ x.org-video-savage
 x.org-video-sis
 x.org-video-tdfx
 x.org-video-openchrome
+x.org-video-ati
+x.org-video-nv
+x.org-video-vesa
+x.org-video-fbdev
+x.org-video-i810
+x.org-video-nouveau
+x.org-input-evdev
+x.org-input-keyboard
+x.org-input-mouse
+x.org-input-synaptics
+x.org-input-wacom

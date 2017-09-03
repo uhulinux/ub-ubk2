@@ -113,17 +113,6 @@ xkb-utils
 xkeyboard-config
 mtdev
 fonts-x.org
-x.org-video-ati
-x.org-video-nv
-x.org-video-vesa
-x.org-video-fbdev
-x.org-video-i810
-x.org-video-nouveau
-x.org-input-evdev
-x.org-input-keyboard
-x.org-input-mouse
-x.org-input-synaptics
-x.org-input-wacom
 libxerces
 libxalan
 libxaw3d
