@@ -1,1 +1,0 @@
-urllist	https://github.com/mohawk2/dmake/releases/ | sed s/_/\./g  |splitver '^DMAKE.([0-9.]+).tar.gz$' | sort -V | tail -n 1

@@ -1,4 +1,0 @@
-#!/usr/bin/env dl
-
-DMAKE_${UB_VERSION//./_}.tar.gz dmake-DMAKE_${UB_VERSION//./_}/
-	https://github.com/mohawk2/dmake/archive/
