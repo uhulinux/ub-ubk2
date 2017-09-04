@@ -1,0 +1,183 @@
+#001-alap1-txt chrootelemei
+
+gmp
+mpfr
+mpc
+isl
+zlib
+xz
+gcc
+kmod
+kernel
+cracklib
+pcre
+glibc
+glibc
+pam
+attr
+libcap
+libgpg-error
+libgcrypt
+acl
+shadow
+uhu-pkg
+uhu-base
+uhu-utils
+autoconf
+automake
+autoconf-archive
+make
+ncurses
+readline
+bash
+bc
+binutils
+bison
+bzip2
+ccache
+cpio
+diffutils
+dl #mercurial,bzr,rpm,cabextract,cpio,subversion depends nélkül
+dosfstools
+elfutils
+expat
+file
+findutils
+flex
+gdbm
+gettext
+grep
+gzip
+icu
+libffi
+libidn
+libpng
+libsigsegv
+libtool
+licenses
+m4
+nspr
+openssl
+patch
+pbzip2
+pcre
+perl
+perl-http-date
+perl-file-listing
+perl-html-tagset
+perl-html-parser
+perl-encode-locale
+perl-io-html
+perl-lwp-mediatypes
+perl-uri
+perl-http-message
+perl-http-cookies
+perl-http-daemon
+perl-http-negotiate
+perl-net-http
+perl-www-robotrules
+perl-libwww
+pigz
+popt
+pretendroot
+sed
+sortdir
+tar
+texinfo
+unzip
+which
+dpkg
+optipng
+coreutils
+sqlite
+gawk
+libusb
+lynx
+
+#002-alap2.txt  chrootelemei
+
+db4
+python
+# dl nem kell még
+libxml2
+glib
+krb5
+openldap
+postgresql
+cyrus-sasl2
+openldap
+cyrus-sasl2
+postgresql
+cyrus-sasl2
+openldap
+postgresql
+cyrus-sasl2
+curl
+glib #gamin nélkül
+gamin
+glib #mégegyszer gaminnal
+gamin #mégegyszer
+pam
+pkgconfig
+python3
+util-linux
+systemd
+util-linux
+systemd
+polkit
+e2fsprogs
+libarchive
+cmake
+libedit
+pth
+wayland
+uhubuild #apt nélkül
+run-parts
+ca-certificates
+
+#003-x-csomagok.txt  chrootelemei
+
+libxau
+libxdmcp
+libxcb
+libx11
+libxext
+libxkbcommon
+
+#004-gtkcsomagok.txt  chrootelemei
+
+libatomic-ops
+libtasn1
+p11-kit
+
+#005-alap3.txt  chrootelemei
+
+gpg #pinetry depends nélkül
+gcr
+libsecret
+
+#006-dependless-lib-csomagok.txt  chrootelemei
+
+libassuan
+
+#007-dependless-másnak-kell.txt  chrootelemei
+
+npth
+
+#008-lib.txt  chrootelemei
+
+libksba
+
+#009-egyéb-fontos.txt  chrootelemei
+
+desktop-file-utils
+libksba
+libqrencode
+lvm
+audit
+
+#018-vegyes-valaminek-kell.txt  chrootelemei
+
+fbgetty
+cryptsetup
+js17
