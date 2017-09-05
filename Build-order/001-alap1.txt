@@ -7,8 +7,11 @@ xz
 cppp
 gcc
 kmod
+inetutils
+pciutils
 kernel
 b43-fwcutter
+dahdi-linux
 linux-firmware
 acx-fw
 broadcom-fw
@@ -88,7 +91,6 @@ openslp
 openssl
 patch
 pbzip2
-pciutils
 pcre # újrafordítás!!
 perl
 perl-xml-parser
@@ -133,7 +135,6 @@ zip
 7zip
 po4a
 dpkg
-inetutils
 mkinitrd
 optipng
 help2man

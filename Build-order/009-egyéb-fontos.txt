@@ -27,7 +27,6 @@ protobuf
 strace
 vorbis-tools
 wget
-dahdi-linux
 dahdi-tools
 gpgme
 gtest

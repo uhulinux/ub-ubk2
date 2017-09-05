@@ -1,6 +1,6 @@
-diff -Naur orig/power/cpupower/cpupower.default patched/power/cpupower/cpupower.default
---- orig/power/cpupower/cpupower.default	1970-01-01 01:00:00.000000000 +0100
-+++ patched/power/cpupower/cpupower.default	2015-02-24 15:38:45.767465914 +0100
+diff -Naur orig/tools/power/cpupower/cpupower.default patched/tools/power/cpupower/cpupower.default
+--- orig/tools/power/cpupower/cpupower.default	1970-01-01 01:00:00.000000000 +0100
++++ patched/tools/power/cpupower/cpupower.default	2015-02-24 15:38:45.767465914 +0100
 @@ -0,0 +1,29 @@
 +# Define CPUs governor
 +# valid governors: ondemand, performance, powersave, conservative, userspace.
@@ -31,9 +31,9 @@ diff -Naur orig/power/cpupower/cpupower.default patched/power/cpupower/cpupower.
 +#perf_bias=
 +
 +# vim:set ts=2 sw=2 ft=sh et:
-diff -Naur orig/power/cpupower/cpupower.service patched/power/cpupower/cpupower.service
---- orig/power/cpupower/cpupower.service	1970-01-01 01:00:00.000000000 +0100
-+++ patched/power/cpupower/cpupower.service	2015-02-24 15:39:20.627638776 +0100
+diff -Naur orig/tools/power/cpupower/cpupower.service patched/tools/power/cpupower/cpupower.service
+--- orig/tools/power/cpupower/cpupower.service	1970-01-01 01:00:00.000000000 +0100
++++ patched/tools/power/cpupower/cpupower.service	2015-02-24 15:39:20.627638776 +0100
 @@ -0,0 +1,10 @@
 +[Unit]
 +Description=Apply cpupower configuration
@@ -45,9 +45,9 @@ diff -Naur orig/power/cpupower/cpupower.service patched/power/cpupower/cpupower.
 +
 +[Install]
 +WantedBy=multi-user.target
-diff -Naur orig/power/cpupower/cpupower.systemd patched/power/cpupower/cpupower.systemd
---- orig/power/cpupower/cpupower.systemd	1970-01-01 01:00:00.000000000 +0100
-+++ patched/power/cpupower/cpupower.systemd	2015-02-24 15:39:57.503821635 +0100
+diff -Naur orig/tools/power/cpupower/cpupower.systemd patched/tools/power/cpupower/cpupower.systemd
+--- orig/tools/power/cpupower/cpupower.systemd	1970-01-01 01:00:00.000000000 +0100
++++ patched/tools/power/cpupower/cpupower.systemd	2015-02-24 15:39:57.503821635 +0100
 @@ -0,0 +1,32 @@
 +#!/bin/bash
 +

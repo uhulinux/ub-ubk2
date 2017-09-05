@@ -107,16 +107,16 @@ if [ -f arch/$ARCH/*lds ]; then
 	cp -a arch/$ARCH/*lds $UB_OBJECTDIR/lib/modules/$VERSION/build/arch/$ARCH/ || :
 fi
 
-rm -rf $UB_OBJECTDIR/usr/src/linux/$VERSION/build/Documentation
-rm -f $UB_OBJECTDIR/usr/src/linux/$VERSION/build/scripts/*.o
-rm -f $UB_OBJECTDIR/usr/src/linux/$VERSION/build/scripts/*/*.o
-find "$UB_OBJECTDIR/usr/include/" -name ..install.cmd -print0 | xargs -r0 rm -v
-find "$UB_OBJECTDIR/usr/include/" -name .install -print0 | xargs -r0 rm -v
-
 rm -f $UB_OBJECTDIR/lib/modules/$VERSION/build
 ln -sf ../../../usr/src/linux-$VERSION $UB_OBJECTDIR/lib/modules/$VERSION/build
 rm $UB_OBJECTDIR/lib/modules/$VERSION/source
 ln -sf ../../../usr/src/linux-$VERSION $UB_OBJECTDIR/lib/modules/$VERSION/source
+
+rm -rf $UB_OBJECTDIR/usr/src/linux-$VERSION/Documentation
+find "$UB_OBJECTDIR/usr/src/linux-$VERSION/" -name "*.o" -print0 | xargs -r0 rm -v
+find "$UB_OBJECTDIR/usr/src/linux-$VERSION/" -name "*.cmd" -print0 | xargs -r0 rm -v
+# find "$UB_OBJECTDIR/usr/include/" -name ..install.cmd -print0 | xargs -r0 rm -v
+# find "$UB_OBJECTDIR/usr/include/" -name .install -print0 | xargs -r0 rm -v
 
 # remove mISDN headers
 rm -f "$UB_OBJECTDIR"/usr/src/linux/include/linux/mISDN*
@@ -128,3 +128,7 @@ done
 
 # bzImage symlink
 # ln -s "$bzimage.i386" "$UB_OBJECTDIR/boot/$bzimage"
+
+# cpupower
+# cd tools/power/cpupower
+# ub_make VERSION=${UB_VERSION}
