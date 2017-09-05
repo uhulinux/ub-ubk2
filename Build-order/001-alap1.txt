@@ -10,14 +10,6 @@ kmod
 inetutils
 pciutils
 kernel
-b43-fwcutter
-dahdi-linux
-linux-firmware
-acx-fw
-broadcom-fw
-ipw2100-fw
-ipw2200-fw
-zd1211-fw
 cracklib
 pcre
 glibc

@@ -27,6 +27,14 @@ protobuf
 strace
 vorbis-tools
 wget
+dahdi-linux
+b43-fwcutter
+acx-fw
+broadcom-fw
+ipw2100-fw
+ipw2200-fw
+zd1211-fw
+linux-firmware
 dahdi-tools
 gpgme
 gtest
