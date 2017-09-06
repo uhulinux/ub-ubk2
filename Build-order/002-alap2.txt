@@ -1,7 +1,7 @@
+tk
 ruby
 fontconfig
 libtiff
-tk
 alsa-lib
 audiofile
 esound
