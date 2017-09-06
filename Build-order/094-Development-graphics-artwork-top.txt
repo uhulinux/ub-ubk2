@@ -12,7 +12,6 @@ diffstat
 discount
 dpkg-repack
 f2c
-gdm-theme-uhu
 gkrellm-themes
 griffith-extra-artwork
 hla
@@ -27,7 +26,6 @@ sddm-theme-solarized
 shc
 slim-themes
 sparse
-subversion-tools
 xpenguins-themes
 rxwrap
 png2ico
