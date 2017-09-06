@@ -1,5 +1,5 @@
 #!/usr/bin/env dl
 
 netpbm-${UB_VERSION}.tar.xz netpbm-${UB_VERSION}/
-	http://download.ubk.hu/src/uhu/netpbm/
+	http://download.ubk.hu/src/netpbm/
 	http://downloads.sourceforge.net/netpbm/
