@@ -1,3 +1,4 @@
+glibc
 gmp
 mpfr
 mpc
@@ -12,7 +13,6 @@ pciutils
 kernel
 cracklib
 pcre
-glibc
 tzdata
 glibc
 pam
