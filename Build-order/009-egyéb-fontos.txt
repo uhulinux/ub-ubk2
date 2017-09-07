@@ -6,7 +6,6 @@ desktop-file-utils
 pangox-compat
 sg3-utils
 ladspa
-libksba
 libqrencode
 lvm
 parted
