@@ -23,13 +23,13 @@
 	/usr/lib/qt4/bin/qtrename140
 	/usr/lib/qt4/bin/rcc
 	/usr/lib/qt4/bin/uic
-	/usr/lib/qt4/bin/uic.debug
 	/usr/lib/qt4/bin/uic3
 	/usr/lib/qt4/bin/uic3.debug
+	/usr/lib/qt4/bin/uic.debug
 	/usr/lib/qt4/include
 	/usr/lib/qt4/lib/*.a
 	/usr/lib/qt4/lib/*.la
+	/usr/lib/qt4/lib/pkgconfig/*
 	/usr/lib/qt4/lib/*.prl
 @	/usr/lib/qt4/lib/*.so
-	/usr/lib/qt4/lib/pkgconfig/*
 	/usr/lib/qt4/mkspecs

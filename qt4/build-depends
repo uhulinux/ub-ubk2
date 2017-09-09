@@ -4,8 +4,8 @@ dbus-dev
 fontconfig-dev
 freetds
 freetype2-dev
-gtk-dev
 gtk2-dev
+gtk-dev
 libjpeg-turbo-dev
 libmng-dev
 libpng-dev

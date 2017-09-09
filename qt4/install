@@ -5,10 +5,11 @@ make INSTALL_ROOT="$UB_INSTALLDIR" install
 # nomake examples/demos
 rm -Rf "$UB_INSTALLDIR"/usr/lib/qt4/{demos,examples}
 
+# obsolete, újabb gstreammel nem működik a dolog, nincs qtwebkit, külön kell gyártani.
 # kiszedjük a static lib utalásokat (QTBUG-12058)
-sed -i -e 's#-L\.\./\.\./WebCore/release ##g;s#-L\.\./\.\./JavaScriptCore/release ##g;s#-lwebcore ##g;s#-ljscore ##g' \
-	"$UB_INSTALLDIR"/usr/lib/qt4/lib/libQtWebKit.la \
-	"$UB_INSTALLDIR"/usr/lib/qt4/lib/pkgconfig/QtWebKit.pc
+#sed -i -e 's#-L\.\./\.\./WebCore/release ##g;s#-L\.\./\.\./JavaScriptCore/release ##g;s#-lwebcore ##g;s#-ljscore ##g' \
+#	"$UB_INSTALLDIR"/usr/lib/qt4/lib/libQtWebKit.la \
+#	"$UB_INSTALLDIR"/usr/lib/qt4/lib/pkgconfig/QtWebKit.pc
 
 # a desktop fájlok kedvéért szimlinkelünk az /usr/bin-be - robert
 
