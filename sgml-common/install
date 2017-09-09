@@ -9,6 +9,4 @@ mkdir "$UB_INSTALLDIR"/usr/share/sgml/docbook
 	"$UB_INSTALLDIR"/usr/share/sgml/docbook/xmlcatalog
 
 rm -f "$UB_INSTALLDIR"/usr/share/sgml/xml.dcl
-install -m0644 xml.dcl xml.soc html.dcl html.soc \
-	"$UB_INSTALLDIR"/usr/share/sgml/
 rm -rf "$UB_INSTALLDIR"/usr/share/xml/*

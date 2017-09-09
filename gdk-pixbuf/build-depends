@@ -5,3 +5,4 @@ libpng-dev
 libtiff-dev
 libx11-dev
 meson
+shared-mime-info

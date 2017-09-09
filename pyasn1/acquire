@@ -1,6 +1,4 @@
 #!/usr/bin/env dl
 
 pyasn1-${UB_VERSION}.tar.gz pyasn1-${UB_VERSION}/
-	https://pypi.python.org/packages/
-	https://sourceforge.net/projects/pyasn1/files/pyasn1/${UB_VERSION}/
-    https://pypi.python.org/packages/17/a2/266818077dbd002d53ebe5aaaa05a04786256cea8dba1899ac0b832ef028/pyasn1-0.3.2.tar.gz#md5=a014715fe010038dc773cec810cd5ad9
+	https://pypi.io/packages/source/p/pyasn1/

@@ -1,4 +1,5 @@
 glib-dev
 gobject-introspection-dev
+gtk-doc
 libxml2-dev
-python-dev
+valgrind

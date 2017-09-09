@@ -5,4 +5,4 @@
 		--dbus \
 		--classic \
 		--alsa
-./waf build 
+./waf build

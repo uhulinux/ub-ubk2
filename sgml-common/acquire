@@ -1,16 +1,4 @@
 #!/usr/bin/env dl
 
-sgml-common-${UB_VERSION}-37.fc18.src.rpm sgml-common-${UB_VERSION}.tgz sgml-common-${UB_VERSION}/
-	ftp://ftp.linux.ro/fedora/linux/releases/18/Fedora/source/SRPMS/s/
-
-sgml-common-${UB_VERSION}-37.fc18.src.rpm xml.dcl
-	ftp://ftp.linux.ro/fedora/linux/releases/18/Fedora/source/SRPMS/s/
-
-sgml-common-${UB_VERSION}-37.fc18.src.rpm xml.soc
-	ftp://ftp.linux.ro/fedora/linux/releases/18/Fedora/source/SRPMS/s/
-
-sgml-common-${UB_VERSION}-37.fc18.src.rpm html.dcl
-	ftp://ftp.linux.ro/fedora/linux/releases/18/Fedora/source/SRPMS/s/
-
-sgml-common-${UB_VERSION}-37.fc18.src.rpm html.soc
-	ftp://ftp.linux.ro/fedora/linux/releases/18/Fedora/source/SRPMS/s/
+sgml-common-${UB_VERSION}.tgz sgml-common-${UB_VERSION}/
+	ftp://sources.redhat.com/pub/docbook-tools/new-trials/SOURCES/

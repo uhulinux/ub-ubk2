@@ -1,6 +1,10 @@
 #!/bin/sh -eux
 
 export UB_MAKE_PROCS=2
+arch_opts=""
+if [ "$UB_ARCH" == "amd64" ];then
+arch_opts="-Dccdlflags='-fPIC'"
+fi
 sh Configure -des \
 	-Dprefix="/usr"              \
 	-Dvendorprefix="/usr"        \
@@ -13,7 +17,7 @@ sh Configure -des \
 	-Duseshrplib                 \
 	-Dusethreads                 \
 	-Duse64bitint                \
-	-Dusemorebits                \
+	-Dusemorebits ${arch_opts}   \
 	-Darchname=i386-linux
 
 make

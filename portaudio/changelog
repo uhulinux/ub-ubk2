@@ -21,7 +21,6 @@ r24450 | galamb15@kabelszat2002.hu | 2010-11-29 19:57:45 +0100 (Mon, 29 Nov 2010
 acquire fix - version fix
 build-depends fix - add alsa and jack support
 
-
 ------------------------------------------------------------------------
 r17199 | gbtami@gmail.com | 2009-02-27 22:06:22 +0100 (Fri, 27 Feb 2009) | 1 line
 
