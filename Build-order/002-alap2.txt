@@ -44,7 +44,6 @@ cyrus-sasl2 #mégegyszer
 openldap #végleg
 postgresql #végleg
 cyrus-sasl2 #végleg
-curl
 liblz4
 apt
 glib
@@ -71,8 +70,6 @@ e2fsprogs
 reiser4progs
 xapian
 grub
-libarchive
-cmake
 libedit
 llvm
 nss

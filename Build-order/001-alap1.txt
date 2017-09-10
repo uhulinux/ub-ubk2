@@ -130,6 +130,9 @@ mkinitrd
 optipng
 coreutils
 sqlite
+curl
+libarchive
+cmake
 jasper
 intltool
 gawk
