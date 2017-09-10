@@ -15,9 +15,10 @@ fi
 	--prefix=/usr \
 	--openssldir=/etc/ssl \
 	$opts \
-	enable-tlsext \
 	shared \
 	no-sse2 \
+	-Wa,--noexecstack \
+	no-ssl3-method \
 	zlib-dynamic
 
 make depend
