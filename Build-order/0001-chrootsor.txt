@@ -1,18 +1,21 @@
-#001-alap1-txt chrootelemei
-
 gmp
 mpfr
 mpc
 isl
 zlib
 xz
+zip
 gcc
-kmod
+kmod #-docbook-dtds,-docbook-xsl,-libxslt-dev
+inetutils
+pciutils
 kernel
+cppp
 cracklib
 pcre
-glibc
-glibc
+glibc #1
+tzdata
+glibc #2
 pam
 attr
 libcap
@@ -37,13 +40,12 @@ bzip2
 ccache
 cpio
 diffutils
-dl #mercurial,bzr,rpm,cabextract,cpio,subversion depends nélkül
+dl #-mercurial,-bzr,-rpm,-cabextract,-cpio,-subversion
 dosfstools
 elfutils
 expat
 file
 findutils
-flex
 gdbm
 gettext
 grep
@@ -61,7 +63,11 @@ openssl
 patch
 pbzip2
 pcre
+procps
 perl
+perl-gettext
+help2man
+flex
 perl-http-date
 perl-file-listing
 perl-html-tagset
@@ -86,9 +92,10 @@ tar
 texinfo
 unzip
 which
-dpkg
+dpkg #-_po4a
 optipng
 coreutils
+tcl
 sqlite
 gawk
 libusb
@@ -97,33 +104,196 @@ lynx
 #002-alap2.txt  chrootelemei
 
 db4
-python
-# dl nem kell még
-libxml2
-glib
+x.org-util-macros
+xproto
+libxau
+libxdmcp
+xcb-proto #1
+libxslt #1
+doxygen
+libpthread-stubs
+libxcb
+inputproto
+kbproto
+xextproto
+x.org-xtrans-dev
+libx11
+libxml2 #1
+sgml-common
+docbook-dtds
+kmod
+libyaml
+psutils
+groff #-ghostscript
+freetype2
+gperf
+fontconfig
+renderproto
+libxrender
+libxft
+scrnsaverproto
+libxscrnsaver
+tk
+ruby
+docbook-xsl
+xmlto
+xproto
+libice
+libsm
+libxt
+python #1
+xcb-proto #2
+libxslt #2
+python #2
+libxml2 #2
+itstool
+rarian
+opensp
+perl-xml-parser
+intltool
+openjade
+gnome-doc-utils
+gtk-doc
+python3
+python-setuptools
+python-six
+glib #-gamin
 krb5
-openldap
-postgresql
-cyrus-sasl2
-openldap
-cyrus-sasl2
-postgresql
-cyrus-sasl2
-openldap
-postgresql
-cyrus-sasl2
+openslp
+tcp-wrappers
+unixodbc
+libevent
+sharutils
+mysql
+cyrus-sasl2 #-ldapb
+openldap #-cyrus-sasl2
+postgresql #1
+openldap #2
+cyrus-sasl2 #2
+postgresql #2
+cyrus-sasl2 #3
+openldap #3
+postgresql #2
+cyrus-sasl2 #4
 curl
-glib #gamin nélkül
-gamin
-glib #mégegyszer gaminnal
-gamin #mégegyszer
+gamin #1
+glib #2
+gamin #2
 pam
 pkgconfig
-python3
+util-linux #1
+liblzo
+libunistring
+nettle
+trousers
+gc
+guile
+gnutls
+meson
+python-lxml
+python-sphinx-alabaster-theme
+python-sphinx-rtd-theme
+python-markupsafe
+python-docutils
+python-jinja2
+python-pygments
+python-snowballstemmer
+python-sqlalchemy
+pytz
+python-babel
+python-chardet
+python-requests
+python-imagesize
+python-sphinxcontrib-websupport
+python-typing
+python-certifi
+python-idna
+python-urllib3
+python-sphinx
+lua53
+boost
+ocaml
+apr
+apr-util
+uni2ascii
+apache
+aspell
+freetds
+libc-client
+nasm
+libjpeg-turbo
+libmcrypt
+libnl
+mhash
+mcrypt
+net-snmp
+procmail
+postfix
+tidy
+libxpm
+libtiff #-mesa
+php #1
+swig #1
+llvm #1
+libclc #1
+dri2proto
+glproto
+yasm
+libomxil-bellagio
+libpciaccess
+libvdpau
+libxmu
+libxshmfence
+videoproto
+libxv
+libxvmc
+sysfsutils
+libart-lgpl
+graphite2
+talloc
+libunwind #-gobject-introspection
+fixesproto
+libxfixes
+valgrind
+libdrm
+damageproto
+libxdamage
+libxi
+xf86vidmodeproto
+libxxf86vm
+mesa #-lmsensors,-libva
+glu #1
+libva #1
+pixman
+cairo #1
+harfbuzz #-gobject-introspection
+gnome-common
+gobject-introspection
+asciidoc
+re2c
+ninja
+pango #1
+rrdtool
+lmsensors
+libtiff #2
+gobject-introspection #2
+harfbuzz #2
+libunwind #2
+php #2
+swig #2
+llvm #2
+libclc #2
+mesa #2
+glu #2
+libva #2
+cairo #2
+pango #2
+dbus
+xkeyboard-config
+systemd #1
 util-linux
-systemd
-util-linux
-systemd
+systemd #2
+dbus-glib
 polkit
 e2fsprogs
 libarchive
@@ -131,17 +301,15 @@ cmake
 libedit
 pth
 wayland
-uhubuild #apt nélkül
+linuxdoc-tools
+uhubuild #-apt
 run-parts
 ca-certificates
 
 #003-x-csomagok.txt  chrootelemei
 
-libxau
-libxdmcp
-libxcb
-libx11
 libxext
+wayland-protocols
 libxkbcommon
 
 #004-gtkcsomagok.txt  chrootelemei
@@ -152,8 +320,8 @@ p11-kit
 
 #005-alap3.txt  chrootelemei
 
-gpg #pinetry depends nélkül
-gcr
+gpg #-pinetry
+vala
 libsecret
 
 #006-dependless-lib-csomagok.txt  chrootelemei
@@ -171,7 +339,6 @@ libksba
 #009-egyéb-fontos.txt  chrootelemei
 
 desktop-file-utils
-libksba
 libqrencode
 lvm
 audit
@@ -181,3 +348,177 @@ audit
 fbgetty
 cryptsetup
 js17
+
+#csonkirtasok
+
+perl-module-build
+perl-error
+pycrypto
+pyasn1
+python-paramiko
+mercurial
+pyrex
+bzr
+perl-timedate
+nss
+rpm
+cabextract
+scons
+serf
+subversion
+git
+dl #2
+atk
+icon-theme-hicolor
+shared-mime-info
+jasper
+compositeproto
+libxcomposite
+xineramaproto
+libxinerama
+gdk-pixbuf
+gtk2 #-gtk
+bash-completion
+randrproto
+libxrandr
+jam
+argyllcms
+lcms2
+umockdev #1
+libgudev #1
+umockdev #2
+libgudev #2
+libgusb
+colord
+libdaemon
+recordproto
+libxtst
+at-spi2-core
+at-spi2-atk
+libepoxy
+gtk #-cups
+libxcursor
+avahi
+cups
+libxtst
+gtk #2
+gcr
+gtk2 #2
+pinentry #-qt5
+gpg #2
+perl-sgmls
+perl-term-readkey
+perl-text-wrapi18n
+perl-unicode-linebreak
+po4a
+liblz4
+dpkg
+fontsproto
+libfontenc
+libxfont
+bdftopcf
+mkfontdir
+mkfontscale
+x.org-font-util
+fonts-x.org
+apt
+uhubuild #2
+alsa-lib
+audiofile
+esound
+libical
+bluez
+fftw3
+gconf2
+libogg
+celt
+freeglut
+gsl
+eigen3
+libvorbis
+id3lib
+flac
+libsamplerate #-libsndfile
+libsndfile #-jack
+libsamplerate #2
+opus
+jack
+libsndfile #2
+xcb-util
+xcb-util-image
+xcb-util-keysyms
+xcb-util-renderutil
+xcb-util-wm
+mtdev
+pcre2
+tslib
+cdparanoia
+iso-codes
+orc
+json-c
+libasyncns
+liboil
+libsoxr
+pyyaml
+libusb-compat
+libftdi1
+portaudio
+lirc
+sbc
+speexdsp
+tdb
+pulseaudio
+sdl
+libtheora
+libvisual
+gstreamer
+gst-plugins-base
+libevdev
+libwacom
+lua51
+ghostscript
+groff
+pangox-compat
+gtkglext
+libvpx
+gd
+libcroco
+libgsf
+librsvg
+libxaw
+libmng
+qt4 #qtwebkit_nincs_a gstreamer_frissítés_miatt
+x.org-bitmaps
+graphviz
+check
+libinput
+bigreqsproto
+presentproto
+resourceproto
+xcmiscproto
+xf86bigfontproto
+xf86dgaproto
+xf86driproto
+dri3proto
+dmxproto
+libdmx
+libxfont2
+libxkbfile
+libxres
+x.org-server
+iceauth
+sessreg
+xcmsdb
+xgamma
+xhost
+xrandr
+xinput
+xkbutils
+xmodmap
+xrdb
+xrefresh
+xscope
+xset
+qt5
+pinentry #2
+gpg #3
