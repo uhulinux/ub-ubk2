@@ -1,14 +1,13 @@
 #!/bin/sh -eux
 
 export UB_MAKE_PROCS=1
-autoreconf -vif
+export CPPFLAGS="-I/usr/include/postgresql"
 ub_compile \
-	--disable-srp \
-	--disable-srp-setpass \
+	--enable-srp \
+	--enable-srp-setpass \
 	--disable-krb4 \
 	--disable-java \
 	--with-dblib=berkeley \
-	--with-bdb=db \
 	--enable-sql \
 	--with-pgsql=/usr/include/postgresql \
 	--without-sqlite \
