@@ -3,8 +3,8 @@
 export UB_MAKE_PROCS=1
 autoreconf -vif
 ub_compile \
-	--enable-srp \
-	--enable-srp-setpass \
+	--disable-srp \
+	--disable-srp-setpass \
 	--disable-krb4 \
 	--disable-java \
 	--with-dblib=berkeley \
