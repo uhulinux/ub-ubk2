@@ -5,7 +5,6 @@ libtiff
 alsa-lib
 audiofile
 esound
-java
 db4
 bash-completion
 python

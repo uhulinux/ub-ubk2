@@ -58,3 +58,4 @@ fltk
 wxwidgets
 wxwidgets2.8
 libxml++3
+java
