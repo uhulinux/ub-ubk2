@@ -11,7 +11,7 @@ ub_compile \
 	--with-freetype-dir=/usr \
 	--with-gdbm=shared \
 	--with-gd=shared \
-	--with-gettext \
+	--with-gettext=shared \
 	--with-gmp=shared \
 	--with-imap=shared \
 	--with-imap-ssl \
@@ -39,21 +39,21 @@ ub_compile \
 	--with-unixODBC=shared,/usr \
 	--with-xmlrpc=shared \
 	--with-xpm-dir=/usr \
-	--with-xsl \
+	--with-xsl=shared \
 	--with-zlib \
 	--with-zlib-dir=/usr \
-	--enable-bcmath \
-	--enable-calendar \
+	--enable-bcmath=shared \
+	--enable-calendar=shared \
 	--enable-cli \
 	--enable-dba=shared \
-	--enable-exif \
-	--enable-ftp \
+	--enable-exif=shared \
+	--enable-ftp=shared \
 	--enable-gd-native-ttf \
 	--enable-intl \
 	--enable-maintainer-zts \
 	--enable-mbstring \
 	--enable-soap \
-	--enable-sockets \
+	--enable-sockets=shared \
 	--disable-rpath \
 	--with-config-file-path=/etc \
 	--with-config-file-scan-dir=/etc/php.d

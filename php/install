@@ -10,7 +10,8 @@ install -m 644 php.ini-production "$UB_INSTALLDIR"/etc/php.ini
 install -m 644 php.ini-development "$UB_INSTALLDIR"/etc/
 
 mkdir -p "$UB_INSTALLDIR"/etc/php.d
-for mod in bz2 curl dba gd gmp imap ldap mcrypt mysqli odbc pdo_dblib pdo_mysql pdo_odbc pdo_pgsql pdo_sqlite pgsql pspell snmp tidy xmlrpc opcache; do
+modok=$(ls -1 ${UB_INSTALLDIR}/usr/lib/php/*.so | sed s/\\.so*//g | sed s/.*php\\///g)
+for mod in $modok;do
 	if [ ! -f "$UB_INSTALLDIR"/usr/lib/php/"$mod".so ]; then
 		echo "/usr/lib/php/$mod.so is missing!"
 		exit 1
