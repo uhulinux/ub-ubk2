@@ -3,6 +3,7 @@
 # ha BUILD_SHARED_LIBS=ON:
 # LLVM_BUILD_LLVM_DYLIB=OFF / LLVM_LINK_LLVM_DYLIB=OFF
 # másképp nem működik
+sed -i '/LLVMSupport/d' tools/clang/tools/extra/clangd/tool/CMakeLists.txt
 
 ffi_cflags=$(pkg-config --cflags-only-I libffi)
 ffi_ldflags=$(pkg-config --libs-only-L libffi)
