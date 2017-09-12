@@ -1,19 +1,10 @@
 diff -Naur orig/gio/gdesktopappinfo.c patched/gio/gdesktopappinfo.c
---- orig/gio/gdesktopappinfo.c	2017-02-13 16:53:27.134741323 +0100
-+++ patched/gio/gdesktopappinfo.c	2017-04-05 00:40:34.435287268 +0200
-@@ -2470,15 +2470,18 @@
-   term_argv = g_new0 (char *, 3);
- 
-   check = g_find_program_in_path ("gnome-terminal");
--  if (check != NULL)
--    {
--      term_argv[0] = check;
--      /* Note that gnome-terminal takes -x and
--       * as -e in gnome-terminal is broken we use that. */
--      term_argv[1] = g_strdup ("-x");
--    }
--  else
--    {
+--- orig/gio/gdesktopappinfo.c	2017-09-04 14:42:30.134739579 +0200
++++ patched/gio/gdesktopappinfo.c	2017-09-12 02:15:39.457473990 +0200
+@@ -2483,6 +2483,18 @@
+     }
+   else
+     {
 +	  if (check == NULL)
 +		check = g_find_program_in_path ("mate-terminal");
 +	  if (check == NULL)
@@ -29,22 +20,3 @@ diff -Naur orig/gio/gdesktopappinfo.c patched/gio/gdesktopappinfo.c
        if (check == NULL)
          check = g_find_program_in_path ("nxterm");
        if (check == NULL)
-@@ -2486,17 +2489,15 @@
-       if (check == NULL)
-         check = g_find_program_in_path ("rxvt");
-       if (check == NULL)
--        check = g_find_program_in_path ("xterm");
--      if (check == NULL)
-         check = g_find_program_in_path ("dtterm");
-       if (check == NULL)
-         {
-           check = g_strdup ("xterm");
-           g_warning ("couldn't find a terminal, falling back to xterm");
-         }
-+
-       term_argv[0] = check;
-       term_argv[1] = g_strdup ("-e");
--    }
- 
-   real_argc = term_argc + *argc;
-   real_argv = g_new (char *, real_argc + 1);
