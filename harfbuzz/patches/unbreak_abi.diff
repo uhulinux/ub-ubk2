@@ -6,7 +6,7 @@ Forwarded: not-needed
 
 --- a/src/hb-common.cc
 +++ b/src/hb-common.cc
-@@ -587,3 +587,23 @@
+@@ -989,3 +989,23 @@
  {
    return HB_VERSION_ATLEAST (major, minor, micro);
  }
