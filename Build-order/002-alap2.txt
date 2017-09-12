@@ -70,7 +70,6 @@ reiser4progs
 xapian
 grub
 libedit
-llvm
 nss
 vala
 umockdev # régi libgudevvel
