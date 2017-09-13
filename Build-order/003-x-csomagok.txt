@@ -79,6 +79,7 @@ xcb-util-keysyms
 xcb-util-renderutil
 xcb-util-cursor
 xcb-util-wm
+llvm
 libclc
 yasm
 libomxil-bellagio
