@@ -1,6 +1,4 @@
 #!/usr/bin/env dl
 
-PyXML-${UB_VERSION}.tar.gz PyXML-${UB_VERSION}/
-    ftp://ftp.netbsd.org/pub/pkgsrc/distfiles/
-    ftp://ftp.fu-berlin.de/unix/linux/mirrors/gentoo/distfiles/
-	http://downloads.sourceforge.net/pyxml/
+${UB_VERSION}.tar.gz PyXML-${UB_VERSION}/
+    https://github.com/actmd/PyXML/archive/
