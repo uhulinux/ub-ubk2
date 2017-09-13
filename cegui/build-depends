@@ -7,7 +7,7 @@ freeimage-dev
 freetype2-dev
 fribidi-dev
 glew-dev
-glfw-dev
+glfw
 glm-dev
 glu-dev
 gtk2-dev
