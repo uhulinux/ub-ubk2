@@ -49,6 +49,7 @@ dl
 docbook2man
 docbook-dtds
 dosfstools
+lzip
 ed
 elfutils
 expat
@@ -97,7 +98,6 @@ libsigsegv
 libtool
 libx86
 licenses
-lzip
 lzlib
 m4
 nspr
