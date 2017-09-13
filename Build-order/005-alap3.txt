@@ -147,7 +147,6 @@ gjs
 ocaml
 swig
 gtest
-llvm
 sysfsutils
 libart-lgpl
 rrdtool
