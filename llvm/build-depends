@@ -1,6 +1,5 @@
 binutils-dev
 glibc-dev
-gtest-dev
 libedit-dev
 libffi-dev
 libxml2-dev

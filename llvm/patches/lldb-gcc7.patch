@@ -1,0 +1,11 @@
+diff -Naur orig/tools/lldb/include/lldb/Utility/TaskPool.h patched/tools/lldb/include/lldb/Utility/TaskPool.h
+--- orig/tools/lldb/include/lldb/Utility/TaskPool.h	2016-09-06 22:57:50.000000000 +0200
++++ patched/tools/lldb/include/lldb/Utility/TaskPool.h	2017-08-26 23:30:12.047673741 +0200
+@@ -28,6 +28,7 @@
+ 
+ #include <cassert>
+ #include <cstdint>
++#include <functional>
+ #include <future>
+ #include <list>
+ #include <queue>
