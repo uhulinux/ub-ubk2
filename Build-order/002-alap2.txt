@@ -82,7 +82,6 @@ boost
 pth
 icmake
 yodl
-libbobcat
 cppunit
 librevenge
 libetpan

@@ -1,7 +1,0 @@
-#!/bin/sh -eux
-
-cd bobcat
-export CXXFLAGS=" -std=c++0x"
-export LDFLAGS=" -pthread"
-./build libraries
-./build man

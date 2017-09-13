@@ -1,4 +1,0 @@
-#!/bin/sh -eux
-
-cd bobcat
-./build install x "$UB_INSTALLDIR"

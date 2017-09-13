@@ -50,7 +50,6 @@ intend
 hgsubversion
 cursor-theme-x.org
 sweethome3d
-ccbuild
 clisp
 evolvotron
 mscgen
