@@ -1,4 +1,4 @@
 #!/usr/bin/env dl
 
-portaudio-${UB_VERSION}.tar.gz trunk-${UB_VERSION#*+}/
-	svn://subversion.assembla.com/svn/portaudio/portaudio/trunk/@${UB_VERSION#*+r}
+pa_stable_v${UB_VERSION_HEAD2/./}${UB_VERSION_TAIL1/~/_}.tgz portaudio/
+    http://www.portaudio.com/archives/
