@@ -35,7 +35,6 @@ fix python support
 split -dev package
 install some extra files (icon and mime)
 
-
 ------------------------------------------------------------------------
 r16703 | janusz@uhulinux.hu | 2008-12-10 22:51:00 +0100 (Wed, 10 Dec 2008) | 4 lines
 
