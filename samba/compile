@@ -2,6 +2,7 @@
 
 ./configure \
 	--enable-fhs \
+	--with-systemd \
 	--destdir="$UB_INSTALLDIR" \
 	--prefix="/usr"             \
 	--sysconfdir="/etc"         \

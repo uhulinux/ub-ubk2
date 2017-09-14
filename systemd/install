@@ -36,6 +36,6 @@ for target in graphical multi-user; do
 done
 
 # compat symlinks
-for i in libsystemd-{daemon,id128,journal,login}; do
-	ln -s libsystemd.pc "$UB_INSTALLDIR"/usr/lib/pkgconfig/"$i".pc
-done
+# for i in libsystemd-{daemon,id128,journal,login}; do
+#	ln -s libsystemd.pc "$UB_INSTALLDIR"/usr/lib/pkgconfig/"$i".pc
+# done
