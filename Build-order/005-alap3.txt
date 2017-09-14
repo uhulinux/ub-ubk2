@@ -108,7 +108,6 @@ gcr
 pinentry #qt5 nélkül
 gpg #pinentry-runtime-depends-el
 libsecret
-libungif
 libwebp
 webkitgtk2
 webkit2gtk

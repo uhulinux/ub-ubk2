@@ -60,7 +60,6 @@ libpciaccess
 libice
 libsm
 libxt
-libxkbui
 libxmu
 valgrind
 libdrm

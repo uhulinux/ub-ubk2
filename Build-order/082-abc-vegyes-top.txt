@@ -47,7 +47,6 @@ xfsdump
 linuxconsole
 wvstreams
 wvdial
-fonts-unicode
 tix
 apache-mod-fcgid
 curlftpfs

@@ -42,7 +42,6 @@ raptor2
 xdg-utils
 poppler-data
 gd
-fontforge
 muparser
 djvulibre
 ilmbase
@@ -51,7 +50,6 @@ gtkglext
 glibmm
 atkmm
 boost-jam
-fuse
 neon
 fltk
 wxwidgets

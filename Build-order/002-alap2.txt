@@ -68,6 +68,13 @@ polkit
 e2fsprogs
 reiser4progs
 xapian
+libungif
+libxkbui
+libspiro
+fonts-dejavu
+fontforge
+fonts-unicode
+fuse
 grub
 libedit
 nss
