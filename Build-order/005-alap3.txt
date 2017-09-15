@@ -64,6 +64,7 @@ sdl-pango
 libtheora
 gst-plugins-base
 tevent
+cmocka
 ldb
 samba
 gnome2-mime-data
