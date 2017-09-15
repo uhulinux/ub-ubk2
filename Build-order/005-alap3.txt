@@ -71,10 +71,14 @@ gnome2-mime-data
 openssl-1.0
 gnome2-vfs
 qt4
+libnfnetlink
+libmnl
+libnetfilter-conntrack
 iptables
 libnl
 dhcp
 libnotify
+libpcap
 ppp
 wpasupplicant
 libmbim
@@ -83,11 +87,7 @@ modemmanager
 iproute2
 libidl2
 orbit2
-libmnl
-libnfnetlink
-libnetfilter-conntrack
 libndp
-libpcap
 wireless-tools
 slang
 gpm
