@@ -68,6 +68,7 @@ cmocka
 ldb
 samba
 gnome2-mime-data
+openssl-1.0
 gnome2-vfs
 qt4
 iptables
