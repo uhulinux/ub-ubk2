@@ -1,2 +1,4 @@
 glib-dev
 gtk-doc
+libgudev-dev
+systemd-dev
