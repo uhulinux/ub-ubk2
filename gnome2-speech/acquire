@@ -1,4 +1,0 @@
-#!/usr/bin/env dl
-
-gnome-speech-${UB_VERSION}.tar.gz gnome-speech-${UB_VERSION}/
-	https://download.gnome.org/sources/gnome-speech/${UB_VERSION_HEAD2}/

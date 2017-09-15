@@ -22,7 +22,6 @@ vlc
 pidgin
 telepathy-farstream
 telepathy-haze
-gnome2-speech
 opal
 cheese
 empathy

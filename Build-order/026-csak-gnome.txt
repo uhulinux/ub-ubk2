@@ -24,7 +24,6 @@ gvfs
 libgdamm
 libgdata
 gsound
-gnome2-audio
 fonts-cantarell
 gnome-backgrounds
 gnome-video-effects
