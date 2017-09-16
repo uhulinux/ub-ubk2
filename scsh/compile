@@ -1,6 +1,5 @@
 #!/bin/sh -eux
 
-git submodule update --init
 autoreconf
 ./configure --prefix=/usr --with-scheme48=/usr
 make

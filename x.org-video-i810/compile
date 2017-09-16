@@ -2,4 +2,5 @@
 
 export UB_MAKE_PROCS=1
 autoreconf -vif
-ub_compile
+ub_compile \
+    --enable-tools
