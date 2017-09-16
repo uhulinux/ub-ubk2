@@ -9,7 +9,6 @@ gconf2-dev
 gdk-pixbuf-dev
 glu-dev
 gpm-dev
-gvfs
 imagemagick-dev
 jack-dev
 liba52-dev
