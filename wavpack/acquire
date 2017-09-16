@@ -2,4 +2,3 @@
 
 wavpack-${UB_VERSION}.tar.bz2 wavpack-${UB_VERSION}/
 	http://www.wavpack.com/
-	

@@ -1,5 +1,6 @@
 gnutls-dev
+libffi-dev
 libplist-dev
-openssl-dev
+libunistring-dev
 python-dev
 usbmuxd-dev

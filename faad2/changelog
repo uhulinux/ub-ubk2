@@ -22,14 +22,12 @@ r25169 | galamb15@kabelszat2002.hu | 2011-04-04 17:42:56 +0200 (Mon, 04 Apr 2011
 
 build-depends fix - remove mpeg4ip
 
-
 ------------------------------------------------------------------------
 r17816 | galamb15@kabelszat2002.hu | 2009-03-29 08:56:10 +0200 (Sun, 29 Mar 2009) | 5 lines
 
 2.6.1 -> 2.7
 acquire fix
-build-depends fix 
-
+build-depends fix
 
 ------------------------------------------------------------------------
 r15458 | pozsy | 2007-11-27 13:22:42 +0100 (Tue, 27 Nov 2007) | 2 lines

@@ -30,7 +30,6 @@ build-depends fix - neon, libdiscid
 remove missing include patch
 add doc
 
-
 ------------------------------------------------------------------------
 r21316 | galamb15@kabelszat2002.hu | 2009-12-01 15:53:08 +0100 (Tue, 01 Dec 2009) | 2 lines
 

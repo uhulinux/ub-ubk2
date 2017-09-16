@@ -3,18 +3,20 @@
 # --enable-frei0r kell?
 
 ./configure \
-    --prefix=/usr \
-    --mandir=/usr/share/man \
+	--prefix=/usr \
+	--mandir=/usr/share/man \
 	--disable-debug \
-    --disable-static \
-    --enable-shared \
+	--disable-static \
+	--enable-shared \
 	--enable-avfilter\
 	--enable-avisynth \
 	--enable-avresample \
 	--enable-fontconfig \
+	--enable-gmp \
 	--enable-gnutls \
 	--enable-gpl \
 	--enable-gray \
+	--enable-ladspa \
 	--enable-libass \
 	--enable-libbluray \
 	--enable-libcdio \
@@ -22,21 +24,27 @@
 	--enable-libcelt \
 	--enable-libdc1394 \
 	--enable-libfreetype \
+	--enable-libfribidi \
 	--enable-libgsm \
 	--enable-libmodplug \
 	--enable-libmp3lame \
 	--enable-libopencore-amrnb \
 	--enable-libopencore-amrwb \
 	--enable-libopenjpeg \
+ 	--enable-libopus \
 	--enable-libpulse \
 	--enable-libschroedinger \
+	--enable-libsoxr \
 	--enable-libspeex \
 	--enable-libtheora \
 	--enable-libv4l2 \
+	--enable-libvidstab \
 	--enable-libvorbis \
 	--enable-libvpx \
+	--enable-libwebp \
 	--enable-libx264 \
 	--enable-libx265 \
+	--enable-libxcb \
 	--enable-libxvid \
 	--enable-libzvbi \
 	--enable-nonfree \
@@ -49,7 +57,6 @@
 	--enable-swresample \
 	--enable-swscale \
 	--enable-version3 \
-	--enable-x11grab \
 	--disable-libopencv
 ub_make
 

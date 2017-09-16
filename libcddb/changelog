@@ -15,7 +15,6 @@ r28022 | galamb15@kabelszat2002.hu | 2012-04-04 09:26:09 +0200 (Wed, 04 Apr 2012
 build-depends fix - libcdio
 remove headers-fix patch
 
-
 ------------------------------------------------------------------------
 r10775 | egmont | 2006-02-06 15:15:20 +0100 (Mon, 06 Feb 2006) | 2 lines
 

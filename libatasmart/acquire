@@ -1,4 +1,4 @@
 #!/usr/bin/env dl
 
-libatasmart_${UB_VERSION}.orig.tar.xz libatasmart-${UB_VERSION}/
-	http://gd.tuwien.ac.at/linux/debian/pool/main/liba/libatasmart/
+libatasmart-${UB_VERSION}.tar.xz libatasmart-${UB_VERSION}/
+	http://0pointer.de/public/

@@ -1,6 +1,5 @@
 #!/bin/sh -eux
 
-autoreconf -fi
+./bootstrap
 export CFLAGS=" -fPIC"
-ub_compile \
-	--without-drm
+ub_compile
