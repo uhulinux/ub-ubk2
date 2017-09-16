@@ -1,4 +1,0 @@
-#!/usr/bin/env dl
-
-libgnomeuimm-${UB_VERSION}.tar.gz libgnomeuimm-${UB_VERSION}/
-	https://download.gnome.org/sources/libgnomeuimm/${UB_VERSION_HEAD2}/

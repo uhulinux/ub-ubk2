@@ -1,4 +1,0 @@
-#!/usr/bin/env dl
-
-libgnomecanvasmm-${UB_VERSION}.tar.gz libgnomecanvasmm-${UB_VERSION}/
-	https://download.gnome.org/sources/libgnomecanvasmm/${UB_VERSION_HEAD2}/

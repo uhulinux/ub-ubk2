@@ -1,6 +1,4 @@
-libgnomecanvasmm2
 libgnome2
-libgnomemm2
 libbonoboui2
 libgnomeui2
 gnome-keyring
@@ -16,9 +14,7 @@ gst-plugins-good
 gnonlin
 gnome-online-accounts
 libchamplain
-gnome-vfsmm2
 mdbtools
-libgnomeuimm2
 libgda
 gvfs
 libgdamm
