@@ -50,8 +50,8 @@ libdc1394
 libgphoto2
 imlib2
 libcaca
-libcddb
-libcdio #előbbivel keresztfügg
+libcddb #-libcdio
+libcdio
 libcdio-paranoia
 libvpx
 liblqr
@@ -59,16 +59,21 @@ libv4l
 libbluray
 x265
 gavl
-frei0r #az opencv-vel keresztfügg!
-ffmpeg
+libvidstab
+xvid
+zvbi
+lame
+ffmpeg #-frei0r
 libwmf
 pangox-compat
 gtkglext
 lua51
 graphviz
+djvulibre
 imagemagick
 aalib
 musepack
+netpbm
 transfig
 vcdimager
 libplist
@@ -77,11 +82,14 @@ libimobiledevice
 libmtp
 libatasmart
 udisks2
-rest
 gnome-keyring
 telepathy-glib
-gnome-online-accounts
-gvfs
-xine-lib
-opencv
+xine-lib #-gvfs
+
+java
+opencv #java-jdk,xine-lib
+frei0r #opencv
+rest #libsoup
+gnome-online-accounts #geoclue,libsoup,rest,webkit2gtk
+gvfs #gnome-online-accounts,libsoup
 gst-plugins-bad

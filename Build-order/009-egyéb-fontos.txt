@@ -36,7 +36,6 @@ xdg-utils
 poppler-data
 gd
 muparser
-djvulibre
 glibmm
 atkmm
 boost-jam
@@ -44,4 +43,4 @@ fltk
 wxwidgets
 wxwidgets2.8
 libxml++3
-java
+

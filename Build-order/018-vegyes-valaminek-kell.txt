@@ -43,7 +43,6 @@ icon-naming-utils
 icoutils
 jansson
 kbd
-lame
 libyajl
 libytnef
 lsdvd
@@ -63,7 +62,6 @@ xauth
 xdialog
 xdm
 xfsprogs
-xvid
 alsa-tools
 avfs
 bogofilter
@@ -120,7 +118,6 @@ unshield
 vbetool
 xdg-user-dirs
 xmlrpc-c
-zvbi
 autogen
 cryptsetup
 encfs
@@ -153,7 +150,6 @@ hunspell-hu
 icon-theme-tango
 jpilot
 js17
-netpbm
 reportlab
 rpcbind
 squeak
