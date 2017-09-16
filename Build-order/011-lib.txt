@@ -2,10 +2,8 @@ libnfsidmap
 libpipeline
 libpseudo
 libspnav
-libsrtp
 libt3key
 libuninum
-libv4l
 libwps
 libnetfilter-conntrack
 libode
@@ -16,7 +14,6 @@ libstroke
 libt3highlight
 libt3window
 libtorrent
-libvdpau
 liboauth
 libraw
 libtirpc
@@ -25,7 +22,6 @@ libunique1
 libuser
 libviper
 libnice
-libofa
 libwpd
 libpano13
 libsynce
@@ -36,8 +32,6 @@ libvisio
 libwnck
 libwnck2
 libosinfo
-libwmf
-librsvg
 libt3widget
 libvirt
 libwpg

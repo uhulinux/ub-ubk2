@@ -1,0 +1,16 @@
+glib-networking-1 #libproxy_nélkül
+libproxy
+libsoup #a_libproxis_g_lib-networking_után_újra
+poppler
+geocode-glib #libsoup-gnome
+geoclue #geocode-glib,libsoup
+networkmanager #libsoup
+glib-networking
+libsoup
+networkmanager #libsoup
+geocode-glib
+geoclue
+libproxy
+glib-networking
+webkit2gtk
+webkitgtk2

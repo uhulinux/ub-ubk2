@@ -32,8 +32,6 @@ cpupower
 c++-gtk-utils
 drv-z42
 eigen2
-enca
-libass
 fonts-terminus
 glee
 glm
@@ -51,11 +49,9 @@ libytnef
 lsdvd
 luasocket
 miniupnpc
-musepack
 ois
 qpdf
 radeontool
-schroedinger
 slib
 txt2tags
 uhu-pixmaps
@@ -63,7 +59,6 @@ unmakeself
 upx
 usbredir
 vpnc
-x264
 xauth
 xdialog
 xdm
@@ -79,7 +74,6 @@ ctpl
 exempi
 fonttools
 fuse-ntfs-3g
-gavl
 goocanvasmm
 gtk2-engine-murrine
 gtk2-theme-bluecurve
@@ -105,7 +99,6 @@ squashfs-tools
 syslinux
 python-twisted
 twisted-web2
-x265
 xmessage
 xorriso
 dcraw
@@ -125,11 +118,9 @@ retrovol
 startup-notification
 unshield
 vbetool
-vcdimager
 xdg-user-dirs
 xmlrpc-c
 zvbi
-aalib
 autogen
 cryptsetup
 encfs
@@ -166,10 +157,8 @@ netpbm
 reportlab
 rpcbind
 squeak
-transfig
 apache-ant
 farstream
-fluidsynth
 gst-editing-services
 gupnp-dlna
 notification-daemon
@@ -202,13 +191,10 @@ glfw
 gnokii
 gnumeric
 sane-backends
-sdl2
 x11vnc
 xterm
 conky
 ibus
-openal
-udisks2
 upower
 fox1.6
 lesstif
@@ -234,7 +220,6 @@ lightdm-gtk-greeter
 sdl2-image
 sdl2-ttf
 sdl2-gfx
-mpg123
 sdl2-mixer
 w3m
 coin

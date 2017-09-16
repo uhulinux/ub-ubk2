@@ -1,8 +1,6 @@
 libgnome2
 libbonoboui2
 libgnomeui2
-gnome-keyring
-telepathy-glib
 telepathy-rakia
 telepathy-mission-control
 telepathy-logger
@@ -12,11 +10,9 @@ telepathy-idle
 telepathy-yell
 gst-plugins-good
 gnonlin
-gnome-online-accounts
 libchamplain
 mdbtools
 libgda
-gvfs
 libgdamm
 libgdata
 gsound

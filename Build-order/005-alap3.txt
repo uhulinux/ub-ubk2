@@ -94,9 +94,6 @@ gpm
 newt
 at
 gsettings-desktop-schemas
-glib-networking #libproxy-nelkül
-libsoup
-networkmanager
 procmail
 postfix
 cron
@@ -110,16 +107,10 @@ gcr
 pinentry #qt5 nélkül
 gpg #pinentry-runtime-depends-el
 libsecret
-libwebp
-webkitgtk2
-webkit2gtk
-libproxy
-glib-networking #libproxyval
 ghostscript
 libwacom
 libinput
 qt5
-poppler
 pinentry #qt5-el
 apr
 apr-util
@@ -140,6 +131,7 @@ scheme48
 scsh-libs
 scsh
 yasm
+perl-xml-grove
 perl-net-dbus
 system-tools-backends
 check
@@ -148,6 +140,7 @@ gjs
 ocaml
 swig
 gtest
+llvm
 sysfsutils
 libart-lgpl
 rrdtool

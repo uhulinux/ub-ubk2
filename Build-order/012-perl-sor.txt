@@ -102,7 +102,6 @@ perl-unix-mknod
 perl-unix-syslog
 perl-version
 perl-xml-generator
-perl-xml-grove
 perl-xml-simple
 perl-yaml
 perl-berkeleydb

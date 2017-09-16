@@ -21,15 +21,12 @@ efax
 enet
 enscript
 eventlog
-faac
-faad2
 flite
 fmod
 fmod3
 foomatic-db
 fping
 freeimage
-fribidi
 gdb
 geoip
 gnome-common
@@ -54,7 +51,6 @@ mp4v2
 nickle
 nomarch
 npth
-opencore-amr
 pcre2
 perl-algorithm-diff
 pkcs11
@@ -66,10 +62,8 @@ qqwing
 qstat
 radiusclient
 ragel
-recode
 regina-rexx
 silc-toolkit
-soundtouch
 spice-protocol
 tclap
 tcsh
@@ -78,7 +72,6 @@ traceroute
 tre-agrep
 tree
 utf8proc
-wavpack
 words
 zeromq
 zoo

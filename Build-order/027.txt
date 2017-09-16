@@ -1,10 +1,4 @@
-ffmpeg
 libextractor
-xine-lib
-opencv
-frei0r
-libquicktime
-mjpegtools
 gst-plugins-bad
 sox
 espeak

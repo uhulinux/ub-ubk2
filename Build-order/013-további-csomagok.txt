@@ -2,10 +2,8 @@ libspectre
 clucene-core
 libgtkhtml2
 pcsc-lite
-libmusicbrainz
 vte2
 libmusicbrainz3
-libbluray
 libgnomecanvas2
 xaw3d
 plotutils
@@ -16,8 +14,6 @@ libcryptui
 mutagen
 libgpod
 libsocialweb
-graphviz
-imagemagick
 cairomm
 pangomm
 gtkmm2
