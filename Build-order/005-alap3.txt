@@ -101,8 +101,6 @@ libmng
 enchant
 libgnome-keyring
 libwebp
-geocode-glib
-geoclue
 npth
 libassuan
 gpg #pinentry-runtime-depends-nélkül
@@ -128,8 +126,6 @@ tidy
 php
 tdb
 qjson
-gssdp
-gupnp
 scheme48
 scsh-libs
 scsh
