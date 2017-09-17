@@ -138,7 +138,7 @@ perl-xml-grove
 perl-net-dbus
 system-tools-backends
 check
-js
+js24
 gjs
 ocaml
 swig
