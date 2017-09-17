@@ -1,0 +1,12 @@
+diff -Nur orig/ext/openjpeg/gstopenjpeg.h mod/ext/openjpeg/gstopenjpeg.h
+--- orig/ext/openjpeg/gstopenjpeg.h	2017-05-15 17:46:30.000000000 +0200
++++ mod/ext/openjpeg/gstopenjpeg.h	2017-09-17 23:06:15.758884328 +0200
+@@ -39,7 +39,7 @@
+ #else
+ #include <stdio.h>
+ # ifdef HAVE_OPENJPEG_2_1
+-#  include <openjpeg-2.1/openjpeg.h>
++#  include <openjpeg-2.2/openjpeg.h>
+ # else
+ #  include <openjpeg-2.0/openjpeg.h>
+ # endif

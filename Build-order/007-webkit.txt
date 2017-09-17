@@ -2,6 +2,11 @@ glib-networking-1 #libproxy_nélkül
 libproxy
 libsoup #a_libproxis_g_lib-networking_után_újra
 poppler
+rest #libsoup
+gnome-online-accounts #geoclue,libsoup,rest,webkit2gtk
+gvfs #gnome-online-accounts,libsoup
+gssdp #libsoup
+gupnp #libsoup,gssdp
 geocode-glib #libsoup-gnome
 geoclue #geocode-glib,libsoup
 networkmanager #libsoup

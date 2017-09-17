@@ -86,12 +86,6 @@ gnome-keyring
 telepathy-glib
 xine-lib #-gvfs
 java
-opencv #java-jdk,xine-lib
-frei0r #opencv
-
-rest #libsoup
-gnome-online-accounts #geoclue,libsoup,rest,webkit2gtk
-gvfs #gnome-online-accounts,libsoup
+opencv
+frei0r
 gst-plugins-bad
-gssdp #libsoup
-gupnp #libsoup,gssdp

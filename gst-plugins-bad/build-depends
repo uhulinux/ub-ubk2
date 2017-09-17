@@ -11,6 +11,7 @@ gnutls-dev
 gobject-introspection-dev
 gst-plugins-base-dev
 gtk-dev
+gtk-doc
 jack-dev
 ladspa-dev
 libass-dev
@@ -38,12 +39,14 @@ libvdpau-dev
 libvorbis-dev
 libwebp-dev
 libxml2-dev
+meson
 mjpegtools-dev
 mpg123-dev
 neon-dev
 openal-dev
 opencv-dev
 openexr-dev
+openjpeg-dev
 opus-dev
 pango-dev
 python-dev
