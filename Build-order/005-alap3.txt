@@ -103,6 +103,8 @@ libgnome-keyring
 libwebp
 geocode-glib
 geoclue
+npth
+libassuan
 gpg #pinentry-runtime-depends-nélkül
 gcr
 pinentry #qt5 nélkül

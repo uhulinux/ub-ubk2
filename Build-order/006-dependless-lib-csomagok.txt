@@ -1,5 +1,4 @@
 libaio
-libassuan
 libasyncns
 libbsd
 libburn

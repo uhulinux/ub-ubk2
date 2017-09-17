@@ -50,7 +50,6 @@ mp3info
 mp4v2
 nickle
 nomarch
-npth
 pcre2
 perl-algorithm-diff
 pkcs11
