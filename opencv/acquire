@@ -2,3 +2,6 @@
 
 ${UB_VERSION}.zip opencv-${UB_VERSION}/
 	https://github.com/Itseez/opencv/archive/
+
+ippicv_2017u2_lnx_intel64_20170418.tgz
+	https://raw.githubusercontent.com/opencv/opencv_3rdparty/a62e20676a60ee0ad6581e217fe7e4bada3b95db/ippicv/
