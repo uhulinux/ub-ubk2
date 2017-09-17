@@ -3,6 +3,7 @@
 	/lib/pkgconfig
 @	/lib/*.so
 	/usr/bin/*-config
+	/usr/bin/jscpucfg
 	/usr/include
 	/usr/lib/**/*.a
 	/usr/lib/*Conf.sh

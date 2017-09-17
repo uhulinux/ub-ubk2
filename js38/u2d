@@ -1,0 +1,1 @@
+urllist https://ftp.osuosl.org/pub/blfs/svn/m/ | splitver '^mozjs-([0-9.rc]+).tar.bz2$' | sort -V | tail -n 1 | sed s/\.rc/~rc/

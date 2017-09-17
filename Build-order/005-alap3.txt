@@ -139,6 +139,8 @@ perl-net-dbus
 system-tools-backends
 check
 js24
+autoconf2.13
+js38
 gjs
 ocaml
 swig

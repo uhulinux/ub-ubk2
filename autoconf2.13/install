@@ -2,4 +2,5 @@
 
 ub_install
 
-rm -Rf "$UB_INSTALLDIR"/usr/share/info
+mv "${UB_INSTALLDIR}"/usr/share/info/autoconf{,-2.13}.info
+mv "${UB_INSTALLDIR}"/usr/share/info/standards{,-2.13}.info

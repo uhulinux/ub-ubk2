@@ -1,4 +1,4 @@
 #!/bin/sh -eux
 
 ub_compile \
-	--program-suffix=-2.13
+    --program-suffix=-2.13

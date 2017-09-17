@@ -1,0 +1,16 @@
+#!/bin/sh -eux
+
+# A -O3 veszélyes
+
+cd js/src
+autoconf-2.13
+./configure \
+	--prefix=/usr \
+	--with-system-nspr \
+	--with-system-icu \
+	--with-intl-api \
+	--with-system-ffi \
+	--disable-optimize \
+	--enable-readline \
+	--enable-threadsafe
+ub_make

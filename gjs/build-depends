@@ -4,4 +4,4 @@ gnome-common
 gobject-introspection-dev
 gtk-dev
 gtk-doc
-js24-dev
+js38-dev

@@ -204,7 +204,6 @@ gdal
 packagekit
 gst-plugins-ugly
 spice-gtk
-autoconf2.13
 thunderbird
 nagios-plugins
 pstoedit
