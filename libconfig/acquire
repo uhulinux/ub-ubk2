@@ -1,4 +1,4 @@
 #!/usr/bin/env dl
 
-libconfig-"$UB_VERSION".tar.gz libconfig-"$UB_VERSION"/
-	http://www.hyperrealm.com/libconfig/
+v"$UB_VERSION".tar.gz libconfig-"$UB_VERSION"/
+	https://github.com/hyperrealm/libconfig/archive/

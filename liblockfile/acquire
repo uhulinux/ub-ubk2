@@ -1,4 +1,4 @@
 #!/usr/bin/env dl
 
-liblockfile_${UB_VERSION}.orig.tar.gz liblockfile-${UB_VERSION}/
+liblockfile_${UB_VERSION}.orig.tar.gz liblockfile/
 	ftp://ftp.debian.org/debian/pool/main/libl/liblockfile/

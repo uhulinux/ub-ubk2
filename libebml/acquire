@@ -1,4 +1,4 @@
 #!/usr/bin/env dl
 
-libebml-${UB_VERSION}.tar.bz2 libebml-${UB_VERSION}/
-	http://dl.matroska.org/downloads/libebml/
+release-${UB_VERSION}.tar.gz libebml-release-${UB_VERSION}/
+	https://github.com/Matroska-Org/libebml/archive/

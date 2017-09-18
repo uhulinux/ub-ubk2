@@ -1,3 +1,5 @@
 #!/bin/sh -eux
 
+# See: https://github.com/hyperrealm/libconfig/issues/47
+rm lib/scanner.c
 ub_compile
