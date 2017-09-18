@@ -6,7 +6,7 @@ libcanberra
 libdbusmenu
 libdbusmenu-qt
 libdiscid
-libdmapsharing
+libdmapsharing #libsoup
 libept
 libgadu
 libgee
@@ -17,8 +17,8 @@ libssh2
 libgit2
 libgit2-glib
 libgtop2
-libgksu
-libglademm2
+libgksu #startup-notification
+libglademm2 #gtkmm2
 libgssapi
 libiec61883
 libieee1284
@@ -33,7 +33,7 @@ libmatroska
 libmediaart
 libmicrohttpd
 libmikmod
-libmp3splt
+libmp3splt #vorbis-tools
 libmpeg2
 taglib
 libmtp
