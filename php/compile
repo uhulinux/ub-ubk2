@@ -20,9 +20,7 @@ ub_compile \
 	--with-ldap=shared \
 	--with-mcrypt=shared \
 	--with-mhash=shared \
-	--with-mssql=shared \
 	--with-mysqli=shared \
-	--with-mysql=shared \
 	--with-openssl \
 	--with-openssl-dir=/usr \
 	--with-pdo-dblib=shared \
