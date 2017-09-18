@@ -1,7 +1,16 @@
-diff -Naur cmake-3.9.1-orig/bootstrap cmake-3.9.1/bootstrap
---- cmake-3.9.1-orig/bootstrap	2017-08-10 15:36:33.000000000 +0200
-+++ cmake-3.9.1/bootstrap	2017-08-19 17:10:41.650657934 +0200
-@@ -740,10 +740,10 @@
+diff -Naur orig/bootstrap patched/bootstrap
+--- orig/bootstrap	2017-05-31 16:00:10.134739579 +0200
++++ patched/bootstrap	2017-07-19 23:46:31.814858609 +0200
+@@ -489,6 +489,8 @@
+   --no-system-liblzma     use cmake-provided liblzma library (default)
+   --system-libarchive     use system-installed libarchive library
+   --no-system-libarchive  use cmake-provided libarchive library (default)
++  --system-libuv	      use system-installed libuv library
++  --no-system-libuv		  use cmake-provided libuv library (default)
+   --system-librhash       use system-installed librhash library
+   --no-system-librhash    use cmake-provided librhash library (default)
+ 
+@@ -724,10 +726,10 @@
    --init=*) cmake_init_file=`cmake_arg "$1"` ;;
    --system-libs) cmake_bootstrap_system_libs="${cmake_bootstrap_system_libs} -DCMAKE_USE_SYSTEM_LIBRARIES=1" ;;
    --no-system-libs) cmake_bootstrap_system_libs="${cmake_bootstrap_system_libs} -DCMAKE_USE_SYSTEM_LIBRARIES=0" ;;
