@@ -1,5 +1,4 @@
 #!/usr/bin/env dl
 
-mp4v2-${UB_VERSION}.tar.gz mp4v2-e8d9272/
-	git://github.com/pcwalton/mp4v2.git@e8d9272
-
+Release-MP4v2-${UB_VERSION}.tar.gz mp4v2-Release-MP4v2-${UB_VERSION}/
+	https://github.com/TechSmith/mp4v2/archive/

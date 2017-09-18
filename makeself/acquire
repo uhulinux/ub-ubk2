@@ -1,4 +1,4 @@
 #!/usr/bin/env dl
 
-makeself_${UB_VERSION}.orig.tar.gz makeself-${UB_VERSION}/
-	http://archive.ubuntu.com/ubuntu/pool/universe/m/makeself/
+release-${UB_VERSION}.tar.gz makeself-release-${UB_VERSION}/
+	https://github.com/megastep/makeself/archive/
