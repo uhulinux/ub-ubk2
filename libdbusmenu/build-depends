@@ -1,8 +1,8 @@
 dbus-glib-dev
 gnome-doc-utils
 gobject-introspection-dev
-gtk-dev
 gtk2-dev
+gtk-dev
 intltool
 json-glib-dev
 libxml2-dev

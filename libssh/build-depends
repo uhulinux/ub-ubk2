@@ -1,3 +1,1 @@
-cmake
-krb5-dev
-openssl-dev
+libgcrypt-dev
