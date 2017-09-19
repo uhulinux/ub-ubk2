@@ -44,6 +44,5 @@ synapse
 gnucash
 abiword
 genius
-openoffice.org
 libreoffice
 calamares

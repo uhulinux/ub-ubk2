@@ -28,7 +28,6 @@ bind
 bodr
 bsdiff
 celt051
-cpupower
 c++-gtk-utils
 drv-z42
 eigen2
