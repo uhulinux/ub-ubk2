@@ -1,7 +1,7 @@
 diff -Naur orig/bootstrap patched/bootstrap
---- orig/bootstrap	2017-05-31 16:00:10.134739579 +0200
-+++ patched/bootstrap	2017-07-19 23:46:31.814858609 +0200
-@@ -489,6 +489,8 @@
+--- orig/bootstrap	2017-09-07 18:10:59.134739579 +0200
++++ patched/bootstrap	2017-09-19 01:49:12.918523906 +0200
+@@ -505,6 +505,8 @@
    --no-system-liblzma     use cmake-provided liblzma library (default)
    --system-libarchive     use system-installed libarchive library
    --no-system-libarchive  use cmake-provided libarchive library (default)
@@ -10,7 +10,7 @@ diff -Naur orig/bootstrap patched/bootstrap
    --system-librhash       use system-installed librhash library
    --no-system-librhash    use cmake-provided librhash library (default)
  
-@@ -724,10 +726,10 @@
+@@ -740,10 +742,10 @@
    --init=*) cmake_init_file=`cmake_arg "$1"` ;;
    --system-libs) cmake_bootstrap_system_libs="${cmake_bootstrap_system_libs} -DCMAKE_USE_SYSTEM_LIBRARIES=1" ;;
    --no-system-libs) cmake_bootstrap_system_libs="${cmake_bootstrap_system_libs} -DCMAKE_USE_SYSTEM_LIBRARIES=0" ;;
