@@ -13,7 +13,6 @@ cmucl
 compface
 ctags
 cxxtools
-debhelper
 dmidecode
 dotconf
 dvd+rw-tools

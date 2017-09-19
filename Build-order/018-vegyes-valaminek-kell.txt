@@ -237,3 +237,4 @@ xerces-c
 consolekit
 colm
 ragel
+debhelper
