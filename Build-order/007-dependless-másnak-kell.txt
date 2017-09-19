@@ -60,7 +60,6 @@ proj
 qqwing
 qstat
 radiusclient
-ragel
 regina-rexx
 silc-toolkit
 spice-protocol
@@ -79,3 +78,4 @@ zsh
 gnet2
 lhasa
 vc
+kelbt
