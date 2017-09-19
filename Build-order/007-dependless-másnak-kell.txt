@@ -45,7 +45,6 @@ mdds
 mhonarc
 minixml
 mksh
-mp3info
 mp4v2
 nickle
 nomarch
@@ -70,11 +69,9 @@ tre-agrep
 tree
 utf8proc
 words
-zeromq
 zoo
 zziplib
 zsh
-gnet2
 lhasa
 vc
 kelbt
