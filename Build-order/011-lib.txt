@@ -45,3 +45,4 @@ extra-cmake-modules
 qtwebkit
 qtwebengine
 biblesync
+libdbi

@@ -4,7 +4,6 @@ libbsd
 libburn
 libconfig
 libcue
-libdbi
 libdcadec
 libdnet
 libdvbpsi
