@@ -1,13 +1,13 @@
-cmake
 dbus-dev
 enchant-dev
 geoclue-dev
 gobject-introspection-dev
 gperf
+gst-plugins-bad-dev
 gst-plugins-base-dev
+gtk2-dev
 gtk-dev
 gtk-doc
-gtk2-dev
 icu-dev
 libjpeg-turbo-dev
 libnotify-dev
