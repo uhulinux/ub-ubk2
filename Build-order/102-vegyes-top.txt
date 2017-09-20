@@ -4,7 +4,6 @@ htdig
 jmoney
 min1200w
 fish
-nouveau-vdpau-fw
 audio-entropyd
 newlisp
 aspell-dict-english

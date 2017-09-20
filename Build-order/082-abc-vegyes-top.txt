@@ -1,6 +1,5 @@
 acpid
 alien
-bluez-firmware
 brainfuck
 fonts-arphic
 fonts-baekmuk

@@ -1,4 +1,3 @@
-alsa-firmware
 c2050
 c2070
 cjet
@@ -8,16 +7,13 @@ fonts-symbola
 freepats
 soundfont-fluid
 geos
-hdparm
 indent
-joe
 latexmk
 lexmark7000linux
 lm1100
 lrzsz
 oki4linux
 pnm2ppa
-psmisc
 sipcalc
 smartmontools
 t1utils
@@ -40,7 +36,6 @@ hdf5
 icon-naming-utils
 icoutils
 jansson
-kbd
 libyajl
 libytnef
 lsdvd
@@ -51,7 +46,6 @@ qpdf
 radeontool
 slib
 txt2tags
-uhu-pixmaps
 unmakeself
 upx
 usbredir
@@ -59,7 +53,6 @@ vpnc
 xauth
 xdialog
 xdm
-xfsprogs
 alsa-tools
 avfs
 bogofilter
@@ -69,7 +62,6 @@ cssutils
 ctpl
 exempi
 fonttools
-fuse-ntfs-3g
 goocanvasmm
 gtk2-engine-murrine
 gtk2-theme-bluecurve
@@ -79,10 +71,7 @@ icon-theme-bluecurve
 lsb-release
 lucene++
 luit
-mdadm
-mtools
 ndiswrapper
-chrony
 prelink
 rsync
 sddm
@@ -91,7 +80,6 @@ sofia-sip
 sound-theme-freedesktop
 libgnome2
 libbonoboui2
-squashfs-tools
 syslinux
 python-twisted
 twisted-web2
@@ -102,7 +90,6 @@ ebook-tools
 fonts-noto
 fonts-hack
 gtkspell2
-iputils
 leptonica
 libtrace
 opusfile
@@ -186,7 +173,6 @@ x11vnc
 xterm
 conky
 ibus
-upower
 fox1.6
 lesstif
 recordmydesktop
@@ -201,7 +187,6 @@ spice-gtk
 thunderbird
 nagios-plugins
 pstoedit
-dhcpcd
 dmapi
 cups-filters
 foo2zjs

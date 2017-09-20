@@ -1,0 +1,17 @@
+upower
+xfsprogs
+mtools
+fuse-ntfs-3g
+squashfs-tools
+psmisc
+mdadm
+kbd #no_update
+joe
+iputils
+uhu-pixmaps
+hdparm
+chrony
+dhcpcd #chrony
+linux-firmware #dahdi-linux
+dahdi-linux #linux-firmware
+dahdi-tools #dahdi-linux

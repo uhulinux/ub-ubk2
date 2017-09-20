@@ -23,17 +23,17 @@ strace
 libao
 vorbis-tools #libao
 libmp3splt #vorbis-tools
+gpgme
 wget
-dahdi-linux
 b43-fwcutter
 acx-fw
 broadcom-fw
 ipw2100-fw
 ipw2200-fw
 zd1211-fw
-linux-firmware
-dahdi-tools
-gpgme
+alsa-firmware
+bluez-firmware
+nouveau-vdpau-fw
 xdg-utils
 poppler-data
 gd
@@ -45,4 +45,3 @@ fltk
 wxwidgets
 wxwidgets2.8
 libxml++3
-
