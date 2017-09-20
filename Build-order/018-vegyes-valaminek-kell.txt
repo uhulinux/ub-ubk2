@@ -15,7 +15,6 @@ latexmk
 lexmark7000linux
 lm1100
 lrzsz
-mobile-broadband-provider-info
 oki4linux
 pnm2ppa
 psmisc

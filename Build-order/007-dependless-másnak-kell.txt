@@ -75,3 +75,4 @@ zsh
 lhasa
 vc
 kelbt
+mobile-broadband-provider-info
