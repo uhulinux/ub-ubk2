@@ -5,6 +5,7 @@ gobject-introspection-dev
 intltool
 libgudev-dev
 libimobiledevice-dev
+libunistring-dev
 libusb-dev
 libxslt
 polkit-dev

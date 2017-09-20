@@ -20,4 +20,3 @@ mv qwerty/cz.map qwerty/cz-qwerty.map
 cd -
 ub_configure
 make KEYCODES_PROGS=yes RESIZECONS_PROGS=yes
-
