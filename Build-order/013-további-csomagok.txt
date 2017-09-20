@@ -17,6 +17,7 @@ libsocialweb
 cairomm
 pangomm
 gtkmm2
+libglademm2 #gtkmm2
 libstemmer
 appstream
 beecrypt
