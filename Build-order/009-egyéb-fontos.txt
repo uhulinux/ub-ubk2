@@ -19,7 +19,6 @@ gtksourceview
 libpipeline
 man-db
 pilot-link
-protobuf
 strace
 vorbis-tools
 libmp3splt #vorbis-tools

@@ -47,3 +47,4 @@ biblesync
 libdbi
 mp3info
 gnet2
+protobuf
