@@ -1,1 +1,1 @@
-urllist http://sg.danny.cz/sg/p/ | splitver '^smp_utils-([0-9.]+).tar.xz$' | sort -V | tail -n 1
+urllist http://sg.danny.cz/sg/p/ | grep smp_utils | sort -V | tail -n 1 | sed s/.*\-// | sed s/\.tar.*// | sed s/b/~b/

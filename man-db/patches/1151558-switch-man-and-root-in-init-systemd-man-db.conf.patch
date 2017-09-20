@@ -12,7 +12,7 @@ index 10b27b4..43dd2ad 100644
 --- a/init/systemd/man-db.conf
 +++ b/init/systemd/man-db.conf
 @@ -1 +1 @@
--d /var/cache/man 2755 man root 1w
+-d /var/cache/man 0755 man man 1w
 +d /var/cache/man 2755 root root 1w
 -- 
 1.9.3
