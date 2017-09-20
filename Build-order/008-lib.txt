@@ -17,6 +17,7 @@ libssh2
 libgit2
 libgit2-glib
 libgtop2
+startup-notification
 libgksu #startup-notification
 libglademm2 #gtkmm2
 libgssapi
