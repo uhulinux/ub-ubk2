@@ -16,6 +16,7 @@ audit
 itstool
 pyxml
 gtksourceview
+libpipeline
 man-db
 pilot-link
 protobuf
