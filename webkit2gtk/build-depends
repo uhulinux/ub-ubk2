@@ -1,12 +1,15 @@
-cmake
 dbus-dev
 enchant-dev
 geoclue-dev
 gobject-introspection-dev
 gperf
+gst-libav-dev
+gst-plugins-bad-dev
 gst-plugins-base-dev
-gtk-doc
+gst-plugins-good-dev
 gtk2-dev
+gtk-dev
+gtk-doc
 hyphen-dev
 icu-dev
 libjpeg-turbo-dev

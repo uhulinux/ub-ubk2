@@ -6,7 +6,8 @@ flac-dev
 gconf2-dev
 gnome-keyring-dev
 gst-plugins-base-dev
-gtk2-dev
+gtk-dev
+gtk-doc
 jack-dev
 ladspa-dev
 libavc1394-dev

@@ -4,4 +4,5 @@ gnutls-dev
 gsettings-desktop-schemas
 intltool
 libproxy-dev
+libunistring-dev
 p11-kit-dev

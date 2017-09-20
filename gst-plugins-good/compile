@@ -1,4 +1,6 @@
 #!/bin/sh -eux
 
-ub_compile \
+# A meson nem eszi meg a --enable-experimental opciót
+ub_configure \
 	--enable-experimental
+ub_make
