@@ -21,6 +21,7 @@ pilot-link
 protobuf
 strace
 vorbis-tools
+libmp3splt #vorbis-tools
 wget
 dahdi-linux
 b43-fwcutter

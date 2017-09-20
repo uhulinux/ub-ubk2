@@ -34,7 +34,6 @@ libmatroska
 libmediaart
 libmicrohttpd
 libmikmod
-libmp3splt #vorbis-tools
 libmpeg2
 taglib
 libmtp
