@@ -1,8 +1,8 @@
 docbook-dtds
 docbook-xsl
 gconf2-dev
-gtk-doc
 gtk2-dev
+gtk-doc
 intltool
 libgcrypt-dev
 libgnome-keyring-dev
