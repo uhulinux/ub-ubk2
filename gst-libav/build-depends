@@ -1,4 +1,5 @@
 gst-plugins-base-dev
+gtk-doc
 liboil-dev
 sdl-dev
 yasm

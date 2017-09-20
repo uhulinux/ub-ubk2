@@ -123,7 +123,6 @@ encfs
 gdl
 ghex
 gstreamermm
-gst-libav
 gtksourceviewmm
 mash
 openconnect
