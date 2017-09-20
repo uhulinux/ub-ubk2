@@ -20,7 +20,8 @@ libpipeline
 man-db
 pilot-link
 strace
-vorbis-tools
+libao
+vorbis-tools #libao
 libmp3splt #vorbis-tools
 wget
 dahdi-linux

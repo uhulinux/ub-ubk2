@@ -104,7 +104,6 @@ fonts-hack
 gtkspell2
 iputils
 leptonica
-libao
 libtrace
 opusfile
 osm-gps-map
