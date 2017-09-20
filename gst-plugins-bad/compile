@@ -1,3 +1,5 @@
 #!/bin/sh -eux
 
-ub_compile
+rm -f autogen.sh configure{,.ac}
+ub_compile \
+	-Dwith_gl_api=opengl
