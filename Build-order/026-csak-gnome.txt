@@ -67,7 +67,6 @@ cairo-dock
 gksu
 gnome-packagekit
 vino
-gnome-keyring
 libgweather
 caribou
 gedit

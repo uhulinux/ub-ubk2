@@ -201,7 +201,6 @@ freerdp
 spamassassin
 gdal
 packagekit
-gst-plugins-ugly
 spice-gtk
 thunderbird
 nagios-plugins

@@ -1,6 +1,7 @@
 dbus-glib-dev
 gst-plugins-base-dev
-gtk2-dev
+gtk-dev
+gtk-doc
 liba52-dev
 libcdio-dev
 libdvdnav-dev
@@ -11,6 +12,7 @@ libmad-dev
 libmpeg2-dev
 liboil-dev
 libxml2-dev
+meson
 opencore-amr-dev
 orc-dev
 python-dev
