@@ -26,7 +26,7 @@ python-sqlalchemy
 python-squaremap
 python-svglib
 python-tempita
-python-textile
+python-textile #ython-pytest-runner
 python-tlslite
 python-tornado
 python-toscawidgets
@@ -46,20 +46,20 @@ pyxattr
 pyxdg
 pyzmq
 wxpython
-ipython
+ipython #5.5.0_az_utolsó_frissíthető_verzió!
 libvirt-python
 psycopg2
 pybluez
 pychess
 pycparser
 pycups
-pycurl
+pycurl #failed
 pyexcelerator
 pyflakes
-pyhyphen
+pyhyphen #download_fail
 pyicu
 pylibacl
-pylint
+pylint  #python-pytest-runner
 pylirc
 pyogg
 pyopenssl
@@ -80,7 +80,7 @@ python-beaker
 python-cffi
 python-chardet
 python-cheetah
-python-cherrypy
+python-cherrypy  #setuptools_scm
 python-configobj
 python-enum
 python-cryptography
