@@ -140,7 +140,6 @@ python-urlgrabber
 gst-python
 pyatspi
 pycodestyle
-pykaraoke
 python-apt
 python-matplotlib
 python-notify
