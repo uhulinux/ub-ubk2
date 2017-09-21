@@ -1,5 +1,8 @@
 #!/bin/sh -eux
 
+cd py2
+ub_install
+cd ../py3
 ub_install
 
 # remove dbus-python-dev conflicting files
