@@ -1,4 +1,4 @@
 #!/usr/bin/env dl
 
 xmldiff-${UB_VERSION}.zip xmldiff-${UB_VERSION}/
-	https://pypi.python.org/packages/source/x/xmldiff/
+	https://pypi.org/packages/source/x/xmldiff/

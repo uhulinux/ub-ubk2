@@ -1,4 +1,4 @@
 #!/usr/bin/env dl
 
 slowaes-${UB_VERSION}.tar.gz slowaes-${UB_VERSION}/
-	http://pypi.python.org/packages/source/s/slowaes/
+	https://pypi.org/packages/source/s/slowaes/

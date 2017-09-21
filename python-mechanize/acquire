@@ -1,4 +1,4 @@
 #!/usr/bin/env dl
 
 mechanize-${UB_VERSION}.tar.gz mechanize-${UB_VERSION}/
-	http://pypi.python.org/packages/source/m/mechanize/
+	https://pypi.org/packages/source/m/mechanize/

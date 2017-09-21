@@ -1,4 +1,4 @@
 #!/usr/bin/env dl
 
 zope.fixers-${UB_VERSION}.zip zope.fixers-${UB_VERSION}/
-	http://pypi.python.org/packages/source/z/zope.fixers/
+	https://pypi.org/packages/source/z/zope.fixers/

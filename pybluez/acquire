@@ -1,4 +1,4 @@
 #!/usr/bin/env dl
 
 PyBluez-${UB_VERSION}.zip PyBluez-${UB_VERSION}/
-	http://pypi.python.org/packages/source/P/PyBluez/
+	https://pypi.org/packages/source/P/PyBluez/

@@ -1,4 +1,4 @@
 #!/usr/bin/env dl
 
 psutil-${UB_VERSION}.tar.gz psutil-${UB_VERSION}/
-	http://pypi.python.org/packages/source/p/psutil/
+	https://pypi.org/packages/source/p/psutil/

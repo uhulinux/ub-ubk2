@@ -1,4 +1,4 @@
 #!/usr/bin/env dl
 
 google-apputils-${UB_VERSION}.tar.gz google-apputils-${UB_VERSION}/
-	https://pypi.python.org/packages/source/g/google-apputils/
+	https://pypi.org/packages/source/g/google-apputils/
