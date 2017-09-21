@@ -1,4 +1,4 @@
 #!/usr/bin/env dl
 
-pylibacl-${UB_VERSION}.tar.gz pylibacl-${UB_VERSION}/
-	http://pylibacl.k1024.org/downloads/
+pylibacl-v${UB_VERSION}.tar.gz pylibacl-pylibacl-v${UB_VERSION}/
+	https://github.com/iustin/pylibacl/archive/
