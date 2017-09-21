@@ -1,22 +1,20 @@
-diff -Naur orig/serviceproviders.xml patched/serviceproviders.xml
---- orig/serviceproviders.xml	2017-03-10 16:21:20.134741323 +0100
-+++ patched/serviceproviders.xml	2017-03-31 02:06:54.793212146 +0200
-@@ -5796,6 +5796,48 @@
- 				<dns>80.244.97.30</dns>
- 				<dns>80.244.96.1</dns>
- 			</apn>
-+			<apn value="mms.vodafone.net">
-+				<usage type="mms"/>
-+				<name>Netfone MMS</name>
-+				<mmsc>http://mms.vodafone.hu/servlets/mms</mmsc>
-+				<mmsproxy>80.244.97.2:8080</mmsproxy>
-+			</apn>
-+		</gsm>
-+	</provider>
-+	<provider>
+From b284ff76d934903aaf346a74b654a91aae9edc25 Mon Sep 17 00:00:00 2001
+From: rezso <rezso@rezso.net>
+Date: Fri, 22 Sep 2017 01:01:30 +0200
+Subject: update Hungarian providers
+
+
+diff --git a/serviceproviders.xml b/serviceproviders.xml
+index d69daf6..24dcfb7 100644
+--- a/serviceproviders.xml
++++ b/serviceproviders.xml
+@@ -6010,6 +6010,43 @@ conceived.
+ 		</gsm>
+ 	</provider>
+ 	<provider>
 +		<name>Netfone</name>
++		<!-- MVNO operating on Vodafone's network -->
 +		<gsm>
-+			<!-- Using Vodafone's network -->
 +			<network-id mcc="216" mnc="70"/>
 +			<apn value="internet.netfone.hu">
 +				<plan type="postpaid"/>
@@ -33,6 +31,7 @@ diff -Naur orig/serviceproviders.xml patched/serviceproviders.xml
 +	</provider>
 +	<provider>
 +		<name>UPC</name>
++		<!-- MVNO operating on Vodafone's network -->
 +		<gsm>
 +			<network-id mcc="216" mnc="71"/>
 +			<apn value="internet.hu.upcmobile.com">
@@ -47,6 +46,9 @@ diff -Naur orig/serviceproviders.xml patched/serviceproviders.xml
 +				<mmsproxy>62.179.127.18:8080</mmsproxy>
 +				<authentication method="pap"/>
 +			</apn>
- 		</gsm>
- 	</provider>
- 	<provider>
++		</gsm>
++	</provider>
++	<provider>
+ 		<name>Invitel</name>
+ 		<!-- MVNO operating on Telenor's network -->
+ 		<gsm>
