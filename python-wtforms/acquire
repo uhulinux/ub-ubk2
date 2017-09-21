@@ -1,4 +1,4 @@
 #!/usr/bin/env dl
 
 WTForms-${UB_VERSION}.zip WTForms-${UB_VERSION}/
-	http://pypi.python.org/packages/source/W/WTForms/
+	https://pypi.org/packages/source/W/WTForms/

@@ -1,4 +1,4 @@
 #!/usr/bin/env dl
 
 stevedore-${UB_VERSION}.tar.gz stevedore-${UB_VERSION}/
-	https://pypi.python.org/packages/source/s/stevedore/
+	https://pypi.org/packages/source/s/stevedore/
