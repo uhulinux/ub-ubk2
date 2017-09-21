@@ -36,7 +36,6 @@ hdf5
 icon-naming-utils
 icoutils
 jansson
-libyajl
 libytnef
 lsdvd
 luasocket

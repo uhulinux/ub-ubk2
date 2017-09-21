@@ -30,3 +30,4 @@ libzip
 libcfitsio
 libnova
 spglib
+libyajl

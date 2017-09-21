@@ -47,7 +47,6 @@ pyxdg
 pyzmq
 wxpython
 ipython #5.5.0_az_utolsó_frissíthető_verzió!
-libvirt-python
 psycopg2
 pybluez
 pychess
