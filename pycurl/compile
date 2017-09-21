@@ -2,6 +2,8 @@
 
 cp -a pycurl pycurl3
 cd pycurl
-python setup.py --with-ssl build
+ub_compile
+python setup.py  build --with-ssl
 cd ../pycurl3
-python3 setup.py --with-ssl build
+ub_compile
+python3 setup.py  build --with-ssl
