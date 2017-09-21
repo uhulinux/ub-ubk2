@@ -132,7 +132,6 @@ hunspell-hu
 icon-theme-tango
 jpilot
 js17
-reportlab
 rpcbind
 squeak
 apache-ant

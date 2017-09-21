@@ -56,7 +56,7 @@ pycups
 pycurl #failed
 pyexcelerator
 pyflakes
-pyhyphen #download_fail
+pyhyphen
 pyicu
 pylibacl
 pylint  #python-pytest-runner
@@ -97,6 +97,7 @@ python-flask-babel
 python-flask-babelex
 python-flask-sqlalchemy
 python-formalchemy
+reportlab
 python-geraldo
 python-gflags
 python-google-apputils
