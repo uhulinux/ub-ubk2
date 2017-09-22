@@ -1,6 +1,5 @@
 #!/bin/sh -eux
 
+sh ./autogen.sh
 autoreconf -vif
-ub_compile \
-	--enable-gss
-
+ub_compile
