@@ -7,7 +7,6 @@ libwps
 libnetfilter-conntrack
 libode
 libofx
-libpri
 libpwquality
 libstroke
 libt3highlight
