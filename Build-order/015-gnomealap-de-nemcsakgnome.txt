@@ -4,7 +4,6 @@ gtk2-engines
 gmime
 yelp-xsl
 gtkmm
-gupnp-igd
 dconf
 zenity
 appstream-glib

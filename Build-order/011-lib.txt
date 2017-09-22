@@ -20,12 +20,14 @@ libunicap
 libunique1
 libuser
 libviper
+gupnp-igd
 libnice
 libwpd
 libpano13
 libsynce
 libtorrent-rasterbar
 libopkele
+luasocket
 libquvi
 libvisio
 libwnck
