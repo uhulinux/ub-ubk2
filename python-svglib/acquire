@@ -1,4 +1,4 @@
 #!/usr/bin/env dl
 
 svglib-${UB_VERSION}.tar.gz svglib-${UB_VERSION}/
-	http://www.dinu-gherman.net/tmp/
+	https://pypi.org/packages/source/s/svglib/
