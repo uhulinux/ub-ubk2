@@ -12,7 +12,7 @@ uhu-pixmaps
 hdparm
 chrony
 dhcpcd #chrony
-linux-firmware #dahdi-linux
 dahdi-linux #linux-firmware
+linux-firmware #dahdi-linux
 dahdi-tools #dahdi-linux
 libpri
