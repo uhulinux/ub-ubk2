@@ -1,3 +1,4 @@
+python-setuptools-scm
 python-dbus
 python3-dip
 python3-doc
@@ -79,7 +80,7 @@ python-beaker
 python-cffi
 python-chardet
 python-cheetah
-python-cherrypy  #setuptools_scm
+python-cherrypy
 python-configobj
 python-enum
 python-cryptography
