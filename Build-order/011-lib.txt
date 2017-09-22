@@ -40,7 +40,6 @@ libva-intel-driver
 libva-vdpau-driver
 libvirt-glib
 libcacard
-dclib
 extra-cmake-modules
 qtwebkit
 qtwebengine
