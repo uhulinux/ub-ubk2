@@ -1,4 +1,18 @@
 python-setuptools-scm
+python-setuptools-git
+python-path.py
+python-funcsigs
+python-apipkg
+python-pluggy
+python-six
+python-pip
+python-pbr
+python-mock
+python-execnet
+python-pytest
+python-virtualenv
+python-pytest-plugins
+python-pytest-runner
 python-dbus
 python3-dip
 python3-doc
@@ -17,7 +31,6 @@ python-nose
 python-paramiko
 python-setproctitle
 python-simplejson
-python-six
 python-slowaes
 python-snowballstemmer
 python-speaklater
@@ -27,12 +40,11 @@ python-sqlalchemy
 python-squaremap
 python-svglib
 python-tempita
-python-textile #ython-pytest-runner
+python-textile
 python-tlslite
 python-tornado
 python-toscawidgets
 python-twill
-python-virtualenv
 python-webob
 python-werkzeug
 python-wheel
@@ -59,7 +71,7 @@ pyflakes
 pyhyphen
 pyicu
 pylibacl
-pylint  #python-pytest-runner
+pylint
 pylirc
 pyogg
 pyopenssl
@@ -120,7 +132,6 @@ python-pastedeploy
 python-pbkdf2
 python-pexpect
 python-pillow
-python-pip
 python-polib
 python-postmarkup
 python-psutil
@@ -143,7 +154,6 @@ pycodestyle
 python-apt
 python-matplotlib
 python-notify
-python-pbr
 python-sqlalchemy-migrate
 python-stevedore
 xmldiff
