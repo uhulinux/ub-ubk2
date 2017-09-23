@@ -1,4 +1,4 @@
 #!/usr/bin/env dl
 
-Net-DNS-Resolver-Programmable-v${UB_VERSION}.tar.gz Net-DNS-Resolver-Programmable-v${UB_VERSION}/
-	http://search.cpan.org/CPAN/authors/id/J/JM/JMEHNLE/net-dns-resolver-programmable/
+Net-DNS-Resolver-Programmable-${UB_VERSION}.tar.gz Net-DNS-Resolver-Programmable-${UB_VERSION}/
+	https://cpan.metacpan.org/authors/id/B/BI/BIGPRESH/

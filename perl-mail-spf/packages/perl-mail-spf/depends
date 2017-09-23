@@ -1,6 +1,6 @@
 perl-error >=
+perl-netaddr-ip >=
 perl-net-dns >=
 perl-net-dns-resolver-programmable >=
-perl-netaddr-ip >=
 perl-uri >=
 perl-version >=

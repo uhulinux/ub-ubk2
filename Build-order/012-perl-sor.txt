@@ -131,6 +131,7 @@ perl-text-glob
 perl-xml-twig
 perl-xml-xpath
 perl-convert-uulib
+perl-crypt-openssl-bignum
 perl-crypt-openssl-rsa
 perl-data-optlist
 perl-event-execflow
@@ -179,8 +180,8 @@ perl-mail-spf
 perl-text-soundex
 perl-ldap
 perl-moox-types-mooselike
-perl-crypt-ssleay
 perl-lwp-protocol-https
+perl-crypt-ssleay
 perl-anydata
 perl-email-abstract
 perl-email-mime

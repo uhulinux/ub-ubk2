@@ -4,6 +4,7 @@ perl-io-socket-inet6
 perl-io-socket-ssl
 perl-json
 perl-libwww
+perl-module-install
 perl-net-ssleay
 perl-text-soundex
 perl-uri

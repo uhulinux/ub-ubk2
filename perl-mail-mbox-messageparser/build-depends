@@ -1,2 +1,3 @@
-perl-file-slurp
 perl-filehandle-unget
+perl-file-slurp
+perl-module-install

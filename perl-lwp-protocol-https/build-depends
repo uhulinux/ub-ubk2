@@ -1,4 +1,4 @@
-perl-crypt-ssleay
+ca-certificates
 perl-io-socket-ssl
 perl-libwww
 perl-mozilla-ca

@@ -2,4 +2,3 @@
 
 IO-Socket-INET6-${UB_VERSION}.tar.gz IO-Socket-INET6-${UB_VERSION}/
 	http://search.cpan.org/CPAN/authors/id/S/SH/SHLOMIF/
-
