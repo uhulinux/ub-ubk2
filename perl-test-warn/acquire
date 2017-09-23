@@ -1,4 +1,4 @@
 #!/usr/bin/env dl
 
 Test-Warn-${UB_VERSION}.tar.gz Test-Warn-${UB_VERSION}/
-	http://search.cpan.org/CPAN/authors/id/C/CH/CHORNY/
+	https://cpan.metacpan.org/authors/id/B/BI/BIGJ/

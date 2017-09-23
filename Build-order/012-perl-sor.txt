@@ -86,8 +86,9 @@ perl-sub-uplevel
 perl-test-exception
 perl-tree-dagnode
 perl-test-warn
+perl-exception-class
 perl-test-most
-perl-sdl
+perl-sdl #sdl-image,sdl-mixer,sdl-net,sdl-ttf
 perl-sgmls
 perl-socket6
 perl-sort-naturally
@@ -134,7 +135,6 @@ perl-convert-uulib
 perl-crypt-openssl-rsa
 perl-data-optlist
 perl-event-execflow
-perl-exception-class
 perl-file-find-rule
 perl-io-socket-inet6
 perl-io-socket-ssl
