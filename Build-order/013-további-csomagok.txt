@@ -11,7 +11,6 @@ emacs
 gnuplot
 libqalculate
 libcryptui
-mutagen
 libgpod
 libsocialweb
 cairomm
@@ -23,10 +22,10 @@ appstream
 beecrypt
 physfs
 smpeg
-pygame
 sdl-image
 sdl-mixer
 sdl-net
 sdl-sound
 sdl-ttf
+pygame
 perl-sdl

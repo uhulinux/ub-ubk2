@@ -1,10 +1,12 @@
-cmake
 gobject-introspection-dev
+gtk-doc
 intltool
 itstool
 libstemmer-dev
 libxml2-dev
 libyaml-dev
+meson
 protobuf-dev
+vala
 xapian-dev
 xmlto

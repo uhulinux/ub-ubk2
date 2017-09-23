@@ -158,3 +158,4 @@ python-sqlalchemy-migrate
 python-stevedore
 xmldiff
 pdfminer
+mutagen
