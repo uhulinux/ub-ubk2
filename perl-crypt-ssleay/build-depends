@@ -1,4 +1,4 @@
 openssl-dev
-perl-libwww
+perl-lwp-protocol-https
 perl-path-class
 perl-try-tiny

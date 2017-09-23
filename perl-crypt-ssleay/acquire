@@ -1,4 +1,4 @@
 #!/usr/bin/env dl
 
-Crypt-SSLeay-${UB_VERSION}.tar.gz Crypt-SSLeay-${UB_VERSION}/
-	ftp://ftp.cpan.org/pub/CPAN/modules/by-module/Crypt/
+Crypt-SSLeay-${UB_VERSION/~/_}.tar.gz Crypt-SSLeay-${UB_VERSION/~/_}/
+	http://www.cpan.org/CPAN/authors/id/N/NA/NANIS/
