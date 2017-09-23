@@ -31,6 +31,8 @@ libquvi
 libvisio
 libwnck
 libwnck2
+osinfo-db-tools
+osindo-db
 libosinfo
 libt3widget
 libvirt
