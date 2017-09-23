@@ -32,7 +32,7 @@ libvisio
 libwnck
 libwnck2
 osinfo-db-tools
-osindo-db
+osinfo-db
 libosinfo
 libt3widget
 libvirt
