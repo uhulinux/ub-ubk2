@@ -36,6 +36,13 @@ perl-extutils-depends
 perl-extutils-helpers
 perl-extutils-pkgconfig
 perl-fcgi
+perl-par-dist
+perl-test-requires
+perl-module-scandeps
+perl-json
+perl-yaml-tiny
+perl-file-remove
+perl-module-install
 perl-filehandle-unget
 perl-file-slurp
 perl-filesys-statvfs
@@ -48,7 +55,6 @@ perl-io-stringy
 perl-ip-country
 perl-ipc-run
 perl-ipc-sharelite
-perl-json
 perl-libintl
 perl-list-moreutils
 perl-log-log4perl
