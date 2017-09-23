@@ -20,6 +20,7 @@ libnfs
 libpaper
 libquvi-scripts
 libsigc++
+libsigc++3
 libsmi
 libt3config
 libtinyxml
