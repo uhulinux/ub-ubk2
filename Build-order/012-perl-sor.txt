@@ -88,7 +88,6 @@ perl-tree-dagnode
 perl-test-warn
 perl-exception-class
 perl-test-most
-perl-sdl #sdl-image,sdl-mixer,sdl-net,sdl-ttf
 perl-sgmls
 perl-socket6
 perl-sort-naturally

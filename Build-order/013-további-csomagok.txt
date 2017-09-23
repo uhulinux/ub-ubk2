@@ -29,3 +29,4 @@ sdl-mixer
 sdl-net
 sdl-sound
 sdl-ttf
+perl-sdl
