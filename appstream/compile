@@ -1,8 +1,4 @@
 #!/bin/sh -eux
 
 ub_compile \
-	-DQT=OFF \
-	-DAPT_SUPPORT=ON \
-	-DDOCUMENTATION=OFF \
-	-DINSTALL_PREBUILT_DOCS=OFF \
-	-DCMAKE_INSTALL_LIBDIR=lib
+    -Denable-vapi=true
