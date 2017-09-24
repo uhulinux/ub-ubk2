@@ -8,6 +8,10 @@ dconf
 zenity
 appstream-glib
 polkit-gnome
+sound-theme-freedesktop
+libgnome2
+libbonoboui2
+libgnomeui2
 glade2
 glade
 clutter-gst2
@@ -22,4 +26,5 @@ mdbtools
 vte
 yelp
 libpeas
+telepathy-mission-control
 gvfs

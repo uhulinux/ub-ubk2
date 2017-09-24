@@ -75,9 +75,6 @@ rsync
 sddm
 sip
 sofia-sip
-sound-theme-freedesktop
-libgnome2
-libbonoboui2
 syslinux
 python-twisted
 twisted-web2
@@ -147,7 +144,6 @@ gspell
 mesa-demos
 obexftp
 podofo
-telepathy-mission-control
 tigervnc
 vim
 xscreensaver

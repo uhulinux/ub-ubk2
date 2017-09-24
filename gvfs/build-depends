@@ -16,7 +16,9 @@ libimobiledevice-dev
 libmtp-dev
 libsecret-dev
 libsoup-dev
+libunistring-dev
 libxslt-dev
+polkit-dev
 samba-dev
 sqlite-dev
 systemd-dev

@@ -1,8 +1,4 @@
-libgnome2
-libbonoboui2
-libgnomeui2
 telepathy-rakia
-telepathy-mission-control
 telepathy-logger
 telepathy-gabble
 telepathy-salut
