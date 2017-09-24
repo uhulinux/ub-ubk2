@@ -56,7 +56,6 @@ avfs
 bogofilter
 catdoc
 cdrkit
-cssutils
 ctpl
 exempi
 fonttools

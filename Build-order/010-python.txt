@@ -158,3 +158,4 @@ python-stevedore
 xmldiff
 pdfminer
 mutagen
+cssutils
