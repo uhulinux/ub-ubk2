@@ -1,4 +1,5 @@
-guile2.0-dev
+gc-dev
+gmp-dev
 libatomic-ops-dev
+libffi-dev
 libunistring-dev
-libxml2-dev

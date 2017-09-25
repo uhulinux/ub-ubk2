@@ -12,6 +12,7 @@ mercurial
 btrfs-progs
 aoetools
 guile1.8
+guile2.0
 openjpeg
 icon-theme-hicolor
 shared-mime-info
