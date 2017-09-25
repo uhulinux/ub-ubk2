@@ -1,5 +1,7 @@
+bash-completion
 gobject-introspection-dev
 gst-plugins-base-dev
+gtk-doc
 intltool
 itstool
 libxml2-dev

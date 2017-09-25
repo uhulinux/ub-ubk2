@@ -2,5 +2,6 @@ gobject-introspection-dev
 gst-plugins-base-dev
 gupnp-igd-dev
 libnice-dev
+libunistring-dev
 python-dev
 sqlite-dev
