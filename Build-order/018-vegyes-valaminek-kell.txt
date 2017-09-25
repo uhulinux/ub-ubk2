@@ -95,7 +95,7 @@ vbetool
 xdg-user-dirs
 xmlrpc-c
 autogen
-encfs
+encfs #fuse2_kellene
 gdl
 ghex
 gstreamermm
@@ -115,8 +115,8 @@ alsa-utils
 colord-gtk
 glfw2
 goffice08
-openmpi
 openssh
+openmpi
 gtkspell
 fonts-ghostscript-std
 texlive
