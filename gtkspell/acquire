@@ -1,4 +1,4 @@
 #!/usr/bin/env dl
 
-gtkspell3-${UB_VERSION}.tar.gz gtkspell3-${UB_VERSION}/
+gtkspell3-${UB_VERSION}.tar.xz gtkspell3-${UB_VERSION}/
 	http://downloads.sourceforge.net/gtkspell/
