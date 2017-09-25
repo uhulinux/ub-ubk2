@@ -77,6 +77,9 @@ perl-www-robotrules
 perl-libwww
 perl-module-build
 perl-error
+perl-term-readkey
+perl-text-wrapi18n
+perl-unicode-linebreak
 help2man
 flex
 gdbm
