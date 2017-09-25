@@ -2,7 +2,6 @@ c2050
 c2070
 cjet
 epsonepl
-fbgetty
 fonts-symbola
 freepats
 soundfont-fluid
@@ -96,7 +95,6 @@ vbetool
 xdg-user-dirs
 xmlrpc-c
 autogen
-cryptsetup
 encfs
 gdl
 ghex
@@ -125,7 +123,6 @@ texlive
 hunspell-hu
 icon-theme-tango
 jpilot
-js17
 rpcbind
 squeak
 apache-ant

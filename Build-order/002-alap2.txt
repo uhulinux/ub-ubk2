@@ -64,6 +64,7 @@ util-linux
 systemd
 util-linux
 systemd
+js17
 polkit
 e2fsprogs
 reiser4progs
