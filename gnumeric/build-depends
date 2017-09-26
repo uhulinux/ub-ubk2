@@ -1,7 +1,10 @@
+docbook-dtds
+docbook-xsl
 gobject-introspection-dev
 goffice-dev
 gtk-dev
 intltool
+itstool
 librsvg-dev
 libxslt-dev
 pygobject-dev
