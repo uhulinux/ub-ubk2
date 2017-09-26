@@ -1,5 +1,4 @@
 #!/usr/bin/env dl
 
 mftrace_${UB_VERSION}.orig.tar.gz mftrace-${UB_VERSION}/
-	http://http.debian.net/debian/pool/main/m/mftrace/mftrace_1.2.18.orig.tar.gz
-#	http://lilypond.org/download/sources/mftrace/
+	http://http.debian.net/debian/pool/main/m/mftrace/
