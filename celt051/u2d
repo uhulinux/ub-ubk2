@@ -1,1 +1,1 @@
-u2d http://downloads.us.xiph.org/releases/celt/ celt-
+urllist http://downloads.us.xiph.org/releases/celt/ | grep '0.5.1' | splitver '^celt-([0-9.]+).tar.gz$' | sort -V | tail -n 1
