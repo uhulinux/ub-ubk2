@@ -9,7 +9,7 @@
 	/usr/lib/postgresql/bin
 	/usr/lib/postgresql/dumpall
 	/usr/lib/systemd/system
-	/usr/share/doc/postgresql
+	/usr/share/doc
 	/usr/share/man/man1
 	/usr/share/man/man7
 	/usr/share/postgresql/conversion_create.sql
