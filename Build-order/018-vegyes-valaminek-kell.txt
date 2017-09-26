@@ -161,6 +161,8 @@ sane-backends
 x11vnc
 xterm
 conky
+cldr-emoji-annotation
+emoji
 ibus
 fox1.6
 lesstif
