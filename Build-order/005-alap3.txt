@@ -45,11 +45,11 @@ glu
 freeglut
 eigen3
 opus
-libsamplerate# libsndfile nélkül
-libsndfile# jack nélkül
-libsamplerate# libsndfile-al
+libsamplerate # libsndfile nélkül
+libsndfile # jack nélkül
+libsamplerate # libsndfile-al
 jack
-libsndfile# jack-kel
+libsndfile # jack-kel
 libasyncns
 gstreamer
 libvisual
