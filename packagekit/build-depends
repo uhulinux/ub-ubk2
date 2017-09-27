@@ -4,8 +4,8 @@ docbook-dtds
 docbook-xsl
 gobject-introspection-dev
 gstreamermm-dev
-gtk-dev
 gtk2-dev
+gtk-dev
 intltool
 libarchive-dev
 libxt-dev

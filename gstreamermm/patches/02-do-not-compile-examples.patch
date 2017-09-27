@@ -1,0 +1,24 @@
+Author: Philip Rinn <rinni@inventati.org>
+Description: Don't compile examples
+Last-update: 2016-10-10
+--- a/configure.ac
++++ b/configure.ac
+@@ -217,7 +217,6 @@
+                  gst-plugins-bad/${GSTREAMERMM_PLUGINS_BAD_MODULE_NAME}-uninstalled.pc:gst-plugins-bad/gstreamermm-plugins-bad-uninstalled.pc.in
+                  gst-plugins-bad/src/Makefile
+                  gst-plugins-bad/gstreamermm-plugins-bad/Makefile
+-                 examples/Makefile
+                  docs/Makefile
+                  docs/reference/Doxyfile])
+ AC_OUTPUT
+--- a/Makefile.am
++++ b/Makefile.am
+@@ -41,7 +41,7 @@
+ endif #ENABLE_PLUGINS_BAD
+ 
+ SUBDIRS = tools $(src_subdirs) $(srcmm_subdirs) \
+-          examples $(doc_subdirs)
++          $(doc_subdirs)
+ 
+ gstreamermm_includedir = $(includedir)/$(GSTREAMERMM_MODULE_NAME)
+ gstreamermm_libincludedir = $(libdir)/$(GSTREAMERMM_MODULE_NAME)/include
