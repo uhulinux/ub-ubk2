@@ -95,7 +95,8 @@ vbetool
 xdg-user-dirs
 xmlrpc-c
 autogen
-encfs #fuse2_kellene
+fuse2
+encfs
 gdl
 ghex
 gstreamermm
