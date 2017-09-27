@@ -31,7 +31,7 @@ geoip
 gnome-common
 gnuchess
 hddtemp
-hunspell
+hunspell #hunspell-hu runtime-depends nélkül
 hwdata
 iasl
 ispell

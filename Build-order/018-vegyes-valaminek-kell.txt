@@ -122,6 +122,8 @@ gtkspell
 fonts-ghostscript-std
 texlive
 hunspell-hu
+hunspell #hunspell-hu runtime-depends vissza
+hunspell-hu #mégegyszer
 icon-theme-tango
 jpilot
 rpcbind
