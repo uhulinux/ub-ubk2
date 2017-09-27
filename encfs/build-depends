@@ -1,4 +1,4 @@
 boost-dev
 cmake
-fuse-dev
+fuse2-dev
 openssl-dev
