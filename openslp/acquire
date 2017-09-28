@@ -2,3 +2,4 @@
 
 openslp-${UB_VERSION}.tar.gz openslp-${UB_VERSION}/
 	http://download.sourceforge.net/openslp/
+    https://fossies.org/linux/privat/
