@@ -147,8 +147,8 @@ rrdtool
 lmsensors
 libva
 mesa
-libva
 glu
+libva
 mesa
 x.org-server
 mesa
