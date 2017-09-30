@@ -4,5 +4,3 @@ icu-dev
 intltool
 libxml2-dev
 mpfr-dev
-perl-xml-parser
-wget
