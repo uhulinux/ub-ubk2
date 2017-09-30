@@ -1,5 +1,4 @@
 #!/usr/bin/env dl
 
-libqalculate_${UB_VERSION}.orig.tar.gz libqalculate-${UB_VERSION}/
-	http://mirror.nus.edu.sg/Debian/pool/main/libq/libqalculate/
-#	http://downloads.sourceforge.net/qalculate/
+libqalculate-${UB_VERSION}.tar.gz libqalculate-${UB_VERSION}/
+	https://github.com/Qalculate/libqalculate/releases/download/v${UB_VERSION}/
