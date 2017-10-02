@@ -178,7 +178,6 @@ spamassassin
 gdal
 packagekit
 spice-gtk
-thunderbird
 nagios-plugins
 pstoedit
 dmapi

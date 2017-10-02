@@ -66,6 +66,7 @@ claws-contacts
 claws-mail-themes
 firefox
 seamonkey
+thunderbird
 chromium
 balsa
 skype
