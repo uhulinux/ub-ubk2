@@ -7,7 +7,7 @@ libxkbfile-dev
 libxrandr-dev
 libxrender-dev
 libxv-dev
-openssl-dev
+openssl-1.0-dev
 pcsc-lite-dev
 pulseaudio-dev
 xmlto
