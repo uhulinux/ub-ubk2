@@ -2,5 +2,4 @@
 
 ub_compile \
 	--enable-libflac \
-	--enable-libvorbis \
-	--with-thunderbird-plugin-dir=/usr/lib/thunderbird/extensions
+	--enable-libvorbis
