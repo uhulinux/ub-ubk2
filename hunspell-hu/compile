@@ -22,5 +22,5 @@ for i in ChangeLog GYIK OLVASSEL README tipikus/*; do
 	fi
 done
 
-make myspell
+make
 make -C doc
