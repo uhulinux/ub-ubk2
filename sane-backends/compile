@@ -2,10 +2,8 @@
 
 export UB_MAKE_PROCS=1
 ub_compile \
-	--with-docdir=/usr/share/doc/Packages/sane-backends \
 	--with-gphoto2 \
 	--enable-avahi \
 	--enable-locking=no \
 	--enable-pthread \
-	--with-snmp \
-	--enable-libusb_1_0
+	--with-snmp
