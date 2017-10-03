@@ -1,5 +1,6 @@
 dbus-glib-dev
 gconf2-dev
+gcr-dev
 gnome-bluetooth-dev
 gobject-introspection-dev
 gtk-dev
