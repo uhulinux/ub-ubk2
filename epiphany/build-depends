@@ -13,6 +13,7 @@ gtk-dev
 intltool
 iso-codes
 itstool
+json-glib-dev
 libgnome-keyring-dev
 libnotify-dev
 libsecret-dev
@@ -20,6 +21,7 @@ libsm-dev
 libsoup-gnome-dev
 libwnck-dev
 libxml2-dev
+meson
 nss-dev
 sqlite-dev
 systemd-dev

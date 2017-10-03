@@ -15,6 +15,7 @@ libexif-dev
 libjpeg-turbo-dev
 libpeas-dev
 librsvg-dev
+libseccomp-dev
 libsm-dev
 libxml2-dev
 openssl-dev
