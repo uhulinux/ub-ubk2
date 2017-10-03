@@ -23,4 +23,5 @@ rest-dev
 sqlite-dev
 systemd-dev
 telepathy-glib-dev
+vala-dev
 webkit2gtk-dev
