@@ -1,4 +1,5 @@
 uhttpmock
+libseccomp
 telepathy-rakia
 telepathy-logger
 telepathy-gabble
