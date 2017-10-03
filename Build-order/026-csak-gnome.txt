@@ -1,3 +1,4 @@
+uhttpmock
 telepathy-rakia
 telepathy-logger
 telepathy-gabble
