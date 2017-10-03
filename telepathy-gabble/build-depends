@@ -4,6 +4,7 @@ gupnp-igd-dev
 libnice-dev
 libsm-dev
 libsoup-dev
+libunistring-dev
 libxslt
 openssl-dev
 python-dev
