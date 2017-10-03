@@ -6,3 +6,4 @@ intltool
 iso-codes
 libsm-dev
 libsoup-dev
+libxtst-dev

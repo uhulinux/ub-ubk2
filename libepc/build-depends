@@ -4,5 +4,6 @@ gdbm-dev
 gnutls-dev
 intltool
 libsoup-dev
+libunistring-dev
 p11-kit-dev
 util-linux-dev

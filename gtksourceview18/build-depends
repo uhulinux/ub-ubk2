@@ -1,6 +1,6 @@
 dbus-glib-dev
-gtk-doc
 gtk2-dev
+gtk-doc
 libgnomeprintui2-dev
 libxml2-dev
 perl-xml-parser

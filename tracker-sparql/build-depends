@@ -1,10 +1,15 @@
+dbus-dev
 gobject-introspection-dev
 icu-dev
 intltool
+json-glib-dev
 libpng-dev
+libsoup-dev
 libxml2-dev
 libxslt-dev
+networkmanager-dev
 sqlite-dev
 systemd-dev
 taglib-dev
 util-linux-dev
+vala-dev

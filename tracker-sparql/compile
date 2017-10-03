@@ -1,4 +1,4 @@
 #!/bin/sh -eux
 
-ub_compile \
-	--enable-minimal
+ub_configure
+ub_make

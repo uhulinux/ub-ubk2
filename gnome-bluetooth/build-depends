@@ -6,4 +6,5 @@ intltool
 itstool
 libcanberra-dev
 libnotify-dev
+meson
 systemd-dev
