@@ -17,6 +17,7 @@ libgudev-dev
 libgweather-dev
 libnotify-dev
 librsvg-dev
+libseccomp-dev
 libwacom-dev
 libxslt-dev
 libxtst-dev

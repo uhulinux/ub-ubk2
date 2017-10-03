@@ -9,6 +9,7 @@ hwdata
 intltool
 iso-codes
 itstool
+libseccomp-dev
 libsm-dev
 libxkbfile-dev
 python-dev

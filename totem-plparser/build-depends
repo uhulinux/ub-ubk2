@@ -1,16 +1,9 @@
-curl-dev
-cyrus-sasl2-dev
-dbus-dev
 gmime-dev
 gobject-introspection-dev
 intltool
 libarchive-dev
-libgnome-keyring-dev
-libproxy-dev
 libquvi-dev
 libsoup-dev
 libsoup-gnome-dev
 libxml2-dev
-lua52-dev
-openssl-dev
-sqlite-dev
+meson
