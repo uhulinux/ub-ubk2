@@ -2,4 +2,5 @@
 
 ub_compile \
 	--disable-gconf \
-	--enable-systemd
+	--enable-systemd \
+	--disable-docbook-docs

@@ -8,8 +8,11 @@ gtk-dev
 intltool
 libcanberra-dev
 libgudev-dev
+libinput-dev
+libseccomp-dev
 libsm-dev
 libxkbfile-dev
+libxtst-dev
 pango-dev
 startup-notification-dev
 upower-dev
