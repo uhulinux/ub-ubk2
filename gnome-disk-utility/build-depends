@@ -4,11 +4,11 @@ gnome-settings-daemon-dev
 gtk-dev
 intltool
 libcanberra-dev
-libcap-dev
 libdvdread-dev
 libnotify-dev
 libpwquality-dev
 libsecret-dev
 libxslt
+meson
 systemd-dev
 udisks2-dev
