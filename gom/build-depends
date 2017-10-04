@@ -2,4 +2,6 @@ gdk-pixbuf-dev
 gobject-introspection-dev
 intltool
 itstool
+meson
+py3gobject
 sqlite-dev
