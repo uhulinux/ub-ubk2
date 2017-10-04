@@ -120,6 +120,5 @@ gnome-documents
 gnome-boxes
 gnome-python-extras
 gnome-dictionary
-gnome-apps
-gnome-core
+
 
