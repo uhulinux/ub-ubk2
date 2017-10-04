@@ -1,5 +1,6 @@
 uhttpmock
 libseccomp
+libgepub
 gnome-autoar
 telepathy-rakia
 telepathy-logger
