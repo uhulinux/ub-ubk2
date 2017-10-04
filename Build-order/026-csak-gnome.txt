@@ -106,7 +106,6 @@ gnome-color-manager
 gnome-software
 evince
 brasero
-gnome-applets
 bijiben
 gnome-music
 seahorse-nautilus
