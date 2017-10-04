@@ -3,9 +3,10 @@ gnutls-dev
 intltool
 libasyncns-dev
 libsoup-dev
+libtool
+libunistring-dev
 libxml2-dev
 libxslt
-openssl-dev
 p11-kit-dev
 python-dev
 sqlite-dev
