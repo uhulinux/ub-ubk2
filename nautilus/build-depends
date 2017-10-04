@@ -9,4 +9,4 @@ libsm-dev
 libxml2-dev
 meson
 sqlite-dev
-tracker-sparql-dev
+tracker-dev

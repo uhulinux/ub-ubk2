@@ -61,7 +61,7 @@ libgnomeprint2
 libgnomeprintui2
 gtksourceview18
 gnome-system-monitor
-tracker-sparql
+tracker
 cairo-dock
 gksu
 gnome-packagekit
@@ -106,7 +106,6 @@ gnome-software
 evince
 brasero
 gnome-applets
-tracker
 bijiben
 gnome-music
 seahorse-nautilus

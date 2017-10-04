@@ -8,6 +8,6 @@ krb5-dev
 libgee-dev
 libsocialweb-dev
 telepathy-glib-dev
-tracker-sparql-dev
+tracker-dev
 util-linux-dev
 vala-dev
