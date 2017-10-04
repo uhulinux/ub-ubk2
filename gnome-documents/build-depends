@@ -7,9 +7,11 @@ gobject-introspection-dev
 intltool
 itstool
 libgdata-dev
+libgepub-dev
 libgudev-dev
 libmediaart-dev
 librsvg-dev
+libseccomp-dev
 libsoup-gnome-dev
 libxshmfence-dev
 libzapojit-dev
