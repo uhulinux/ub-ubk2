@@ -4,6 +4,7 @@ db4-dev
 evolution-data-server-dev
 geoclue-dev
 geocode-glib-dev
+gnome-autoar-dev
 gnome-common
 gnome-desktop-dev
 gnome-doc-utils
@@ -20,12 +21,12 @@ libcanberra-dev
 libcryptui-dev
 libgcrypt-dev
 libgdata-dev
-libgnome-keyring-dev
 libgweather-dev
 libnotify-dev
 liboauth-dev
 libpst-dev
 libxshmfence-dev
+libytnef-dev
 mx-dev
 networkmanager-dev
 nss-dev

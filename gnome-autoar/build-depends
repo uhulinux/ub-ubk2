@@ -1,0 +1,6 @@
+gobject-introspection-dev
+gtk-dev
+gtk-doc
+intltool
+libarchive-dev
+vala-dev

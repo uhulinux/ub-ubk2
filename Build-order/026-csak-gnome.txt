@@ -1,5 +1,6 @@
 uhttpmock
 libseccomp
+gnome-autoar
 telepathy-rakia
 telepathy-logger
 telepathy-gabble
