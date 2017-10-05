@@ -4,13 +4,14 @@ desktop-file-utils
 docbook-dtds
 docbook-xsl
 gconf2-dev
-gnome-shell-dev
+gnome-shell
 gnutls-dev
 gsettings-desktop-schemas
 gtk-dev
 intltool
 itstool
 libsm-dev
+libunistring-dev
 nautilus-dev
 nettle-dev
 python-dev

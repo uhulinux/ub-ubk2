@@ -27,6 +27,7 @@ librsvg-dev
 libsoxr-dev
 libssh2-dev
 libsysfs-dev
+libunistring-dev
 libupnp-dev
 libv4l-dev
 libvdpau-dev
