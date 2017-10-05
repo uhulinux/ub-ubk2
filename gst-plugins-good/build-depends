@@ -28,6 +28,7 @@ libvorbis-dev
 libvpx-dev
 libxml2-dev
 libxv-dev
+meson
 orc-dev
 popt-dev
 pulseaudio-dev
