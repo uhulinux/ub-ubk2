@@ -2,4 +2,5 @@
 
 ./autogen.sh
 ub_compile \
+	--disable-vala \
 	--disable-always-build-tests
