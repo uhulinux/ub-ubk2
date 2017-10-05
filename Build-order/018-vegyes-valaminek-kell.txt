@@ -98,7 +98,6 @@ autogen
 fuse2
 encfs
 gdl
-ghex
 gstreamermm
 gtksourceviewmm
 mash

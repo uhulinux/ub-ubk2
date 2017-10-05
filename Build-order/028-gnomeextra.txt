@@ -1,3 +1,4 @@
+ghex
 cdrdao
 gnome-devel-docs
 eiciel
