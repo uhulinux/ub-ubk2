@@ -5,10 +5,14 @@ dbus-glib-dev
 docbook-dtds
 docbook-xsl
 gnome-desktop-dev
+gobject-introspection-dev
 grilo-dev
 gsettings-desktop-schemas
 gst-plugins-bad-dev
-gst-plugins-good-dev
+gst-plugins-good
+gst-plugins-ugly
+gstreamer-dev
+gtk-dev
 icon-theme-gnome
 intltool
 itstool
@@ -19,8 +23,9 @@ libpeas-dev
 libsm-dev
 libsoup-gnome-dev
 lirc-dev
+meson
 nautilus-dev
-pygobject-dev
+py3gobject
 pylint
 totem-plparser-dev
 vala-dev
