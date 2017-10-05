@@ -17,6 +17,7 @@ json-glib-dev
 krb5-dev
 libgweather-dev
 librsvg-dev
+libseccomp-dev
 libsm-dev
 libwnck-dev
 networkmanager-dev

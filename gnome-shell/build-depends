@@ -19,6 +19,7 @@ libcanberra-dev
 libcroco-dev
 libgudev-dev
 libxkbfile-dev
+meson
 mutter-dev
 networkmanager-dev
 nm-applet-dev

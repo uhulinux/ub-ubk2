@@ -24,6 +24,7 @@ libgudev-dev
 libjpeg-turbo-dev
 libnotify-dev
 librsvg-dev
+libseccomp-dev
 libsecret-dev
 libsm-dev
 libxshmfence-dev

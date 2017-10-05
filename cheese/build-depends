@@ -14,6 +14,7 @@ itstool
 libcanberra-dev
 libgudev-dev
 librsvg-dev
+libseccomp-dev
 libxtst-dev
 mx-dev
 startup-notification-dev

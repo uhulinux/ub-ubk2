@@ -1,5 +1,7 @@
 cheese-dev
 db4-dev
+docbook-dtds
+docbook-xsl
 evolution-data-server-dev
 folks-dev
 geocode-glib-dev
@@ -14,5 +16,6 @@ libchamplain-dev
 libgudev-dev
 libnotify-dev
 librsvg-dev
+meson
 systemd-dev
 vala-dev
