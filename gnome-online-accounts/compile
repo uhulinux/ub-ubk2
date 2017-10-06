@@ -10,4 +10,5 @@ ub_compile \
 	--enable-media-server \
 	--enable-lastfm \
 	--enable-foursquare \
-	--enable-telepathy
+	--enable-telepathy \
+	--enable-vala
