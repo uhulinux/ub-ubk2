@@ -6,7 +6,7 @@ gperf
 gst-libav-dev
 gst-plugins-bad-dev
 gst-plugins-base-dev
-gst-plugins-good-dev
+gst-plugins-good
 gtk2-dev
 gtk-dev
 gtk-doc
