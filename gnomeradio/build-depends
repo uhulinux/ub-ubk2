@@ -4,6 +4,7 @@ gst-plugins-base-dev
 intltool
 itstool
 libgnomeui2-dev
+libunwind-dev
 libv4l-dev
 lirc-dev
 yelp-tools
