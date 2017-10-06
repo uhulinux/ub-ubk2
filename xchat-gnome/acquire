@@ -1,4 +1,4 @@
 #!/usr/bin/env dl
 
-xchat-gnome-${UB_VERSION}.tar.gz xchat-gnome-eb7f63a2/
-	git://git.gnome.org/xchat-gnome@eb7f63a2
+xchat-gnome-${UB_VERSION}.tar.gz xchat-gnome-eb12886/
+	git://git.gnome.org/xchat-gnome@eb12886
