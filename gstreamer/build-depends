@@ -1,5 +1,5 @@
+bash-completion
 glib-dev
 gobject-introspection-dev
-gtk-doc
-libxml2-dev
-valgrind
+libunwind-dev
+meson

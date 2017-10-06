@@ -1,8 +1,9 @@
 bash-completion
 gobject-introspection-dev
 gst-plugins-base-dev
-gtk-doc
+gstreamer-dev
 intltool
 itstool
 libxml2-dev
-pygobject-dev
+meson
+py3gobject
