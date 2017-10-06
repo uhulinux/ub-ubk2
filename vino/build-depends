@@ -8,7 +8,6 @@ libnotify-dev
 libsecret-dev
 libsm-dev
 libsoup-dev
-libunistring-dev
 libxtst-dev
 networkmanager-dev
 telepathy-glib-dev

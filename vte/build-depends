@@ -4,7 +4,6 @@ gobject-introspection-dev
 gperf
 gtk-dev
 intltool
-libunistring-dev
 pcre2-dev
 python-dev
 vala-dev

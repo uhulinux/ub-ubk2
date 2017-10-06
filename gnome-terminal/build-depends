@@ -11,7 +11,6 @@ gtk-dev
 intltool
 itstool
 libsm-dev
-libunistring-dev
 nautilus-dev
 nettle-dev
 python-dev
