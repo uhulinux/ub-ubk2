@@ -44,6 +44,7 @@ planner
 aisleriot
 syncevolution
 gnome-clocks
+libsexy
 xchat-gnome
 sound-juicer
 js185
