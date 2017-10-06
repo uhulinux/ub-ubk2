@@ -6,12 +6,12 @@ iso-codes
 libogg-dev
 libsm-dev
 libtheora-dev
+libunwind-dev
 libvisual-dev
 libvorbis-dev
 libx11-dev
 libxml2-dev
 libxv-dev
-meson
 orc-dev
 pango-dev
 python3-dev
