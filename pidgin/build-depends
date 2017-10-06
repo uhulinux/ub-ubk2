@@ -5,6 +5,7 @@ farstream-dev
 gconf2-dev
 gnome-online-accounts-dev
 gnutls-dev
+gstreamer-dev
 gtkspell2-dev
 intltool
 krb5-dev
@@ -13,6 +14,8 @@ libgadu-dev
 libgcrypt-dev
 libidn-dev
 libsm-dev
+libunistring-dev
+libunwind-dev
 libxext-dev
 libxml2-dev
 libxscrnsaver-dev

@@ -2,4 +2,3 @@ bash-completion
 glib-dev
 gobject-introspection-dev
 libunwind-dev
-meson
