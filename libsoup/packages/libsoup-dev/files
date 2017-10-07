@@ -15,3 +15,4 @@
 	/usr/share/gtk-doc
 	/usr/share/man/**/man1/*-config.1*
 	/usr/share/man/**/man3
+	/usr/share/vala/vapi

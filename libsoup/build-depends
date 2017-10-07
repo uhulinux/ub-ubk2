@@ -4,4 +4,4 @@ gtk-doc
 intltool
 libxml2-dev
 sqlite-dev
-vala
+vala-dev
