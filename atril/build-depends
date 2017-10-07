@@ -10,6 +10,7 @@ libsm-dev
 libspectre-dev
 libtiff-dev
 libxml2-dev
+libxtst-dev
 mate-common
 mate-desktop-dev
 mate-icon-theme
