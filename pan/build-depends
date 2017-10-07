@@ -1,7 +1,7 @@
-gmime-dev
+gmime2-dev
 gnutls-dev
 gtk-dev
 gtkspell-dev
 intltool
-libgnome-keyring-dev
+itstool
 libnotify-dev

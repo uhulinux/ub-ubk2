@@ -1,5 +1,9 @@
 #!/bin/sh -eux
 
+ub_replace gmime-2.6 gmime-3.0 configure
+
+UB_MAKE_PROCS=1
+
 ub_compile \
 	--with-gtk3 \
 	--with-gnutls \
