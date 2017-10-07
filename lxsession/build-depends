@@ -11,5 +11,5 @@ libsm-dev
 polkit-dev
 startup-notification-dev
 systemd-dev
-vala
+vala-dev
 vte-dev

@@ -6,7 +6,7 @@ intltool
 itstool
 pygobject-dev
 sqlite-dev
-vala
+vala-dev
 vte-dev
 xz-dev
 zeitgeist-dev

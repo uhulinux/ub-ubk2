@@ -1,5 +1,4 @@
 glade-dev
-gnome-common
 gobject-introspection
 gsettings-desktop-schemas
 gtksourceview-dev
@@ -12,4 +11,4 @@ libpeas-dev
 libsecret-dev
 libsoup-dev
 pygobject-dev
-vala
+vala-dev

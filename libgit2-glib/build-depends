@@ -2,4 +2,4 @@ glib-dev
 gobject-introspection-dev
 libgit2-dev
 python-dev
-vala
+vala-dev

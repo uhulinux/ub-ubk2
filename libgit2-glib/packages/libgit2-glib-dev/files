@@ -11,3 +11,4 @@
 	/usr/share/aclocal
 	/usr/share/gtk-doc
 	/usr/share/man/**/man3
+	/usr/share/vala/vapi

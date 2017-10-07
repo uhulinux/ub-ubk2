@@ -7,6 +7,6 @@ libxml2-dev
 libyaml-dev
 meson
 protobuf-dev
-vala
+vala-dev
 xapian-dev
 xmlto
