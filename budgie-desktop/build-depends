@@ -8,6 +8,7 @@ intltool
 libcanberra-dev
 libnotify-dev
 libpeas-dev
+libsass-dev
 libwnck-dev
 libxkbfile-dev
 meson
