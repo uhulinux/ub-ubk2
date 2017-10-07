@@ -31,6 +31,7 @@ quadrapassel
 swell-foop
 gnome-chess
 liferea
+gmime2
 pan
 gnome-calendar
 gnome-nibbles
@@ -60,6 +61,7 @@ gthumb
 cairo-dock-plugins
 gnome-photos
 rhythmbox
+libsass
 budgie-desktop
 gnome-apps
 gnome-core
