@@ -1,4 +1,0 @@
-#!/usr/bin/env dl
-
-glom-${UB_VERSION}.tar.xz glom-${UB_VERSION}/
-	https://download.gnome.org/sources/glom/${UB_VERSION_HEAD2}/

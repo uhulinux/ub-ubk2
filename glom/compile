@@ -1,6 +1,0 @@
-#!/bin/sh -eux
-
-export PYTHON=python3
-export PYTHON_VERSION=3.5
-
-ub_compile
