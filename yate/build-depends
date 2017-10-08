@@ -4,7 +4,7 @@ dahdi-linux-dev
 glibc-dev
 libgsm-dev
 mysql-dev
-openssl-dev
+openssl-1.0-dev
 php
 postgresql-dev
 ptlib-dev
