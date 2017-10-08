@@ -8,8 +8,8 @@ gnome-common
 gnome-keyring-dev
 gpg
 gpgme-dev
-gtk-doc
 gtk2-dev
+gtk-doc
 gtksourceview-dev
 gupnp-dev
 intltool
