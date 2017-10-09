@@ -1,7 +1,7 @@
 #!/usr/bin/env dl
 
 ephoto-${UB_VERSION}.tar.gz ephoto-${UB_VERSION}/
-	https://download.enlightenment.org/rel/apps/ephoto/ephoto-1.5.tar.gz
+	https://download.enlightenment.org/rel/apps/ephoto/
 
 #ephoto-$UB_VERSION.tar.gz ephoto-5129f92/
 #	git://git.enlightenment.org/apps/ephoto.git@5129f92
