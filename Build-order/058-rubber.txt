@@ -1,4 +1,6 @@
 rubber
+uchardet
+tepl
 latexila
 tesseract
 tesseract-gui

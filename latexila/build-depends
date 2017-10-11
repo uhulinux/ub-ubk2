@@ -5,4 +5,5 @@ gtksourceview-dev
 intltool
 itstool
 libgee-dev
+tepl-dev
 vala-dev
