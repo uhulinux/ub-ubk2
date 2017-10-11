@@ -1,6 +1,10 @@
 #!/bin/sh -eux
 
+export CFLAGS+=" -I/usr/include/openssl-1.0"
+export CPPFLAGS+=" -I/usr/include/openssl-1.0"
+export LDFLAGS+=" -L/usr/lib/openssl-1.0"
 ub_compile \
 	--enable-security-context=no \
 	--with-kernel-headers=/usr/include \
-	--without-readline
+	--without-readline \
+	--sbindir=/usr/bin
