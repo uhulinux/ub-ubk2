@@ -1,5 +1,4 @@
 #!/bin/sh -eux
 
 ub_compile \
-	--with-krb5 \
-	--with-internal-lzx
+	-DWITH_MSPACK=OFF
