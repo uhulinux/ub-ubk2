@@ -1,4 +1,4 @@
 libassuan-dev
 libxt-dev
-openssl-dev
+openssl-1.0-dev
 pcsc-lite-dev
