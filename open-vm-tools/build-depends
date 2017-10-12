@@ -1,9 +1,12 @@
-fuse-dev
+fuse2-dev
 gtk2-dev
 gtkmm2-dev
 icu
 libdnet-dev
 libice-dev
+libmspack-dev
 libsm-dev
+libxerces-dev
 libxtst-dev
+openssl-dev
 procps-dev
