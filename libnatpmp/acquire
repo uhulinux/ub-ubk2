@@ -1,0 +1,4 @@
+#!/usr/bin/env dl
+
+libnatpmp-${UB_VERSION}.tar.gz libnatpmp-${UB_VERSION}/
+	http://miniupnp.tuxfamily.org/files/download.php?file=libnatpmp-${UB_VERSION}.tar.gz

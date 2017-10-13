@@ -1,3 +1,16 @@
 #!/bin/sh -eux
 
+mkdir -p build/third-party/dht-cc379e406d/src/
+mkdir -p build/third-party/utp-7c4f19abdf/src/
+mkdir -p build/third-party/b64-c1e3323498/src/
+
+cp dht*.tar.gz build/third-party/dht-cc379e406d/src/cc379e406d.tar.gz
+cp libutp* build/third-party/utp-7c4f19abdf/src/7c4f19abdf.tar.gz
+cp libb64* build/third-party/b64-c1e3323498/src/c1e3323498.tar.gz
+
+export CFLAGS+=" -I/usr/include/openssl-1.0"
+export CPPFLAGS+=" -I/usr/include/openssl-1.0"
+export LDFLAGS+=" -L/usr/lib/openssl-1.0"
+export CXXFLAGS+=" -I/usr/include/openssl-1.0"
+
 ub_compile

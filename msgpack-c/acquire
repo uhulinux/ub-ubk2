@@ -1,0 +1,4 @@
+#!/usr/bin/env dl
+
+${UB_VERSION}.tar.gz msgpack-c-${UB_VERSION}/
+	https://github.com/msgpack/msgpack-c/archive/

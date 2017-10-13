@@ -1,0 +1,1 @@
+urllist http://miniupnp.tuxfamily.org/files/ | grep libnatpmp- | sort -V | tail -n 1 | sed s/.*libnatpmp-// | sed s/\.tar.*//

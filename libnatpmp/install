@@ -1,0 +1,4 @@
+#!/bin/sh -eux
+
+export PREFIX=${UB_INSTALLDIR}
+make install
