@@ -7,11 +7,10 @@ mode="32"
 fi
 CC="ccache gcc -m${mode}"
 CXX="ccache g++ -m${mode}"
-export SHELL=/bin/bash
+
 export LDFLAGS="-Wl,-rpath,/usr/lib/seamonkey/ -Wl,--no-keep-memory -Wl,-z,relro -Wl,-z,now"
 export CFLAGS=" -fno-delete-null-pointer-checks -fno-lifetime-dse -fno-schedule-insns2"
 export CXXFLAGS=" -fno-delete-null-pointer-checks -fno-lifetime-dse -fno-schedule-insns2"
-# jpeg: jpeg-turbo, png: >= 1.6.17 + APNG support
 
 : > .mozconfig
 cat > .mozconfig << _EOF_
@@ -23,7 +22,7 @@ ac_add_options --enable-optimize="-O2"
 ac_add_options --with-pthreads
 ac_add_options --with-system-bz2
 ac_add_options --with-system-icu
-ac_add_options --with-system-libevent
+ac_add_options --without-system-libevent
 ac_add_options --with-system-libvpx
 ac_add_options --with-system-nss
 ac_add_options --with-system-nspr
