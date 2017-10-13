@@ -3,6 +3,7 @@
 rm -rf tools/scons
 mkdir tools/scons
 ln -s /usr/bin/scons tools/scons/scons.py
+export PKG_CONFIG_PATH=/usr/lib/openssl-1.0/pkgconfig
 ./configure \
 	--prefix=/usr \
 	--shared-zlib \

@@ -1,7 +1,7 @@
 compface
 docbook-dtds
 docbook-xsl
-gmime-dev
+gmime2-dev
 gnome-doc-utils
 gpg
 gpgme-dev
