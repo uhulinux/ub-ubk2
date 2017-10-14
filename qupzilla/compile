@@ -1,6 +1,7 @@
 #!/bin/sh -eux
 
 export USE_WEBGL=true
-
+export GNOME_INTEGRATION=true
+#export KDE_INTEGRATION=true
 qmake QUPZILLA_PREFIX=/usr/
-make
+make -j2
