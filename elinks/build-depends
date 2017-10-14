@@ -3,4 +3,4 @@ gpm-dev
 js24-dev
 libidn-dev
 libxt-dev
-openssl-dev
+openssl-1.0-dev
