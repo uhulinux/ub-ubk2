@@ -1,1 +1,0 @@
-urllist https://repo.fdzh.org/chrome/rpm/x86_64/ | splitver '^google-chrome-stable-([0-9.]+)-1.x86_64.rpm$' | sort -V | tail -n 1
