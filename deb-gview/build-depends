@@ -3,8 +3,8 @@ debhelper
 docbook-dtds
 docbook-xsl
 glib-dev
-gtk-doc
 gtk2-dev
+gtk-doc
 gvfs
 intltool
 libarchive-dev
