@@ -17,7 +17,6 @@ tcpcgi
 p0f
 tcptrack
 fetchmail
-mailx
 whois
 genesis
 nrpe
