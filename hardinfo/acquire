@@ -1,4 +1,7 @@
 #!/usr/bin/env dl
 
-hardinfo-${UB_VERSION}.tar.gz hardinfo-7a507b6/
-	git://github.com/lpereira/hardinfo.git@62d230e
+hardinfo-${UB_VERSION}.tar.gz hardinfo-91d5f25/
+	git://github.com/lpereira/hardinfo.git@91d5f25
+
+uber-graph.tar.gz uber-graph-d31c801/ :deps/uber-graph
+	git://github.com/chergert/uber-graph.git@d31c801

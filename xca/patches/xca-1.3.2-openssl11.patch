@@ -1,0 +1,2641 @@
+diff -Naurp xca-1.3.2.orig/lib/db_base.cpp xca-1.3.2.new/lib/db_base.cpp
+--- xca-1.3.2.orig/lib/db_base.cpp	2015-10-10 14:54:12.000000000 +0200
++++ xca-1.3.2.new/lib/db_base.cpp	2017-03-21 00:19:34.954826051 +0100
+@@ -641,7 +641,9 @@ void db_base::store(QModelIndexList inde
+ 			throw errorEx(tr("Error opening file: '%1': %2").
+ 				arg(s).arg(strerror(errno)), class_name);
+ 		}
+-		fwrite(pem.toLatin1(), pem.size(), 1, fp);
++		if (fwrite(pem.toLatin1(), pem.size(), 1, fp)) {
++			/* IGNORE_RESULT */
++		}
+ 		fclose(fp);
+ 	}
+ 	catch (errorEx &err) {
+diff -Naurp xca-1.3.2.orig/lib/db_key.cpp xca-1.3.2.new/lib/db_key.cpp
+--- xca-1.3.2.orig/lib/db_key.cpp	2015-10-10 14:54:12.000000000 +0200
++++ xca-1.3.2.new/lib/db_key.cpp	2017-02-18 14:18:10.624717655 +0100
+@@ -297,14 +297,14 @@ void db_key::store(QModelIndex index)
+ 			break;
+ 		case exportType::PEM_private_encrypt:
+ 			enc = EVP_des_ede3_cbc();
+-			/* fall */
++			/* fallthrough */
+ 		case exportType::PEM_private:
+ 			privkey->writeKey(fname, enc,
+ 				PwDialog::pwCallback, true);
+ 			break;
+ 		case exportType::PKCS8_encrypt:
+ 			enc = EVP_des_ede3_cbc();
+-			/* fall */
++			/* fallthrough */
+ 		case exportType::PKCS8:
+ 			privkey->writePKCS8(fname, enc,
+ 				PwDialog::pwCallback, true);
+diff -Naurp xca-1.3.2.orig/lib/db_x509.cpp xca-1.3.2.new/lib/db_x509.cpp
+--- xca-1.3.2.orig/lib/db_x509.cpp	2015-10-10 14:54:12.000000000 +0200
++++ xca-1.3.2.new/lib/db_x509.cpp	2017-02-18 14:20:23.580116007 +0100
+@@ -580,7 +580,6 @@ void db_x509::newCert(NewX509 *dlg)
+ 	}
+ 	if (tempkey != NULL)
+ 		delete(tempkey);
+-		tempkey = NULL;
+     }
+ 
+     catch (errorEx &err) {
+diff -Naurp xca-1.3.2.orig/lib/entropy.cpp xca-1.3.2.new/lib/entropy.cpp
+--- xca-1.3.2.orig/lib/entropy.cpp	2015-10-10 14:54:12.000000000 +0200
++++ xca-1.3.2.new/lib/entropy.cpp	2017-02-24 03:01:32.002964936 +0100
+@@ -141,8 +141,14 @@ Entropy::~Entropy()
+ 		unsigned char buf[1024];
+ 		seed_rng();
+ 		f.setPermissions(QFile::ReadOwner|QFile::WriteOwner);
++
++#if OPENSSL_VERSION_NUMBER >= 0x10100000L
++		RAND_bytes(buf, sizeof buf);
++#else
+ 		RAND_pseudo_bytes(buf, sizeof buf);
+-                f.write((char*)buf, sizeof buf);
++#endif
++
++		f.write((char*)buf, sizeof buf);
+ 		f.close();
+ 	}
+ #ifdef DEBUG_ENTROPY
+diff -Naurp xca-1.3.2.orig/lib/func.cpp xca-1.3.2.new/lib/func.cpp
+--- xca-1.3.2.orig/lib/func.cpp	2015-10-10 14:54:12.000000000 +0200
++++ xca-1.3.2.new/lib/func.cpp	2017-02-25 12:44:19.711229987 +0100
+@@ -395,9 +395,21 @@ void inc_progress_bar(int, int, void *p)
+ 
+ static long mem_ctrl(BIO *b, int cmd, long num, void *ptr)
+ {
+-	BUF_MEM *bm = (BUF_MEM *)b->ptr;
+-	if (!bm->data || !(b->flags & BIO_FLAGS_MEM_RDONLY))
+-		return BIO_s_mem()->ctrl(b, cmd, num, ptr);
++	BUF_MEM *bm;
++	int flags;
++	long (*ctrl)(BIO *, int, long, void *);
++
++#if OPENSSL_VERSION_NUMBER >= 0x10100000L
++	BIO_get_mem_ptr(b, &bm);
++	flags = BIO_get_flags(b);
++	ctrl = BIO_meth_get_ctrl((BIO_METHOD *) BIO_s_mem());
++#else
++   	bm = (BUF_MEM *)b->ptr;
++	flags = b->flags;
++	ctrl = BIO_s_mem()->ctrl;
++#endif
++	if (!bm->data || !(flags & BIO_FLAGS_MEM_RDONLY))
++		return ctrl(b, cmd, num, ptr);
+ 
+ 	switch (cmd) {
+ 	case BIO_C_FILE_SEEK:
+@@ -405,35 +417,92 @@ static long mem_ctrl(BIO *b, int cmd, lo
+ 			num = bm->max;
+ 		bm->data -= (bm->max - bm->length) - num;
+ 		bm->length = bm->max - num;
++		/* fallthrough */
+ 	case BIO_C_FILE_TELL:
+ 		return bm->max - bm->length;
+ 	}
+-	return BIO_s_mem()->ctrl(b, cmd, num, ptr);
++	return ctrl(b, cmd, num, ptr);
+ }
+ 
+-void BIO_seekable_romem(BIO *b)
++BIO_METHOD *BIO_METHOD_copy(const BIO_METHOD *src, BIO_METHOD *dst = NULL)
+ {
+-	static BIO_METHOD *mymeth = NULL;
+-	static BIO_METHOD _meth;
++	if (src)
++		return NULL;
+ 
+-	if (!(b->flags & BIO_FLAGS_MEM_RDONLY) ||
+-	     (b->method->type != BIO_TYPE_MEM))
+-	{
+-		return;
++#if OPENSSL_VERSION_NUMBER >= 0x10100000L
++	if (!dst) {
++		// The only way to get the type and name of the source method is
++		// to bind it to a BIO.
++		BIO *bio = BIO_new(src);
++		if (!bio)
++			return NULL;
++		if (!(dst = BIO_meth_new(BIO_method_type(bio), BIO_method_name(bio)))) {
++			BIO_free(bio);
++			return NULL;
++		}
++		BIO_free(bio);
+ 	}
++
++	BIO_meth_set_write(dst, BIO_meth_get_write((BIO_METHOD *) src));
++	BIO_meth_set_read(dst, BIO_meth_get_read((BIO_METHOD *) src));
++	BIO_meth_set_puts(dst, BIO_meth_get_puts((BIO_METHOD *) src));
++	BIO_meth_set_gets(dst, BIO_meth_get_gets((BIO_METHOD *) src));
++	BIO_meth_set_ctrl(dst, BIO_meth_get_ctrl((BIO_METHOD *) src));
++	BIO_meth_set_create(dst, BIO_meth_get_create((BIO_METHOD *) src));
++	BIO_meth_set_destroy(dst, BIO_meth_get_destroy((BIO_METHOD *) src));
++	BIO_meth_set_callback_ctrl(dst,
++							   BIO_meth_get_callback_ctrl((BIO_METHOD *) src));
++#else
++	if (!dst)
++		if (!(dst = (BIO_METHOD *) OPENSSL_malloc(sizeof *dst)))
++			return NULL;
++	*dst = *src;
++#endif
++
++	return dst;
++}
++
++BIO_METHOD *BIO_METHOD_seekable_romem()
++{
++	static BIO_METHOD *mymeth = NULL;
++
+ 	if (!mymeth) {
+-		_meth = *BIO_s_mem();
+-		_meth.ctrl = mem_ctrl;
+-		mymeth = &_meth;
++		mymeth = BIO_METHOD_copy(BIO_s_mem());
++#if OPENSSL_VERSION_NUMBER >= 0x10100000L
++		BIO_meth_set_ctrl(mymeth, mem_ctrl);
++#else
++		mymeth->ctrl = mem_ctrl;
++#endif
+ 	}
+-	b->method = mymeth;
++
++	return mymeth;
+ }
+ 
+ BIO *BIO_QBA_mem_buf(QByteArray &a)
+ {
+-	BIO *b = BIO_new_mem_buf(a.data(), a.size());
+-	BIO_seekable_romem(b);
+-	return b;
++	BIO *bio;
++	BIO_METHOD *meth = BIO_METHOD_seekable_romem();
++
++	if (!meth)
++		return NULL;
++
++#if OPENSSL_VERSION_NUMBER >= 0x10100000L
++	bio = BIO_new(meth);
++	if (bio) {
++		BUF_MEM bm;
++		bm.data = a.data();
++		bm.length = a.size();
++		bm.max = a.size();
++		BIO_set_mem_buf(bio, &bm, BIO_CLOSE);
++		BIO_set_flags(bio, BIO_get_flags(bio) | BIO_FLAGS_MEM_RDONLY);
++	}
++#else
++	bio = BIO_new_mem_buf(a.data(), a.size());
++	if (bio)
++		bio->method = meth;
++#endif
++
++	return bio;
+ }
+ 
+ bool translate_dn = false;
+diff -Naurp xca-1.3.2.orig/lib/pkcs11.cpp xca-1.3.2.new/lib/pkcs11.cpp
+--- xca-1.3.2.orig/lib/pkcs11.cpp	2015-10-10 14:54:12.000000000 +0200
++++ xca-1.3.2.new/lib/pkcs11.cpp	2017-03-22 01:05:02.792839419 +0100
+@@ -458,7 +458,13 @@ pk11_attr_data pkcs11::findUniqueID(unsi
+ 	while (1) {
+ 		unsigned char buf[ID_LEN];
+ 		pk11_attlist atts(class_att);
++
++#if OPENSSL_VERSION_NUMBER >= 0x10100000L
++		RAND_bytes(buf, ID_LEN);
++#else
+ 		RAND_pseudo_bytes(buf, ID_LEN);
++#endif
++
+ 		id.setValue(buf, ID_LEN);
+ 		atts << id;
+ 		if (objectList(atts).count() == 0)
+@@ -641,7 +647,8 @@ int pkcs11::encrypt(int flen, const unsi
+ 	return size;
+ }
+ 
+-#if OPENSSL_VERSION_NUMBER < 0x10000000L
++#if OPENSSL_VERSION_NUMBER < 0x10000000L ||								\
++	OPENSSL_VERSION_NUMBER >= 0x10100000L
+ static int rsa_privdata_free(RSA *rsa)
+ {
+ 	pkcs11 *priv = (pkcs11*)RSA_get_app_data(rsa);
+@@ -653,12 +660,19 @@ static int rsa_encrypt(int flen, const u
+ 			unsigned char *to, RSA * rsa, int padding)
+ {
+ 	pkcs11 *priv = (pkcs11*)RSA_get_app_data(rsa);
++	const BIGNUM *n = NULL;
+ 
+ 	if (padding != RSA_PKCS1_PADDING) {
+ 		return -1;
+ 	}
+-	return priv->encrypt(flen, from, to, BN_num_bytes(rsa->n),
+-				CKM_RSA_PKCS);
++
++#if OPENSSL_VERSION_NUMBER >= 0x10100000L
++	RSA_get0_key(rsa, &n, NULL, NULL);
++#else
++	n = rsa->n;
++#endif
++
++	return priv->encrypt(flen, from, to, BN_num_bytes(n), CKM_RSA_PKCS);
+ }
+ 
+ static int rsa_decrypt(int flen, const unsigned char *from,
+@@ -672,36 +686,235 @@ static int rsa_decrypt(int flen, const u
+ 	return priv->decrypt(flen, from, to, flen, CKM_RSA_PKCS);
+ }
+ 
++static int dsa_privdata_free(DSA *dsa)
++{
++	pkcs11 *p11 = (pkcs11*)DSA_get_ex_data(dsa, 0);
++	delete p11;
++	return 0;
++}
++
++static DSA_SIG *dsa_sign(const unsigned char *dgst, int dlen, DSA *dsa)
++{
++	int len, rs_len;
++	unsigned char rs_buf[128];
++	pkcs11 *p11 = (pkcs11*)DSA_get_ex_data(dsa, 0);
++	DSA_SIG *dsa_sig = DSA_SIG_new();
++	BIGNUM *r, *s;
++
++	// siglen is unsigned and can't cope with -1 as return value
++	len = p11->encrypt(dlen, dgst, rs_buf, sizeof rs_buf, CKM_DSA);
++	if (len & 0x01) // Must be even
++		goto out;
++
++	rs_len = len / 2;
++	r = BN_bin2bn(rs_buf, rs_len, NULL);
++	s = BN_bin2bn(rs_buf + rs_len, rs_len, NULL);
++#if OPENSSL_VERSION_NUMBER >= 0x10100000L
++	DSA_SIG_set0(dsa_sig, r, s);
++#else
++	dsa_sig->r = r;
++	dsa_sig->s = s;
++#endif
++	if (r && s)
++		return dsa_sig;
++out:
++	DSA_SIG_free(dsa_sig);
++	ign_openssl_error();
++	return NULL;
++}
++
++#if !defined(OPENSSL_NO_EC) && OPENSSL_VERSION_NUMBER >= 0x10100000L
++//	OpenSSL < 1.0.0 have no EC_KEY_METHOD.
++
++static void ec_privdata_free(EC_KEY *ec)
++{
++	pkcs11 *p11 = (pkcs11*)EC_KEY_get_ex_data(ec, 0);
++	delete p11;
++}
++
++static int ec_sign_setup(EC_KEY *ec, BN_CTX *ctx, BIGNUM **kinvp, BIGNUM **rp)
++{
++	(void) ec;
++	(void) ctx;
++	(void) kinvp;
++	(void) rp;
++	return 1;
++}
++
++static ECDSA_SIG *ec_do_sign(const unsigned char *dgst, int dgst_len,
++							 const BIGNUM *in_kinv, const BIGNUM *in_r,
++							 EC_KEY *ec)
++{
++	int len, rs_len;
++	unsigned char rs_buf[512];
++	ECDSA_SIG *ec_sig = ECDSA_SIG_new();
++	pkcs11 *p11 = (pkcs11 *) EC_KEY_get_ex_data(ec, 0);
++	BIGNUM *r, *s;
++
++	(void) in_kinv;
++	(void) in_r;
++
++	// siglen is unsigned and can' cope with -1 as return value
++	len = p11->encrypt(dgst_len, dgst, rs_buf, sizeof rs_buf, CKM_ECDSA);
++	if (len & 0x01) // Must be even
++		goto out;
++	/* The buffer contains r and s concatenated
++	 * Both of equal size
++	 * pkcs-11v2-20.pdf chapter 12.13.1, page 232
++	 */
++	rs_len = len / 2;
++	r = BN_bin2bn(rs_buf, rs_len, NULL);
++	s = BN_bin2bn(rs_buf + rs_len, rs_len, NULL);
++	ECDSA_SIG_set0(ec_sig, r, s);
++	if (r && s)
++		return ec_sig;
++
++out:
++	ECDSA_SIG_free(ec_sig);
++	ign_openssl_error();
++	return NULL;
++}
++
++static int ec_sign(int type, const unsigned char *dgst, int dlen,
++				   unsigned char *sig, unsigned int *siglen,
++				   const BIGNUM *kinv, const BIGNUM *r, EC_KEY *ec)
++{
++	ECDSA_SIG *ec_sig;
++	int ret = 0;
++	int len;
++
++	(void) type;
++	ec_sig = ec_do_sign(dgst, dlen, kinv, r, ec);
++	if (!ec_sig)
++		return 0;
++
++	len = i2d_ECDSA_SIG(ec_sig, &sig);
++	if (len <= 0)
++		goto out;
++	*siglen = len;
++	ret = 1;
++out:
++	ECDSA_SIG_free(ec_sig);
++	ign_openssl_error();
++	return ret;
++}
++#endif
++
+ EVP_PKEY *pkcs11::getPrivateKey(EVP_PKEY *pub, CK_OBJECT_HANDLE obj)
+ {
+-	static RSA_METHOD rsa_meth, *ops = NULL;
++#if OPENSSL_VERSION_NUMBER < 0x10100000L
++	static RSA_METHOD rsa_meth_buf;
++	static DSA_METHOD dsa_meth_buf;
++#endif
++	static RSA_METHOD *rsa_meth = NULL;
++	static DSA_METHOD *dsa_meth = NULL;
++#if !defined(OPENSSL_NO_EC) && OPENSSL_VERSION_NUMBER >= 0x10100000L
++	static EC_KEY_METHOD *ec_key_meth = NULL;
++	EC_KEY *ec;
++#endif
+ 	RSA *rsa;
+-	EVP_PKEY *evp;
++	DSA *dsa;
++	EVP_PKEY *evp = NULL;
++	int keytype;
+ 
+ 	p11slot.isValid();
+ 
+-	switch (EVP_PKEY_type(pub->type)) {
++#if OPENSSL_VERSION_NUMBER >= 0x10100000L
++	keytype = EVP_PKEY_id(pub);
++#else
++	keytype = pub->type;
++#endif
++
++	switch (EVP_PKEY_type(keytype)) {
+ 	case EVP_PKEY_RSA:
+-		rsa = RSAPublicKey_dup(pub->pkey.rsa);
++#if OPENSSL_VERSION_NUMBER >= 0x10100000L
++		rsa = EVP_PKEY_get0_RSA(pub);
++#else
++		rsa = pub->pkey.rsa;
++#endif
++		rsa = RSAPublicKey_dup(rsa);
+ 		openssl_error();
+-		if (!ops) {
+-			rsa_meth = *RSA_get_default_method();
+-			rsa_meth.rsa_priv_enc = rsa_encrypt;
+-			rsa_meth.rsa_priv_dec = rsa_decrypt;
+-			rsa_meth.finish = rsa_privdata_free;
+-			ops = &rsa_meth;
++		if (!rsa_meth) {
++#if OPENSSL_VERSION_NUMBER >= 0x10100000L
++			rsa_meth = RSA_meth_dup(RSA_get_default_method());
++			RSA_meth_set_priv_enc(rsa_meth, rsa_encrypt);
++			RSA_meth_set_priv_dec(rsa_meth, rsa_decrypt);
++			RSA_meth_set_finish(rsa_meth, rsa_privdata_free);
++#else
++			rsa_meth = &rsa_meth_buf;
++			*rsa_meth = *RSA_get_default_method();
++			rsa_meth->rsa_priv_enc = rsa_encrypt;
++			rsa_meth->rsa_priv_dec = rsa_decrypt;
++			rsa_meth->finish = rsa_privdata_free;
++#endif
+ 		}
+ 		p11obj = obj;
+-		RSA_set_method(rsa, ops);
++		RSA_set_method(rsa, rsa_meth);
+ 		RSA_set_app_data(rsa, this);
+ 		evp = EVP_PKEY_new();
+ 		openssl_error();
+ 		EVP_PKEY_assign_RSA(evp, rsa);
+-		return evp;
++		break;
++	case EVP_PKEY_DSA:
++#if OPENSSL_VERSION_NUMBER >= 0x10100000L
++		dsa = EVP_PKEY_get0_DSA(pub);
++#else
++		dsa = pub->pkey.dsa;
++#endif
++		dsa = DSAparams_dup(dsa);
++		openssl_error();
++		if (!dsa_meth) {
++#if OPENSSL_VERSION_NUMBER >= 0x10100000L
++			dsa_meth = DSA_meth_dup(DSA_get_default_method());
++			DSA_meth_set_sign(dsa_meth, dsa_sign);
++			DSA_meth_set_finish(dsa_meth, dsa_privdata_free);
++#else
++			dsa_meth = &dsa_meth_buf;
++			*dsa_meth = *DSA_get_default_method();
++			dsa_meth->dsa_do_sign = dsa_sign;
++			dsa_meth->finish = dsa_privdata_free;
++#endif
++		}
++		p11obj = obj;
++		DSA_set_method(dsa, dsa_meth);
++		DSA_set_ex_data(dsa, 0, this);
++		evp = EVP_PKEY_new();
++		openssl_error();
++		EVP_PKEY_assign_DSA(evp, dsa);
++		break;
++#if !defined(OPENSSL_NO_EC) && OPENSSL_VERSION_NUMBER >= 0x10100000L
+ 	case EVP_PKEY_EC:
+-		return NULL;
++		ec = EVP_PKEY_get0_EC_KEY(pub);
++		ec = EC_KEY_dup(ec);
++		openssl_error();
++		if (!ec_key_meth) {
++			int (*ec_init_proc)(EC_KEY *key);
++			void (*ec_finish_proc)(EC_KEY *key);
++			int (*ec_copy_proc)(EC_KEY *dest, const EC_KEY *src);
++			int (*ec_set_group_proc)(EC_KEY *key, const EC_GROUP *grp);
++			int (*ec_set_private_proc)(EC_KEY *key, const BIGNUM *priv_key);
++			int (*ec_set_public_proc)(EC_KEY *key, const EC_POINT *pub_key);
++
++			ec_key_meth = EC_KEY_METHOD_new(EC_KEY_get_default_method());
++			EC_KEY_METHOD_set_sign(ec_key_meth,
++								   ec_sign, ec_sign_setup, ec_do_sign);
++			EC_KEY_METHOD_get_init(ec_key_meth, &ec_init_proc, &ec_finish_proc,
++								   &ec_copy_proc, &ec_set_group_proc,
++								   &ec_set_private_proc, &ec_set_public_proc);
++			EC_KEY_METHOD_set_init(ec_key_meth, ec_init_proc, ec_privdata_free,
++								   ec_copy_proc, ec_set_group_proc,
++								   ec_set_private_proc, ec_set_public_proc);
++		}
++		p11obj = obj;
++		EC_KEY_set_method(ec, ec_key_meth);
++		EC_KEY_set_ex_data(ec, 0, this);
++		evp = EVP_PKEY_new();
++		openssl_error();
++		EVP_PKEY_assign_EC_KEY(evp, ec);
++		break;
++#endif
+ 	}
+-	return NULL;
++	return evp;
+ }
+ #else
+ 
+@@ -770,6 +983,7 @@ static int eng_pmeth_ctrl_ec(EVP_PKEY_CT
+ 		case NID_ecdsa_with_SHA1:
+ 			fprintf(stderr, "%s: NID_ecdsa_with_SHA1 unexpected\n",
+ 				__func__);
++			/* fallthrough */
+ 		case NID_sha1:
+ 		case NID_sha224:
+ 		case NID_sha256:
+diff -Naurp xca-1.3.2.orig/lib/pki_crl.cpp xca-1.3.2.new/lib/pki_crl.cpp
+--- xca-1.3.2.orig/lib/pki_crl.cpp	2015-10-10 14:54:12.000000000 +0200
++++ xca-1.3.2.new/lib/pki_crl.cpp	2017-02-25 12:37:27.939303062 +0100
+@@ -80,7 +80,22 @@ void pki_crl::fload(const QString fname)
+ 
+ QString pki_crl::getSigAlg()
+ {
+-	QString alg = OBJ_nid2ln(OBJ_obj2nid(crl->sig_alg->algorithm));
++	QString alg;
++	const ASN1_OBJECT *paobj;
++
++#if OPENSSL_VERSION_NUMBER >= 0x10100000L
++	const ASN1_BIT_STRING *psig;
++	const X509_ALGOR *palg;
++	int pptype;
++	const void *ppval;
++
++	X509_CRL_get0_signature(crl, &psig, &palg);
++	X509_ALGOR_get0(&paobj, &pptype, &ppval, palg);
++#else
++	paobj = crl->sig_alg->algorithm;
++#endif
++
++	alg = OBJ_nid2ln(OBJ_obj2nid(paobj));
+ 	return alg;
+ }
+ 
+@@ -90,15 +105,25 @@ void pki_crl::createCrl(const QString d,
+ 	issuer = iss;
+ 	if (!iss)
+ 		my_error(tr("No issuer given"));
+-	crl->crl->issuer = issuer->getSubject().get();
++#if OPENSSL_VERSION_NUMBER >= 0x10100000L
++	X509_CRL_set_version(crl, 1); /* version 2 CRL */
++	X509_CRL_set_issuer_name(crl, issuer->getSubject().get());
++#else
+ 	a1int version = 1; /* version 2 CRL */
+ 	crl->crl->version = version.get();
++	crl->crl->issuer = issuer->getSubject().get();
++#endif
+ 	pki_openssl_error();
+ }
+ 
+ a1int pki_crl::getVersion()
+ {
++#if OPENSSL_VERSION_NUMBER >= 0x10100000L
++	a1int a(X509_CRL_get_version(crl));
++#else
+ 	a1int a(crl->crl->version);
++#endif
++
+ 	return a;
+ }
+ 
+@@ -175,7 +200,11 @@ bool pki_crl::visible()
+ 		return true;
+ 	if (getSigAlg().contains(limitPattern))
+ 		return true;
++#if OPENSSL_VERSION_NUMBER >= 0x10100000L
++	el.setStack(X509_CRL_get0_extensions(crl));
++#else
+ 	el.setStack(crl->crl->extensions);
++#endif
+ 	return el.search(limitPattern);
+ }
+ 
+@@ -224,24 +253,57 @@ BIO *pki_crl::pem(BIO *b, int format)
+ a1time pki_crl::getLastUpdate()
+ {
+ 	a1time a;
+-	if (crl && crl->crl)
+-		a.set(crl->crl->lastUpdate);
++	const ASN1_TIME *at = NULL;
++
++	if (crl)
++#if OPENSSL_VERSION_NUMBER >= 0x10100000L
++		at = X509_CRL_get0_lastUpdate(crl);
++#else
++		if (crl->crl)
++			at = crl->crl->lastUpdate;
++#endif
++
++	if (at)
++		a.set(at);
++
+ 	return a;
+ }
+ 
+ a1time pki_crl::getNextUpdate()
+ {
+ 	a1time a;
+-	if (crl && crl->crl)
+-		a.set(crl->crl->nextUpdate);
++	const ASN1_TIME *at = NULL;
++
++#if OPENSSL_VERSION_NUMBER >= 0x10100000L
++		at = X509_CRL_get0_nextUpdate(crl);
++#else
++		if (crl->crl)
++			at = crl->crl->nextUpdate;
++#endif
++
++	if (at)
++		a.set(at);
++
+ 	return a;
+ }
+ 
+ int pki_crl::numRev()
+ {
+-	if (crl && crl->crl && crl->crl->revoked)
+-		return sk_X509_REVOKED_num(crl->crl->revoked);
+-	return 0;
++	int n = 0;
++	STACK_OF(X509_REVOKED) *st = NULL;
++
++	if (crl)
++#if OPENSSL_VERSION_NUMBER >= 0x10100000L
++		st = X509_CRL_get_REVOKED(crl);
++#else
++		if (crl->crl)
++			st = crl->crl->revoked;
++#endif
++
++	if (st)
++		n = sk_X509_REVOKED_num(st);
++
++	return n;
+ }
+ 
+ x509revList pki_crl::getRevList()
+@@ -249,10 +311,20 @@ x509revList pki_crl::getRevList()
+ 	x509revList ret;
+ 	int i, num = numRev();
+ 
+-	for (i=0; i<num; i++) {
+-		x509rev r(sk_X509_REVOKED_value(crl->crl->revoked, i));
+-		pki_openssl_error();
+-		ret << r;
++	if (num) {
++		STACK_OF(X509_REVOKED) *st;
++
++#if OPENSSL_VERSION_NUMBER >= 0x10100000L
++		st = X509_CRL_get_REVOKED(crl);
++#else
++		st = crl->crl->revoked;
++#endif
++
++		for (i=0; i<num; i++) {
++			x509rev r(sk_X509_REVOKED_value(st, i));
++			pki_openssl_error();
++			ret << r;
++		}
+ 	}
+ 	return ret;
+ }
+@@ -260,16 +332,26 @@ x509revList pki_crl::getRevList()
+ x509name pki_crl::getSubject() const
+ {
+ 	x509name x;
+-	if (crl && crl->crl && crl->crl->issuer) {
+-		x.set(crl->crl->issuer);
+-	}
+-	return x ;
++	X509_NAME *iss = NULL;
++
++	if (crl)
++#if OPENSSL_VERSION_NUMBER >= 0x10100000L
++		iss = X509_CRL_get_issuer(crl);
++#else
++		if (crl->crl)
++			iss = crl->crl->issuer;
++#endif
++
++	if (iss)
++		x.set(iss);
++
++	return x;
+ }
+ 
+ bool pki_crl::verify(pki_key *key)
+ {
+ 	bool ret=false;
+-	if (crl && crl->crl && key) {
++	if (crl && key) {
+ 		ret = (X509_CRL_verify(crl, key->getPubKey()) == 1);
+ 		pki_ign_openssl_error();
+ 	}
+@@ -310,7 +392,12 @@ x509v3ext pki_crl::getExtByNid(int nid)
+ {
+ 	extList el;
+ 	x509v3ext e;
++
++#if OPENSSL_VERSION_NUMBER >= 0x10100000L
++	el.setStack(X509_CRL_get0_extensions(crl));
++#else
+ 	el.setStack(crl->crl->extensions);
++#endif
+ 
+ 	for (int i=0; i< el.count(); i++){
+ 		if (el[i].nid() == nid) return el[i];
+@@ -321,7 +408,13 @@ x509v3ext pki_crl::getExtByNid(int nid)
+ QString pki_crl::printV3ext()
+ {
+ 	extList el;
++
++#if OPENSSL_VERSION_NUMBER >= 0x10100000L
++	el.setStack(X509_CRL_get0_extensions(crl));
++#else
+ 	el.setStack(crl->crl->extensions);
++#endif
++
+ 	QString text = el.getHtml("<br>");
+ 	pki_openssl_error();
+ 	return text;
+diff -Naurp xca-1.3.2.orig/lib/pki_evp.cpp xca-1.3.2.new/lib/pki_evp.cpp
+--- xca-1.3.2.orig/lib/pki_evp.cpp	2015-10-10 14:54:12.000000000 +0200
++++ xca-1.3.2.new/lib/pki_evp.cpp	2017-02-21 19:24:51.287533206 +0100
+@@ -31,7 +31,11 @@ QPixmap *pki_evp::icon[2]= { NULL, NULL
+ 
+ void pki_evp::init(int type)
+ {
++#if OPENSSL_VERSION_NUMBER >= 0x10100000L
++	EVP_PKEY_set_type(key, type);
++#else
+ 	key->type = type;
++#endif
+ 	class_name = "pki_evp";
+ 	ownPass = ptCommon;
+ 	dataVersion=2;
+@@ -76,6 +80,11 @@ void pki_evp::setOwnPass(enum passType x
+ void pki_evp::generate(int bits, int type, QProgressBar *progress, int curve_nid)
+ {
+ 	Entropy::seed_rng();
++	RSA *rsakey = NULL;
++	DSA *dsakey = NULL;
++#if OPENSSL_VERSION_NUMBER >= 0x10100000L
++	BN_GENCB *cb = NULL;
++#endif
+ 
+ #ifdef OPENSSL_NO_EC
+ 	(void)curve_nid;
+@@ -86,17 +95,54 @@ void pki_evp::generate(int bits, int typ
+ 
+ 	switch (type) {
+ 	case EVP_PKEY_RSA:
+-		RSA *rsakey;
++#if OPENSSL_VERSION_NUMBER >= 0x10100000L
++		BIGNUM *e;
++	    e = BN_new();
++		if (e) {
++			if (BN_set_word(e, 0x10001)) {
++				cb = BN_GENCB_new();
++				if (cb) {
++					BN_GENCB_set_old(cb, inc_progress_bar, progress);
++					rsakey = RSA_new();
++					if (rsakey) {
++						if (!RSA_generate_key_ex(rsakey, bits, e, cb)) {
++							RSA_free(rsakey);
++							rsakey = NULL;
++						}
++					}
++					BN_GENCB_free(cb);
++				}
++			}
++			BN_clear_free(e);
++		}
++#else
+ 		rsakey = RSA_generate_key(bits, 0x10001, inc_progress_bar,
+ 			progress);
++#endif
++
+ 		if (rsakey)
+ 			EVP_PKEY_assign_RSA(key, rsakey);
+ 		break;
+ 	case EVP_PKEY_DSA:
+-		DSA *dsakey;
+ 		progress->setMaximum(500);
++#if OPENSSL_VERSION_NUMBER >= 0x10100000L
++		cb = BN_GENCB_new();
++		if (cb) {
++			BN_GENCB_set_old(cb, inc_progress_bar, progress);
++			dsakey = DSA_new();
++			if (dsakey) {
++				if (!DSA_generate_parameters_ex(dsakey, bits,
++												NULL, 0, NULL, NULL, cb)) {
++					DSA_free(dsakey);
++					dsakey = NULL;
++				}
++			}
++			BN_GENCB_free(cb);
++		}
++#else
+ 		dsakey = DSA_generate_parameters(bits, NULL, 0, NULL, NULL,
+ 				inc_progress_bar, progress);
++#endif
+ 		DSA_generate_key(dsakey);
+ 		if (dsakey)
+ 			EVP_PKEY_assign_DSA(key, dsakey);
+@@ -132,7 +178,7 @@ void pki_evp::generate(int bits, int typ
+ pki_evp::pki_evp(const pki_evp *pk)
+ 	:pki_key(pk)
+ {
+-	init(pk->key->type);
++	init(pk->getKeyType());
+ 	pki_openssl_error();
+ 	ownPass = pk->ownPass;
+ 	encKey = pk->encKey;
+@@ -157,15 +203,49 @@ pki_evp::pki_evp(EVP_PKEY *pkey)
+ 
+ static bool EVP_PKEY_isPrivKey(EVP_PKEY *key)
+ {
+-	switch (EVP_PKEY_type(key->type)) {
++	int keytype;
++
++#if OPENSSL_VERSION_NUMBER >= 0x10100000L
++	keytype = EVP_PKEY_id(key);
++#else
++	keytype = key->type;
++#endif
++
++	switch (EVP_PKEY_type(keytype)) {
+ 		case EVP_PKEY_RSA:
++#if OPENSSL_VERSION_NUMBER >= 0x10100000L
++		RSA *rsa;
++		const BIGNUM *d;
++		d = NULL;
++	   	rsa = EVP_PKEY_get0_RSA(key);
++		if (rsa)
++			RSA_get0_key(rsa, NULL, NULL, &d);
++		return d? true: false;
++#else
+ 			return key->pkey.rsa->d ? true: false;
++#endif
+ 		case EVP_PKEY_DSA:
++#if OPENSSL_VERSION_NUMBER >= 0x10100000L
++			DSA *dsa;
++			const BIGNUM *privkey;
++			dsa = EVP_PKEY_get0_DSA(key);
++			privkey = NULL;
++			if (dsa)
++				DSA_get0_key(dsa, NULL, &privkey);
++			return privkey? true: false;
++#else
+ 			return key->pkey.dsa->priv_key ? true: false;
++#endif
+ #ifndef OPENSSL_NO_EC
+ 		case EVP_PKEY_EC:
++#if OPENSSL_VERSION_NUMBER >= 0x10100000L
++			EC_KEY *ec;
++			ec = EVP_PKEY_get0_EC_KEY(key);
++			return ec? true: false;
++#else
+ 			return EC_KEY_get0_private_key(key->pkey.ec) ? true: false;
+ #endif
++#endif
+ 	}
+ 	return false;
+ }
+@@ -211,10 +291,23 @@ void pki_evp::fromPEM_BIO(BIO *bio, QStr
+ static void search_ec_oid(EVP_PKEY *pkey)
+ {
+ #ifndef OPENSSL_NO_EC
+-	if (pkey->type != EVP_PKEY_EC)
++	int keytype;
++	EC_KEY *ec;
++
++#if OPENSSL_VERSION_NUMBER >= 0x10100000L
++	keytype = EVP_PKEY_id(pkey);
++#else
++	keytype = pkey->type;
++#endif
++
++	if (keytype != EVP_PKEY_EC)
+ 		return;
+ 
+-	EC_KEY *ec = pkey->pkey.ec;
++#if OPENSSL_VERSION_NUMBER >= 0x10100000L
++	ec = EVP_PKEY_get0_EC_KEY(pkey);
++#else
++	ec = pkey->pkey.ec;
++#endif
+ 
+ 	const EC_GROUP *ec_group = EC_KEY_get0_group(ec);
+ 	EC_GROUP *builtin;
+@@ -317,9 +410,10 @@ void pki_evp::fload(const QString fname)
+ 	}
+ }
+ 
+-void pki_evp::fromData(const unsigned char *p, db_header_t *head )
++void pki_evp::fromData(const unsigned char *p, db_header_t *head)
+ {
+ 	int version, type, size;
++	void *ptr = NULL;
+ 
+ 	if (key)
+ 		EVP_PKEY_free(key);
+@@ -338,9 +432,17 @@ void pki_evp::fromData(const unsigned ch
+ 		d2i(ba);
+ 	}
+ 	pki_openssl_error();
+-	if (!key || !key->pkey.ptr) {
++
++	if (key)
++#if OPENSSL_VERSION_NUMBER >= 0x10100000L
++		ptr = EVP_PKEY_get0(key);
++#else
++		ptr = key->pkey.ptr;
++#endif
++
++	if (!ptr)
+ 		throw errorEx(tr("Ignoring unsupported private key"));
+-	}
++
+ 	encKey = ba;
+ }
+ 
+@@ -353,7 +455,10 @@ EVP_PKEY *pki_evp::decryptKey() const
+ 	unsigned char ckey[EVP_MAX_KEY_LENGTH];
+ 
+ 	EVP_PKEY *tmpkey;
+-	EVP_CIPHER_CTX ctx;
++#if OPENSSL_VERSION_NUMBER < 0x10100000L
++	EVP_CIPHER_CTX ctxbuf;
++#endif
++	EVP_CIPHER_CTX *ctx;
+ 	const EVP_CIPHER *cipher = EVP_des_ede3_cbc();
+ 	Passwd ownPassBuf;
+ 	int ret;
+@@ -403,23 +508,38 @@ EVP_PKEY *pki_evp::decryptKey() const
+ 	 * because an md5 version of the password is
+ 	 * stored in the database...
+ 	 */
+-	EVP_CIPHER_CTX_init(&ctx);
+-	EVP_DecryptInit(&ctx, cipher, ckey, iv);
+-	EVP_DecryptUpdate(&ctx, p , &outl,
++#if OPENSSL_VERSION_NUMBER >= 0x10100000L
++	ctx = EVP_CIPHER_CTX_new();
++#else
++	ctx = &ctxbuf;
++#endif
++	EVP_CIPHER_CTX_init(ctx);
++	EVP_DecryptInit(ctx, cipher, ckey, iv);
++	EVP_DecryptUpdate(ctx, p , &outl,
+ 		(const unsigned char*)encKey.constData() +8, encKey.count() -8);
+ 
+ 	decsize = outl;
+-	EVP_DecryptFinal(&ctx, p + decsize , &outl);
++	EVP_DecryptFinal(ctx, p + decsize , &outl);
+ 	decsize += outl;
+ 	//printf("Decrypt decsize=%d, encKey_len=%d\n", decsize, encKey.count() -8);
+ 	pki_openssl_error();
+-	tmpkey = d2i_PrivateKey(key->type, NULL, &p1, decsize);
++	tmpkey = d2i_PrivateKey(getKeyType(), NULL, &p1, decsize);
+ 	pki_openssl_error();
+ 	OPENSSL_free(p);
+-	EVP_CIPHER_CTX_cleanup(&ctx);
++	EVP_CIPHER_CTX_cleanup(ctx);
++#if OPENSSL_VERSION_NUMBER >= 0x10100000L
++	EVP_CIPHER_CTX_free(ctx);
++#endif
+ 	pki_openssl_error();
+-	if (EVP_PKEY_type(tmpkey->type) == EVP_PKEY_RSA)
+-		RSA_blinding_on(tmpkey->pkey.rsa, NULL);
++	if (EVP_PKEY_type(getKeyType()) == EVP_PKEY_RSA) {
++		RSA *rsa;
++#if OPENSSL_VERSION_NUMBER >= 0x10100000L
++	   	rsa = EVP_PKEY_get0_RSA(tmpkey);
++#else
++		rsa = tmpkey->pkey.rsa;
++#endif
++		RSA_blinding_on(rsa, NULL);
++	}
+ 	return tmpkey;
+ }
+ 
+@@ -427,7 +547,7 @@ QByteArray pki_evp::toData()
+ {
+ 	QByteArray ba;
+ 
+-	ba += db::intToData(key->type);
++	ba += db::intToData(getKeyType());
+ 	ba += db::intToData(ownPass);
+ 	ba += i2d();
+ 	ba += encKey;
+@@ -458,7 +578,10 @@ void pki_evp::encryptKey(const char *pas
+ {
+ 	int outl, keylen;
+ 	EVP_PKEY *pkey1 = NULL;
+-	EVP_CIPHER_CTX ctx;
++#if OPENSSL_VERSION_NUMBER < 0x10100000L
++	EVP_CIPHER_CTX ctxbuf;
++#endif
++	EVP_CIPHER_CTX *ctx;
+ 	const EVP_CIPHER *cipher = EVP_des_ede3_cbc();
+ 	unsigned char iv[EVP_MAX_IV_LENGTH], *punenc, *punenc1;
+ 	unsigned char ckey[EVP_MAX_KEY_LENGTH];
+@@ -499,7 +622,12 @@ void pki_evp::encryptKey(const char *pas
+ 	EVP_BytesToKey(cipher, EVP_sha1(), iv,
+ 			ownPassBuf.constUchar(),
+ 			ownPassBuf.size(), 1, ckey, NULL);
+-	EVP_CIPHER_CTX_init (&ctx);
++#if OPENSSL_VERSION_NUMBER >= 0x10100000L
++	ctx = EVP_CIPHER_CTX_new();
++#else
++	ctx = &ctxbuf;
++#endif
++	EVP_CIPHER_CTX_init (ctx);
+ 	pki_openssl_error();
+ 
+ 	/* reserve space for unencrypted and encrypted key */
+@@ -518,14 +646,17 @@ void pki_evp::encryptKey(const char *pas
+ 
+ 	/* do the encryption */
+ 	/* store key right after the iv */
+-	EVP_EncryptInit(&ctx, cipher, ckey, iv);
++	EVP_EncryptInit(ctx, cipher, ckey, iv);
+ 	unsigned char *penc = (unsigned char *)encKey.data() +8;
+-	EVP_EncryptUpdate(&ctx, penc, &outl, punenc, keylen);
++	EVP_EncryptUpdate(ctx, penc, &outl, punenc, keylen);
+ 	int encKey_len = outl;
+-	EVP_EncryptFinal(&ctx, penc + encKey_len, &outl);
++	EVP_EncryptFinal(ctx, penc + encKey_len, &outl);
+ 	encKey.resize(encKey_len + outl +8);
+ 	/* Cleanup */
+-	EVP_CIPHER_CTX_cleanup(&ctx);
++	EVP_CIPHER_CTX_cleanup(ctx);
++#if OPENSSL_VERSION_NUMBER >= 0x10100000L
++	EVP_CIPHER_CTX_free(ctx);
++#endif
+ 	/* wipe out the memory */
+ 	memset(punenc, 0, keylen);
+ 	OPENSSL_free(punenc);
+@@ -600,6 +731,7 @@ void pki_evp::writeKey(const QString fna
+ 			pem_password_cb *cb, bool pem)
+ {
+ 	EVP_PKEY *pkey;
++	int keytype;
+ 	pass_info p(XCA_TITLE, tr("Please enter the export password for the private key '%1'").arg(getIntName()));
+ 	if (isPubKey()) {
+ 		writePublic(fname, pem);
+@@ -614,19 +746,39 @@ void pki_evp::writeKey(const QString fna
+ 		pkey = decryptKey();
+ 		if (pkey) {
+ 			if (pem) {
+-				switch (pkey->type) {
++#if OPENSSL_VERSION_NUMBER >= 0x10100000L
++				keytype = EVP_PKEY_id(pkey);
++#else
++				keytype = pkey->type;
++#endif
++				switch (keytype) {
+ 				case EVP_PKEY_RSA:
+-					PEM_write_RSAPrivateKey(fp,
+-					  pkey->pkey.rsa, enc, NULL, 0, cb, &p);
++					RSA *rsa;
++#if OPENSSL_VERSION_NUMBER >= 0x10100000L
++					rsa = EVP_PKEY_get0_RSA(pkey);
++#else
++					rsa = pkey->pkey.rsa;
++#endif
++					PEM_write_RSAPrivateKey(fp, rsa, enc, NULL, 0, cb, &p);
+ 					break;
+ 				case EVP_PKEY_DSA:
+-					PEM_write_DSAPrivateKey(fp,
+-					  pkey->pkey.dsa, enc, NULL, 0, cb, &p);
++					DSA *dsa;
++#if OPENSSL_VERSION_NUMBER >= 0x10100000L
++					dsa = EVP_PKEY_get0_DSA(pkey);
++#else
++					dsa = pkey->pkey.dsa;
++#endif
++					PEM_write_DSAPrivateKey(fp, dsa, enc, NULL, 0, cb, &p);
+ 					break;
+ #ifndef OPENSSL_NO_EC
+ 				case EVP_PKEY_EC:
+-					PEM_write_ECPrivateKey(fp,
+-					  pkey->pkey.ec, enc, NULL, 0, cb, &p);
++					EC_KEY *ec;
++#if OPENSSL_VERSION_NUMBER >= 0x10100000L
++					ec = EVP_PKEY_get0_EC_KEY(pkey);
++#else
++					ec = pkey->pkey.ec;
++#endif
++					PEM_write_ECPrivateKey(fp, ec, enc, NULL, 0, cb, &p);
+ 					break;
+ #endif
+ 				default:
+@@ -655,8 +807,14 @@ int pki_evp::verify()
+ {
+ 	bool veri = false;
+ 	return true;
+-	if (key->type == EVP_PKEY_RSA && isPrivKey()) {
+-		if (RSA_check_key(key->pkey.rsa) == 1)
++	if (getKeyType() == EVP_PKEY_RSA && isPrivKey()) {
++		RSA *rsa;
++#if OPENSSL_VERSION_NUMBER >= 0x10100000L
++		rsa = EVP_PKEY_get0_RSA(key);
++#else
++		rsa = key->pkey.rsa;
++#endif
++		if (RSA_check_key(rsa) == 1)
+ 			veri = true;
+ 	}
+ 	if (isPrivKey())
+@@ -667,8 +825,11 @@ int pki_evp::verify()
+ 
+ const EVP_MD *pki_evp::getDefaultMD()
+ {
++#if OPENSSL_VERSION_NUMBER >= 0x10100000L
++	return EVP_sha1();
++#else
+ 	const EVP_MD *md;
+-	switch (key->type) {
++	switch (getKeyType()) {
+ 		case EVP_PKEY_RSA: md = EVP_sha1(); break;
+ 		case EVP_PKEY_DSA: md = EVP_dss1(); break;
+ #ifndef OPENSSL_NO_EC
+@@ -677,6 +838,7 @@ const EVP_MD *pki_evp::getDefaultMD()
+ 		default: md = NULL; break;
+ 	}
+ 	return md;
++#endif
+ }
+ 
+ QVariant pki_evp::getIcon(dbheader *hd)
+@@ -690,14 +852,29 @@ QVariant pki_evp::getIcon(dbheader *hd)
+ QString pki_evp::md5passwd(QByteArray pass)
+ {
+ 
+-	EVP_MD_CTX mdctx;
++#if OPENSSL_VERSION_NUMBER < 0x10100000L
++	EVP_MD_CTX mdctxbuf;
++#endif
++	EVP_MD_CTX *mdctx;
+ 	QString str;
+ 	int n;
+ 	int j;
+ 	unsigned char m[EVP_MAX_MD_SIZE];
+-	EVP_DigestInit(&mdctx, EVP_md5());
+-	EVP_DigestUpdate(&mdctx, pass.constData(), pass.size());
+-	EVP_DigestFinal(&mdctx, m, (unsigned*)&n);
++
++#if OPENSSL_VERSION_NUMBER >= 0x10100000L
++	mdctx = EVP_MD_CTX_new();
++#else
++	mdctx = &mdctxbuf;
++#endif
++
++	EVP_DigestInit(mdctx, EVP_md5());
++	EVP_DigestUpdate(mdctx, pass.constData(), pass.size());
++	EVP_DigestFinal(mdctx, m, (unsigned*)&n);
++
++#if OPENSSL_VERSION_NUMBER >= 0x10100000L
++	EVP_MD_CTX_free(mdctx);
++#endif
++
+ 	for (j=0; j<n; j++) {
+ 		char zs[4];
+ 		sprintf(zs, "%02X%c",m[j], (j+1 == n) ?'\0':':');
+@@ -708,8 +885,10 @@ QString pki_evp::md5passwd(QByteArray pa
+ 
+ QString pki_evp::sha512passwd(QByteArray pass, QString salt)
+ {
+-
+-	EVP_MD_CTX mdctx;
++#if OPENSSL_VERSION_NUMBER < 0x10100000L
++	EVP_MD_CTX mdctxbuf;
++#endif
++	EVP_MD_CTX *mdctx;
+ 	QString str;
+ 	int n;
+ 	int j;
+@@ -721,9 +900,19 @@ QString pki_evp::sha512passwd(QByteArray
+ 	str = salt.left(5);
+ 	pass = str.toLatin1() + pass;
+ 
+-	EVP_DigestInit(&mdctx, EVP_sha512());
+-	EVP_DigestUpdate(&mdctx, pass.constData(), pass.size());
+-	EVP_DigestFinal(&mdctx, m, (unsigned*)&n);
++#if OPENSSL_VERSION_NUMBER >= 0x10100000L
++	mdctx = EVP_MD_CTX_new();
++#else
++	mdctx = &mdctxbuf;
++#endif
++
++	EVP_DigestInit(mdctx, EVP_sha512());
++	EVP_DigestUpdate(mdctx, pass.constData(), pass.size());
++	EVP_DigestFinal(mdctx, m, (unsigned*)&n);
++
++#if OPENSSL_VERSION_NUMBER >= 0x10100000L
++	EVP_MD_CTX_free(mdctx);
++#endif
+ 
+ 	for (j=0; j<n; j++) {
+ 		char zs[4];
+@@ -741,7 +930,10 @@ void pki_evp::veryOldFromData(unsigned c
+ 	unsigned char ckey[EVP_MAX_KEY_LENGTH];
+ 	memset(iv, 0, EVP_MAX_IV_LENGTH);
+ 	RSA *rsakey;
+-	EVP_CIPHER_CTX ctx;
++#if OPENSSL_VERSION_NUMBER < 0x10100000L
++	EVP_CIPHER_CTX ctxbuf;
++#endif
++	EVP_CIPHER_CTX *ctx;
+ 	const EVP_CIPHER *cipher = EVP_des_ede3_cbc();
+ 	sik = (unsigned char *)OPENSSL_malloc(size);
+ 	check_oom(sik);
+@@ -761,15 +953,21 @@ void pki_evp::veryOldFromData(unsigned c
+ 	 * because an md5 version of the password is
+ 	 * stored in the database...
+ 	 */
+-	EVP_CIPHER_CTX_init (&ctx);
+-	EVP_DecryptInit( &ctx, cipher, ckey, iv);
+-	EVP_DecryptUpdate( &ctx, pdec , &outl, p + 8, size -8 );
++#if OPENSSL_VERSION_NUMBER >= 0x10100000L
++	ctx = EVP_CIPHER_CTX_new();
++#else
++	ctx = &ctxbuf;
++#endif
++
++	EVP_CIPHER_CTX_init(ctx);
++	EVP_DecryptInit(ctx, cipher, ckey, iv);
++	EVP_DecryptUpdate(ctx, pdec , &outl, p + 8, size - 8);
+ 	decsize = outl;
+-	EVP_DecryptFinal( &ctx, pdec + decsize , &outl );
++	EVP_DecryptFinal(ctx, pdec + decsize, &outl);
+ 	decsize += outl;
+ 	pki_openssl_error();
+ 	memcpy(sik, pdec, decsize);
+-	if (key->type == EVP_PKEY_RSA) {
++	if (getKeyType() == EVP_PKEY_RSA) {
+ 		rsakey=d2i_RSAPrivateKey(NULL,(const unsigned char **)&pdec, decsize);
+ 		if (pki_ign_openssl_error()) {
+ 			rsakey = d2i_RSA_PUBKEY(NULL, (const unsigned char **)&sik, decsize);
+@@ -779,7 +977,10 @@ void pki_evp::veryOldFromData(unsigned c
+ 	}
+ 	OPENSSL_free(sik1);
+ 	OPENSSL_free(pdec1);
+-	EVP_CIPHER_CTX_cleanup(&ctx);
++	EVP_CIPHER_CTX_cleanup(ctx);
++#if OPENSSL_VERSION_NUMBER >= 0x10100000L
++	EVP_CIPHER_CTX_free(ctx);
++#endif
+ 	pki_openssl_error();
+ 	encryptKey();
+ }
+diff -Naurp xca-1.3.2.orig/lib/pki_key.cpp xca-1.3.2.new/lib/pki_key.cpp
+--- xca-1.3.2.orig/lib/pki_key.cpp	2015-10-10 14:54:12.000000000 +0200
++++ xca-1.3.2.new/lib/pki_key.cpp	2017-02-21 04:34:48.508448958 +0100
+@@ -101,16 +101,31 @@ BIO *pki_key::pem(BIO *b, int format)
+ 
+ QString pki_key::length()
+ {
+-	if (key->type == EVP_PKEY_DSA && key->pkey.dsa->p == NULL) {
+-		return QString("???");
++	bool dsa_unset = false;
++
++#if OPENSSL_VERSION_NUMBER >= 0x10100000L
++	if (EVP_PKEY_id(key) == EVP_PKEY_DSA) {
++		const BIGNUM *p = NULL;
++		DSA *dsa = EVP_PKEY_get0_DSA(key);
++		if (dsa)
++			DSA_get0_pqg(dsa, &p, NULL, NULL);
++		dsa_unset = p == NULL;
+ 	}
++#else
++	dsa_unset = key->type == EVP_PKEY_DSA && key->pkey.dsa->p == NULL;
++#endif
++
++	if (dsa_unset)
++		return QString("???");
++
+ 	return QString("%1 bit").arg(EVP_PKEY_bits(key));
+ }
+ 
+ QString pki_key::getTypeString() const
+ {
+ 	QString type;
+-	switch (EVP_PKEY_type(key->type)) {
++
++	switch (EVP_PKEY_type(getKeyType())) {
+ 		case EVP_PKEY_RSA:
+ 			type = "RSA";
+ 			break;
+@@ -202,51 +217,118 @@ int pki_key::getUcount()
+ 	return ucount;
+ }
+ 
+-int pki_key::getKeyType()
++int pki_key::getKeyType() const
+ {
++#if OPENSSL_VERSION_NUMBER >= 0x10100000L
++	return EVP_PKEY_id(key);
++#else
+ 	return key->type;
++#endif
+ }
+ 
+ QString pki_key::modulus()
+ {
+-	if (key->type == EVP_PKEY_RSA)
+-		return BN2QString(key->pkey.rsa->n);
++	if (getKeyType() == EVP_PKEY_RSA) {
++		const BIGNUM *n = NULL;
++
++#if OPENSSL_VERSION_NUMBER >= 0x10100000L
++		RSA *rsa = EVP_PKEY_get0_RSA(key);
++		RSA_get0_key(rsa, &n, NULL, NULL);
++#else
++		n = key->pkey.rsa->n;
++#endif
++
++		return BN2QString(n);
++	}
++
++
+ 	return QString();
+ }
+ 
+ QString pki_key::pubEx()
+ {
+-	if (key->type == EVP_PKEY_RSA)
+-		return BN2QString(key->pkey.rsa->e);
++	if (getKeyType() == EVP_PKEY_RSA) {
++		const BIGNUM *e = NULL;
++
++#if OPENSSL_VERSION_NUMBER >= 0x10100000L
++		RSA *rsa = EVP_PKEY_get0_RSA(key);
++		RSA_get0_key(rsa, NULL, &e, NULL);
++#else
++		e = key->pkey.rsa->e;
++#endif
++		return BN2QString(e);
++	}
++
++
+ 	return QString();
+ }
+ 
+ QString pki_key::subprime()
+ {
+-	if (key->type == EVP_PKEY_DSA)
+-		return BN2QString(key->pkey.dsa->q);
++	if (getKeyType() == EVP_PKEY_DSA) {
++		const BIGNUM *q = NULL;
++
++#if OPENSSL_VERSION_NUMBER >= 0x10100000L
++		DSA *dsa = EVP_PKEY_get0_DSA(key);
++		if (dsa)
++			DSA_get0_pqg(dsa, NULL, &q, NULL);
++#else
++		q = key->pkey.dsa->q;
++#endif
++
++		return BN2QString(q);
++	}
++
+ 	return QString();
+ }
+ 
+ QString pki_key::pubkey()
+ {
+-	if (key->type == EVP_PKEY_DSA)
+-		return BN2QString(key->pkey.dsa->pub_key);
++	if (getKeyType() == EVP_PKEY_DSA) {
++		const BIGNUM *pubkey = NULL;
++
++#if OPENSSL_VERSION_NUMBER >= 0x10100000L
++		DSA *dsa = EVP_PKEY_get0_DSA(key);
++		if (dsa)
++			DSA_get0_key(dsa, &pubkey, NULL);
++#else
++		pubkey = key->pkey.dsa->pub_key;
++#endif
++
++		return BN2QString(pubkey);
++	}
++
+ 	return QString();
+ }
+ #ifndef OPENSSL_NO_EC
+ int pki_key::ecParamNid()
+ {
+-	if (key->type != EVP_PKEY_EC)
++	const EC_KEY *ec;
++
++	if (getKeyType() != EVP_PKEY_EC)
+ 		return NID_undef;
+-	return EC_GROUP_get_curve_name(EC_KEY_get0_group(key->pkey.ec));
++
++#if OPENSSL_VERSION_NUMBER >= 0x10100000L
++	ec = EVP_PKEY_get0_EC_KEY(key);
++#else
++	ec = key->pkey.ec;
++#endif
++
++	return EC_GROUP_get_curve_name(EC_KEY_get0_group(ec));
+ }
+ 
+ QString pki_key::ecPubKey()
+ {
+ 	QString pub;
+-	if (key->type == EVP_PKEY_EC) {
+-		EC_KEY *ec = key->pkey.ec;
++	const EC_KEY *ec = NULL;
++
++	if (getKeyType() == EVP_PKEY_EC) {
++#if OPENSSL_VERSION_NUMBER >= 0x10100000L
++		ec = EVP_PKEY_get0_EC_KEY(key);
++#else
++		ec = key->pkey.ec;
++#endif
++
+ 		BIGNUM  *pub_key = EC_POINT_point2bn(EC_KEY_get0_group(ec),
+ 				EC_KEY_get0_public_key(ec),
+ 				EC_KEY_get_conv_form(ec), NULL, NULL);
+@@ -263,7 +345,7 @@ QList<int> pki_key::possibleHashNids()
+ {
+ 	QList<int> nids;
+ 
+-	switch (EVP_PKEY_type(key->type)) {
++	switch (EVP_PKEY_type(getKeyType())) {
+ 		case EVP_PKEY_RSA:
+ 			nids << NID_md5 << NID_sha1 << NID_sha224 << NID_sha256 <<
+ 				NID_sha384 << NID_sha512 << NID_ripemd160;
+@@ -326,7 +408,7 @@ QString pki_key::BNoneLine(BIGNUM *bn) c
+ 	return x;
+ }
+ 
+-QString pki_key::BN2QString(BIGNUM *bn) const
++QString pki_key::BN2QString(const BIGNUM *bn) const
+ {
+ 	if (bn == NULL)
+ 		return "--";
+@@ -367,7 +449,7 @@ QVariant pki_key::column_data(dbheader *
+ 		case HD_key_curve:
+ 			QString r;
+ #ifndef OPENSSL_NO_EC
+-			if (key->type == EVP_PKEY_EC)
++			if (getKeyType() == EVP_PKEY_EC)
+ 				r = OBJ_nid2sn(ecParamNid());
+ #endif
+ 			return QVariant(r);
+@@ -424,8 +506,16 @@ EVP_PKEY *pki_key::load_ssh2_key(FILE *f
+ 			RSA *rsa = RSA_new();
+ 			/* Skip "ssh-rsa..." */
+ 			ssh_key_data2bn(&ba, true);
++
++#if OPENSSL_VERSION_NUMBER >= 0x10100000L
++			BIGNUM *e = ssh_key_data2bn(&ba);
++			BIGNUM *n = ssh_key_data2bn(&ba);
++			RSA_set0_key(rsa, n, e, NULL);
++#else
+ 			rsa->e = ssh_key_data2bn(&ba);
+ 			rsa->n = ssh_key_data2bn(&ba);
++#endif
++
+ 			pk = EVP_PKEY_new();
+ 			EVP_PKEY_assign_RSA(pk, rsa);
+ 			break;
+@@ -434,10 +524,21 @@ EVP_PKEY *pki_key::load_ssh2_key(FILE *f
+ 			DSA *dsa = DSA_new();
+ 			/* Skip "ssh-dsa..." */
+ 			ssh_key_data2bn(&ba, true);
++
++#if OPENSSL_VERSION_NUMBER >= 0x10100000L
++			BIGNUM *p = ssh_key_data2bn(&ba);
++			BIGNUM *q = ssh_key_data2bn(&ba);
++			BIGNUM *g = ssh_key_data2bn(&ba);
++			BIGNUM *pubkey = ssh_key_data2bn(&ba);
++			DSA_set0_pqg(dsa, p, q, g);
++			DSA_set0_key(dsa, pubkey, NULL);
++#else
+ 			dsa->p = ssh_key_data2bn(&ba);
+ 			dsa->q = ssh_key_data2bn(&ba);
+ 			dsa->g = ssh_key_data2bn(&ba);
+ 			dsa->pub_key = ssh_key_data2bn(&ba);
++#endif
++
+ 			pk = EVP_PKEY_new();
+ 			EVP_PKEY_assign_DSA(pk, dsa);
+ 		}
+@@ -458,7 +559,7 @@ void pki_key::ssh_key_QBA2data(QByteArra
+ 	data->append(ba);
+ }
+ 
+-void pki_key::ssh_key_bn2data(BIGNUM *bn, QByteArray *data)
++void pki_key::ssh_key_bn2data(const BIGNUM *bn, QByteArray *data)
+ {
+ 	QByteArray big;
+ 	big.resize(BN_num_bytes(bn));
+@@ -473,20 +574,43 @@ QByteArray pki_key::SSH2publicQByteArray
+ {
+ 	QByteArray txt, data;
+ 
+-	switch (key->type) {
++	switch (getKeyType()) {
+ 	case EVP_PKEY_RSA:
+ 		txt = "ssh-rsa";
+ 		ssh_key_QBA2data(txt, &data);
++#if OPENSSL_VERSION_NUMBER >= 0x10100000L
++		{
++			RSA *rsa = EVP_PKEY_get0_RSA(key);
++			const BIGNUM *n, *e;
++			RSA_get0_key(rsa, &n, &e, NULL);
++			ssh_key_bn2data(e, &data);
++			ssh_key_bn2data(n, &data);
++		}
++#else
+ 		ssh_key_bn2data(key->pkey.rsa->e, &data);
+ 		ssh_key_bn2data(key->pkey.rsa->n, &data);
++#endif
+ 		break;
+ 	case EVP_PKEY_DSA:
+ 		txt = "ssh-dss";
+ 		ssh_key_QBA2data(txt, &data);
++#if OPENSSL_VERSION_NUMBER >= 0x10100000L
++		{
++			DSA *dsa = EVP_PKEY_get0_DSA(key);
++			const BIGNUM *p, *q, *g, *pubkey;
++			DSA_get0_pqg(dsa, &p, &q, &g);
++			DSA_get0_key(dsa, &pubkey, NULL);
++			ssh_key_bn2data(p, &data);
++			ssh_key_bn2data(q, &data);
++			ssh_key_bn2data(g, &data);
++			ssh_key_bn2data(pubkey, &data);
++		}
++#else
+ 		ssh_key_bn2data(key->pkey.dsa->p, &data);
+ 		ssh_key_bn2data(key->pkey.dsa->q, &data);
+ 		ssh_key_bn2data(key->pkey.dsa->g, &data);
+ 		ssh_key_bn2data(key->pkey.dsa->pub_key, &data);
++#endif
+ 		break;
+ 	default:
+ 		return QByteArray();
+diff -Naurp xca-1.3.2.orig/lib/pki_key.h xca-1.3.2.new/lib/pki_key.h
+--- xca-1.3.2.orig/lib/pki_key.h	2015-10-10 14:54:12.000000000 +0200
++++ xca-1.3.2.new/lib/pki_key.h	2017-02-21 04:29:05.183300432 +0100
+@@ -24,14 +24,14 @@ class pki_key: public pki_base
+ 	protected:
+ 		int ownPass;
+ 		EVP_PKEY *key;
+-		QString BN2QString(BIGNUM *bn) const;
++		QString BN2QString(const BIGNUM *bn) const;
+ 		QString BNoneLine(BIGNUM *bn) const;
+ 		QByteArray SSH2publicQByteArray();
+ 
+ 	private:
+ 		BIGNUM *ssh_key_data2bn(QByteArray *ba, bool skip = false);
+ 		void ssh_key_QBA2data(QByteArray &ba, QByteArray *data);
+-		void ssh_key_bn2data(BIGNUM *bn, QByteArray *data);
++		void ssh_key_bn2data(const BIGNUM *bn, QByteArray *data);
+ 		int ucount; // usage counter
+ 	public:
+ 		pki_key(const QString name = "");
+@@ -65,7 +65,7 @@ class pki_key: public pki_base
+ 
+ 		void writePublic(const QString fname, bool pem);
+ 		bool compare(pki_base *ref);
+-		int getKeyType();
++		int getKeyType() const;
+ 		static QString removeTypeFromIntName(QString n);
+ 		bool isPrivKey() const;
+ 		int incUcount();
+diff -Naurp xca-1.3.2.orig/lib/pki_pkcs12.cpp xca-1.3.2.new/lib/pki_pkcs12.cpp
+--- xca-1.3.2.orig/lib/pki_pkcs12.cpp	2015-10-10 14:54:12.000000000 +0200
++++ xca-1.3.2.new/lib/pki_pkcs12.cpp	2017-02-21 15:37:25.336628591 +0100
+@@ -61,10 +61,16 @@ pki_pkcs12::pki_pkcs12(const QString fna
+ 		}
+ 		ign_openssl_error();
+ 		if (mycert) {
+-			if (mycert->aux && mycert->aux->alias) {
++#if OPENSSL_VERSION_NUMBER >= 0x10100000L
++			int len = 0;
++			unsigned char *str = X509_alias_get0(mycert, NULL);
++			if (str)
++				alias = QString::fromUtf8((const char *) str, len);
++#else
++			if (mycert->aux && mycert->aux->alias)
+ 				alias = asn1ToQString(mycert->aux->alias);
+-				alias = QString::fromUtf8(alias.toLatin1());
+-			}
++#endif
++			alias = QString::fromUtf8(alias.toLatin1());
+ 			cert = new pki_x509(mycert);
+ 			if (alias.isEmpty()) {
+ 				cert->autoIntName();
+diff -Naurp xca-1.3.2.orig/lib/pki_scard.cpp xca-1.3.2.new/lib/pki_scard.cpp
+--- xca-1.3.2.orig/lib/pki_scard.cpp	2015-10-10 14:54:12.000000000 +0200
++++ xca-1.3.2.new/lib/pki_scard.cpp	2017-02-22 02:16:08.425135591 +0100
+@@ -80,11 +80,16 @@ EVP_PKEY *pki_scard::load_pubkey(pkcs11
+ 
+ 		pk11_attr_data n(CKA_MODULUS);
+ 		p11.loadAttribute(n, object);
+-		rsa->n = n.getBignum();
+ 
+ 		pk11_attr_data e(CKA_PUBLIC_EXPONENT);
+ 		p11.loadAttribute(e, object);
++
++#if OPENSSL_VERSION_NUMBER >= 0x10100000L
++		RSA_set0_key(rsa, n.getBignum(), e.getBignum(), NULL);
++#else
++		rsa->n = n.getBignum();
+ 		rsa->e = e.getBignum();
++#endif
+ 
+ 		pkey = EVP_PKEY_new();
+ 		EVP_PKEY_assign_RSA(pkey, rsa);
+@@ -95,19 +100,25 @@ EVP_PKEY *pki_scard::load_pubkey(pkcs11
+ 
+ 		pk11_attr_data p(CKA_PRIME);
+ 		p11.loadAttribute(p, object);
+-		dsa->p = p.getBignum();
+ 
+ 		pk11_attr_data q(CKA_SUBPRIME);
+ 		p11.loadAttribute(q, object);
+-		dsa->q = q.getBignum();
+ 
+ 		pk11_attr_data g(CKA_BASE);
+ 		p11.loadAttribute(g, object);
+-		dsa->g = g.getBignum();
+ 
+ 		pk11_attr_data pub(CKA_VALUE);
+ 		p11.loadAttribute(pub, object);
++
++#if OPENSSL_VERSION_NUMBER >= 0x10100000L
++		DSA_set0_pqg(dsa, p.getBignum(), q.getBignum(), g.getBignum());
++		DSA_set0_key(dsa, pub.getBignum(), NULL);
++#else
++		dsa->p = p.getBignum();
++		dsa->q = q.getBignum();
++		dsa->g = g.getBignum();
+ 		dsa->pub_key = pub.getBignum();
++#endif
+ 
+ 		pkey = EVP_PKEY_new();
+ 		EVP_PKEY_assign_DSA(pkey, dsa);
+@@ -235,29 +246,64 @@ void pki_scard::deleteFromToken()
+ pk11_attlist pki_scard::objectAttributesNoId(EVP_PKEY *pk, bool priv) const
+ {
+ 	QByteArray ba;
+-	RSA *rsa = pk->pkey.rsa;
+-	DSA *dsa = pk->pkey.dsa;
++	int keytype;
++	RSA *rsa;
++	DSA *dsa;
+ #ifndef OPENSSL_NO_EC
+-	EC_KEY *ec = pk->pkey.ec;
++	EC_KEY *ec;
+ #endif
++	const BIGNUM *n = NULL;
++	const BIGNUM *e = NULL;
++	const BIGNUM *p = NULL;
++	const BIGNUM *q = NULL;
++	const BIGNUM *g = NULL;
+ 
+ 	pk11_attlist attrs(pk11_attr_ulong(CKA_CLASS,
+ 			priv ? CKO_PRIVATE_KEY : CKO_PUBLIC_KEY));
+ 
+-	switch (EVP_PKEY_type(pk->type)) {
++#if OPENSSL_VERSION_NUMBER >= 0x10100000L
++	keytype = EVP_PKEY_id(pk);
++#else
++	keytype = pk->type;
++#endif
++
++	switch (EVP_PKEY_type(keytype)) {
+ 	case EVP_PKEY_RSA:
++#if OPENSSL_VERSION_NUMBER >= 0x10100000L
++		rsa = EVP_PKEY_get0_RSA(pk);
++		RSA_get0_key(rsa, &n, &e, NULL);
++#else
++		rsa = pk->pkey.rsa;
++		n = rsa->n;
++		e = rsa->e;
++#endif
+ 		attrs << pk11_attr_ulong(CKA_KEY_TYPE, CKK_RSA) <<
+-			pk11_attr_data(CKA_MODULUS, rsa->n, false) <<
+-			pk11_attr_data(CKA_PUBLIC_EXPONENT, rsa->e, false);
++			pk11_attr_data(CKA_MODULUS, n) <<
++			pk11_attr_data(CKA_PUBLIC_EXPONENT, e);
+ 		break;
+ 	case EVP_PKEY_DSA:
++#if OPENSSL_VERSION_NUMBER >= 0x10100000L
++		dsa = EVP_PKEY_get0_DSA(pk);
++		DSA_get0_pqg(dsa, &p, &q, &g);
++#else
++		dsa = pk->pkey.dsa;
++		p = dsa->p;
++		q = dsa->q;
++		g = dsa->g;
++#endif
+ 		attrs << pk11_attr_ulong(CKA_KEY_TYPE, CKK_DSA) <<
+-			pk11_attr_data(CKA_PRIME, dsa->p, false) <<
+-			pk11_attr_data(CKA_SUBPRIME, dsa->q, false) <<
+-			pk11_attr_data(CKA_BASE, dsa->g, false);
++			pk11_attr_data(CKA_PRIME, p) <<
++			pk11_attr_data(CKA_SUBPRIME, q) <<
++			pk11_attr_data(CKA_BASE, g);
+ 		break;
+ #ifndef OPENSSL_NO_EC
+ 	case EVP_PKEY_EC:
++#if OPENSSL_VERSION_NUMBER >= 0x10100000L
++		ec = EVP_PKEY_get0_EC_KEY(pk);
++#else
++		ec = pk->pkey.ec;
++#endif
++
+ 		ba = i2d_bytearray(I2D_VOID(i2d_ECPKParameters),
+ 				EC_KEY_get0_group(ec));
+ 
+@@ -266,7 +312,7 @@ pk11_attlist pki_scard::objectAttributes
+ 		break;
+ #endif
+ 	default:
+-		throw errorEx(QString("Unkown Keytype %d").arg(pk->type));
++		throw errorEx(QString("Unkown Keytype %d").arg(keytype));
+ 
+ 	}
+ 	return attrs;
+@@ -332,14 +378,23 @@ int pki_scard::renameOnToken(slotid slot
+ void pki_scard::store_token(slotid slot, EVP_PKEY *pkey)
+ {
+ 	QByteArray ba;
+-	RSA *rsa = pkey->pkey.rsa;
+-	DSA *dsa = pkey->pkey.dsa;
++	int keytype;
++	RSA *rsa;
++	DSA *dsa;
+ #ifndef OPENSSL_NO_EC
+-	EC_KEY *ec = pkey->pkey.ec;
++	EC_KEY *ec;
+ #endif
+ 	pk11_attlist pub_atts;
+ 	pk11_attlist priv_atts;
+ 	QList<CK_OBJECT_HANDLE> objects;
++	const BIGNUM *d = NULL;
++	const BIGNUM *p = NULL;
++	const BIGNUM *q = NULL;
++	const BIGNUM *dmp1 = NULL;
++	const BIGNUM *dmq1 = NULL;
++	const BIGNUM *iqmp = NULL;
++	const BIGNUM *priv_key = NULL;
++	const BIGNUM *pub_key = NULL;
+ 
+ 	pub_atts = objectAttributesNoId(pkey, false);
+ 	priv_atts = objectAttributesNoId(pkey, true);
+@@ -373,19 +428,48 @@ void pki_scard::store_token(slotid slot,
+ 		pk11_attr_bool(CKA_DECRYPT, true) <<
+ 		pk11_attr_bool(CKA_SIGN, true);
+ 
+-	switch (EVP_PKEY_type(pkey->type)) {
++#if OPENSSL_VERSION_NUMBER >= 0x10100000L
++	keytype = EVP_PKEY_id(pkey);
++#else
++	keytype = pkey->type;
++#endif
++
++	switch (EVP_PKEY_type(keytype)) {
+ 	case EVP_PKEY_RSA:
++#if OPENSSL_VERSION_NUMBER >= 0x10100000L
++		rsa = EVP_PKEY_get0_RSA(pkey);
++		RSA_get0_key(rsa, NULL, NULL, &d);
++		RSA_get0_factors(rsa, &p, &q);
++		RSA_get0_crt_params(rsa, &dmp1, &dmq1, &iqmp);
++#else
++		rsa = pkey->pkey.rsa;
++		d = rsa->d;
++		p = rsa->p;
++		q = rsa->q;
++		dmp1 = rsa->dmp1;
++		dmq1 = rsa->dmq1;
++		iqmp = rsa->iqmp;
++#endif
+ 		priv_atts <<
+-		pk11_attr_data(CKA_PRIVATE_EXPONENT, rsa->d, false) <<
+-		pk11_attr_data(CKA_PRIME_1, rsa->p, false) <<
+-		pk11_attr_data(CKA_PRIME_2, rsa->q, false) <<
+-		pk11_attr_data(CKA_EXPONENT_1, rsa->dmp1, false) <<
+-		pk11_attr_data(CKA_EXPONENT_2, rsa->dmq1, false) <<
+-		pk11_attr_data(CKA_COEFFICIENT, rsa->iqmp, false);
++		pk11_attr_data(CKA_PRIVATE_EXPONENT, d) <<
++		pk11_attr_data(CKA_PRIME_1, p) <<
++		pk11_attr_data(CKA_PRIME_2, q) <<
++		pk11_attr_data(CKA_EXPONENT_1, dmp1) <<
++		pk11_attr_data(CKA_EXPONENT_2, dmq1) <<
++		pk11_attr_data(CKA_COEFFICIENT, iqmp);
+ 		break;
+ 	case EVP_PKEY_DSA:
+-		priv_atts << pk11_attr_data(CKA_VALUE, dsa->priv_key, false);
+-		pub_atts << pk11_attr_data(CKA_VALUE, dsa->pub_key, false);
++#if OPENSSL_VERSION_NUMBER >= 0x10100000L
++		dsa = EVP_PKEY_get0_DSA(pkey);
++		DSA_get0_key(dsa, &pub_key, &priv_key);
++#else
++		dsa = pkey->pkey.dsa;
++		priv_key = dsa->priv_key;
++		pub_key = dsa->pub_key;
++#endif
++
++		priv_atts << pk11_attr_data(CKA_VALUE, priv_key);
++		pub_atts << pk11_attr_data(CKA_VALUE, pub_key);
+ 		break;
+ #ifndef OPENSSL_NO_EC
+ 	case EVP_PKEY_EC: {
+@@ -394,6 +478,12 @@ void pki_scard::store_token(slotid slot,
+ 		int size;
+ 		unsigned char *buf;
+ 		ASN1_OCTET_STRING *os;
++
++#if OPENSSL_VERSION_NUMBER >= 0x10100000L
++		ec = EVP_PKEY_get0_EC_KEY(pkey);
++#else
++		ec = pkey->pkey.ec;
++#endif
+ 		point = EC_POINT_point2bn(EC_KEY_get0_group(ec),
+ 			EC_KEY_get0_public_key(ec),
+ 			EC_KEY_get_conv_form(ec), NULL, NULL);
+@@ -419,7 +509,7 @@ void pki_scard::store_token(slotid slot,
+ 	}
+ #endif
+ 	default:
+-		throw errorEx(QString("Unkown Keytype %d").arg(pkey->type));
++		throw errorEx(QString("Unkown Keytype %d").arg(keytype));
+ 
+ 	}
+ 
+@@ -451,7 +541,7 @@ QList<int> pki_scard::possibleHashNids()
+ 		return pki_key::possibleHashNids();
+ 
+ 	foreach(CK_MECHANISM_TYPE mechanism, mech_list) {
+-		switch (EVP_PKEY_type(key->type)) {
++		switch (EVP_PKEY_type(getKeyType())) {
+ 		case EVP_PKEY_RSA:
+ 			switch (mechanism) {
+ 			case CKM_MD5_RSA_PKCS:    nids << NID_md5; break;
+@@ -477,7 +567,7 @@ QList<int> pki_scard::possibleHashNids()
+ 		}
+ 	}
+ 	if (nids.count() == 0) {
+-		switch (EVP_PKEY_type(key->type)) {
++		switch (EVP_PKEY_type(getKeyType())) {
+ 		case EVP_PKEY_RSA:
+ 			nids << NID_md5 << NID_sha1 << NID_sha256 <<
+ 				NID_sha384 << NID_sha512 << NID_ripemd160;
+@@ -498,11 +588,19 @@ const EVP_MD *pki_scard::getDefaultMD()
+ 	if (mech_list.contains(CKM_SHA1_RSA_PKCS))
+ 		return EVP_sha1();
+ 	if (mech_list.contains(CKM_DSA_SHA1))
++#if OPENSSL_VERSION_NUMBER >= 0x10100000L
++		return EVP_sha1();
++#else
+ 		return EVP_dss1();
++#endif
+ #ifndef OPENSSL_NO_EC
+ 	if (mech_list.contains(CKM_ECDSA_SHA1))
++#if OPENSSL_VERSION_NUMBER >= 0x10100000L
++		return EVP_sha1();
++#else
+ 		return EVP_ecdsa();
+ #endif
++#endif
+ 	if (mech_list.contains(CKM_SHA512_RSA_PKCS))
+ 		return EVP_sha512();
+ 	if (mech_list.contains(CKM_SHA384_RSA_PKCS))
+@@ -672,6 +770,7 @@ QByteArray pki_scard::toData()
+ void pki_scard::fromData(const unsigned char *p, db_header_t *head )
+ {
+ 	int version, size;
++	void *ptr = NULL;
+ 
+ 	size = head->len - sizeof(db_header_t);
+         version = head->version;
+@@ -692,9 +791,16 @@ void pki_scard::fromData(const unsigned
+ 		mech_list << db::intFromData(ba);
+ 
+ 	d2i(ba);
+-	if (!key || !key->pkey.ptr) {
++
++	if (key)
++#if OPENSSL_VERSION_NUMBER >= 0x10100000L
++		ptr = EVP_PKEY_get0(key);
++#else
++		ptr = key->pkey.ptr;
++#endif
++
++	if (!ptr)
+ 		throw errorEx(tr("Ignoring unsupported token key"));
+-	}
+ 
+ 	if (ba.count() > 0) {
+ 		my_error(tr("Wrong Size %1").arg(ba.count()));
+diff -Naurp xca-1.3.2.orig/lib/pki_x509.cpp xca-1.3.2.new/lib/pki_x509.cpp
+--- xca-1.3.2.orig/lib/pki_x509.cpp	2015-10-10 14:54:12.000000000 +0200
++++ xca-1.3.2.new/lib/pki_x509.cpp	2017-02-20 16:48:24.452679180 +0100
+@@ -146,10 +146,14 @@ void pki_x509::init()
+ 
+ void pki_x509::setSerial(const a1int &serial)
+ {
+-	if (cert->cert_info->serialNumber != NULL ) {
++#if OPENSSL_VERSION_NUMBER >= 0x10100000L
++	X509_set_serialNumber(cert, serial.get());
++#else
++	if (cert->cert_info->serialNumber != NULL) {
+ 		ASN1_INTEGER_free(cert->cert_info->serialNumber);
+ 	}
+ 	cert->cert_info->serialNumber = serial.get();
++#endif
+ 	pki_openssl_error();
+ }
+ 
+@@ -176,7 +180,13 @@ a1int pki_x509::getIncCaSerial()
+ 	unsigned char buf[SERIAL_LEN];
+ 	if (!randomSerial)
+ 		return caSerial++;
++
++#if OPENSSL_VERSION_NUMBER >= 0x10100000L
++	RAND_bytes(buf, SERIAL_LEN);
++#else
+ 	RAND_pseudo_bytes(buf, SERIAL_LEN);
++#endif
++
+ 	a1int serial;
+ 	serial.setRaw(buf, SERIAL_LEN);
+ 	return serial;
+@@ -186,9 +196,29 @@ a1int pki_x509::hashInfo(const EVP_MD *m
+ {
+ 	unsigned char digest[EVP_MAX_MD_SIZE];
+ 	unsigned len = 0;
++
++#if OPENSSL_VERSION_NUMBER >= 0x10100000L
++	unsigned char *str = NULL;
++	int i;
++
++	// In OpenSSL 1.1, X509 structure is opaque and their is no API to get
++	// cert_info. We then have to get cert_info data as a DER string and
++	// compute the digest on it.
++	
++	i = i2d_re_X509_tbs(cert, &str);
++	if (!str)
++		pki_openssl_error();
++	else {
++		i = EVP_Digest(str, i, digest, &len, md, NULL);
++		OPENSSL_free(str);
++		if (!i)
++			pki_openssl_error();
++	}
++#else
+ 	if (!ASN1_item_digest(ASN1_ITEM_rptr(X509_CINF), md,
+ 				(char*)cert->cert_info,digest,&len))
+ 		pki_openssl_error();
++#endif
+ 	a1int a;
+ 	a.setRaw(digest,len);
+ 	return a;
+@@ -399,31 +429,51 @@ a1time pki_x509::getNotAfter() const
+ 
+ x509name pki_x509::getSubject() const
+ {
++#if OPENSSL_VERSION_NUMBER >= 0x10100000L
++	x509name x(X509_get_subject_name(cert));
++#else
+ 	x509name x(cert->cert_info->subject);
++#endif
++
+ 	pki_openssl_error();
+ 	return x;
+ }
+ 
+ x509name pki_x509::getIssuer() const
+ {
++#if OPENSSL_VERSION_NUMBER >= 0x10100000L
++	x509name x(X509_get_issuer_name(cert));
++#else
+ 	x509name x(cert->cert_info->issuer);
++#endif
++
+ 	pki_openssl_error();
+ 	return x;
+ }
+ 
+ void pki_x509::setSubject(const x509name &n)
+ {
++#if OPENSSL_VERSION_NUMBER >= 0x10100000L
++	X509_set_subject_name(cert, n.get());
++#else
+ 	if (cert->cert_info->subject != NULL)
+ 		X509_NAME_free(cert->cert_info->subject);
+ 	cert->cert_info->subject = n.get();
++#endif
++
+ 	pki_openssl_error();
+ }
+ 
+ void pki_x509::setIssuer(const x509name &n)
+ {
++#if OPENSSL_VERSION_NUMBER >= 0x10100000L
++	X509_set_issuer_name(cert, n.get());
++#else
+ 	if ((cert->cert_info->issuer) != NULL)
+ 		X509_NAME_free(cert->cert_info->issuer);
+ 	cert->cert_info->issuer = n.get();
++#endif
++
+ 	pki_openssl_error();
+ }
+ 
+@@ -740,7 +790,13 @@ bool pki_x509::checkDate()
+ extList pki_x509::getV3ext()
+ {
+ 	extList el;
++
++#if OPENSSL_VERSION_NUMBER >= 0x10100000L
++	el.setStack(X509_get0_extensions(cert));
++#else
+ 	el.setStack(cert->cert_info->extensions);
++#endif
++
+ 	return el;
+ }
+ 
+@@ -759,9 +815,21 @@ x509v3ext pki_x509::getExtByNid(int nid)
+ 	return el[i];
+ }
+ 
+-ASN1_OBJECT *pki_x509::sigAlg()
++const ASN1_OBJECT *pki_x509::sigAlg()
+ {
++#if OPENSSL_VERSION_NUMBER >= 0x10100000L
++	const ASN1_BIT_STRING *psig;
++	const X509_ALGOR *palg;
++	const ASN1_OBJECT *paobj;
++	int pptype;
++	const void *ppval;
++
++	X509_get0_signature(&psig, &palg, cert);
++	X509_ALGOR_get0(&paobj, &pptype, &ppval, palg);
++	return paobj;
++#else
+ 	return cert->sig_alg->algorithm;
++#endif
+ }
+ 
+ pki_x509 *pki_x509::getSigner()
+diff -Naurp xca-1.3.2.orig/lib/pki_x509.h xca-1.3.2.new/lib/pki_x509.h
+--- xca-1.3.2.orig/lib/pki_x509.h	2015-10-10 14:54:12.000000000 +0200
++++ xca-1.3.2.new/lib/pki_x509.h	2017-02-19 01:37:39.266522432 +0100
+@@ -39,7 +39,7 @@ class pki_x509 : public pki_x509super
+ 		x509rev revocation;
+ 
+ 	protected:
+-		ASN1_OBJECT *sigAlg();
++		const ASN1_OBJECT *sigAlg();
+ 
+ 	public:
+ 		static QPixmap *icon[6];
+diff -Naurp xca-1.3.2.orig/lib/pki_x509req.cpp xca-1.3.2.new/lib/pki_x509req.cpp
+--- xca-1.3.2.orig/lib/pki_x509req.cpp	2015-10-10 14:54:12.000000000 +0200
++++ xca-1.3.2.new/lib/pki_x509req.cpp	2017-02-21 03:31:54.048671339 +0100
+@@ -206,16 +206,32 @@ x509name pki_x509req::getSubject() const
+ 	return x;
+ }
+ 
+-ASN1_OBJECT *pki_x509req::sigAlg()
++const ASN1_OBJECT *pki_x509req::sigAlg()
+ {
++#if OPENSSL_VERSION_NUMBER >= 0x10100000L
++	const ASN1_BIT_STRING *psig;
++	const X509_ALGOR *palg;
++	const ASN1_OBJECT *paobj;
++	int pptype;
++	const void *ppval;
++
++	X509_REQ_get0_signature(request, &psig, &palg);
++	X509_ALGOR_get0(&paobj, &pptype, &ppval, palg);
++	return paobj;
++#else
+ 	return request->sig_alg->algorithm;
++#endif
+ }
+ 
+ void pki_x509req::setSubject(const x509name &n)
+ {
++#if OPENSSL_VERSION_NUMBER >= 0x10100000L
++	X509_REQ_set_subject_name(request, n.get());
++#else
+ 	if (request->req_info->subject != NULL)
+ 		X509_NAME_free(request->req_info->subject);
+ 	request->req_info->subject = n.get();
++#endif
+ }
+ 
+ bool pki_x509req::isSpki() const
+@@ -292,12 +308,27 @@ pki_key *pki_x509req::getPubKey() const
+ 
+ QString pki_x509req::getSigAlg()
+ {
+-	ASN1_OBJECT *o;
++	const ASN1_OBJECT *o;
++#if OPENSSL_VERSION_NUMBER >= 0x10100000L
++	const ASN1_BIT_STRING *psig;
++	const X509_ALGOR *palg;
++	X509_ALGOR *palg2;
++	int pptype;
++	const void *ppval;
++
++	if (spki) {
++		X509_PUBKEY_get0_param(NULL, NULL, NULL, &palg2, spki->spkac->pubkey);
++		palg = palg2;
++	} else
++		X509_REQ_get0_signature(request, &psig, &palg);
++	X509_ALGOR_get0(&o, &pptype, &ppval, palg);
++#else
+ 	if (spki) {
+ 		o = spki->spkac->pubkey->algor->algorithm;
+ 	} else {
+ 		o = request->sig_alg->algorithm;
+ 	}
++#endif
+ 	return QString(OBJ_nid2ln(OBJ_obj2nid(o)));
+ }
+ 
+@@ -393,21 +424,30 @@ ASN1_IA5STRING *pki_x509req::spki_challa
+ QString pki_x509req::getAttribute(int nid)
+ {
+ 	int n;
++	int count;
++	QStringList ret;
++
+ 	n = X509_REQ_get_attr_by_NID(request, nid, -1);
+ 	if (n == -1)
+ 		return QString("");
+ 	X509_ATTRIBUTE *att = X509_REQ_get_attr(request, n);
+ 	if (!att)
+ 		return QString("");
++#if OPENSSL_VERSION_NUMBER >= 0x10100000L
++	count = X509_ATTRIBUTE_count(att);
++	for (int j = 0; j < count; j++)
++		ret << asn1ToQString(X509_ATTRIBUTE_get0_type(att, j)->
++				             value.asn1_string);
++#else
+ 	if (att->single)
+ 		return asn1ToQString(att->value.single->value.asn1_string);
+ 
+-	int count = sk_ASN1_TYPE_num(att->value.set);
+-	QStringList ret;
++	count = sk_ASN1_TYPE_num(att->value.set);
+ 	for (int j=0; j<count; j++) {
+ 		ret << asn1ToQString(sk_ASN1_TYPE_value(att->value.set, j)->
+ 					value.asn1_string);
+ 	}
++#endif
+ 	return ret.join(", ");
+ }
+ 
+diff -Naurp xca-1.3.2.orig/lib/pki_x509req.h xca-1.3.2.new/lib/pki_x509req.h
+--- xca-1.3.2.orig/lib/pki_x509req.h	2015-10-10 14:54:12.000000000 +0200
++++ xca-1.3.2.new/lib/pki_x509req.h	2017-02-19 01:37:31.782451059 +0100
+@@ -31,7 +31,7 @@ class pki_x509req : public pki_x509super
+ 		X509_REQ *request;
+ 		NETSCAPE_SPKI *spki;
+ 		bool done;
+-		ASN1_OBJECT *sigAlg();
++		const ASN1_OBJECT *sigAlg();
+ 
+ 	public:
+ 		extList getV3ext();
+diff -Naurp xca-1.3.2.orig/lib/pki_x509super.h xca-1.3.2.new/lib/pki_x509super.h
+--- xca-1.3.2.orig/lib/pki_x509super.h	2015-10-10 14:54:12.000000000 +0200
++++ xca-1.3.2.new/lib/pki_x509super.h	2017-02-19 01:37:17.900318670 +0100
+@@ -32,7 +32,7 @@ class pki_x509super : public pki_x509nam
+ 		Q_OBJECT
+ 	protected:
+ 		pki_key *privkey;
+-		virtual ASN1_OBJECT *sigAlg() {
++		virtual const ASN1_OBJECT *sigAlg() {
+ 			return NULL;
+ 		}
+ 	public:
+diff -Naurp xca-1.3.2.orig/lib/x509name.cpp xca-1.3.2.new/lib/x509name.cpp
+--- xca-1.3.2.orig/lib/x509name.cpp	2015-10-10 14:54:12.000000000 +0200
++++ xca-1.3.2.new/lib/x509name.cpp	2017-02-25 12:50:07.149543386 +0100
+@@ -25,13 +25,8 @@ x509name::x509name(const X509_NAME *n)
+ 
+ x509name::x509name(STACK_OF(X509_NAME_ENTRY) *entries)
+ {
+-	X509_NAME *n = X509_NAME_new();
+-	STACK_OF(X509_NAME_ENTRY) *ba = n->entries;
+ 	xn = NULL;
+-	n->entries = entries;
+-	set(n);
+-	n->entries = ba;
+-	X509_NAME_free(n);
++	set(entries);
+ }
+ 
+ x509name::x509name(const x509name &n)
+@@ -53,6 +48,21 @@ x509name &x509name::set(const X509_NAME
+ 	return *this;
+ }
+ 
++x509name &x509name::set(const STACK_OF(X509_NAME_ENTRY) *entries)
++{
++	if (xn != NULL)
++		X509_NAME_free(xn);
++	xn = X509_NAME_new();
++	if (xn && entries) {
++		int count = sk_X509_NAME_ENTRY_num(entries);
++		for (int i = 0; i < count; i++) {
++			X509_NAME_ENTRY *entry = sk_X509_NAME_ENTRY_value(entries, i);
++			X509_NAME_add_entry(xn, entry, -1, 0);
++		}
++	}
++	return *this;
++}
++
+ QString x509name::oneLine(unsigned long flags) const
+ {
+ 	QString ret;
+@@ -150,20 +160,20 @@ int x509name::nid(int i) const
+ {
+ 	X509_NAME_ENTRY *ne;
+ 
+-	ne = sk_X509_NAME_ENTRY_value(xn->entries, i);
++	ne = X509_NAME_get_entry(xn, i);
+ 	if (ne == NULL)
+ 		return NID_undef;
+-	return OBJ_obj2nid(ne->object);
++	return OBJ_obj2nid(X509_NAME_ENTRY_get_object(ne));
+ }
+ 
+ QString x509name::getOid(int i) const
+ {
+ 	X509_NAME_ENTRY *ne;
+ 
+-	ne = sk_X509_NAME_ENTRY_value(xn->entries, i);
++	ne = X509_NAME_get_entry(xn, i);
+ 	if (ne == NULL)
+ 		return QString();
+-	return OBJ_obj2QString(ne->object, 1);
++	return OBJ_obj2QString(X509_NAME_ENTRY_get_object(ne), 1);
+ }
+ 
+ void x509name::d2i(QByteArray &ba)
+diff -Naurp xca-1.3.2.orig/lib/x509name.h xca-1.3.2.new/lib/x509name.h
+--- xca-1.3.2.orig/lib/x509name.h	2015-10-10 14:54:12.000000000 +0200
++++ xca-1.3.2.new/lib/x509name.h	2017-02-24 01:55:15.186340378 +0100
+@@ -23,6 +23,7 @@ class x509name
+ 		x509name(STACK_OF(X509_NAME_ENTRY) *entries);
+ 		~x509name();
+ 		x509name &set(const X509_NAME *n);
++		x509name &set(const STACK_OF(X509_NAME_ENTRY) *entries);
+ 		QString oneLine(unsigned long flags = XN_FLAG_ONELINE) const;
+ 		int nid(int i) const;
+ 		QString getOid(int i) const;
+diff -Naurp xca-1.3.2.orig/lib/x509rev.cpp xca-1.3.2.new/lib/x509rev.cpp
+--- xca-1.3.2.orig/lib/x509rev.cpp	2015-10-10 14:54:12.000000000 +0200
++++ xca-1.3.2.new/lib/x509rev.cpp	2017-02-22 02:30:15.495213804 +0100
+@@ -62,8 +62,13 @@ void x509rev::fromREVOKED(const X509_REV
+ 
+ 	if (!rev)
+ 		return;
++#if OPENSSL_VERSION_NUMBER >= 0x10100000L
++	serial = a1int(X509_REVOKED_get0_serialNumber(rev));
++	date = a1time(X509_REVOKED_get0_revocationDate(rev));
++#else
+ 	serial = a1int(rev->serialNumber);
+ 	date = a1time(rev->revocationDate);
++#endif
+ 
+ 	reason = (ASN1_ENUMERATED *)X509_REVOKED_get_ext_d2i(
+ 			(X509_REVOKED *)rev, NID_crl_reason, &j, NULL);
+@@ -96,7 +101,11 @@ X509_REVOKED *x509rev::toREVOKED(bool wi
+ 	a1time d = date;
+ 	X509_REVOKED *rev = X509_REVOKED_new();
+ 	check_oom(rev);
++#if OPENSSL_VERSION_NUMBER >= 0x10100000L
++	X509_REVOKED_set_serialNumber(rev, serial.get());
++#else
+ 	rev->serialNumber = serial.get();
++#endif
+ 	X509_REVOKED_set_revocationDate(rev, d.get_utc());
+ 
+ 	X509_REVOKED_add1_ext_i2d(rev, NID_invalidity_date,
+diff -Naurp xca-1.3.2.orig/lib/x509v3ext.cpp xca-1.3.2.new/lib/x509v3ext.cpp
+--- xca-1.3.2.orig/lib/x509v3ext.cpp	2015-10-10 14:54:12.000000000 +0200
++++ xca-1.3.2.new/lib/x509v3ext.cpp	2017-02-24 01:28:34.508751244 +0100
+@@ -27,8 +27,9 @@ x509v3ext::x509v3ext(const X509_EXTENSIO
+ 
+ x509v3ext::x509v3ext(const x509v3ext &n)
+ {
++	ASN1_OCTET_STRING *str = n.getData();
+ 	ext = X509_EXTENSION_new();
+-	if (n.ext && n.ext->value && n.ext->value->length > 0)
++	if (str && str->length)
+ 		set(n.ext);
+ }
+ 
+@@ -59,9 +60,13 @@ x509v3ext &x509v3ext::create(int nid, co
+ 		ext = X509_EXTENSION_new();
+ 	else {
+ 		if (ctx && ctx->subject_cert) {
++#if OPENSSL_VERSION_NUMBER >= 0x10100000L
++			X509_add_ext(ctx->subject_cert, ext, -1);
++#else
+ 			STACK_OF(X509_EXTENSION) **sk;
+ 			sk = &ctx->subject_cert->cert_info->extensions;
+ 			X509v3_add_ext(sk, ext, -1);
++#endif
+ 		}
+ 	}
+ 	return *this;
+@@ -118,6 +123,11 @@ int x509v3ext::getCritical() const
+ 	return X509_EXTENSION_get_critical(ext);
+ }
+ 
++ASN1_OCTET_STRING *x509v3ext::getData() const
++{
++	return X509_EXTENSION_get_data(ext);
++}
++
+ QString x509v3ext::getValue(bool html) const
+ {
+ 	QString text = "";
+@@ -127,7 +137,7 @@ QString x509v3ext::getValue(bool html) c
+ 
+ 	ret = X509V3_EXT_print(bio, ext, X509V3_EXT_DEFAULT, 0);
+ 	if (ign_openssl_error() || !ret) {
+-		ret = M_ASN1_OCTET_STRING_print(bio, ext->value);
++		ret = ASN1_STRING_print(bio, (ASN1_STRING *) getData());
+ 	}
+ 	if (!ign_openssl_error() && ret) {
+ 		long len = BIO_get_mem_data(bio, &p);
+@@ -362,8 +372,25 @@ bool x509v3ext::parse_ia5(QString *singl
+ 	QString ret;
+ 
+ 	if (!str) {
+-		const unsigned char *p = ext->value->data;
+-		str = d2i_ASN1_type_bytes(NULL, &p, ext->value->length, TEXTS);
++		const unsigned char *p = getData()->data;
++#if OPENSSL_VERSION_NUMBER >= 0x10100000L
++		long len;
++		int tag, xclass;
++		if (ASN1_get_object(&p, &len, &tag, &xclass, getData()->length) & 0x80)
++			return false;
++		if (tag >= 32)
++			return false;
++		if (!(ASN1_tag2bit(tag) & TEXTS))
++			return false;
++		if (!(str = ASN1_STRING_type_new(tag)))
++			return false;
++		if (!ASN1_STRING_set(str, p, len)) {
++			ASN1_STRING_free(str);
++			return false;
++		}
++#else
++		str = d2i_ASN1_type_bytes(NULL, &p, getData()->length, TEXTS);
++#endif
+ 		if (ign_openssl_error() || !str)
+ 			return false;
+ 		ret = QString("<ERROR: NOT IA5 but %1>%2").
+@@ -766,7 +793,7 @@ bool x509v3ext::parse_generic(QString *,
+ {
+ 	const ASN1_OBJECT *o = object();
+ 	QString der, obj = o ? obj2SnOid(o) : QString("<ERROR>");
+-	ASN1_OCTET_STRING *v = ext->value;
++	ASN1_OCTET_STRING *v = getData();
+ 
+ 	for (int i=0; i<v->length; i++)
+ 		der += QString(":%1").arg((int)(v->data[i]), 2, 16, QChar('0'));
+@@ -963,8 +990,8 @@ X509_EXTENSION *x509v3ext::get() const
+ 
+ bool x509v3ext::isValid() const
+ {
+-	return ext && ext->value && ext->value->length > 0 &&
+-		OBJ_obj2nid(ext->object) != NID_undef;
++	return ext && getData() && getData()->length > 0 &&
++		OBJ_obj2nid(X509_EXTENSION_get_object(ext)) != NID_undef;
+ }
+ 
+ /*************************************************************/
+@@ -992,7 +1019,7 @@ void extList::genGenericConf(QString *ad
+ 	}
+ }
+ 
+-void extList::setStack(STACK_OF(X509_EXTENSION) *st, int start)
++void extList::setStack(const STACK_OF(X509_EXTENSION) *st, int start)
+ {
+ 	clear();
+ 	int cnt = sk_X509_EXTENSION_num(st);
+diff -Naurp xca-1.3.2.orig/lib/x509v3ext.h xca-1.3.2.new/lib/x509v3ext.h
+--- xca-1.3.2.orig/lib/x509v3ext.h	2015-10-10 14:54:12.000000000 +0200
++++ xca-1.3.2.new/lib/x509v3ext.h	2017-02-23 19:05:02.911757579 +0100
+@@ -33,6 +33,7 @@ class x509v3ext
+ 	// bool operator == (const x509v3ext &x) const;
+ 	QString getObject() const;
+ 	int getCritical() const;
++	ASN1_OCTET_STRING *getData() const;
+ 	QString getValue(bool html=false) const;
+ 	QString getHtml() const;
+ 	X509_EXTENSION *get() const;
+@@ -62,7 +63,7 @@ class x509v3ext
+ class extList : public QList<x509v3ext>
+ {
+     public:
+-	void setStack(STACK_OF(X509_EXTENSION) *st, int start=0);
++	void setStack(const STACK_OF(X509_EXTENSION) *st, int start=0);
+ 	STACK_OF(X509_EXTENSION) *getStack();
+ 	QString getHtml(const QString &sep);
+ 	bool delByNid(int nid);
+diff -Naurp xca-1.3.2.orig/misc/eku.txt xca-1.3.2.new/misc/eku.txt
+--- xca-1.3.2.orig/misc/eku.txt	2015-10-10 14:54:12.000000000 +0200
++++ xca-1.3.2.new/misc/eku.txt	2017-02-25 11:27:02.718360323 +0100
+@@ -19,4 +19,4 @@ msSmartcardLogin
+ OCSPSigning
+ id-kp-eapOverPPP
+ id-kp-eapOverLAN
+-id-pkkdcekuoid
++pkInitKDC
+diff -Naurp xca-1.3.2.orig/misc/oids.txt xca-1.3.2.new/misc/oids.txt
+--- xca-1.3.2.orig/misc/oids.txt	2015-10-10 14:54:12.000000000 +0200
++++ xca-1.3.2.new/misc/oids.txt	2017-02-25 11:26:41.229170758 +0100
+@@ -17,4 +17,4 @@
+ # RFC 4334
+ 1.3.6.1.5.5.7.3.13:     id-kp-eapOverPPP:       EAP over PPP
+ 1.3.6.1.5.5.7.3.14:     id-kp-eapOverLAN:       EAP over Lan
+-1.3.6.1.5.2.3.5:        id-pkkdcekuoid:         KDC Authentication
++1.3.6.1.5.2.3.5:        pkInitKDC:      KDC Authentication
+diff -Naurp xca-1.3.2.orig/widgets/CertDetail.cpp xca-1.3.2.new/widgets/CertDetail.cpp
+--- xca-1.3.2.orig/widgets/CertDetail.cpp	2015-10-10 14:54:12.000000000 +0200
++++ xca-1.3.2.new/widgets/CertDetail.cpp	2017-02-19 02:25:19.878040249 +0100
+@@ -194,7 +194,12 @@ void CertDetail::setReq(pki_x509req *req
+ 			QString trans;
+ 			X509_ATTRIBUTE *att = X509_REQ_get_attr(req->getReq(), i);
+ 
++#if OPENSSL_VERSION_NUMBER >= 0x10100000L
++			nid = OBJ_obj2nid(X509_ATTRIBUTE_get0_object(att));
++#else
+ 			nid = OBJ_obj2nid(att->object);
++#endif
++
+ 			if (X509_REQ_extension_nid(nid)) {
+ 				continue;
+ 			}
+@@ -213,6 +218,13 @@ void CertDetail::setReq(pki_x509req *req
+ 			attrLayout->addWidget(label, i, 0);
+ 			added++;
+ 
++#if OPENSSL_VERSION_NUMBER >= 0x10100000L
++			int count = X509_ATTRIBUTE_count(att);
++			for (int j = 0; j < count; j++) {
++				label = labelFromAsn1String(X509_ATTRIBUTE_get0_type(att, j)->value.asn1_string);
++				attrLayout->addWidget(label, i, j + 1);
++			}
++#else
+ 			if (att->single) {
+ 				label = labelFromAsn1String(att->value.single->value.asn1_string);
+ 				attrLayout->addWidget(label, i, 1);
+@@ -223,6 +235,7 @@ void CertDetail::setReq(pki_x509req *req
+ 				label = labelFromAsn1String(sk_ASN1_TYPE_value(att->value.set, j)->value.asn1_string);
+ 				attrLayout->addWidget(label, i, j +1);
+ 			}
++#endif
+ 		}
+ 		ASN1_IA5STRING *chal = req->spki_challange();
+ 		if (chal) {
+diff -Naurp xca-1.3.2.orig/widgets/hashBox.cpp xca-1.3.2.new/widgets/hashBox.cpp
+--- xca-1.3.2.orig/widgets/hashBox.cpp	2015-10-10 14:54:12.000000000 +0200
++++ xca-1.3.2.new/widgets/hashBox.cpp	2017-02-19 11:51:03.780788061 +0100
+@@ -152,11 +152,18 @@ void hashBox::setCurrentMD(const EVP_MD
+ void hashBox::setupHashes(QList<int> nids)
+ {
+ 	QString md = currentText();
++	int mdtype;
++
+ 	if (!wanted_md.isEmpty())
+ 		md = wanted_md;
+ 	clear();
+ 	for (unsigned i=0; i<ARRAY_SIZE(hashalgos); i++) {
+-		if (nids.contains(hashalgos[i].md->type)) {
++#if OPENSSL_VERSION_NUMBER >= 0x10100000L
++		mdtype = EVP_MD_type(hashalgos[i].md);
++#else
++		mdtype = hashalgos[i].md->type;
++#endif
++		if (nids.contains(mdtype)) {
+ 			addItem(QString(hashalgos[i].name));
+ 		}
+ 	}
+diff -Naurp xca-1.3.2.orig/widgets/MainWindow.cpp xca-1.3.2.new/widgets/MainWindow.cpp
+--- xca-1.3.2.orig/widgets/MainWindow.cpp	2015-10-10 14:54:12.000000000 +0200
++++ xca-1.3.2.new/widgets/MainWindow.cpp	2017-02-19 02:31:51.249857612 +0100
+@@ -866,6 +866,9 @@ void MainWindow::generateDHparam()
+ 	bool ok;
+ 	int num = QInputDialog::getDouble(this, XCA_TITLE, tr("Diffie-Hellman parameters are needed for different applications, but not handled by XCA.\nPlease enter the DH parameter bits"),
+ 		1024, 1024, 4096, 0, &ok);
++#if OPENSSL_VERSION_NUMBER >= 0x10100000L
++	BN_GENCB *cb = NULL;
++#endif
+ 
+ 	if (!ok)
+ 		return;
+@@ -883,7 +886,18 @@ void MainWindow::generateDHparam()
+ 		bar->setMinimum(0);
+ 		bar->setMaximum(100);
+ 		status->addPermanentWidget(bar, 1);
++
++#if OPENSSL_VERSION_NUMBER >= 0x10100000L
++		cb = BN_GENCB_new();
++		if (!cb)
++			throw errorEx("");
++		BN_GENCB_set_old(cb, inc_progress_bar, bar);
++		dh = DH_new();
++		DH_generate_parameters_ex(dh, num, 2, cb);
++#else
+ 		dh = DH_generate_parameters(num, 2, inc_progress_bar, bar);
++#endif
++
+ 		status->removeWidget(bar);
+ 		openssl_error();
+ 
+@@ -906,6 +920,10 @@ void MainWindow::generateDHparam()
+ 		DH_free(dh);
+ 	if (fp)
+ 		fclose(fp);
++#if OPENSSL_VERSION_NUMBER >= 0x10100000L
++	if (cb)
++		BN_GENCB_free(cb);
++#endif
+ 	if (bar)
+ 		delete bar;
+ }
+diff -Naurp xca-1.3.2.orig/widgets/MW_database.cpp xca-1.3.2.new/widgets/MW_database.cpp
+--- xca-1.3.2.orig/widgets/MW_database.cpp	2015-10-10 14:54:12.000000000 +0200
++++ xca-1.3.2.new/widgets/MW_database.cpp	2017-03-21 00:20:02.123053121 +0100
+@@ -277,7 +277,9 @@ void MainWindow::default_database()
+ 	if (fp) {
+ 		QByteArray ba;
+ 		ba = filename2bytearray(fi.canonicalFilePath() + "\n");
+-		fwrite(ba.constData(), ba.size(), 1, fp);
++		if (fwrite(ba.constData(), ba.size(), 1, fp)) {
++			/* IGNORE_RESULT */
++		}
+ 		fclose(fp);
+ 	}
+ 
+diff -Naurp xca-1.3.2.orig/widgets/MW_help.cpp xca-1.3.2.new/widgets/MW_help.cpp
+--- xca-1.3.2.orig/widgets/MW_help.cpp	2015-10-10 14:54:12.000000000 +0200
++++ xca-1.3.2.new/widgets/MW_help.cpp	2017-02-19 19:15:38.774012956 +0100
+@@ -67,8 +67,8 @@ void MainWindow::about()
+ 	{
+ 		version = QString("<table border=0 width=500><tr>"
+ 				"<td>Compile time:</td>"
+-				"<td>"OPENSSL_VERSION_TEXT"</td>"
+-				"<td>QT version: "QT_VERSION_STR"</td>"
++				"<td>" OPENSSL_VERSION_TEXT "</td>"
++				"<td>QT version: " QT_VERSION_STR "</td>"
+ 				"</tr><tr>"
+ 				"<td>Run time:</td>"
+ 				"<td>%1</td>"
+diff -Naurp xca-1.3.2.orig/widgets/NewX509_ext.cpp xca-1.3.2.new/widgets/NewX509_ext.cpp
+--- xca-1.3.2.orig/widgets/NewX509_ext.cpp	2015-10-10 14:54:12.000000000 +0200
++++ xca-1.3.2.new/widgets/NewX509_ext.cpp	2017-02-20 02:43:40.512187548 +0100
+@@ -198,6 +198,7 @@ extList NewX509::getAdvanced()
+ 	extList elist;
+ 	long err_line=0;
+ 	STACK_OF(X509_EXTENSION) **sk, *sk_tmp = NULL;
++	const STACK_OF(X509_EXTENSION) *csk;
+ 	const char *ext_name = "default";
+ 	int ret, start;
+ 
+@@ -223,8 +224,13 @@ extList NewX509::getAdvanced()
+ 	}
+ 
+ 	if (ext_ctx.subject_cert) {
++#if OPENSSL_VERSION_NUMBER >= 0x10100000L
++		csk = X509_get0_extensions(ext_ctx.subject_cert);
++		start = csk? sk_X509_EXTENSION_num(csk): 0;
++#else
+ 		sk = &ext_ctx.subject_cert->cert_info->extensions;
+ 		start = *sk ? sk_X509_EXTENSION_num(*sk) : 0;
++#endif
+ 	} else {
+ 		sk = &sk_tmp;
+ 		start = 0;
+@@ -232,12 +238,24 @@ extList NewX509::getAdvanced()
+ 
+ 	X509V3_set_nconf(&ext_ctx, conf);
+ 
+-	if (X509V3_EXT_add_nconf_sk(conf, &ext_ctx, (char *)ext_name, sk)) {
+-		openssl_error();
++#if OPENSSL_VERSION_NUMBER >= 0x10100000L
++	if (ext_ctx.subject_cert) {
++		if (X509V3_EXT_add_nconf(conf, &ext_ctx,
++								 (char *) ext_name, ext_ctx.subject_cert))
++			openssl_error();
++		csk = X509_get0_extensions(ext_ctx.subject_cert);
++	} else
++#endif
++	{
++		if (X509V3_EXT_add_nconf_sk(conf, &ext_ctx, (char *)ext_name, sk))
++			openssl_error();
++		csk = *sk;
+ 	}
+-	elist.setStack(*sk, start);
+-	if (sk == &sk_tmp)
++
++	elist.setStack(csk, start);
++	if (!ext_ctx.subject_cert)
+ 		sk_X509_EXTENSION_pop_free(sk_tmp, X509_EXTENSION_free);
++
+ 	X509V3_set_nconf(&ext_ctx, NULL);
+ 	NCONF_free(conf);
+ 	BIO_free(bio);
+@@ -317,12 +335,16 @@ extList NewX509::getExtDuplicates()
+ {
+ 	int i, start, cnt, n1, n;
+ 	x509v3ext e;
+-	STACK_OF(X509_EXTENSION) *sk;
++	const STACK_OF(X509_EXTENSION) *sk;
+ 	extList el_dup, el;
+ 	QString olist;
+ 
+ 	if (ext_ctx.subject_cert) {
++#if OPENSSL_VERSION_NUMBER >= 0x10100000L
++		sk = X509_get0_extensions(ext_ctx.subject_cert);
++#else
+ 		sk = ext_ctx.subject_cert->cert_info->extensions;
++#endif
+ 	} else
+ 		return el_dup;
+ 
