@@ -68,6 +68,7 @@ kcmutils
 kactivities
 kactivities-stats
 plasma-framework
+kirigami2
 krunner
 kdelibs4support
 kjs
@@ -98,7 +99,6 @@ kwayland-integration
 kwin
 milou
 oxygen
-plasma-mediacenter
 plasma-nm
 plasma-pa
 plasma-integration
