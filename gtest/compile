@@ -2,7 +2,6 @@
 
 cd googletest
 sed -r "s|(Version:) .+|\1 ${UB_VERSION}|" -i gtest.pc.in
-cd ..
 ub_compile \
     -DBUILD_GMOCK=ON \
     -DBUILD_GTEST=ON \
@@ -13,3 +12,7 @@ ub_compile \
 	-Dgtest_build_tests=ON \
 	-Dgtest_build_sampless=OFF \
 	-Dgtest_disable_pthreads=OFF
+
+cd ../googlemock
+ub_compile \
+    -DBUILD_SHARED_LIBS=ON
