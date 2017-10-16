@@ -1,0 +1,122 @@
+Description: make the panel applet build with gnome-panel 3.22
+ - Convert from out-of-process applet to in-process applet.
+ - Do not use panel_applet_set_background_widget() function.
+ - Get the applets directory from pkg-config instead of using the
+   hard-coded path (fix the existing pkg-config call).
+ - Also, fix compiler warnings about implicitly declared functions.
+Origin: upstream, https://github.com/rcaelers/workrave/commit/836f30cbfc5c6808
+Last-Update: 2016-12-02
+
+--- a/frontend/applets/gnome3/src/Makefile.am
++++ b/frontend/applets/gnome3/src/Makefile.am
+@@ -1,5 +1,4 @@
+ EXTRA_DIST 	= org.workrave.WorkraveApplet.panel-applet.in.in 		\
+-		  org.gnome.panel.applet.WorkraveAppletFactory.service.in	\
+ 	  	  v4/WorkraveApplet.c				 		\
+ 	  	  v5/WorkraveApplet.c				 		\
+ 		  WorkraveApplet.h				 		\
+@@ -8,7 +7,7 @@
+ 		  v5/workrave-gnome-applet-menu.xml
+ 
+ BUILT_SOURCES   =
+-CLEANFILES 	= $(applet_DATA) $(applet_DATA).in $(service_DATA) $(schemas_DATA)
++CLEANFILES 	= $(applet_DATA) $(applet_DATA).in $(schemas_DATA)
+ 
+ MAINTAINERCLEANFILES =  Makefile.in DBusGnomeApplet.xml DBusGUI.xml
+ 
+@@ -26,14 +25,14 @@
+ xmlui_DATA  			= v4/workrave-gnome-applet-menu.xml
+ applet_source 			= v4/WorkraveApplet.c
+ else
+-LIBPANEL_APPLET_DIR		= `$PKG_CONFIG --variable=libpanel_applet_dir libpanel-applet`
+-appletdir       		= $(datadir)/gnome-panel/5.0/applets
++LIBPANEL_APPLET_DIR		= `$(PKG_CONFIG) --variable=libpanel_applet_dir libpanel-applet`
++appletdir			= $(LIBPANEL_APPLET_DIR)
+ xmlui_DATA  			= v5/workrave-gnome-applet-menu.xml
+ applet_source 			= v5/WorkraveApplet.c
+ endif
+ 
+-APPLET_IN_PROCESS 		= false
+-APPLET_LOCATION   		= ${libdir}/gnome-applets/workrave-applet
++APPLET_IN_PROCESS 		= true
++APPLET_LOCATION   		= ${pkglibdir}/libworkrave-applet.so
+ 
+ $(applet_in_files): $(applet_in_files).in Makefile
+ 	$(AM_V_GEN)sed \
+@@ -44,15 +43,6 @@
+ 
+ %.panel-applet: %.panel-applet.in $(INTLTOOL_MERGE) $(wildcard $(top_srcdir)/po/*po) ; $(INTLTOOL_MERGE) $(top_srcdir)/po $< $@ -d -u -c $(top_builddir)/po/.intltool-merge-cache
+ 
+-servicedir       		= $(datadir)/dbus-1/services
+-service_in_files 		= org.gnome.panel.applet.WorkraveAppletFactory.service.in
+-service_DATA     		= $(service_in_files:.service.in=.service)
+-
+-org.gnome.panel.applet.WorkraveAppletFactory.service: $(service_in_files)
+-	$(AM_V_GEN)sed \
+-	    -e "s|\@LOCATION\@|$(APPLET_LOCATION)|" \
+-	    $< > $@
+-
+ AM_CPPFLAGS 			= -I$(srcdir)
+ 
+ FLAGS				= @GNOME3_CFLAGS@ @WR_FRONTEND_COMMON_INCLUDES@ @WR_COMMON_INCLUDES@ @WR_BACKEND_INCLUDES@ \
+@@ -61,13 +51,14 @@
+ 	  	  		  -DWORKRAVE_UIDATADIR="\"${xmluidir}\"" \
+ 	 		 	  -DGNOMELOCALEDIR="\"$(datadir)/locale\"" 
+ 
+-libappletdir = ${libdir}/gnome-applets
+-libapplet_PROGRAMS 		= workrave-applet
++libapplet_libdir		= ${pkglibdir}
++libapplet_lib_LTLIBRARIES	= libworkrave-applet.la
+ 
+-workrave_applet_SOURCES 	= ${applet_source} workrave-gnome-applet-generated.c
+-workrave_applet_LDADD 		= @GNOME3_LIBS@  -L$(builddir)/../../common/src -lworkrave-private-1.0
+-workrave_applet_CXXFLAGS 	= ${FLAGS}
+-workrave_applet_CFLAGS 		= ${FLAGS}
++libworkrave_applet_la_SOURCES	= ${applet_source} workrave-gnome-applet-generated.c
++libworkrave_applet_la_LIBADD	= @GNOME3_LIBS@  -L$(builddir)/../../common/src -lworkrave-private-1.0
++libworkrave_applet_la_CXXFLAGS	= ${FLAGS}
++libworkrave_applet_la_CFLAGS	= ${FLAGS}
++libworkrave_applet_la_LDFLAGS	= -module -avoid-version
+ 
+ # ------------------------------------------------------------------------
+ 
+--- a/frontend/applets/gnome3/src/org.gnome.panel.applet.WorkraveAppletFactory.service.in
++++ /dev/null
+@@ -1,3 +0,0 @@
+-[D-BUS Service]
+-Name=org.gnome.panel.applet.WorkraveAppletFactory
+-Exec=@LOCATION@
+--- a/frontend/applets/gnome3/src/v5/WorkraveApplet.c
++++ b/frontend/applets/gnome3/src/v5/WorkraveApplet.c
+@@ -31,6 +31,11 @@
+ #include <gtk/gtk.h>
+ #include <gio/gio.h>
+ 
++// These two functions are implemented in applets/common/src/control.c,
++// but not defined in any header file.
++void workrave_timerbox_control_set_tray_icon_mode(WorkraveTimerboxControl *self, enum WorkraveTimerboxControlTrayIconMode mode);
++void workrave_timerbox_control_set_tray_icon_visible_when_not_running(WorkraveTimerboxControl *self, gboolean show);
++
+ struct _WorkraveAppletPrivate
+ {
+   GSimpleActionGroup *action_group;
+@@ -388,7 +393,6 @@
+   panel_applet_set_flags(PANEL_APPLET(applet), PANEL_APPLET_EXPAND_MINOR);
+ 
+   gtk_container_set_border_width(GTK_CONTAINER(applet), 0);
+-  panel_applet_set_background_widget(PANEL_APPLET(applet), GTK_WIDGET(applet));
+ 
+   gtk_widget_set_events(GTK_WIDGET(applet), gtk_widget_get_events(GTK_WIDGET(applet)) | GDK_BUTTON_PRESS_MASK);
+   g_signal_connect(G_OBJECT(applet), "button_press_event", G_CALLBACK(button_pressed),  applet);
+@@ -429,7 +433,7 @@
+   return FALSE;
+ }
+ 
+-PANEL_APPLET_OUT_PROCESS_FACTORY("WorkraveAppletFactory",
+-                                 WORKRAVE_TYPE_APPLET,
+-                                 applet_factory,
+-                                 NULL)
++PANEL_APPLET_IN_PROCESS_FACTORY("WorkraveAppletFactory",
++                                WORKRAVE_TYPE_APPLET,
++                                applet_factory,
++                                NULL)

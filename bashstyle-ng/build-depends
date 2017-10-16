@@ -2,13 +2,13 @@ bc
 bind
 dmidecode
 ghostscript
-less
 inetutils
+less
 pciutils
 py3gobject
-python-configobj
 python3-configobj
 python3-dev
+python-configobj
 tree
 usbutils
 wget

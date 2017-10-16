@@ -1,4 +1,4 @@
+gtk-dev
 intltool
 itstool
-pygobject-dev
-python3-dev
+py3gobject
