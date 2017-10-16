@@ -2,3 +2,4 @@
 
 trunc-${UB_VERSION}.tar.gz trunc-${UB_VERSION}/
 	http://download.ubk.hu/src/uhu/trunc/
+    http://download.uhulinux.hu/sources/trunc/
