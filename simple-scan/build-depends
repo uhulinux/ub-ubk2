@@ -1,12 +1,17 @@
+cairo-dev
 colord-dev
+gdk-pixbuf-dev
 gnome-doc-utils
 gtk-dev
 intltool
 itstool
+libgusb-dev
 libjpeg-turbo-dev
+meson
 packagekit-dev
 python-dev
 sane-backends-dev
 sqlite-dev
 systemd-dev
 vala-dev
+zlib-dev
