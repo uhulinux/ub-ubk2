@@ -11,7 +11,9 @@ java-jre
 libjpeg-turbo-dev
 libpng-dev
 libxml2-dev
+libyajl-dev
 mesa-dev
+python-certifi
 python-dev
 python-markupsafe
 python-setuptools
