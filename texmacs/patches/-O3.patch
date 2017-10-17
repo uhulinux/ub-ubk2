@@ -1,0 +1,12 @@
+diff -Nur orig/configure mod/configure
+--- orig/configure	2015-12-03 09:29:54.000000000 +0100
++++ mod/configure	2017-10-17 18:01:56.513200990 +0200
+@@ -7422,7 +7422,7 @@
+     { $as_echo "$as_me:${as_lineno-$LINENO}: result: final adjustments for an Intel or AMD GNU/Linux host" >&5
+ $as_echo "final adjustments for an Intel or AMD GNU/Linux host" >&6; }
+     CONFIG_OS_SUFFIX="i386-pc-linux-gnu"
+-    CONFIG_CXXOPTIMIZE="-O3 -fexpensive-optimizations"
++    CONFIG_CXXOPTIMIZE="-O2 -fexpensive-optimizations"
+     CONFIG_QTPIPES="yes"
+   ;;
+   i*86-*-freebsd* | x86_64-*-freebsd*)
