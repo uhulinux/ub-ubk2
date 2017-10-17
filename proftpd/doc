@@ -1,11 +1,11 @@
 COPYING
 CREDITS
-NEWS
-README.LDAP
-README.PAM
-README.md
-README.modules
 doc/Configuration.html
 doc/faq.html
 doc/license.txt
+NEWS
+README.LDAP
+README.md
+README.modules
+README.PAM
 sample-configurations
