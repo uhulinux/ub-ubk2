@@ -1,5 +1,4 @@
 #!/usr/bin/env dl
 
-ucblogo-$UB_VERSION.tar.gz ucblogo-$UB_VERSION/
-	ftp://ftp.cs.berkeley.edu/pub/ucblogo/
-#	ftp://ftp.cs.berkeley.edu/pub/ucblogo/old/
+ucblogo.tar.gz ucblogo-$UB_VERSION/
+	https://www.cs.berkeley.edu/~bh/downloads/

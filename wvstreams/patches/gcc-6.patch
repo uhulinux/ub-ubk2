@@ -1,5 +1,9 @@
-Fix building with C++14, which errors out due to explicit operator bool() conversion
-See also: https://bugs.gentoo.org/show_bug.cgi?id=594058
+Description: Fix compilation with gcc-6
+Author: Gert Wollny <gw.fossdev@gmail.com>
+Last-Updated: 2016-07-26
+Forwarded: No
+Bug-Debian: https://bugs.debian.org/811659
+Bug-Debian: https://bugs.debian.org/831146
 
 --- a/streams/wvstream.cc
 +++ b/streams/wvstream.cc
@@ -16,21 +20,23 @@ See also: https://bugs.gentoo.org/show_bug.cgi?id=594058
      }
      else
      {
-@@ -1019,7 +1019,7 @@
+@@ -1019,7 +1019,8 @@
  
  IWvStream::SelectRequest WvStream::get_select_request()
  {
 -    return IWvStream::SelectRequest(readcb, writecb, exceptcb);
-+    return IWvStream::SelectRequest(static_cast<bool>(readcb), static_cast<bool>(writecb), static_cast<bool>(exceptcb));
++    return IWvStream::SelectRequest(static_cast<bool>(readcb), static_cast<bool>(writecb),
++				    static_cast<bool>(exceptcb));
  }
  
  
-@@ -1107,7 +1107,7 @@
+@@ -1107,7 +1108,8 @@
      // inefficient, because if the alarm was expired then pre_select()
      // returned true anyway and short-circuited the previous select().
      TRACE("hello-%p\n", this);
 -    return !alarm_was_ticking || select(0, readcb, writecb, exceptcb);
-+    return !alarm_was_ticking || select(0, static_cast<bool>(readcb), static_cast<bool>(writecb), static_cast<bool>(exceptcb));
++    return !alarm_was_ticking || select(0, static_cast<bool>(readcb),
++					static_cast<bool>(writecb), static_cast<bool>(exceptcb));
  }
  
  
