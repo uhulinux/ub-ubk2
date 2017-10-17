@@ -66,11 +66,11 @@ sylpheed
 claws-mail
 claws-contacts
 claws-mail-themes
+node
 firefox
 seamonkey
 thunderbird
 chromium
 balsa
-node
 ghetto-skype
 
