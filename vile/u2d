@@ -1,1 +1,1 @@
-urllist ftp://invisible-island.net/vile/current/ | splitver '^vile-([0-9a-z.]+).tgz$' | sort -V | tail -n 1
+urllist http://ftp.debian.org/debian/pool/main/v/vile/ | splitver '^vile_([0-9a-z.]+).orig.tar.gz$' | sort -V | tail -n 1
