@@ -152,7 +152,6 @@ qt-recordmydesktop
 xplanet
 hardinfo
 eterm
-activity-log-manager
 trend
 recoll
 gparted
