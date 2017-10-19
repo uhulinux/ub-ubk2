@@ -2,9 +2,5 @@ cmake
 curl-dev
 gtk-dev
 intltool
-libevent-dev
-libnatpmp
-miniupnpc-dev
-open-dht-dev
 openssl-1.0-dev
 systemd-dev

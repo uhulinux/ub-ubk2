@@ -44,10 +44,6 @@ rtorrent
 rdesktop
 nagios
 bluefish
-msgpack-c
-argon2
-open-dht
-libnatpmp
 transmission
 links
 pidgin-libnotify

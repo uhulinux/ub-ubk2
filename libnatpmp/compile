@@ -1,4 +1,0 @@
-#!/bin/sh -eux
-
-export PREFIX=${UB_INSTALLDIR}
-ub_compile

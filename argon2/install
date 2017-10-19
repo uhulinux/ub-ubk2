@@ -1,8 +1,0 @@
-#!/bin/sh -eux
-
-ub_install
-mv ${UB_INSTALLDIR}/usr/lib/libargon2.so ${UB_INSTALLDIR}/usr/lib/libargon2.so.0
-ln -s libargon2.so.0 ${UB_INSTALLDIR}/usr/lib/libargon2.so
-mkdir -p ${UB_INSTALLDIR}/usr/lib/pkgconfig
-sed -i -e "s/@UPSTREAM_VER@/${UB_VERSION}/g" libargon2.pc
-cp libargon2.pc ${UB_INSTALLDIR}/usr/lib/pkgconfig/
