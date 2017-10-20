@@ -1,3 +1,0 @@
-#!/bin/sh -eux
-
-apxs -c -L/usr/lib/mysql -I/usr/include/mysql -lmysqlclient -lm -lz mod_auth_mysql.c

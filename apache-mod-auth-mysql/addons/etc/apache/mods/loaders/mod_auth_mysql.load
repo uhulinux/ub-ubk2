@@ -1,3 +1,0 @@
-<IfModule !mod_auth_mysql.c>
-LoadModule mysql_auth_module /usr/lib/apache/mod_auth_mysql.so
-</IfModule>
