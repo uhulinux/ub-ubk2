@@ -49,9 +49,7 @@ wvdial
 tix
 apache-mod-fcgid
 curlftpfs
-x.org-video-modesetting
 apache-mod-wsgi
-apache-mod-auth-mysql
 xman
 paps
 apache-mod-perl
