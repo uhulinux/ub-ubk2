@@ -15,7 +15,6 @@ obexfs
 opensc
 ntrack
 anjuta-extras
-keybinder
 alsa-plugins
 freshplayerplugin
 evolution-ews

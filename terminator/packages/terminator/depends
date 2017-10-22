@@ -1,7 +1,6 @@
 dbus-python
-gconf2
-pygobject2
-pygtk
-python-keybinder
+gsettings-desktop-schemas
+keybinder3
+pygobject
 python-psutil
-vte2
+vte
