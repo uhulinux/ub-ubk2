@@ -1,5 +1,4 @@
 alsa-lib
-cmake
 dbus
 gamin
 glibc-dev

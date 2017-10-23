@@ -1,6 +1,5 @@
 binutils-dev
 boost-dev
-cmake
 curl-dev
 enet-dev
 gamin-dev

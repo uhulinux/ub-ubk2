@@ -1,4 +1,3 @@
-cmake
 expat-dev
 freeglut-dev
 glew-dev

@@ -1,4 +1,3 @@
-cmake
 fftw3-dev
 gtk2-dev
 gtkmm2-dev

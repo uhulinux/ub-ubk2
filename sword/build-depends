@@ -1,5 +1,4 @@
 clucene-core-dev
-cmake
 curl-dev
 icu-dev
 libidn-dev

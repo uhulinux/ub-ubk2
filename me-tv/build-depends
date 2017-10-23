@@ -1,4 +1,3 @@
-cmake
 gst-plugins-bad-dev
 gst-plugins-base-dev
 gtkmm-dev

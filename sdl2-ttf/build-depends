@@ -1,4 +1,3 @@
-cmake
 freetype2-dev
 libpng-dev
 libxt-dev

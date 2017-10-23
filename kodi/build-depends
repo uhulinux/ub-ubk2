@@ -1,7 +1,6 @@
 avahi-dev
 bluez-dev
 boost-dev
-cmake
 curl-dev
 enca-dev
 ffmpeg-dev

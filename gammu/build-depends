@@ -1,5 +1,4 @@
 bluez-dev
-cmake
 curl-dev
 glib-dev
 libpq

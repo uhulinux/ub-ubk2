@@ -1,4 +1,3 @@
-cmake
 imagemagick-dev
 libwmf-dev
 openexr-dev

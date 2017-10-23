@@ -1,4 +1,3 @@
-cmake
 libjpeg-turbo-dev
 libxft-dev
 libxmu-dev

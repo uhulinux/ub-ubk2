@@ -1,7 +1,6 @@
 bison
 boost-dev
 cegui-dev
-cmake
 devil-dev
 freeimage-dev
 freetype2-dev

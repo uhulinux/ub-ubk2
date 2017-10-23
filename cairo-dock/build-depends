@@ -1,4 +1,3 @@
-cmake
 curl-dev
 dbus-glib-dev
 glu-dev

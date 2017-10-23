@@ -1,4 +1,3 @@
-cmake
 fontconfig-dev
 freetype2-dev
 libjpeg-turbo-dev

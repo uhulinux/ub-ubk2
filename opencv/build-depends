@@ -1,4 +1,3 @@
-cmake
 eigen3
 ffmpeg-dev
 glu-dev

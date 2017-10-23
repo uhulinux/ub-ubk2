@@ -1,4 +1,3 @@
-cmake
 gnutls-dev
 libgcrypt-dev
 libjpeg-turbo-dev

@@ -1,4 +1,3 @@
-cmake
 cracklib-dev
 libevent-dev
 libxml2-dev

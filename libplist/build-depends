@@ -1,4 +1,3 @@
-cmake
 glib-dev
 libxml2-dev
 python-dev

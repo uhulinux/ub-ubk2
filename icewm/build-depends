@@ -1,4 +1,3 @@
-cmake
 gdk-pixbuf-dev
 gettext
 libxft-dev

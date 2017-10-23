@@ -1,7 +1,6 @@
 aspell-dev
 boost-dev
 cairo-dev
-cmake
 cups-dev
 gnutls-dev
 lcms2-dev

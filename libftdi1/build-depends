@@ -1,5 +1,4 @@
 boost-dev
-cmake
 libusb-compat-dev
 python-dev
 swig

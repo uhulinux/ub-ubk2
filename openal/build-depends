@@ -1,5 +1,4 @@
 alsa-lib-dev
-cmake
 esound-dev
 fluidsynth-dev
 jack-dev

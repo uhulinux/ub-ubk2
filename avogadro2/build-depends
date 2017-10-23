@@ -1,5 +1,4 @@
 avogadro2libs-dev
-cmake
 eigen3
 glew-dev
 hdf5

@@ -1,4 +1,3 @@
-cmake
 libsm-dev
 libxau-dev
 libxdmcp-dev
