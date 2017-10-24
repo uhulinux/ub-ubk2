@@ -1,5 +1,4 @@
 cogl-dev
-gettext
 gobject-introspection-dev
 gtk-dev
 json-glib-dev

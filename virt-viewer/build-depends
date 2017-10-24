@@ -5,7 +5,6 @@ gtk-dev
 gtk-vnc-dev
 intltool
 libsoup-dev
-libtool
 libvirt-glib-dev
 libxml2-dev
 spice-gtk-dev

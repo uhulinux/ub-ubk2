@@ -1,5 +1,3 @@
 audiofile-dev
-bzip2-dev
 glib-dev
 libgcrypt-dev
-zlib-dev

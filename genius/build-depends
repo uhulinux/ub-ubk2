@@ -1,6 +1,3 @@
-bison
-desktop-file-utils
-flex
 glib-dev
 gmp-dev
 gnome-doc-utils
@@ -16,5 +13,4 @@ pango-dev
 popt-dev
 python-dev
 rarian-dev
-readline-dev
 vte2-dev

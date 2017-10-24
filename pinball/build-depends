@@ -3,7 +3,6 @@ flac-dev
 glu-dev
 libmikmod-dev
 libmodplug-dev
-libtool
 libvorbis-dev
 libxshmfence-dev
 sdl-image-dev

@@ -1,7 +1,6 @@
 alsa-lib
 dbus
 gamin
-glibc-dev
 gtk-dev
 libjpeg-turbo-dev
 libx11-dev

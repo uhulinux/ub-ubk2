@@ -3,7 +3,6 @@ avahi-dev
 docbook-dtds
 docbook-xsl
 gcr-dev
-gettext
 gnome-desktop-dev
 gnome-doc-utils
 gobject-introspection-dev
@@ -27,4 +26,3 @@ sqlite-dev
 systemd-dev
 webkit2gtk-dev
 xcb-util-dev
-xz-dev

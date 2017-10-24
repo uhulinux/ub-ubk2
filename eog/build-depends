@@ -20,4 +20,3 @@ libsm-dev
 libxml2-dev
 openssl-dev
 xcb-util-dev
-zlib-dev

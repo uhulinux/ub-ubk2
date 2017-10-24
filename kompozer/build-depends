@@ -1,6 +1,5 @@
 binutils-dev
 freetype2-dev
-gawk
 gnome2-vfs-dev
 gtk2-dev
 hunspell-dev
@@ -9,6 +8,5 @@ libidl2-dev
 libxt-dev
 nss-dev
 pangox-compat-dev
-perl
 unzip
 zip

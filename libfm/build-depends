@@ -1,6 +1,4 @@
 dbus-glib-dev
-desktop-file-utils
-gettext
 glib-dev
 gtk-dev
 intltool

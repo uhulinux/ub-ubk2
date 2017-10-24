@@ -2,7 +2,6 @@ glu-dev
 gtk-dev
 gtk2
 kernel-dev
-kernel-headers
 libxv
 libxvmc
 x.org-server

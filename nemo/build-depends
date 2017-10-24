@@ -1,6 +1,5 @@
 cinnamon-desktop-dev
 dconf-dev
-desktop-file-utils
 exempi-dev
 gnome-common
 gobject-introspection-dev

@@ -6,4 +6,3 @@ libffi-dev
 libxml2-dev
 libxslt-dev
 openssl-dev
-zlib-dev

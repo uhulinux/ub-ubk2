@@ -3,7 +3,6 @@ gnutls-dev
 intltool
 libasyncns-dev
 libsoup-dev
-libtool
 libxml2-dev
 libxslt
 p11-kit-dev

@@ -37,4 +37,3 @@ startup-notification-dev
 systemd-dev
 webkit2gtk-dev
 xcb-util-dev
-xz-dev

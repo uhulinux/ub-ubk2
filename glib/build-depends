@@ -1,5 +1,4 @@
 gamin-dev
-gettext
 gtk-doc
 libelf-dev
 libffi-dev
@@ -7,4 +6,3 @@ pcre-dev
 python-dev
 python-six
 util-linux-dev
-zlib-dev

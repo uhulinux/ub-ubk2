@@ -5,7 +5,6 @@ cppunit-dev
 cups-dev
 curl-dev
 dbus-glib-dev
-desktop-file-utils
 expat-dev
 fonts-x.org-ttf
 glew-dev

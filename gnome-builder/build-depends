@@ -1,6 +1,5 @@
 clang
 ctags
-desktop-file-utils
 devhelp-dev
 gjs
 gobject-introspection

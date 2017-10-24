@@ -1,5 +1,4 @@
 appstream-glib-dev
-desktop-file-utils
 gconf2-dev
 gtk-dev
 guile-dev

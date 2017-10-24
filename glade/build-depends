@@ -1,6 +1,5 @@
 docbook-dtds
 docbook-xsl
-gettext
 gnome-common
 gobject-introspection-dev
 gtk-dev
@@ -11,5 +10,4 @@ libxml2-dev
 libxslt
 pygobject-dev
 python3-dev
-xz-dev
 yelp-tools

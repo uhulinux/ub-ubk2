@@ -10,4 +10,3 @@ nasm
 openal-dev
 sdl2-dev
 timidity
-zlib-dev

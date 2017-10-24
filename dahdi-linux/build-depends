@@ -1,6 +1,5 @@
 kernel
 kernel-dev
-kernel-headers
 kmod
 man-db
 newt-dev

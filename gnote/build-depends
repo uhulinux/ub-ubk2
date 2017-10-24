@@ -1,5 +1,4 @@
 boost-dev
-desktop-file-utils
 enchant-dev
 gtkmm-dev
 gtkspell-dev
@@ -9,4 +8,3 @@ libsecret-dev
 libxml2-dev
 libxslt-dev
 util-linux-dev
-xz-dev
