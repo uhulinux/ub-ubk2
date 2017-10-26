@@ -1,6 +1,7 @@
 #!/bin/sh -eux
 
 ub_compile \
+	--disable-docbook \
 	--enable-plugins \
 	--enable-cpu-level=6 \
 	--enable-ne2000 \
@@ -9,17 +10,19 @@ ub_compile \
 	--enable-repeat-speedups \
 	--enable-fast-function-calls \
 	--enable-disasm \
-	--enable-all-optimizations \
 	--enable-readline \
 	--enable-fpu \
 	--enable-3dnow \
-	--enable-x86-debugger \
+	--enable-x86-64 \
+	--enable-debugger \
 	--enable-cdrom \
 	--enable-sb16=linux \
 	--enable-gameport \
-	--enable-gdb-stub \
-	--enable-iodebug \
+	--enable-smp \
+	--enable-avx \
 	--enable-xpm \
 	--enable-clgd54xx \
 	--with-x11 \
+	--with-x \
+	--with-term \
 	--with-sdl
