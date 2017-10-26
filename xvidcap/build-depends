@@ -1,4 +1,5 @@
 dbus-glib-dev
+ffmpeg-dev
 intltool
 libglade2-dev
 liblame-dev
