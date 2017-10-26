@@ -1,7 +1,9 @@
 gst-plugins-base-dev
+gst-transcoder-dev
 gtk-dev
 intltool
 itstool
+meson
 py3cairo-dev
 pygobject-dev
 python3-dev
