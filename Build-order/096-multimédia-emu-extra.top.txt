@@ -52,7 +52,7 @@ dvbcut
 free-unix-spectrum-emulator
 quvi
 paman
-gst-transcode
+gst-transcoder
 pitivi
 lingot
 pavucontrol
