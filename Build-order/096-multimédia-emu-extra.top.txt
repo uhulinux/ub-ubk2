@@ -76,6 +76,8 @@ mpv
 handbrake
 avidemux
 aqualung
+chromaprint
+libechonest
 clementine
 wine
 mlt

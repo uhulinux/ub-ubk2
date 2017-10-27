@@ -1,10 +1,12 @@
 boost-dev
+chromaprint-dev
 cryptopp-dev
 fftw3-dev
 glew-dev
 gst-plugins-base-dev
 gstreamer-dev
 libcdio-dev
+libechonest-dev
 libgpod-dev
 libmtp-dev
 libxml2-dev
