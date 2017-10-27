@@ -1,4 +1,4 @@
 #!/usr/bin/env dl
 
-me-tv-${UB_VERSION}.tar.gz	Me-TV-72467ff/
-	git://github.com/Me-TV/Me-TV.git@72467ff
+me-tv-${UB_VERSION}.tar.gz	Me-TV-3017bc3/
+	git://github.com/Me-TV/Me-TV.git@3017bc3
