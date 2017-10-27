@@ -6,6 +6,7 @@ gtk-dev
 intltool
 jansson
 libass-dev
+libbluray-dev
 libdca-dev
 libdrm-dev
 libdvdnav-dev
