@@ -66,6 +66,7 @@ subtitleeditor
 lmms
 bombono-dvd
 transmageddon
+glewmx
 bino
 deadbeef
 moc
