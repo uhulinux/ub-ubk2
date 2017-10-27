@@ -48,6 +48,7 @@ exif
 dmd2
 intend
 hgsubversion
+xcursorgen
 cursor-theme-x.org
 sweethome3d
 clisp
