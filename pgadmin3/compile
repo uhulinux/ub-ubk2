@@ -2,4 +2,6 @@
 
 ub_compile \
 	--enable-databasedesigner \
-	--with-wx-version=3.0
+	--with-wx-version=3.0 \
+	--with-libgcrypt \
+	--without-openssl
