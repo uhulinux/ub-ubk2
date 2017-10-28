@@ -1,5 +1,7 @@
 #!/bin/sh -eux
 
+export CFLAGS+=' -Wno-narrowing'
+export CXXFLAGS+="-Wno-narrowing -fpermissive"
 ub_compile \
 	--prefix=/var/www/htdig \
 	--bindir=/usr/bin \
