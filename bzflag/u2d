@@ -1,1 +1,2 @@
-sflist bzflag bzflag%20source | splitver '^([0-9]+\.[0-9]+\.[0-9]+)$' | sort -V | tail -n 1 
+u2d https://github.com/BZFlag-Dev/bzflag/releases/ v
+
