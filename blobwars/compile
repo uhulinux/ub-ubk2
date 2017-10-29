@@ -1,7 +1,3 @@
 #!/bin/sh -eux
 
-make \
-	USEPAK="1" \
-	DATADIR="/usr/share/games/blobwars/" \
-	DOCDIR="/usr/share/doc/blobwars/html/" \
-	LOCALEDIR="/usr/share/locale/"
+ub_compile
