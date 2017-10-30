@@ -22,7 +22,6 @@ smart
 ndisgtk
 sddm-config-editor
 foxit
-stellarium
 grub-customizer
 falcon
 socnetv
@@ -38,7 +37,6 @@ nvidia-304
 nvidia-340
 nvidia
 adobe-reader
-scribus
 synapse
 gnucash
 abiword
