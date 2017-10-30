@@ -2,3 +2,4 @@ libffi-dev
 llvm
 openssl-dev
 python
+rust
