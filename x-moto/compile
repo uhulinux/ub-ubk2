@@ -1,3 +1,4 @@
 #!/bin/sh -eux
 
+export CPPFLAGS+=' -D_GLIBCXX_USE_CXX11_ABI=0'
 ub_compile
