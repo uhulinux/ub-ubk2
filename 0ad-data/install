@@ -1,5 +1,3 @@
 #!/bin/sh -eux
 
-install -d $UB_INSTALLDIR/usr/share/0ad/data
-
-cp -r binaries/data $UB_INSTALLDIR/usr/share/0ad/
+sed "s/ubversion/$UB_VERSION/" -i $UB_SRCDIR/packages/0ad-data/postinst
