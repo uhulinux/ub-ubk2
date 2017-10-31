@@ -50,6 +50,7 @@ powermanga
 quake2
 quake2-demo
 ri-li
+sauerbraten-data
 sauerbraten
 simutrans
 simutrans-pak64
