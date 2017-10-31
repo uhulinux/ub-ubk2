@@ -5,3 +5,4 @@ mesa >=
 openal >=
 plib >=
 sdl >=
+supertuxkart-data
