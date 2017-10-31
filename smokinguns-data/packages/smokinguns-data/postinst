@@ -1,0 +1,13 @@
+#/bin/sh
+
+echo downloading data
+
+mkdir -p /usr/share/games/smokinguns/{smokinguns,baseq3}
+mkdir -p /tmp/install
+cd /tmp/install
+   curl -o Smokin_Guns_1.1.zip http://download.smokin-guns.org/Smokin_Guns_1.1.zip
+   unzip Smokin_Guns_1.1.zip
+cp "Smokin' Guns 1.1"/baseq3/pak* /usr/share/games/smokinguns/baseq3/
+cp "Smokin' Guns 1.1"/smokinguns/* /usr/share/games/smokinguns/smokinguns/
+cd -
+rm -rf /tmp/install
