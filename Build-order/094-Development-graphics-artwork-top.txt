@@ -46,11 +46,9 @@ transifex-client
 aaphoto
 exif
 dmd2
-intend
 hgsubversion
 xcursorgen
 cursor-theme-x.org
-clisp
 evolvotron
 mscgen
 povray
@@ -74,7 +72,6 @@ distcc
 ddd
 geeqie
 codeblocks
-ecere
 gimp-gap
 ipe
 poedit

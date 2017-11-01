@@ -1,6 +1,0 @@
-#!/bin/sh -eux
-
-autoreconf -vfi
-
-ub_compile \
-	--with-gnu-ld
