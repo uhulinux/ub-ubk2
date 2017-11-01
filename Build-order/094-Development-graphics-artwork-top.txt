@@ -45,7 +45,6 @@ runsnakerun
 transifex-client
 aaphoto
 exif
-dmd2
 hgsubversion
 xcursorgen
 cursor-theme-x.org
