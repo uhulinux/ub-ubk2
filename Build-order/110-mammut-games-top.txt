@@ -55,8 +55,6 @@ sauerbraten
 simutrans
 simutrans-pak64
 simutrans-pak128
-smc
-smc-music
 smokinguns
 smokinguns-data
 sokoban
