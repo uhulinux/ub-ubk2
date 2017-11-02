@@ -1,13 +1,15 @@
 #!/bin/sh -eux
 
 if [ "$UB_ARCH" == "amd64" ];then
-arch="x86_64"
+	arch="x86_64"
+	dpkg-deb -x opera-stable_${UB_VERSION}_amd64.deb .
 else
-arch="i386"
+	arch=$UB_ARCH
+	curl -O http://get.geo.opera.com/ftp/pub/opera/desktop/45.0.2552.898/linux/opera-stable_45.0.2552.898_i386.deb
+	dpkg-deb -x opera-stable_45.0.2552.898_i386.deb .
 fi
 
-dpkg-deb -x opera-stable_${UB_VERSION}_${UB_ARCH}.deb .
-rm -f opera-stable_${UB_VERSION}_*.deb
+rm -f opera-stable_*.deb
 
 cd usr/share/applications
 patch -i $UB_SRCDIR/patches/desktop.patch.skip
