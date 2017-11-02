@@ -1,6 +1,6 @@
 glu-dev
-gtk-dev
 gtk2
+gtk-dev
 kernel-dev
 libxv
 libxvmc
