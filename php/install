@@ -1,5 +1,6 @@
 #!/bin/sh -eux
 
+# csak az apxs keresi
 mkdir -p "$UB_INSTALLDIR"/etc/apache/
 cp /etc/apache/httpd.conf "$UB_INSTALLDIR"/etc/apache/
 make \
@@ -8,6 +9,9 @@ make \
 
 install -m 644 php.ini-production "$UB_INSTALLDIR"/etc/php.ini
 install -m 644 php.ini-development "$UB_INSTALLDIR"/etc/
+
+# ütközés az apache csomaggal
+rm -f "$UB_INSTALLDIR"/etc/apache/httpd.conf*
 
 mkdir -p "$UB_INSTALLDIR"/etc/php.d
 modok=$(ls -1 ${UB_INSTALLDIR}/usr/lib/php/*.so | sed s/\\.so*//g | sed s/.*php\\///g)
