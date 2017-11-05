@@ -1,5 +1,8 @@
+bdftopcf
 fonts-x.org-base
 iceauth
+mkfontdir
+mkfontscale
 sessreg
 xcmsdb
 xgamma
@@ -8,6 +11,7 @@ xinput
 xkbutils
 xkeyboard-config
 xmodmap
+x.org-font-util
 xrandr
 xrdb
 xrefresh
