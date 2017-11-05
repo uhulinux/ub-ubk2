@@ -8,7 +8,7 @@ cd /tmp/install
 curl -o widelands-build${version}-src.tar.bz2 https://launchpadlibrarian.net/292884200/widelands-build${version}-src.tar.bz2
 echo extracting...
 tar -xvf widelands-build${version}-src.tar.bz2 -C /usr/share/
-mv /usr/share/widelands-build${version}-src/data /usr/share/widelands/
+mv /usr/share/widelands-build${version}-src/data/* /usr/share/widelands/
 rm -rf /usr/share/widelands-build${version}-src
 cd -
 rm -rf /tmp/install
