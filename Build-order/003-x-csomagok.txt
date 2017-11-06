@@ -50,6 +50,7 @@ mkfontscale
 bdftopcf
 fonttosfnt
 mkfontdir
+x.org-font-utils
 libxfont
 libxdamage
 libxv
@@ -101,6 +102,7 @@ xlsfonts
 xprop
 xvinfo
 xwininfo
+x.org-utils
 xkbcomp
 xkbevd
 xkbprint
@@ -131,4 +133,5 @@ xrdb
 xrefresh
 xscope
 xset
+x.org-server-utils
 xsetroot
