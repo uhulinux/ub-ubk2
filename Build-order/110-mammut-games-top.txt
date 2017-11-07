@@ -56,7 +56,6 @@ simutrans
 simutrans-pak64
 simutrans-pak128
 smokinguns
-smokinguns-data
 sokoban
 stuntrally
 supertux
