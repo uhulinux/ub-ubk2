@@ -1,6 +1,6 @@
 diff -Naur orig/mozilla/toolkit/crashreporter/google-breakpad/src/client/linux/dump_writer_common/ucontext_reader.cc patched/mozilla/toolkit/crashreporter/google-breakpad/src/client/linux/dump_writer_common/ucontext_reader.cc
---- orig/mozilla/toolkit/crashreporter/google-breakpad/src/client/linux/dump_writer_common/ucontext_reader.cc	2017-07-07 07:38:24.134739579 +0200
-+++ patched/mozilla/toolkit/crashreporter/google-breakpad/src/client/linux/dump_writer_common/ucontext_reader.cc	2017-10-10 23:55:42.868577552 +0200
+--- orig/mozilla/toolkit/crashreporter/google-breakpad/src/client/linux/dump_writer_common/ucontext_reader.cc	2017-10-16 09:20:53.134739579 +0200
++++ patched/mozilla/toolkit/crashreporter/google-breakpad/src/client/linux/dump_writer_common/ucontext_reader.cc	2017-11-07 10:38:02.577866048 +0100
 @@ -36,19 +36,19 @@
  
  // Minidump defines register structures which are different from the raw
@@ -97,13 +97,13 @@ diff -Naur orig/mozilla/toolkit/crashreporter/google-breakpad/src/client/linux/d
  }
  
 -void UContextReader::FillCPUContext(RawContextCPU *out, const ucontext *uc) {
-+void UContextReader::FillCPUContext(RawContextCPU *out, ucontext_t *uc) {
-   out->context_flags = MD_CONTEXT_MIPS_FULL;
- 
-   for (int i = 0; i < MD_CONTEXT_MIPS_GPR_COUNT; ++i)
++void UContextReader::FillCPUContext(RawContextCPU *out, const ucontext_t *uc) {
+ #if _MIPS_SIM == _ABI64
+   out->context_flags = MD_CONTEXT_MIPS64_FULL;
+ #elif _MIPS_SIM == _ABIO32
 diff -Naur orig/mozilla/toolkit/crashreporter/google-breakpad/src/client/linux/dump_writer_common/ucontext_reader.h patched/mozilla/toolkit/crashreporter/google-breakpad/src/client/linux/dump_writer_common/ucontext_reader.h
---- orig/mozilla/toolkit/crashreporter/google-breakpad/src/client/linux/dump_writer_common/ucontext_reader.h	2017-07-07 07:38:24.134739579 +0200
-+++ patched/mozilla/toolkit/crashreporter/google-breakpad/src/client/linux/dump_writer_common/ucontext_reader.h	2017-10-10 23:52:08.282355470 +0200
+--- orig/mozilla/toolkit/crashreporter/google-breakpad/src/client/linux/dump_writer_common/ucontext_reader.h	2017-10-16 09:21:04.134739579 +0200
++++ patched/mozilla/toolkit/crashreporter/google-breakpad/src/client/linux/dump_writer_common/ucontext_reader.h	2017-11-07 10:35:04.540271506 +0100
 @@ -39,23 +39,23 @@
  
  namespace google_breakpad {
@@ -136,8 +136,8 @@ diff -Naur orig/mozilla/toolkit/crashreporter/google-breakpad/src/client/linux/d
  };
  
 diff -Naur orig/mozilla/toolkit/crashreporter/google-breakpad/src/client/linux/handler/exception_handler.cc patched/mozilla/toolkit/crashreporter/google-breakpad/src/client/linux/handler/exception_handler.cc
---- orig/mozilla/toolkit/crashreporter/google-breakpad/src/client/linux/handler/exception_handler.cc	2017-07-07 07:38:24.134739579 +0200
-+++ patched/mozilla/toolkit/crashreporter/google-breakpad/src/client/linux/handler/exception_handler.cc	2017-10-10 23:52:08.286355510 +0200
+--- orig/mozilla/toolkit/crashreporter/google-breakpad/src/client/linux/handler/exception_handler.cc	2017-10-16 09:20:44.134739579 +0200
++++ patched/mozilla/toolkit/crashreporter/google-breakpad/src/client/linux/handler/exception_handler.cc	2017-11-07 10:35:04.540271506 +0100
 @@ -439,9 +439,9 @@
    // Fill in all the holes in the struct to make Valgrind happy.
    memset(&g_crash_context_, 0, sizeof(g_crash_context_));
@@ -172,8 +172,8 @@ diff -Naur orig/mozilla/toolkit/crashreporter/google-breakpad/src/client/linux/h
    return HandleSignal(sig, &siginfo, &context);
  }
 diff -Naur orig/mozilla/toolkit/crashreporter/google-breakpad/src/client/linux/handler/exception_handler.h patched/mozilla/toolkit/crashreporter/google-breakpad/src/client/linux/handler/exception_handler.h
---- orig/mozilla/toolkit/crashreporter/google-breakpad/src/client/linux/handler/exception_handler.h	2017-07-07 07:38:24.134739579 +0200
-+++ patched/mozilla/toolkit/crashreporter/google-breakpad/src/client/linux/handler/exception_handler.h	2017-10-10 23:52:08.286355510 +0200
+--- orig/mozilla/toolkit/crashreporter/google-breakpad/src/client/linux/handler/exception_handler.h	2017-10-16 09:20:55.134739579 +0200
++++ patched/mozilla/toolkit/crashreporter/google-breakpad/src/client/linux/handler/exception_handler.h	2017-11-07 10:35:04.540271506 +0100
 @@ -191,11 +191,11 @@
    struct CrashContext {
      siginfo_t siginfo;
@@ -190,9 +190,9 @@ diff -Naur orig/mozilla/toolkit/crashreporter/google-breakpad/src/client/linux/h
  #endif
    };
 diff -Naur orig/mozilla/toolkit/crashreporter/google-breakpad/src/client/linux/microdump_writer/microdump_writer.cc patched/mozilla/toolkit/crashreporter/google-breakpad/src/client/linux/microdump_writer/microdump_writer.cc
---- orig/mozilla/toolkit/crashreporter/google-breakpad/src/client/linux/microdump_writer/microdump_writer.cc	2017-07-07 07:38:24.134739579 +0200
-+++ patched/mozilla/toolkit/crashreporter/google-breakpad/src/client/linux/microdump_writer/microdump_writer.cc	2017-10-10 23:52:08.286355510 +0200
-@@ -395,7 +395,7 @@
+--- orig/mozilla/toolkit/crashreporter/google-breakpad/src/client/linux/microdump_writer/microdump_writer.cc	2017-10-16 09:20:44.134739579 +0200
++++ patched/mozilla/toolkit/crashreporter/google-breakpad/src/client/linux/microdump_writer/microdump_writer.cc	2017-11-07 10:35:04.540271506 +0100
+@@ -571,7 +571,7 @@
  
    void* Alloc(unsigned bytes) { return dumper_->allocator()->Alloc(bytes); }
  
@@ -202,9 +202,9 @@ diff -Naur orig/mozilla/toolkit/crashreporter/google-breakpad/src/client/linux/m
    const google_breakpad::fpstate_t* const float_state_;
  #endif
 diff -Naur orig/mozilla/toolkit/crashreporter/google-breakpad/src/client/linux/minidump_writer/minidump_writer.cc patched/mozilla/toolkit/crashreporter/google-breakpad/src/client/linux/minidump_writer/minidump_writer.cc
---- orig/mozilla/toolkit/crashreporter/google-breakpad/src/client/linux/minidump_writer/minidump_writer.cc	2017-07-07 07:38:24.134739579 +0200
-+++ patched/mozilla/toolkit/crashreporter/google-breakpad/src/client/linux/minidump_writer/minidump_writer.cc	2017-10-10 23:52:08.286355510 +0200
-@@ -1244,7 +1244,7 @@
+--- orig/mozilla/toolkit/crashreporter/google-breakpad/src/client/linux/minidump_writer/minidump_writer.cc	2017-10-16 09:20:53.134739579 +0200
++++ patched/mozilla/toolkit/crashreporter/google-breakpad/src/client/linux/minidump_writer/minidump_writer.cc	2017-11-07 10:35:04.544271542 +0100
+@@ -1247,7 +1247,7 @@
    const int fd_;  // File descriptor where the minidum should be written.
    const char* path_;  // Path to the file where the minidum should be written.
  
