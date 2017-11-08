@@ -43,11 +43,11 @@ ac_add_options --enable-safe-browsing
 ac_add_options --enable-url-classifier
 ac_add_options --enable-bundled-fonts
 ac_add_options --disable-clang-plugin
+ac_add_options --disable-stylo
 ac_add_options --disable-debug
 ac_add_options --disable-gconf
 ac_add_options --disable-updater
 ac_add_options --disable-tests
-ac_add_options --disable-stylo
 ac_add_options --disable-strip
 ac_add_options --disable-install-strip
 ac_add_options --disable-elf-hack
@@ -55,7 +55,7 @@ ac_add_options --disable-necko-wifi
 _EOF_
 
 if [ "$UB_ARCH" == "amd64" ];then
-sed -i 's/i686-gnu-linux/x86_64-gnu-linux/' .mozconfig
+	sed -i 's/i686-gnu-linux/x86_64-gnu-linux/' .mozconfig
 fi
 
 cd "$UB_OBJECTDIR"

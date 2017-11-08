@@ -8,14 +8,13 @@ CC="ccache gcc -m32"
 CXX="ccache g++ -m32"
 fi
 
-export SHELL=/bin/bash
 export LDFLAGS="-Wl,-rpath,/usr/lib/thunderbird/ -Wl,--no-keep-memory -Wl,-z,relro -Wl,-z,now"
 # jpeg: jpeg-turbo, png: >= 1.6.17 + APNG support
 
 : > .mozconfig
 cat > .mozconfig << _EOF_
-ac_add_options --host='i686-uhu-linux'
-ac_add_options --target='i686-uhu-linux'
+ac_add_options --host='i686-gnu-linux'
+ac_add_options --target='i686-gnu-linux'
 ac_add_options --prefix=/usr
 ac_add_options --enable-application=mail
 ac_add_options --enable-release
@@ -39,6 +38,8 @@ ac_add_options --enable-startup-notification
 ac_add_options --enable-default-toolkit=cairo-gtk2
 ac_add_options --enable-safe-browsing
 ac_add_options --enable-url-classifier
+ac_add_options --disable-clang-plugin
+ac_add_options --disable-stylo
 ac_add_options --disable-debug
 ac_add_options --disable-gconf
 ac_add_options --disable-gnomeui
@@ -51,7 +52,7 @@ ac_add_options --disable-necko-wifi
 _EOF_
 
 if [ "$UB_ARCH" == "amd64" ];then
-sed -i 's/i686/amd64/' .mozconfig
+	sed -i 's/i686-gnu-linux/x86_64-gnu-linux/' .mozconfig
 fi
 
 cd "$UB_OBJECTDIR"
