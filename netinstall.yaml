@@ -274,7 +274,6 @@
     - lsof
     - lynx
     - m4
-    - mailx
     - make
     - man-pages
     - mc
@@ -288,7 +287,6 @@
     - newt
     - nfs-utils
     - nss
-    - ntalk
     - openslp
     - openssh
     - patch
@@ -396,7 +394,6 @@
     - ethtool
     - iperf
     - ipsec-tools
-    - iptables-utils
     - lftp
     - tcpdump
     - vblade
@@ -513,7 +510,6 @@
     - pkgconfig
     - strace
     - subversion
-    - subversion-tools
     - uhubuild-here
     - uhubuild-under-chroot
     - uhu-pkgutils
@@ -626,7 +622,7 @@
     - xcb-util-renderutil
     - xcb-util-wm
     - xinit
-    - xkb-utils
+    - xkbutils
     - xkeyboard-config
     - xterm
 - name: "Xorg old drivers"
@@ -773,8 +769,6 @@
     - gthumb
     - planner
     - sound-juicer
-    - tracker-plugin-nautilus
-    - tracker-plugin-thunderbird
     - vinagre
     - kino
     - gnome-commander
@@ -785,7 +779,6 @@
   selected: false
   packages:
     - libreoffice
-    - openoffice.org
     - scribus
     - abevjava
     - abiword
