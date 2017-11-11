@@ -4,4 +4,4 @@ libxinerama-dev
 libxrandr-dev
 libxt-dev
 linuxdoc-tools
-mkfontdir
+x.org-font-utils

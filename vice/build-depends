@@ -1,4 +1,3 @@
-bdftopcf
 ffmpeg-dev
 glu-dev
 gtk-dev
@@ -9,8 +8,8 @@ liblame-dev
 libpcap-dev
 libungif-dev
 libxxf86vm-dev
-mkfontdir
 mpg123-dev
 portaudio-dev
 pulseaudio-dev
 vte2-dev
+x.org-font-utils

@@ -1,4 +1,4 @@
 fontforge
 fonttools
-mkfontscale
 python-dev
+x.org-font-utils

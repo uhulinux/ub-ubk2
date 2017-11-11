@@ -1,15 +1,4 @@
-iceauth
 inetutils
-sessreg
 xauth
-xcmsdb
-xgamma
-xhost
-xinput
-xmodmap
 x.org-server
-xrandr
-xrdb
-xrefresh
-xscope
-xset
+x.org-server-utils

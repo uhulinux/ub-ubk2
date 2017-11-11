@@ -1,5 +1,4 @@
 alsa-lib-dev
-bdftopcf
 gpm-dev
 libice-dev
 libsndfile-dev
@@ -7,7 +6,6 @@ libx11-dev
 libxext-dev
 libxkbfile-dev
 libxxf86vm-dev
-mkfontdir
 sdl-dev
 slang-dev
-x.org-font-util
+x.org-font-utils

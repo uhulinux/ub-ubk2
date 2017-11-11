@@ -1,6 +1,5 @@
 dbus-glib-dev
 gtk2-dev
-iceauth
 intltool
 libwnck2-dev
 libxfce4ui-dev
@@ -15,3 +14,4 @@ systemd-dev
 xcb-util-dev
 xfce4-panel-dev
 xfconf-dev
+x.org-server-utils

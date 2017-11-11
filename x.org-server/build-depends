@@ -36,5 +36,5 @@ xf86bigfontproto
 xf86dgaproto
 xf86driproto
 xineramaproto
-x.org-font-util
+x.org-font-utils
 x.org-xtrans-dev
