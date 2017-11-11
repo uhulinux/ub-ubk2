@@ -108,6 +108,7 @@ xkbevd
 xkbprint
 setxkbmap
 xkbutils
+xkb-utils
 xkeyboard-config
 mtdev
 fonts-x.org
