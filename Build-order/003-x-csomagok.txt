@@ -136,3 +136,4 @@ xscope
 xset
 x.org-server-utils
 xsetroot
+x.org-proto-dev
