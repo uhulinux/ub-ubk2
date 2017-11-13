@@ -625,6 +625,7 @@
     - xkbutils
     - xkeyboard-config
     - xterm
+    - xf86-input-libinput
 - name: "Xorg old drivers"
   description: "Xorg old drivers"
   critical: false
