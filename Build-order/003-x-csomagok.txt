@@ -47,11 +47,12 @@ libxkbfile
 x.org-font-util
 libfontenc
 mkfontscale
-bdftopcf
 fonttosfnt
 mkfontdir
 x.org-font-utils
 libxfont
+libxfont2
+bdftopcf
 libxdamage
 libxv
 libxvmc
