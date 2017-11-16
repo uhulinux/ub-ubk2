@@ -1,10 +1,9 @@
 # /etc/apt/sources.list
 
 # UBK
-deb ftp://ftp.ubk.hu/pkg/ubk1/main ./
-deb ftp://ftp.ubk.hu/pkg/ubk1/main64 ./
-# deb ftp://download.ubk.hu/pkg/ubk1/main ./
-# deb http://download.ubk.hu/pkg/ubk1/main64 ./
-# deb ftp://download.ubk.hu/pkg/ubk1/main ./
-# deb http://download.ubk.hu/pkg/ubk1/main64 ./
-
+deb ftp://ftp.ubk.hu/pkg/ubk2/main ./
+deb ftp://ftp.ubk.hu/pkg/ubk2/main64 ./
+# deb ftp://download.ubk.hu/pkg/ubk2/main ./
+# deb http://download.ubk.hu/pkg/ubk2/main64 ./
+# deb ftp://download.ubk.hu/pkg/ubk2/main ./
+# deb http://download.ubk.hu/pkg/ubk2/main64 ./
