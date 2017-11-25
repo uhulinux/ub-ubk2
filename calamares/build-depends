@@ -1,6 +1,7 @@
 boost-dev
 dbus-dev
 extra-cmake-modules
+gettext
 kconfig-dev
 kcoreaddons-dev
 ki18n-dev
