@@ -1,4 +1,5 @@
 fonts-x.org-base
+xf86-input-libinput
 xkbutils
 xkeyboard-config
 x.org-font-utils
