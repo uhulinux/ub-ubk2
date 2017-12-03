@@ -1,0 +1,25 @@
+diff -Nur orig/configure.ac mod/configure.ac
+--- orig/configure.ac	2017-07-12 16:01:10.000000000 +0200
++++ mod/configure.ac	2017-12-03 14:57:46.921182515 +0100
+@@ -98,16 +98,16 @@
+ AC_PATH_PROG([QUOTAON], [quotaon], [/usr/sbin/quotaon], [$PATH:/usr/sbin:/sbin])
+ AC_PATH_PROG([QUOTACHECK], [quotacheck], [/usr/sbin/quotacheck], [$PATH:/usr/sbin:/sbin])
+ 
+-AC_PATH_PROG([KILL], [kill], [/usr/bin/kill], [$PATH:/usr/sbin:/sbin])
++AC_PATH_PROG([KILL], [kill], [/bin/kill], [$PATH:/usr/sbin:/sbin])
+ 
+-AC_PATH_PROG([KMOD], [kmod], [/usr/bin/kmod], [$PATH:/usr/sbin:/sbin])
++AC_PATH_PROG([KMOD], [kmod], [/bin/kmod], [$PATH:/usr/sbin:/sbin])
+ 
+ AC_PATH_PROG([KEXEC], [kexec], [/usr/sbin/kexec], [$PATH:/usr/sbin:/sbin])
+ 
+-AC_PATH_PROG([SULOGIN], [sulogin], [/usr/sbin/sulogin], [$PATH:/usr/sbin:/sbin])
++AC_PATH_PROG([SULOGIN], [sulogin], [/sbin/sulogin], [$PATH:/usr/sbin:/sbin])
+ 
+-AC_PATH_PROG([MOUNT_PATH], [mount], [/usr/bin/mount], [$PATH:/usr/sbin:/sbin])
+-AC_PATH_PROG([UMOUNT_PATH], [umount], [/usr/bin/umount], [$PATH:/usr/sbin:/sbin])
++AC_PATH_PROG([MOUNT_PATH], [mount], [/bin/mount], [$PATH:/usr/sbin:/sbin])
++AC_PATH_PROG([UMOUNT_PATH], [umount], [/bin/umount], [$PATH:/usr/sbin:/sbin])
+ 
+ AS_IF([! ln --relative --help > /dev/null 2>&1], [AC_MSG_ERROR([*** ln doesn't support --relative ***])])
+ 
