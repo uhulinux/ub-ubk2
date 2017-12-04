@@ -5,6 +5,7 @@
 # login, nologin - shadow
 
 ub_compile \
+	--bindir=/bin \
 	--enable-partx \
 	--enable-raw \
 	--enable-write \

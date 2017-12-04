@@ -3,5 +3,4 @@
 ub_compile \
 	--with-zlib \
 	--with-xz \
-	--exec-prefix= \
 	--libdir=/usr/lib

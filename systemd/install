@@ -22,6 +22,7 @@ for file in "$UB_INSTALLDIR"/usr/lib/udev/rules.d/*.rules; do
 	for group in cdrom dialout disk floppy input kmem tape utmp uucp; do
 		sed -e "s/GROUP=\"$group\"/GROUP=\"media\"/g" -i "$file"
 	done
+	sed -e "s/GROUP=\"kvm\"/GROUP=\"users\"/g" -i "$file"
 done
 
 # halt poweroff reboot shutdown symlinks
