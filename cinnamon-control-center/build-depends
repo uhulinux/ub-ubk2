@@ -6,6 +6,8 @@ colord-dev
 cups-dev
 docbook-dtds
 docbook-xsl
+gcr-dev
+gnome-online-accounts-dev
 ibus-dev
 intltool
 iso-codes
@@ -15,11 +17,16 @@ libgnomekbd-dev
 libgnome-keyring-dev
 libgudev-dev
 libnotify-dev
+libsecret-dev
+libsoup-gnome-dev
 libwacom-dev
 libxft-dev
 libxslt-dev
 modemmanager-dev
 nm-applet-dev
 polkit-dev
+rest-dev
+telepathy-glib-dev
 tzdata
 upower-dev
+webkit2gtk-dev

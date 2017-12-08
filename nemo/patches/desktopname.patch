@@ -1,7 +1,7 @@
-diff -Naur orig/data/nemo.desktop.in.in patched/data/nemo.desktop.in.in
---- orig/data/nemo.desktop.in.in	2017-08-08 13:15:08.134739579 +0200
-+++ patched/data/nemo.desktop.in.in	2017-10-08 03:34:29.183046589 +0200
-@@ -33,8 +33,8 @@
+diff -Nur orig/data/nemo.desktop.in.in mod/data/nemo.desktop.in.in
+--- orig/data/nemo.desktop.in.in	2017-11-20 11:10:50.000000000 +0100
++++ mod/data/nemo.desktop.in.in	2017-12-08 11:59:21.492344595 +0100
+@@ -40,8 +40,8 @@
  Name[fr_CA]=Fichiers
  Name[fr_FR]=Fichiers
  Name[hr]=Nemo
@@ -9,6 +9,6 @@ diff -Naur orig/data/nemo.desktop.in.in patched/data/nemo.desktop.in.in
 -Name[hu_HU]=Fájlok
 +Name[hu]=Nemo
 +Name[hu_HU]=Nemo
+ Name[is]=Skrár
  Name[ko]=파일
  Name[ko_KR]=파일
- Name[lt]=Failai
