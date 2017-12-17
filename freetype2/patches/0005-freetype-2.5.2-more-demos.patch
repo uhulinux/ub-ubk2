@@ -1,5 +1,5 @@
---- a/ft2demos-2.8/Makefile
-+++ b/ft2demos-2.8/Makefile
+--- a/ft2demos-2.8.1/Makefile
++++ b/ft2demos-2.8.1/Makefile
 @@ -296,10 +296,10 @@ else
    # The following programs are not compiled automatically; either comment
    # out the affected line or use the program name as a Makefile target.

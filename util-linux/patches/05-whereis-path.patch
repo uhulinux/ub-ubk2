@@ -1,10 +1,10 @@
-diff -Naur util-linux-2.30.1-orig/misc-utils/whereis.c util-linux-2.30.1/misc-utils/whereis.c
---- util-linux-2.30.1-orig/misc-utils/whereis.c	2017-07-20 10:16:26.354984891 +0200
-+++ util-linux-2.30.1/misc-utils/whereis.c	2017-08-22 22:51:35.002551095 +0200
-@@ -96,75 +96,21 @@
- static const char *bindirs[] = {
- 	"/usr/bin",
- 	"/usr/sbin",
+diff -Nur orig/misc-utils/whereis.c mod/misc-utils/whereis.c
+--- orig/misc-utils/whereis.c	2017-09-27 11:05:13.000000000 +0200
++++ mod/misc-utils/whereis.c	2017-12-17 15:49:29.339372036 +0100
+@@ -101,75 +101,21 @@
+ 	"/usr/lib/" MULTIARCHTRIPLET,
+ 	"/usr/local/lib/" MULTIARCHTRIPLET,
+ #endif
 -	"/usr/lib",
 -	"/usr/lib64",
  	"/bin",
