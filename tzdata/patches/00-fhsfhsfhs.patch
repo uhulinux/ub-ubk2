@@ -1,7 +1,7 @@
-diff -Naur Makefile Makefile
---- tzdata-orig/Makefile	2016-01-27 08:30:16.000000000 +0100
-+++ tzdata/Makefile	2016-02-22 17:23:55.398136982 +0100
-@@ -44,14 +44,14 @@
+diff -Nur orig/Makefile mod/Makefile
+--- orig/Makefile	2017-10-02 02:23:52.000000000 +0200
++++ mod/Makefile	2017-12-16 13:53:48.319145236 +0100
+@@ -44,7 +44,7 @@
  
  # Everything gets put in subdirectories of. . .
  
@@ -10,7 +10,8 @@ diff -Naur Makefile Makefile
  
  # "Compiled" time zone information is placed in the "TZDIR" directory
  # (and subdirectories).
- # Use an absolute path name for TZDIR unless you're just testing the software.
+@@ -52,7 +52,7 @@
+ # TZDIR_BASENAME should not contain "/" and should not be ".", ".." or empty.
  
  TZDIR_BASENAME=	zoneinfo
 -TZDIR=		$(TOPDIR)/etc/$(TZDIR_BASENAME)
@@ -18,7 +19,7 @@ diff -Naur Makefile Makefile
  
  # Types to try, as an alternative to time_t.  int64_t should be first.
  TIME_T_ALTERNATIVES= int64_t int32_t uint32_t uint64_t
-@@ -66,7 +66,7 @@
+@@ -67,7 +67,7 @@
  
  # Manual pages go in subdirectories of. . .
  
@@ -27,10 +28,10 @@ diff -Naur Makefile Makefile
  
  # Library functions are put in an archive in LIBDIR.
  
-@@ -392,7 +392,7 @@
+@@ -479,7 +479,7 @@
  			$(DESTDIR)$(MANDIR)/man8
  		$(ZIC_INSTALL) -l $(LOCALTIME) -p $(POSIXRULES)
- 		cp -f iso3166.tab $(ZONETABLES) $(DESTDIR)$(TZDIR)/.
+ 		cp -f $(TABDATA) $(DESTDIR)$(TZDIR)/.
 -		cp tzselect zic zdump $(DESTDIR)$(ETCDIR)/.
 +		cp tzselect zic zdump $(DESTDIR)$(BINDIR)/.
  		cp libtz.a $(DESTDIR)$(LIBDIR)/.
