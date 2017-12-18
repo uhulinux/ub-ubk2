@@ -22,5 +22,6 @@ libxv-dev
 p11-kit-dev
 pango-dev
 python-dev
+python-six
 wayland-dev
 wayland-protocols
