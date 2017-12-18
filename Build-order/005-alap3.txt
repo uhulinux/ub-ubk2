@@ -107,14 +107,13 @@ npth
 libassuan
 gpg #pinentry-runtime-depends-nélkül
 gcr
-pinentry #qt5 nélkül
-gpg #pinentry-runtime-depends-el
-libsecret
-ghostscript
 libwacom
 libinput
 qt5
-pinentry #qt5-el
+pinentry
+gpg #pinentry-runtime-depends-el
+libsecret
+ghostscript
 apr
 apr-util
 apache
