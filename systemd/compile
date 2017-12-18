@@ -9,28 +9,25 @@
 mv {usb,pci}.ids ma-{large,medium,small}.txt hwdb/
 
 # a meson build nem készít .la fájlokat
-./autogen.sh
-ub_configure \
-	--with-pamlibdir=/lib/security \
-	--with-ntp-servers=pool.ntp.org \
-	--with-default-dnssec=no \
-	--enable-manpages \
-	--enable-split-usr \
-	--disable-libcurl \
-	--disable-microhttpd \
-	--disable-coredump
-ub_make
+libsystemd_version=$(grep "libsystemd_version =" meson.build | sed -e "s/libsystemd_version = //" -e "s/'//g")
+libsystemd_version_major=$(echo $libsystemd_version | cut -d. -f1)
+sed -i -e "s/@libsystemd_version@/$libsystemd_version/" libsystemd.la
+sed -i -e "s/@libsystemd_version_major@/$libsystemd_version_major/" libsystemd.la
+libudev_version=$(grep "libudev_version =" meson.build | sed -e "s/libudev_version = //" -e "s/'//g")
+libudev_version_major=$(echo $libudev_version | cut -d. -f1)
+sed -i -e "s/@libudev_version@/$libudev_version/" libudev.la
+sed -i -e "s/@libudev_version_major@/$libudev_version_major/" libudev.la
 
-#ub_compile \
-#	-Dkill-path=/bin/kill \
-#	-Dpamlibdir=/lib/security \
-#	-Dntp-servers=pool.ntp.org \
-#	-Ddefault-dnssec=no \
-#	-Dlink-udev-shared=true \
-#	-Dsplit-usr=false \
-#	-Dlibcurl=false \
-#	-Dmicrohttpd=false \
-#	-Dcoredump=false
-
-cd hwdb
-./ids-update.pl
+ub_compile \
+	-Dpamlibdir=/lib/security \
+	-Dntp-servers=pool.ntp.org \
+	-Ddefault-dnssec=no \
+	-Dlink-udev-shared=true \
+	-Dsplit-usr=false \
+	-Dlibcurl=false \
+	-Dmicrohttpd=false \
+	-Dcoredump=false \
+	-Dwheel-group=false \
+	-Dusers-gid=999 \
+	-Dsystem-uid-max=999 \
+	-Dsystem-gid-max=999
