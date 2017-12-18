@@ -9,5 +9,6 @@ libmbim-dev
 libqmi-dev
 polkit-dev
 ppp-dev
+python-six
 systemd-dev
 vala-dev
