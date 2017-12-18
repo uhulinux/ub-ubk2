@@ -9,6 +9,7 @@ python-numpy
 libglade2
 pygtk
 mercurial
+zstd
 btrfs-progs
 aoetools
 guile1.8
