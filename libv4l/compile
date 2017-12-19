@@ -1,5 +1,5 @@
 #!/bin/sh -eux
 
 ub_compile \
-	--enable-libdvbv5 \
+    --enable-libdvbv5 \
 	--with-udevdir=/usr/lib/udev

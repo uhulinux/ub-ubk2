@@ -1,5 +1,4 @@
 #!/bin/sh -eux
 
-./bootstrap
 export CFLAGS=" -fPIC"
 ub_compile

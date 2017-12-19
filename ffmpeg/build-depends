@@ -10,7 +10,6 @@ ladspa-dev
 libass-dev
 libbluray-dev
 libcaca-dev
-libcdio-paranoia-dev
 libdc1394-dev
 libfaad2-dev
 libgsm-dev
@@ -35,7 +34,6 @@ openjpeg-dev
 openssl-dev
 opus-dev
 pulseaudio-dev
-schroedinger-dev
 sdl2-dev
 speex-dev
 x264-dev

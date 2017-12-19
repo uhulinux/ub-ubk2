@@ -19,7 +19,6 @@
 	--enable-ladspa \
 	--enable-libass \
 	--enable-libbluray \
-	--enable-libcdio \
 	--enable-libcaca \
 	--enable-libcelt \
 	--enable-libdc1394 \
@@ -33,7 +32,6 @@
 	--enable-libopenjpeg \
  	--enable-libopus \
 	--enable-libpulse \
-	--enable-libschroedinger \
 	--enable-libsoxr \
 	--enable-libspeex \
 	--enable-libtheora \

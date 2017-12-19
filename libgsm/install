@@ -1,9 +1,8 @@
 #!/bin/sh -eux
 
-install -m 644 lib/libgsm.a "$UB_INSTALLDIR"/usr/lib/
-cp -av lib/libgsm.so* "$UB_INSTALLDIR"/usr/lib/
-mkdir -p "$UB_INSTALLDIR"/usr/include/gsm/
-install -m 644 inc/*.h "$UB_INSTALLDIR"/usr/include/gsm/
-cp man/*.3 "$UB_INSTALLDIR"/usr/share/man/man3/
-cp man/*.1 "$UB_INSTALLDIR"/usr/share/man/man1/
-cp -r bin "$UB_INSTALLDIR"/usr/
+mkdir -p ${UB_INSTALLDIR}/usr/include/gsm
+make INSTALL_ROOT="${UB_INSTALLDIR}/usr" \
+    GSM_INSTALL_INC="${UB_INSTALLDIR}/usr/include/gsm" \
+    GSM_INSTALL_MAN="${UB_INSTALLDIR}/usr/share/man/man3" \
+    TOAST_INSTALL_MAN="${UB_INSTALLDIR}/usr/share/man/man1" \
+    install
