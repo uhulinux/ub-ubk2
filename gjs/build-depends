@@ -3,4 +3,4 @@ dbus-glib-dev
 gobject-introspection-dev
 gtk-dev
 gtk-doc
-js38-dev
+js52-dev
