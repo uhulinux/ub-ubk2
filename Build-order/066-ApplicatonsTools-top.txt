@@ -148,6 +148,7 @@ synergy
 wammu
 unibrow
 moserial
+qjson
 qt-recordmydesktop
 xplanet
 hardinfo
