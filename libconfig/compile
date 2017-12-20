@@ -1,5 +1,7 @@
 #!/bin/sh -eux
 
-# See: https://github.com/hyperrealm/libconfig/issues/47
-rm lib/scanner.c
+# A cmake nem tud még jól fordítani
+rm -f CMakeLists.txt
+
+autoreconf -vif
 ub_compile
