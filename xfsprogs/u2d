@@ -1,1 +1,1 @@
-urllist https://git.kernel.org/pub/scm/fs/xfs/xfs-linux.git/refs/tags/ | grep -E '^\?h=v([0-9.]+)$' | sed s/.*v//g | sort -V | tail -n 1 # xfsprogs-
+urllist https://git.kernel.org/pub/scm/fs/xfs/xfsprogs-dev.git/ | grep -E '^\?h=v([0-9.]+)$' | sed s/.*v//g | sort -V | tail -n 1
