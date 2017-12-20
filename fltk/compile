@@ -1,11 +1,14 @@
 #!/bin/sh -eux
 
+sed -i 's/class Fl_XFont_On_Demand/class FL_EXPORT Fl_XFont_On_Demand/' FL/x.H
+sed -i 's/x-fluid.desktop/fluid.desktop/' -i fluid/Makefile
+
 ub_configure \
 	--enable-threads \
 	--enable-xft \
 	--enable-shared \
 	--enable-cairo \
-	--enable-gl \
+	--enable-gl
 
 ub_make
 
