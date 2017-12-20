@@ -3,5 +3,6 @@ gobject-introspection-dev
 gtk-doc
 intltool
 libxml2-dev
+python-six
 sqlite-dev
 vala-dev
