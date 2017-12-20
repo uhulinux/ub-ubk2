@@ -13,5 +13,4 @@ libxinerama-dev
 libxv-dev
 pango-dev
 python-dev
-python-six
 shared-mime-info
