@@ -1,4 +1,4 @@
 #!/usr/bin/env dl
 
-zope.interface-${UB_VERSION}.tar.gz zope.interface-${UB_VERSION}/
-	https://pypi.org/packages/source/z/zope.interface/
+${UB_VERSION}.tar.gz zope.interface-${UB_VERSION}/
+	https://github.com/zopefoundation/zope.interface/archive/

@@ -1,4 +1,4 @@
 #!/usr/bin/env dl
 
 pytest-runner-"$UB_VERSION".tar.gz pytest-runner-"$UB_VERSION"/
-	https://pypi.org/packages/source/p/pytest-runner/
+	https://pypi.io/packages/source/p/pytest-runner/
