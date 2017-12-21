@@ -14,7 +14,7 @@ libxt-dev
 lua51-dev
 pango-dev
 python-dev
-qt4-dev
+qt5-dev
 ruby-dev
 swig
 tcl-dev
