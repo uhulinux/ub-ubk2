@@ -1,4 +1,4 @@
 #!/usr/bin/env dl
 
-Markdown-${UB_VERSION}.tar.gz Markdown-${UB_VERSION}/
-	https://pypi.org/packages/source/M/Markdown/
+${UB_VERSION}.tar.gz markdown-${UB_VERSION}/
+	https://github.com/Python-Markdown/markdown/archive/
