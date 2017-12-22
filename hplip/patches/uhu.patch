@@ -1,7 +1,7 @@
-diff -Naur orig/base/password.py patched/base/password.py
---- orig/base/password.py	2014-10-07 10:55:41.000000000 +0200
-+++ patched/base/password.py	2014-12-07 22:11:43.871394019 +0100
-@@ -53,6 +53,7 @@
+diff -Nur orig/base/password.py mod/base/password.py
+--- orig/base/password.py	2017-11-23 13:10:20.000000000 +0100
++++ mod/base/password.py	2017-12-22 22:13:50.939437501 +0100
+@@ -55,6 +55,7 @@
               'gos':'sudo',
               'boss':'su',
               'lfs':'su',
@@ -9,9 +9,9 @@ diff -Naur orig/base/password.py patched/base/password.py
               }
  
  
-diff -Naur orig/installer/distros.dat patched/installer/distros.dat
---- orig/installer/distros.dat	2014-10-07 10:55:35.000000000 +0200
-+++ patched/installer/distros.dat	2014-12-07 13:36:31.878109722 +0100
+diff -Nur orig/installer/distros.dat mod/installer/distros.dat
+--- orig/installer/distros.dat	2017-11-23 13:10:13.000000000 +0100
++++ mod/installer/distros.dat	2017-12-22 22:21:16.534627391 +0100
 @@ -92,7 +92,7 @@
  # ****************************************
  
@@ -21,11 +21,10 @@ diff -Naur orig/installer/distros.dat patched/installer/distros.dat
  
  # ****************************************
  
-@@ -6376,3 +6376,146 @@
+@@ -10117,3 +10117,145 @@
+ [lfs:6:epm]
+ packages=epm
  
- [lfs:6:avahi-utils]
- packages=avahi
-+
 +# ****************************************
 +[uhu]
 +index=60
@@ -47,8 +46,8 @@ diff -Naur orig/installer/distros.dat patched/installer/distros.dat
 +drv_dir=/usr/share/cups/drv/hp
 +
 +# ********************
-+[uhu:3]
-+code_name=LTS
++[uhu:UBK2]
++code_name=RIA
 +supported=1
 +scan_supported=1
 +fax_supported=1
@@ -69,102 +68,102 @@ diff -Naur orig/installer/distros.dat patched/installer/distros.dat
 +policykit=0
 +
 +
-+[uhu:3:cups]
++[uhu:UBK2:cups]
 +packages=cups
 +
-+[uhu:3:cups-devel]
++[uhu:UBK2:cups-devel]
 +packages=cups-dev
 +
-+[uhu:3:gcc]
++[uhu:UBK2:gcc]
 +packages=gcc
 +
-+[uhu:3:gs]
++[uhu:UBK2:gs]
 +packages=ghostscript
 +
-+[uhu:3:libcrypto]
++[uhu:UBK2:libcrypto]
 +packages=openssl-dev
 +
-+[uhu:3:libjpeg]
-+packages=libjpeg-dev
++[uhu:UBK2:libjpeg-turbo]
++packages=libjpeg-turbo-dev
 +
-+[uhu:3:libnetsnmp-devel]
++[uhu:UBK2:libnetsnmp-devel]
 +packages=libnetsnmp-dev
 +
-+[uhu:3:libpthread]
++[uhu:UBK2:libpthread]
 +packages=glibc
 +
-+[uhu:3:libtool]
++[uhu:UBK2:libtool]
 +packages=libtool
 +
-+[uhu:3:libusb]
++[uhu:UBK2:libusb]
 +packages=libusb-dev
 +
-+[uhu:3:make]
++[uhu:UBK2:make]
 +packages=make
 +
-+[uhu:3:pil]
++[uhu:UBK2:pil]
 +packages=python-pillow
 +
-+[uhu:3:ppdev]
++[uhu:UBK2:ppdev]
 +packages=
 +commands=su -c "modprobe ppdev",su -c cp -f /etc/modules /etc/modules.hplip,echo ppdev | su -c tee -a /etc/modules
 +
-+[uhu:3:python-devel]
++[uhu:UBK2:python-devel]
 +packages=python-dev
 +
 +[suse:12.2:pyqt]
 +packages=
 +
-+[uhu:3:pyqt4]
++[uhu:UBK2:pyqt4]
 +packages=pyqt4
 +
-+[uhu:3:pyqt4-dbus]
++[uhu:UBK2:pyqt4-dbus]
 +packages=pyqt4
 +
-+[uhu:3:python23]
++[uhu:UBK2:python23]
 +packages=python
 +
-+[uhu:3:python2x]
++[uhu:UBK2:python2x]
 +packages=python
 +
-+[uhu:3:reportlab]
++[uhu:UBK2:reportlab]
 +packages=reportlab
 +
-+[uhu:3:sane]
++[uhu:UBK2:sane]
 +packages=sane
 +
-+[uhu:3:sane-devel]
++[uhu:UBK2:sane-devel]
 +packages=sane-dev
 +
-+[uhu:3:scanimage]
++[uhu:UBK2:scanimage]
 +packages=sane-backends
 +
-+[uhu:3:xsane]
++[uhu:UBK2:xsane]
 +packages=xsane
 +
-+[uhu:3:cups-ddk]
++[uhu:UBK2:cups-ddk]
 +packages=
 +
-+[uhu:3:python-dbus]
++[uhu:UBK2:python-dbus]
 +packages=dbus-python,pygobject
 +
-+[uhu:3:dbus]
++[uhu:UBK2:dbus]
 +packages=dbus-dev
 +
-+[uhu:3:python-ctypes]
++[uhu:UBK2:python-ctypes]
 +packages=
 +
-+[uhu:3:cups-image]
++[uhu:UBK2:cups-image]
 +packages=cups,cups-dev
 +
-+[uhu:3:policykit]
++[uhu:UBK2:policykit]
 +packages=policykit,policykit-gnome
 +
-+[uhu:3:python-notify]
++[uhu:UBK2:python-notify]
 +packages=python-notify
 +
-+[uhu:3:network]
++[uhu:UBK2:network]
 +packages=wget
 +
-+[uhu:3:avahi-utils]
++[uhu:UBK2:avahi-utils]
 +packages=avahi
