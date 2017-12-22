@@ -1,21 +1,21 @@
-diff -Naur ORIG/config_unix.py UHU/config_unix.py
---- ORIG/config_unix.py	2009-05-26 23:15:24.000000000 +0200
-+++ UHU/config_unix.py	2009-12-23 19:37:51.000000000 +0100
-@@ -145,8 +145,8 @@
+diff -Nur orig/config_unix.py mod/config_unix.py
+--- orig/config_unix.py	2016-08-20 22:28:55.000000000 +0200
++++ mod/config_unix.py	2017-12-22 19:48:37.515482834 +0100
+@@ -179,8 +179,8 @@
          Dependency('PNG', 'png.h', 'libpng', ['png']),
          Dependency('JPEG', 'jpeglib.h', 'libjpeg', ['jpeg']),
          Dependency('SCRAP', '', 'libX11', ['X11']),
 -        Dependency('PORTMIDI', 'portmidi.h', 'libportmidi.so', ['portmidi']),
--        Dependency('PORTTIME', 'porttime.h', 'libporttime.so', ['porttime']),
+-        porttime_dep,
 +#        Dependency('PORTMIDI', 'portmidi.h', 'libportmidi.so', ['portmidi']),
-+#        Dependency('PORTTIME', 'porttime.h', 'libporttime.so', ['porttime']),
++#        porttime_dep,
+         DependencyProg('FREETYPE', 'FREETYPE_CONFIG', 'freetype-config', '2.0',
+                        ['freetype'], '--ftversion'),
          #Dependency('GFX', 'SDL_gfxPrimitives.h', 'libSDL_gfx.so', ['SDL_gfx']),
-     ]
-     if not DEPS[0].found:
-diff -Naur ORIG/Setup.in UHU/Setup.in
---- ORIG/Setup.in	2009-07-02 06:41:56.000000000 +0200
-+++ UHU/Setup.in	2009-12-23 19:40:49.000000000 +0100
-@@ -15,8 +15,8 @@
+diff -Nur orig/Setup.in mod/Setup.in
+--- orig/Setup.in	2016-05-06 17:05:22.000000000 +0200
++++ mod/Setup.in	2017-12-22 19:52:10.231137764 +0100
+@@ -14,8 +14,8 @@
  PNG = -lpng
  JPEG = -ljpeg
  SCRAP = -lX11
@@ -23,13 +23,13 @@ diff -Naur ORIG/Setup.in UHU/Setup.in
 -PORTTIME = -lporttime
 +#PORTMIDI = -lportmidi
 +#PORTTIME = -lporttime
+ FREETYPE = -lfreetype
  #--EndConfig
  
- #DEBUG = -C-W -C-Wall
-@@ -35,7 +35,7 @@
- movie src/movie.c $(SDL) $(SMPEG) $(DEBUG)
+@@ -30,7 +30,7 @@
+ mixer src/mixer.c $(SDL) $(MIXER) $(DEBUG)
+ mixer_music src/music.c $(SDL) $(MIXER) $(DEBUG)
  scrap src/scrap.c $(SDL) $(SCRAP) $(DEBUG)
- _camera src/_camera.c src/camera_v4l2.c src/camera_v4l.c $(SDL) $(DEBUG)
 -pypm src/pypm.c $(SDL) $(PORTMIDI) $(PORTTIME) $(DEBUG)
 +#pypm src/pypm.c $(SDL) $(PORTMIDI) $(PORTTIME) $(DEBUG)
  
