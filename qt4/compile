@@ -71,6 +71,7 @@ fi
 	-openssl-linked     \
 	\
 	-no-nis             \
+	-no-icu				\
 	-cups               \
 	-iconv              \
 	-no-pch             \
