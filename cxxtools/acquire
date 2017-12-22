@@ -2,3 +2,4 @@
 
 cxxtools-${UB_VERSION}.tar.gz cxxtools-${UB_VERSION}/
 	http://www.tntnet.org/download/
+    http://sources.libreelec.tv/mirror/cxxtools/

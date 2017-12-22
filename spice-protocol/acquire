@@ -2,3 +2,5 @@
 
 spice-protocol-${UB_VERSION}.tar.bz2 spice-protocol-${UB_VERSION}/
 	http://spice-space.org/download/releases/
+    https://www.spice-space.org/download/releases/
+    https://sources.voidlinux.eu/spice-protocol-${UB_VERSION}/
