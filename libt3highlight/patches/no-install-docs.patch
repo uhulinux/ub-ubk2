@@ -1,0 +1,11 @@
+diff -Nur orig/Makefile.in mod/Makefile.in
+--- orig/Makefile.in	2017-11-23 11:11:42.000000000 +0100
++++ mod/Makefile.in	2017-12-22 14:09:03.649090864 +0100
+@@ -93,7 +93,6 @@
+ 	chmod 0644 $(_libdir)/libt3highlight.la
+ 	$(INSTALL) -d $(_includedir)/t3/highlight/t3highlight
+ 	$(INSTALL) -m0644 src/highlight.h src/highlight_api.h src/highlight_errors.h $(_includedir)/t3/highlight/t3highlight
+-	$(INSTALL) -m0644 COPYING README Changelog $(_docdir)
+ 	$(INSTALL) -d $(_datadir)/libt3highlight2/def
+ 	find src/data -type f | while read X ; do $(INSTALL) -m0644 $${X} $(_datadir)/libt3highlight2/$${X#src/data} ; done
+ 	$(INSTALL) -d $(_pkgconfigdir)
