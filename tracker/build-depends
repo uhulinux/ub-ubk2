@@ -2,6 +2,7 @@ dbus-dev
 gobject-introspection-dev
 icu-dev
 intltool
+jansson
 json-glib-dev
 libpng-dev
 libsoup-dev
