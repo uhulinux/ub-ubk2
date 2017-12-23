@@ -10,6 +10,7 @@
 	/usr/lib/*/include
 	/usr/lib/**/*.la
 	/usr/lib/pkgconfig
+	/usr/lib/qt5/include
 	/usr/lib/qt5/lib/cmake
 	/usr/lib/qt5/lib/pkgconfig
 	/usr/lib/qt5/lib/*.prl
