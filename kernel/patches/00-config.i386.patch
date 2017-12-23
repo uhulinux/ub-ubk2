@@ -1,10 +1,10 @@
 diff -Naur orig/.config.i386 patched/.config.i386
 --- orig/.config.i386	1970-01-01 01:00:00.000000000 +0100
-+++ patched/.config.i386	2017-09-04 08:05:34.807136095 +0200
-@@ -0,0 +1,8721 @@
++++ patched/.config.i386	2017-12-23 20:50:43.839746247 +0100
+@@ -0,0 +1,8723 @@
 +#
 +# Automatically generated file; DO NOT EDIT.
-+# Linux/x86 4.9.47-1.i386 Kernel Configuration
++# Linux/x86 4.9.71-1.i386 Kernel Configuration
 +#
 +# CONFIG_64BIT is not set
 +CONFIG_X86_32=y
@@ -1379,6 +1379,7 @@ diff -Naur orig/.config.i386 patched/.config.i386
 +CONFIG_BRIDGE_IGMP_SNOOPING=y
 +CONFIG_BRIDGE_VLAN_FILTERING=y
 +CONFIG_HAVE_NET_DSA=y
++# CONFIG_NET_DSA is not set
 +CONFIG_VLAN_8021Q=m
 +CONFIG_VLAN_8021Q_GVRP=y
 +CONFIG_VLAN_8021Q_MVRP=y
@@ -8384,6 +8385,7 @@ diff -Naur orig/.config.i386 patched/.config.i386
 +#
 +CONFIG_KEYS=y
 +CONFIG_PERSISTENT_KEYRINGS=y
++# CONFIG_BIG_KEYS is not set
 +CONFIG_TRUSTED_KEYS=m
 +CONFIG_ENCRYPTED_KEYS=m
 +# CONFIG_KEY_DH_OPERATIONS is not set

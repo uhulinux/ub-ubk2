@@ -1,10 +1,10 @@
 diff -Naur orig/.config.x86_64 patched/.config.x86_64
 --- orig/.config.x86_64	1970-01-01 01:00:00.000000000 +0100
-+++ patched/.config.x86_64	2017-09-03 18:45:38.831474565 +0200
-@@ -0,0 +1,8533 @@
++++ patched/.config.x86_64	2017-12-23 14:19:22.470926944 +0100
+@@ -0,0 +1,8535 @@
 +#
 +# Automatically generated file; DO NOT EDIT.
-+# Linux/x86 4.9.47-1.x86_64 Kernel Configuration
++# Linux/x86 4.9.71-1.x86_64 Kernel Configuration
 +#
 +CONFIG_64BIT=y
 +CONFIG_X86_64=y
@@ -868,7 +868,6 @@ diff -Naur orig/.config.x86_64 patched/.config.x86_64
 +CONFIG_COMPAT=y
 +CONFIG_COMPAT_FOR_U64_ALIGNMENT=y
 +CONFIG_SYSVIPC_COMPAT=y
-+CONFIG_KEYS_COMPAT=y
 +CONFIG_X86_DEV_DMA_OPS=y
 +CONFIG_PMC_ATOM=y
 +CONFIG_NET=y
@@ -1355,6 +1354,7 @@ diff -Naur orig/.config.x86_64 patched/.config.x86_64
 +CONFIG_BRIDGE_IGMP_SNOOPING=y
 +CONFIG_BRIDGE_VLAN_FILTERING=y
 +CONFIG_HAVE_NET_DSA=y
++# CONFIG_NET_DSA is not set
 +CONFIG_VLAN_8021Q=m
 +CONFIG_VLAN_8021Q_GVRP=y
 +CONFIG_VLAN_8021Q_MVRP=y
@@ -8174,7 +8174,9 @@ diff -Naur orig/.config.x86_64 patched/.config.x86_64
 +# Security options
 +#
 +CONFIG_KEYS=y
++CONFIG_KEYS_COMPAT=y
 +CONFIG_PERSISTENT_KEYRINGS=y
++# CONFIG_BIG_KEYS is not set
 +CONFIG_TRUSTED_KEYS=m
 +CONFIG_ENCRYPTED_KEYS=m
 +# CONFIG_KEY_DH_OPERATIONS is not set
