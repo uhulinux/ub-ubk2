@@ -1,0 +1,28 @@
+From c178a5766b38d49f5fe44abcf2aa945e1156cf4f Mon Sep 17 00:00:00 2001
+From: Jussi Pakkanen <jpakkane@gmail.com>
+Date: Wed, 18 Oct 2017 23:50:06 +0300
+Subject: [PATCH] Because people are very creative in working around
+ limitations based on good faith.
+
+---
+ mesonbuild/interpreter.py | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
+
+diff --git a/mesonbuild/interpreter.py b/mesonbuild/interpreter.py
+index e385a886a..d9ab73356 100644
+--- a/mesonbuild/interpreter.py
++++ b/mesonbuild/interpreter.py
+@@ -1873,7 +1873,12 @@ def func_project(self, node, args, kwargs):
+         if self.subproject in self.build.projects:
+             raise InvalidCode('Second call to project().')
+         if not self.is_subproject() and 'subproject_dir' in kwargs:
+-            self.subproject_dir = kwargs['subproject_dir']
++            spdirname = kwargs['subproject_dir']
++            if '/' in spdirname or '\\' in spdirname:
++                raise InterpreterException('Subproject_dir must not contain a path segment.')
++            if spdirname.startswith('.'):
++                raise InterpreterException('Subproject_dir must not begin with a period.')
++            self.subproject_dir = spdirname
+ 
+         if 'meson_version' in kwargs:
+             cv = coredata.version
