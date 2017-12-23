@@ -11,6 +11,7 @@ libpng-dev
 libx11-dev
 mesa-dev
 nss-dev
+pixman-dev
 pulseaudio-dev
 python-dev
 sdl-dev
