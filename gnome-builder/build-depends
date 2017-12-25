@@ -4,7 +4,6 @@ devhelp-dev
 gjs
 gobject-introspection
 gspell-dev
-gtk-doc
 gtksourceview-dev
 intltool
 itstool
@@ -14,5 +13,6 @@ libpeas-dev
 llvm
 meson
 py3gobject
+sysprof-dev
 vala-dev
 vte-dev

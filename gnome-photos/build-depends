@@ -9,6 +9,7 @@ gnome-online-accounts-dev
 grilo-dev
 intltool
 itstool
+jansson
 lcms2-dev
 libexif-dev
 libgdata-dev

@@ -4,3 +4,5 @@ ub_install
 
 cd sassc
 ub_install
+
+find "$UB_INSTALLDIR" -name *.la -delete

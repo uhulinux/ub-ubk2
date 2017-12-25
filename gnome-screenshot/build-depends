@@ -1,3 +1,4 @@
-gtk-dev
-intltool
+appstream-glib
+cairo
 libcanberra-dev
+meson

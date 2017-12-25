@@ -1,1 +1,1 @@
-u2dgnome gmime
+urllist https://github.com/jstedfast/gmime/releases/ | grep -E '^2\.6' | grep tar | sed s/\.tar.*//g | sort -V | tail -n 1

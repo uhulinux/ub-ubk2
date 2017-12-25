@@ -62,6 +62,7 @@ cairo-dock-plugins
 gnome-photos
 rhythmbox
 libsass
+sysprof
 budgie-desktop
 gnome-apps
 gnome-core
