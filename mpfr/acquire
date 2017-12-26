@@ -2,3 +2,4 @@
 
 mpfr-${UB_VERSION}.tar.xz mpfr-${UB_VERSION}/
 	http://www.mpfr.org/mpfr-current/
+	http://www.mpfr.org/mpfr-${UB_VERSION}/
