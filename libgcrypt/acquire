@@ -1,4 +1,4 @@
 #!/usr/bin/env dl
 
 libgcrypt-${UB_VERSION}.tar.bz2 libgcrypt-${UB_VERSION}/
-	ftp://ftp.gnupg.org/gcrypt/libgcrypt/
+	https://gnupg.org/ftp/gcrypt/libgcrypt/

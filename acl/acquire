@@ -1,5 +1,4 @@
 #!/usr/bin/env dl
 
 acl-${UB_VERSION}.src.tar.gz acl-${UB_VERSION}/
-	http://download.savannah.gnu.org/releases/acl/
-	http://cdimage.debian.org/mirror/gnu.org/savannah/acl/
+	http://download-mirror.savannah.gnu.org/releases/acl/
