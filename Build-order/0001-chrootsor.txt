@@ -291,6 +291,8 @@ cairo #2
 pango #2
 dbus
 xkeyboard-config
+kbd
+quota
 systemd #1
 util-linux
 systemd #2
@@ -523,3 +525,4 @@ xset
 qt5
 pinentry #2
 gpg #3
+
