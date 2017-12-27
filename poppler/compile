@@ -1,5 +1,5 @@
 #!/bin/sh -eux
 
 ub_compile \
-	--enable-xpdf-headers \
-	--enable-cms=lcms2
+	-DENABLE_XPDF_HEADERS=ON \
+	-DENABLE_CMS=lcms2
