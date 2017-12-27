@@ -2,3 +2,4 @@
 
 apmd_${UB_VERSION}.orig.tar.gz apmd-${UB_VERSION}.orig/
 	hutp://ftp.debian.org/debian/pool/main/a/apmd/
+	ftp://ftp.gnome.org/mirror/ubuntu/pool/main/a/apmd/
