@@ -34,7 +34,6 @@ policykit
 gupnp-av
 icon-theme-gnome
 gtkhtml
-zeitgeist
 lasem
 libgnomecups
 libgovirt

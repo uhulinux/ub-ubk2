@@ -165,6 +165,7 @@ ibus
 fox1.6
 lesstif
 recordmydesktop
+zeitgeist
 graphicsmagick
 hplip
 freerdp
