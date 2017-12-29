@@ -44,8 +44,6 @@ schroedinger
 x264
 libavc1394
 libdv
-libquicktime
-mjpegtools
 libdc1394
 libgphoto2
 imlib2
@@ -64,6 +62,8 @@ xvid
 zvbi
 lame
 ffmpeg #-frei0r
+libquicktime
+mjpegtools
 libwmf
 pangox-compat
 gtkglext
@@ -88,6 +88,7 @@ xine-lib #-gvfs
 java
 opencv
 frei0r
+libmpeg2
 gst-plugins-bad
 gst-plugins-ugly
 gst-libav
