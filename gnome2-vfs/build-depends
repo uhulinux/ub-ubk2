@@ -5,7 +5,6 @@ gamin-dev
 gconf2-dev
 glib-dev
 gnome2-mime-data
-gtk-doc
 intltool
 libusb-dev
 libxml2-dev
