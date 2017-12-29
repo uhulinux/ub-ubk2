@@ -51,6 +51,7 @@ sound-juicer
 js185
 gxine
 gitg
+sysprof
 gnome-builder
 rygel
 ekiga
@@ -62,7 +63,6 @@ cairo-dock-plugins
 gnome-photos
 rhythmbox
 libsass
-sysprof
 budgie-desktop
 gnome-apps
 gnome-core

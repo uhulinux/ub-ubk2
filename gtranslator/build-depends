@@ -2,7 +2,7 @@ dbus-dev
 docbook-dtds
 docbook-xsl
 gdl-dev
-gnome-dictionary-dev
+gnome-dictionary
 gnome-doc-utils
 gsettings-desktop-schemas
 gtk-dev
