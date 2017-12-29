@@ -75,7 +75,6 @@ sip
 sofia-sip
 syslinux
 python-twisted
-twisted-web2
 xmessage
 xorriso
 dcraw
