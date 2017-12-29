@@ -1,6 +1,7 @@
 grilo-dev
 intltool
 itstool
+jansson
 libgdata-dev
 libgfbgraph-dev
 libgudev-dev
