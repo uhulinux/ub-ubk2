@@ -33,7 +33,6 @@ libmatroska
 libmediaart
 libmicrohttpd
 libmikmod
-libmpeg2
 taglib
 libmtp
 zeromq
