@@ -34,7 +34,6 @@ griffith
 hdf5
 icon-naming-utils
 icoutils
-jansson
 libytnef
 lsdvd
 miniupnpc
@@ -74,8 +73,8 @@ sddm
 sip
 sofia-sip
 syslinux
-python-incremental
 python-twisted
+twisted-web2
 xmessage
 xorriso
 dcraw

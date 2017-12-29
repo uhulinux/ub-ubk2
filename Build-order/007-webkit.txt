@@ -6,6 +6,7 @@ gssdp #libsoup
 gupnp #libsoup,gssdp
 geocode-glib #libsoup-gnome
 geoclue #geocode-glib,libsoup
+jansson
 networkmanager #libsoup
 gst-plugins-good #libsoup
 webkit2gtk
