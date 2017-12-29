@@ -74,6 +74,7 @@ sddm
 sip
 sofia-sip
 syslinux
+python-incremental
 python-twisted
 xmessage
 xorriso
