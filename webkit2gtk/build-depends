@@ -9,7 +9,6 @@ gst-plugins-base-dev
 gst-plugins-good
 gtk2-dev
 gtk-dev
-gtk-doc
 hyphen-dev
 icu-dev
 libjpeg-turbo-dev
