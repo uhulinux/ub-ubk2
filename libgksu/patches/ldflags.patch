@@ -1,0 +1,21 @@
+diff -Nur orig/libgksuui/Makefile.am mod/libgksuui/Makefile.am
+--- orig/libgksuui/Makefile.am	2008-05-09 19:39:54.000000000 +0200
++++ mod/libgksuui/Makefile.am	2017-12-30 14:21:30.789197164 +0100
+@@ -12,4 +12,4 @@
+ noinst_PROGRAMS = test-gksuui
+ test_gksuui_SOURCES = test-gksuui.c
+ test_gksuui_LDADD = libgksuui1.0.la
+-test_gksuui_LDFLAGS = `pkg-config --libs glib-2.0`
++test_gksuui_LDFLAGS =  `pkg-config --libs glib-2.0` -lgtk-x11-2.0 -lX11
+diff -Nur orig/libgksuui/Makefile.in mod/libgksuui/Makefile.in
+--- orig/libgksuui/Makefile.in	2009-06-29 19:55:57.000000000 +0200
++++ mod/libgksuui/Makefile.in	2017-12-30 14:27:56.124528800 +0100
+@@ -232,7 +232,7 @@
+ noinst_HEADERS = defines.h gksuui.h gksuui-dialog.h
+ test_gksuui_SOURCES = test-gksuui.c
+ test_gksuui_LDADD = libgksuui1.0.la
+-test_gksuui_LDFLAGS = `pkg-config --libs glib-2.0`
++test_gksuui_LDFLAGS = `pkg-config --libs glib-2.0` -lgtk-x11-2.0 -lX11
+ all: all-am
+ 
+ .SUFFIXES:
