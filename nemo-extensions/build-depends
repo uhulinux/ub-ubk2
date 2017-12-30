@@ -4,12 +4,10 @@ clutter-gst-dev
 clutter-gtk-dev
 evince-dev
 gcr-dev
-gnome-common
 gnome-keyring-dev
 gpg
 gpgme-dev
 gtk2-dev
-gtk-doc
 gtksourceview-dev
 gupnp-dev
 intltool

@@ -1,6 +1,6 @@
 #!/bin/sh -eux
 
-extensions="nemo-seahorse nemo-preview nemo-fileroller nemo-python nemo-share"
+extensions="nemo-fileroller nemo-preview nemo-python nemo-seahorse nemo-share"
 for progs in ${extensions};do
 cd $progs
 ub_install
