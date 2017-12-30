@@ -11,6 +11,7 @@ gnome-online-accounts-dev
 ibus-dev
 intltool
 iso-codes
+jansson
 krb5-dev
 libcanberra-dev
 libgnomekbd-dev
