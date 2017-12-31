@@ -11,7 +11,6 @@ telepathy-yell
 gst-plugins-good
 gnonlin
 libchamplain
-mdbtools
 libgda
 libgdamm
 libgdata
