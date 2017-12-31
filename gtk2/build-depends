@@ -2,7 +2,6 @@ atk-dev
 gdk-pixbuf-dev
 glib-dev
 gobject-introspection-dev
-gtk-doc
 libjpeg-turbo-dev
 libpng-dev
 libsm-dev
