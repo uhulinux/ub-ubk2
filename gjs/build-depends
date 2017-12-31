@@ -2,5 +2,4 @@ cairo-dev
 dbus-glib-dev
 gobject-introspection-dev
 gtk-dev
-gtk-doc
 js52-dev
