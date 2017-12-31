@@ -1,6 +1,5 @@
 glib-dev
 gnome-doc-utils
-gtk-doc
 libglade2-dev
 libgnomeui2-dev
 openssl-dev

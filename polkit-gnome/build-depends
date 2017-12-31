@@ -2,7 +2,6 @@ dbus-dev
 gnome-doc-utils
 gobject-introspection-dev
 gtk-dev
-gtk-doc
 intltool
 libffi-dev
 polkit-dev

@@ -3,7 +3,6 @@ docbook-xsl
 gnome-common
 gobject-introspection-dev
 gtk-dev
-gtk-doc
 intltool
 itstool
 libxml2-dev
