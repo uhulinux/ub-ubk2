@@ -1,6 +1,6 @@
 fuse2-dev
-gtk2-dev
-gtkmm2-dev
+gtk-dev
+gtkmm-dev
 icu
 libdnet-dev
 libice-dev
