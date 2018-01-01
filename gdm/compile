@@ -8,4 +8,5 @@ ub_compile \
 	--with-dmconfdir=/usr/share/xsessions \
 	--with-initial-vt=7 \
 	--with-user=gdm \
-	--with-group=gdm
+	--with-group=gdm \
+	--without-tcp-wrappers
