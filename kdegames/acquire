@@ -69,8 +69,8 @@ knavalbattle-${UB_VERSION}.tar.xz .
 knetwalk-${UB_VERSION}.tar.xz .
 	https://download.kde.org/stable/applications/${UB_VERSION}/src/
 
-#kolf-${UB_VERSION}.tar.xz .
-#	https://download.kde.org/stable/applications/${UB_VERSION}/src/
+kolf-${UB_VERSION}.tar.xz .
+	https://download.kde.org/stable/applications/${UB_VERSION}/src/
 
 kollision-${UB_VERSION}.tar.xz .
 	https://download.kde.org/stable/applications/${UB_VERSION}/src/
@@ -87,8 +87,8 @@ kreversi-${UB_VERSION}.tar.xz .
 kshisen-${UB_VERSION}.tar.xz .
 	https://download.kde.org/stable/applications/${UB_VERSION}/src/
 
-#ksirk-${UB_VERSION}.tar.xz .
-#	https://download.kde.org/stable/applications/${UB_VERSION}/src/
+ksirk-${UB_VERSION}.tar.xz .
+	https://download.kde.org/stable/applications/${UB_VERSION}/src/
 
 ksnakeduel-${UB_VERSION}.tar.xz .
 	https://download.kde.org/stable/applications/${UB_VERSION}/src/
@@ -111,8 +111,8 @@ kubrick-${UB_VERSION}.tar.xz .
 lskat-${UB_VERSION}.tar.xz .
 	https://download.kde.org/stable/applications/${UB_VERSION}/src/
 
-#palapeli-${UB_VERSION}.tar.xz .
-#	https://download.kde.org/stable/applications/${UB_VERSION}/src/
+palapeli-${UB_VERSION}.tar.xz .
+	https://download.kde.org/stable/applications/${UB_VERSION}/src/
 
 picmi-${UB_VERSION}.tar.xz .
 	https://download.kde.org/stable/applications/${UB_VERSION}/src/
