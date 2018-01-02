@@ -4,7 +4,6 @@ docbook-xsl
 gdk-pixbuf-dev
 gnome-desktop-dev
 gtk-dev
-gtk-doc
 gtkspell-dev
 intltool
 itstool

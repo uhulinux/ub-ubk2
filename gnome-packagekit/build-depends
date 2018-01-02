@@ -1,7 +1,6 @@
 dbus-glib-dev
 docbook2man
 gtk-dev
-gtk-doc
 intltool
 itstool
 libcanberra-dev

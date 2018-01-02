@@ -1,6 +1,5 @@
 dbus-glib-dev
 gtk2-dev
-gtk-doc
 intltool
 libgksu-dev
 libgtop2-dev
