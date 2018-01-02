@@ -387,7 +387,6 @@
   packages:
     - autoconf
     - automake
-    - build
     - bzr
     - ccache
     - d-feet

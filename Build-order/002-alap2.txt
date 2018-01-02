@@ -99,7 +99,6 @@ wayland-protocols
 libunwind
 rpm
 uhubuild
-build
 libsodium
 run-parts
 ca-certificates
