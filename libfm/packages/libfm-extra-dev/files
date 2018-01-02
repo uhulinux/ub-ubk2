@@ -1,0 +1,5 @@
+	/usr/include/*/fm-extra.h
+	/usr/include/*/fm-version.h
+	/usr/include/*/fm-xml-file.h
+@	/usr/lib/libfm-extra.so
+	/usr/lib/pkgconfig/libfm-extra.pc
