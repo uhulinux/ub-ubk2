@@ -1,9 +1,9 @@
-diff -Naur orig/gnome-panel/gnome-panel.desktop.in.in mod/gnome-panel/gnome-panel.desktop.in.in
---- orig/gnome-panel/gnome-panel.desktop.in.in	2015-09-11 16:57:26.000000000 +0200
-+++ mod/gnome-panel/gnome-panel.desktop.in.in	2016-02-06 23:15:06.783027850 +0100
-@@ -10,7 +10,7 @@
- X-GNOME-Bugzilla-Component=general
- X-GNOME-Bugzilla-Version=@VERSION@
+diff -Nur orig/gnome-panel/gnome-panel.desktop.in mod/gnome-panel/gnome-panel.desktop.in
+--- orig/gnome-panel/gnome-panel.desktop.in	2017-09-30 13:13:46.000000000 +0200
++++ mod/gnome-panel/gnome-panel.desktop.in	2018-01-02 12:23:57.912224389 +0100
+@@ -7,7 +7,7 @@
+ Exec=gnome-panel
+ Terminal=false
  Categories=GNOME;GTK;System;Core;
 -OnlyShowIn=GNOME-Flashback;
 +OnlyShowIn=GNOME;
