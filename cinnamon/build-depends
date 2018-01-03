@@ -20,7 +20,6 @@ gnome-keyring-dev
 gnome-panel-dev
 gnome-themes-standard
 gstreamer-dev
-gtk-doc
 intltool
 libcanberra-dev
 libcroco-dev
