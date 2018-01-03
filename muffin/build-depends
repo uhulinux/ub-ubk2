@@ -5,7 +5,6 @@ docbook-xsl
 glu-dev
 gnome-doc-utils
 gobject-introspection-dev
-gtk-doc
 intltool
 libcanberra-dev
 libsm-dev

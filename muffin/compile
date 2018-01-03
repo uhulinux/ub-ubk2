@@ -5,4 +5,5 @@ ub_compile \
 	--disable-static \
 	--enable-startup-notification=yes \
 	--disable-silent-rules \
-	--enable-libsm
+	--enable-libsm \
+	--disable-gtk-doc
