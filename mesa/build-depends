@@ -23,6 +23,7 @@ llvm
 llvm-libs
 lmsensors-dev
 python-dev
+python-mako
 systemd-dev
 talloc-dev
 wayland-dev
