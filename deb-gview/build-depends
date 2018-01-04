@@ -4,7 +4,6 @@ docbook-dtds
 docbook-xsl
 glib-dev
 gtk2-dev
-gtk-doc
 gvfs
 intltool
 libarchive-dev
