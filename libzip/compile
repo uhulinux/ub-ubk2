@@ -1,6 +1,3 @@
 #!/bin/sh -eux
 
-export AT_NOELIBTOOLIZE=yes
-autoreconf
-ub_configure
-ub_make
+ub_compile
