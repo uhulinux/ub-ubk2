@@ -3,7 +3,7 @@
 #A -O3 veszélyes
 
 ub_replace -O3 -O2 configure
-ub_replace -O3 -O2 configure.in
+ub_replace -O3 -O2 configure.ac
 ub_replace -O3 -O2 ext/fiddle/libffi-3.2.1/m4/ax_cc_maxopt.m4
 ub_replace -O3 -O2 ext/fiddle/libffi-3.2.1/configure
 
