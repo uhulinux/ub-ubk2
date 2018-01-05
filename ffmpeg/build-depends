@@ -10,6 +10,7 @@ ladspa-dev
 libass-dev
 libbluray-dev
 libcaca-dev
+libcdio-paranoia-dev
 libdc1394-dev
 libfaad2-dev
 libgsm-dev

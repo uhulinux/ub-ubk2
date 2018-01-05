@@ -15,7 +15,7 @@ diff -Naur orig/frontends/cli/vcd-info.c patched/frontends/cli/vcd-info.c
      }
  
 -  _cdio_list_free (entlist, true);
-+  _cdio_list_free (entlist, true, (CdioDataFree_t) iso9660_stat_free);
++  _cdio_list_free (entlist, true, NULL);
  
    fprintf (stdout, "\n");
  
@@ -24,55 +24,37 @@ diff -Naur orig/frontends/cli/vcd-info.c patched/frontends/cli/vcd-info.c
      }
  
 -  _cdio_list_free (dirlist, true);
-+  _cdio_list_free (dirlist, true, (CdioDataFree_t) iso9660_stat_free);
++  _cdio_list_free (dirlist, true, NULL);
  }
  
  static void
 diff -Naur orig/frontends/xml/vcd_xml_build.c patched/frontends/xml/vcd_xml_build.c
 --- orig/frontends/xml/vcd_xml_build.c	2011-03-17 22:26:34.134739579 +0100
 +++ patched/frontends/xml/vcd_xml_build.c	2017-12-22 03:35:10.505466625 +0100
-@@ -38,6 +41,8 @@
- #include <libvcd/logging.h>
- #include <libvcd/types.h>
- 
-+#include <cdio/iso9660.h>
-+
- /* Private headers */
- #include "image_sink.h"
- #include "stream_stdio.h"
 @@ -499,10 +504,10 @@
  
    xmlFreeDoc (vcd_doc);
    free(gl.xml_fname);
 -  _cdio_list_free (gl.img_options, true);
-+  _cdio_list_free (gl.img_options, true, (CdioDataFree_t) iso9660_stat_free);
++  _cdio_list_free (gl.img_options, true, NULL);
    return EXIT_SUCCESS;
   err_exit: 
    free(gl.xml_fname);
 -  _cdio_list_free (gl.img_options, true);
-+  _cdio_list_free (gl.img_options, true, (CdioDataFree_t) iso9660_stat_free);
++  _cdio_list_free (gl.img_options, true, NULL);
    return EXIT_FAILURE;
  }
 diff -Naur orig/frontends/xml/vcdxml.h patched/frontends/xml/vcdxml.h
 --- orig/frontends/xml/vcdxml.h	2005-05-15 02:12:02.134739579 +0200
 +++ patched/frontends/xml/vcdxml.h	2017-12-22 03:35:41.673933160 +0100
-@@ -27,6 +27,8 @@
- /* Public headers */
- #include <libvcd/types.h>
- 
-+#include <cdio/iso9660.h>
-+
- /* Private headers */
- #include "vcd_assert.h"
- #include "data_structures.h"
 @@ -151,8 +153,8 @@
  
    vcd_assert (p_vcdxml != NULL);
  
 -  _cdio_list_free (p_vcdxml->option_list,   true);
 -  _cdio_list_free (p_vcdxml->segment_list,  true);
-+  _cdio_list_free (p_vcdxml->option_list,   true, (CdioDataFree_t) iso9660_stat_free);
-+  _cdio_list_free (p_vcdxml->segment_list,  true, (CdioDataFree_t) iso9660_stat_free);
++  _cdio_list_free (p_vcdxml->option_list,   true, NULL);
++  _cdio_list_free (p_vcdxml->segment_list,  true, NULL);
  
    _CDIO_LIST_FOREACH (p_node, p_vcdxml->pbc_list)
      {
@@ -82,8 +64,8 @@ diff -Naur orig/frontends/xml/vcdxml.h patched/frontends/xml/vcdxml.h
  	}
 -      _cdio_list_free (p_sequence->entry_point_list, true);
 -      _cdio_list_free (p_sequence->autopause_list, true);
-+      _cdio_list_free (p_sequence->entry_point_list, true, (CdioDataFree_t) iso9660_stat_free);
-+      _cdio_list_free (p_sequence->autopause_list, true, (CdioDataFree_t) iso9660_stat_free);
++      _cdio_list_free (p_sequence->entry_point_list, true, NULL);
++      _cdio_list_free (p_sequence->autopause_list, true, NULL);
      }
    
    _CDIO_LIST_FOREACH (p_node, p_vcdxml->filesystem)
@@ -94,9 +76,9 @@ diff -Naur orig/frontends/xml/vcdxml.h patched/frontends/xml/vcdxml.h
 -  _cdio_list_free (p_vcdxml->filesystem,    true);
 -  _cdio_list_free (p_vcdxml->pbc_list, true);
 -  _cdio_list_free (p_vcdxml->sequence_list, true);
-+  _cdio_list_free (p_vcdxml->filesystem, true, (CdioDataFree_t) iso9660_stat_free);
-+  _cdio_list_free (p_vcdxml->pbc_list, true, (CdioDataFree_t) iso9660_stat_free);
-+  _cdio_list_free (p_vcdxml->sequence_list, true, (CdioDataFree_t) iso9660_stat_free);
++  _cdio_list_free (p_vcdxml->filesystem, true, NULL);
++  _cdio_list_free (p_vcdxml->pbc_list, true, NULL);
++  _cdio_list_free (p_vcdxml->sequence_list, true, NULL);
    free (p_vcdxml->comment);
    free (p_vcdxml->info.album_id);
    free (p_vcdxml->pvd.volume_id);
@@ -117,7 +99,7 @@ diff -Naur orig/frontends/xml/vcd_xml_rip.c patched/frontends/xml/vcd_xml_rip.c
      }
  
 -  _cdio_list_free (entlist, true);
-+  _cdio_list_free (entlist, true, (CdioDataFree_t) iso9660_stat_free);
++  _cdio_list_free (entlist, true, NULL);
  
    return 0;
  }
@@ -126,7 +108,7 @@ diff -Naur orig/frontends/xml/vcd_xml_rip.c patched/frontends/xml/vcd_xml_rip.c
    if (cdio_read_mode2_sectors (p_cdio, _pbc_ctx.lot, _lot_vcd_sector, false, 
  			       LOT_VCD_SIZE)) {
 -    _cdio_list_free (_pbc_ctx.offset_list, true);
-+    _cdio_list_free (_pbc_ctx.offset_list, true, (CdioDataFree_t) iso9660_stat_free);
++    _cdio_list_free (_pbc_ctx.offset_list, true, NULL);
      free(_pbc_ctx.lot);
      return -1;
    }
@@ -135,27 +117,19 @@ diff -Naur orig/frontends/xml/vcd_xml_rip.c patched/frontends/xml/vcd_xml_rip.c
  
   free_and_return:
 -  _cdio_list_free (_pbc_ctx.offset_list, true);
-+  _cdio_list_free (_pbc_ctx.offset_list, true, (CdioDataFree_t) iso9660_stat_free);
++  _cdio_list_free (_pbc_ctx.offset_list, true, NULL);
    free(_pbc_ctx.lot);
    free(_pbc_ctx.psd);
    return 0;
 diff -Naur orig/lib/data_structures.c patched/lib/data_structures.c
 --- orig/lib/data_structures.c	2017-12-22 02:20:13.764917831 +0100
 +++ patched/lib/data_structures.c	2017-12-22 03:03:46.392582152 +0100
-@@ -27,6 +27,7 @@
- #include <string.h>
- 
- #include <cdio/cdio.h>
-+#include <cdio/iso9660.h>
- 
- /* Public headers */
- #include <libvcd/types.h>
 @@ -180,7 +181,7 @@
    if (p_node->children)
      {
        vcd_assert (_cdio_list_length (p_node->children) == 0);
 -      _cdio_list_free (p_node->children, true);
-+      _cdio_list_free (p_node->children, true, (CdioDataFree_t) iso9660_stat_free);
++      _cdio_list_free (p_node->children, true, NULL);
        p_node->children = NULL;
      }
  
@@ -164,7 +138,7 @@ diff -Naur orig/lib/data_structures.c patched/lib/data_structures.c
  
    if (p_node->parent)
 -    _cdio_list_node_free (p_node->listnode, true);
-+    _cdio_list_node_free (p_node->listnode, true, (CdioDataFree_t) iso9660_stat_free);
++    _cdio_list_node_free (p_node->listnode, true, NULL);
    else
      _vcd_tree_node_set_data (p_node, NULL);
  }
@@ -173,7 +147,7 @@ diff -Naur orig/lib/data_structures.c patched/lib/data_structures.c
        VcdTreeNode_t  *childnode;
  
 -      _cdio_list_node_free (lastnode, false);
-+      _cdio_list_node_free (lastnode, false, (CdioDataFree_t) iso9660_stat_free);
++      _cdio_list_node_free (lastnode, false, NULL);
  
        trav_func (treenode, p_user_data);
        
@@ -182,7 +156,7 @@ diff -Naur orig/lib/data_structures.c patched/lib/data_structures.c
      }
  
 -  _cdio_list_free (queue, false);
-+  _cdio_list_free (queue, false, (CdioDataFree_t) iso9660_stat_free);
++  _cdio_list_free (queue, false, NULL);
  }
  
  VcdTreeNode_t *_vcd_tree_node_parent (VcdTreeNode_t *p_node)
@@ -194,7 +168,7 @@ diff -Naur orig/lib/dict.h patched/lib/dict.h
        free (p->buf);
  
 -      _cdio_list_node_free (node, true);
-+      _cdio_list_node_free (node, true, (CdioDataFree_t) iso9660_stat_free);
++      _cdio_list_node_free (node, true, NULL);
      }
  }
  
@@ -206,7 +180,7 @@ diff -Naur orig/lib/files.c patched/lib/files.c
    }
  
 -  _cdio_list_free (p_all_aps, true);
-+  _cdio_list_free (p_all_aps, true, (CdioDataFree_t) iso9660_stat_free);
++  _cdio_list_free (p_all_aps, true, NULL);
  
    vcd_assert (scanpoints == _cdio_list_length (p_scantable));
  
@@ -215,7 +189,7 @@ diff -Naur orig/lib/files.c patched/lib/files.c
    vcd_assert (n = _get_scanpoint_count (p_vcdobj));
  
 -  _cdio_list_free (p_scantable, true);
-+  _cdio_list_free (p_scantable, true, (CdioDataFree_t) iso9660_stat_free);
++  _cdio_list_free (p_scantable, true, NULL);
  }
  
  static uint32_t 
@@ -236,7 +210,7 @@ diff -Naur orig/lib/info.c patched/lib/info.c
                i, num_segments);
  
 -  _cdio_list_free (entlist, true);
-+  _cdio_list_free (entlist, true, (CdioDataFree_t) iso9660_stat_free);
++  _cdio_list_free (entlist, true, NULL);
  
    
  #if 0
@@ -245,11 +219,11 @@ diff -Naur orig/lib/info.c patched/lib/info.c
    ret = vcdinf_visit_lot(&pbc_ctx);
    if (NULL != p_obj->offset_x_list) 
 -    _cdio_list_free(p_obj->offset_x_list, true);
-+    _cdio_list_free(p_obj->offset_x_list, true, (CdioDataFree_t) iso9660_stat_free);
++    _cdio_list_free(p_obj->offset_x_list, true, NULL);
    p_obj->offset_x_list = pbc_ctx.offset_x_list;
    if (NULL != p_obj->offset_list) 
 -    _cdio_list_free(p_obj->offset_list, true);
-+    _cdio_list_free(p_obj->offset_list, true, (CdioDataFree_t) iso9660_stat_free);
++    _cdio_list_free(p_obj->offset_list, true, NULL);
    p_obj->offset_list = pbc_ctx.offset_list;
    return ret;
  }
@@ -258,10 +232,10 @@ diff -Naur orig/lib/info.c patched/lib/info.c
    if (p_obj != NULL) {
      if (p_obj->offset_list != NULL) 
 -      _cdio_list_free(p_obj->offset_list, true);
-+      _cdio_list_free(p_obj->offset_list, true, (CdioDataFree_t) iso9660_stat_free);
++      _cdio_list_free(p_obj->offset_list, true, NULL);
      if (p_obj->offset_x_list != NULL) 
 -      _cdio_list_free(p_obj->offset_x_list, true);
-+      _cdio_list_free(p_obj->offset_x_list, true, (CdioDataFree_t) iso9660_stat_free);
++      _cdio_list_free(p_obj->offset_x_list, true, NULL);
      free(p_obj->seg_sizes);
      free(p_obj->lot);
      free(p_obj->lot_x);
@@ -273,27 +247,19 @@ diff -Naur orig/lib/info_private.c patched/lib/info_private.c
          }
        }
 -    _cdio_list_free(unused_lids, true);
-+    _cdio_list_free(unused_lids, true, (CdioDataFree_t) iso9660_stat_free);
++    _cdio_list_free(unused_lids, true, NULL);
    }
  }
  
 diff -Naur orig/lib/mpeg_stream.c patched/lib/mpeg_stream.c
 --- orig/lib/mpeg_stream.c	2017-12-22 02:20:13.768917890 +0100
 +++ patched/lib/mpeg_stream.c	2017-12-22 03:12:08.624574482 +0100
-@@ -29,6 +29,7 @@
- #include <cdio/cdio.h>
- #include <cdio/bytesex.h>
- #include <cdio/util.h>
-+#include <cdio/iso9660.h>
- 
- #include <libvcd/logging.h>
- 
 @@ -84,7 +85,7 @@
  
    for (i = 0; i < 3; i++)
      if (obj->info.shdr[i].aps_list)
 -      _cdio_list_free (obj->info.shdr[i].aps_list, true);
-+      _cdio_list_free (obj->info.shdr[i].aps_list, true, (CdioDataFree_t) iso9660_stat_free);
++      _cdio_list_free (obj->info.shdr[i].aps_list, true, NULL);
  
    free (obj);
  }
@@ -305,14 +271,14 @@ diff -Naur orig/lib/pbc.c patched/lib/pbc.c
      {
      case PBC_PLAYLIST:
 -      _cdio_list_free (p_pbc->item_id_list, false);
-+      _cdio_list_free (p_pbc->item_id_list, false, (CdioDataFree_t) iso9660_stat_free);
++      _cdio_list_free (p_pbc->item_id_list, false, NULL);
        break;
  
      case PBC_SELECTION:
 -      _cdio_list_free (p_pbc->select_id_list, true);
 -      _cdio_list_free (p_pbc->select_area_list, true);
-+      _cdio_list_free (p_pbc->select_id_list, true, (CdioDataFree_t) iso9660_stat_free);
-+      _cdio_list_free (p_pbc->select_area_list, true, (CdioDataFree_t) iso9660_stat_free);
++      _cdio_list_free (p_pbc->select_id_list, true, NULL);
++      _cdio_list_free (p_pbc->select_area_list, true, NULL);
        break;
        
      case PBC_END:
@@ -324,7 +290,7 @@ diff -Naur orig/lib/vcd.c patched/lib/vcd.c
  
    /* shift up */
 -  _cdio_list_node_free (node, true);
-+  _cdio_list_node_free (node, true, (CdioDataFree_t) iso9660_stat_free);
++  _cdio_list_node_free (node, true, NULL);
  }
  
  int
@@ -333,15 +299,15 @@ diff -Naur orig/lib/vcd.c patched/lib/vcd.c
      }
  
 -  _cdio_list_free (p_obj->custom_file_list, true);
-+  _cdio_list_free (p_obj->custom_file_list, true, (CdioDataFree_t) iso9660_stat_free);
++  _cdio_list_free (p_obj->custom_file_list, true, NULL);
  
 -  _cdio_list_free (p_obj->custom_dir_list, true);
-+  _cdio_list_free (p_obj->custom_dir_list, true, (CdioDataFree_t) iso9660_stat_free);
++  _cdio_list_free (p_obj->custom_dir_list, true, NULL);
  
    while (_cdio_list_length (p_obj->mpeg_sequence_list))
      _vcd_obj_remove_mpeg_track (p_obj, 0);
 -  _cdio_list_free (p_obj->mpeg_sequence_list, true);
-+  _cdio_list_free (p_obj->mpeg_sequence_list, true, (CdioDataFree_t) iso9660_stat_free);
++  _cdio_list_free (p_obj->mpeg_sequence_list, true, NULL);
  
    free (p_obj);
  }
@@ -350,7 +316,7 @@ diff -Naur orig/lib/vcd.c patched/lib/vcd.c
  
    _dict_clean (p_obj);
 -  _cdio_list_free (p_obj->buffer_dict_list, true);
-+  _cdio_list_free (p_obj->buffer_dict_list, true, (CdioDataFree_t) iso9660_stat_free);
++  _cdio_list_free (p_obj->buffer_dict_list, true, NULL);
  }
  
  int
@@ -359,7 +325,7 @@ diff -Naur orig/lib/vcd.c patched/lib/vcd.c
      vcd_image_sink_set_cuesheet (p_image_sink, p_cue_list);
  
 -    _cdio_list_free (p_cue_list, true);
-+    _cdio_list_free (p_cue_list, true, (CdioDataFree_t) iso9660_stat_free);
++    _cdio_list_free (p_cue_list, true, NULL);
    }
  
    /* and now for the pay load */

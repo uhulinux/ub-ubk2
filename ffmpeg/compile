@@ -20,6 +20,7 @@
 	--enable-libass \
 	--enable-libbluray \
 	--enable-libcaca \
+	--enable-libcdio \
 	--enable-libcelt \
 	--enable-libdc1394 \
 	--enable-libfreetype \
