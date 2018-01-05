@@ -1,7 +1,5 @@
 #!/bin/sh -eux
 
-sed -i 's/\r$//' bin/markdown_py # CRLF sucks
-
 python3 setup.py install --root="$UB_INSTALLDIR"
 
 python setup.py install --root="$UB_INSTALLDIR"
