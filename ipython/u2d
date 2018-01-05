@@ -1,1 +1,1 @@
-u2dpypi ipython
+urllist https://github.com/ipython/ipython/releases/ | grep -E '^5\.([0-9.]+).tar.gz$' | sed s/\.tar.*//g | sort -V | tail -n 1
