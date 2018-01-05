@@ -12,7 +12,6 @@ libxkbfile-dev
 libxscrnsaver-dev
 libxslt-dev
 marco-dev
-mate-common
 mate-desktop-dev
 mate-menus-dev
 mate-settings-daemon-dev

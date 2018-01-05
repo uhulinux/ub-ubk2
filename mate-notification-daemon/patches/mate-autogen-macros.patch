@@ -1,0 +1,13 @@
+diff -Naur orig/configure.ac patched/configure.ac
+--- orig/configure.ac	2017-10-24 16:17:32.000000000 +0200
++++ patched/configure.ac	2018-01-05 02:16:47.495199648 +0100
+@@ -187,9 +187,6 @@
+ dnl ---------------------------------------------------------------------------
+ dnl Turn on the additional warnings last
+ dnl ---------------------------------------------------------------------------
+-MATE_COMPILE_WARNINGS([maximum])
+-MATE_CXX_WARNINGS([yes])
+-MATE_MAINTAINER_MODE_DEFINES
+ 
+ AC_ARG_ENABLE(more-warnings,
+               AS_HELP_STRING([--enable-more-warnings],
