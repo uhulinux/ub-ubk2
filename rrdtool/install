@@ -13,7 +13,7 @@ arch="i686"
 if [ "$UB_ARCH" == "amd64" ];then
 arch="x86_64"
 fi
-mkdir -p "$UB_INSTALLDIR"/usr/lib/ruby/site_ruby/2.4.0/$arch-linux
+mkdir -p "$UB_INSTALLDIR"/usr/lib/ruby/site_ruby/2.5.0/$arch-linux
 
 cd ../ruby
 ub_install
