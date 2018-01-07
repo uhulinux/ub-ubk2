@@ -7,7 +7,7 @@ gdm-dev
 geocode-glib-dev
 gnome-desktop-dev
 gnome-doc-utils
-gnome-keyring-dev
+gnome-keyring
 gnome-menus-dev
 gobject-introspection-dev
 gtk-dev

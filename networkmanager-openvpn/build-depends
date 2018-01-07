@@ -1,6 +1,6 @@
 dbus-glib-dev
 glib-dev
-gnome-keyring-dev
+gnome-keyring
 gtk-dev
 intltool
 libgudev-dev

@@ -4,7 +4,7 @@ dbus-glib-dev
 esound-dev
 flac-dev
 gconf2-dev
-gnome-keyring-dev
+gnome-keyring
 gst-plugins-base-dev
 gtk-dev
 jack-dev

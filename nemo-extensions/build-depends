@@ -4,7 +4,7 @@ clutter-gst-dev
 clutter-gtk-dev
 evince-dev
 gcr-dev
-gnome-keyring-dev
+gnome-keyring
 gpg
 gpgme-dev
 gtk2-dev
