@@ -3,7 +3,7 @@ enchant-dev
 geoclue-dev
 gobject-introspection-dev
 gperf
-gst-libav-dev
+gst-libav
 gst-plugins-bad-dev
 gst-plugins-base-dev
 gst-plugins-good
