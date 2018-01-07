@@ -5,4 +5,5 @@ ub_compile \
     -Denable-flatpak=false \
     -Denable-ostree=false \
     -Denable-ubuntu-reviews=false \
-    -Denable-odrs=false
+    -Denable-odrs=false \
+    -Denable-gtk-doc=false
