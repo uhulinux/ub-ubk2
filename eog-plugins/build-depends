@@ -1,6 +1,5 @@
 dbus-dev
 eog-dev
-libgnome-keyring-dev
 gsettings-desktop-schemas
 intltool
 libchamplain-dev

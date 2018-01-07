@@ -8,7 +8,6 @@ gjs-dev
 gnome-bluetooth-dev
 gnome-control-center
 gnome-desktop-dev
-libgnome-keyring-dev
 gnome-menus-dev
 gobject-introspection-dev
 gstreamer-dev

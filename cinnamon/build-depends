@@ -15,7 +15,6 @@ gconf2-dev
 gjs-dev
 gnome-bluetooth-dev
 gnome-doc-utils
-libgnome-keyring-dev
 gnome-panel-dev
 gnome-themes-standard
 gstreamer-dev
