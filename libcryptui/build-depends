@@ -1,6 +1,5 @@
 dbus-glib-dev
 gcr-dev
-gnome-common
 gobject-introspection-dev
 gpg
 gpgme-dev
