@@ -9,7 +9,6 @@ icon-theme-adwaita
 intltool
 itstool
 libgcrypt-dev
-libgnome-keyring-dev
 libgtop2-dev
 libnotify-dev
 libsm-dev

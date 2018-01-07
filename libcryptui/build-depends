@@ -5,6 +5,5 @@ gpg
 gpgme-dev
 gtk-dev
 intltool
-libgnome-keyring-dev
 libnotify-dev
 libsm-dev

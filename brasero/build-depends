@@ -10,7 +10,6 @@ libarchive-dev
 libburn-dev
 libcanberra-dev
 libgcrypt-dev
-libgnome-keyring-dev
 libisofs-dev
 libnotify-dev
 libsm-dev

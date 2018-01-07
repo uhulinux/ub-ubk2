@@ -19,7 +19,6 @@ krb5-dev
 libcanberra-dev
 libchamplain-dev
 libgee-dev
-libgnome-keyring-dev
 libgudev-dev
 libjpeg-turbo-dev
 libnotify-dev

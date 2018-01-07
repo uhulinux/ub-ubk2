@@ -15,7 +15,6 @@ jansson
 krb5-dev
 libcanberra-dev
 libgnomekbd-dev
-libgnome-keyring-dev
 libgudev-dev
 libnotify-dev
 libsecret-dev

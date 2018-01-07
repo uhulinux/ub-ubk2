@@ -13,7 +13,6 @@ intltool
 iso-codes
 itstool
 json-glib-dev
-libgnome-keyring-dev
 libnotify-dev
 libsecret-dev
 libsm-dev

@@ -4,6 +4,5 @@ gobject-introspection-dev
 intltool
 json-glib-dev
 libgcrypt-dev
-libgnome-keyring-dev
 libsoup-gnome-dev
 sqlite-dev
