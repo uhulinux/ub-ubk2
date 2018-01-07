@@ -6,7 +6,6 @@ python-dateutil
 python-dev
 python-numpy
 python-setuptools
-python-tkinter
 pytz
 tcl-dev
 tk-dev
