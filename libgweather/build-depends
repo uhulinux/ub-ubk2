@@ -1,6 +1,6 @@
 dbus-glib-dev
 geocode-glib-dev
-gnome-keyring
+libgnome-keyring-dev
 gobject-introspection-dev
 gtk-dev
 intltool

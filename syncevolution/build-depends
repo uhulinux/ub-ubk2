@@ -5,7 +5,7 @@ curl-dev
 dbus-glib-dev
 evolution-data-server-dev
 gnome-bluetooth-dev
-gnome-keyring
+libgnome-keyring-dev
 intltool
 libnotify-dev
 openobex-dev

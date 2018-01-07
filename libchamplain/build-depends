@@ -1,6 +1,6 @@
 clutter-gtk-dev
 dbus-dev
-gnome-keyring
+libgnome-keyring-dev
 gobject-introspection-dev
 gtk-dev
 libgcrypt-dev

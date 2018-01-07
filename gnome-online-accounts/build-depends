@@ -3,7 +3,7 @@ docbook-xsl
 enchant-dev
 gcr-dev
 geoclue-dev
-gnome-keyring-dev
+libgnome-keyring-dev
 gobject-introspection-dev
 gst-plugins-base-dev
 gtk-dev
