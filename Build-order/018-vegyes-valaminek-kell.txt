@@ -82,6 +82,7 @@ fonts-noto
 fonts-hack
 gtkspell2
 leptonica
+libwandio
 libtrace
 opusfile
 osm-gps-map
