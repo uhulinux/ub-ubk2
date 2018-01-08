@@ -4,7 +4,6 @@ clutter-gst-dev
 clutter-gtk-dev
 evince-dev
 gcr-dev
-libgnome-keyring-dev
 gpg
 gpgme-dev
 gtk2-dev
@@ -12,6 +11,7 @@ gtksourceview-dev
 gupnp-dev
 intltool
 libcryptui-dev
+libgnome-keyring-dev
 libgudev-dev
 libmusicbrainz-dev
 libnotify-dev
