@@ -2,5 +2,4 @@
 
 ub_compile \
     -Dvapi=true \
-    -Dqt=true \
     -Dapidocs=false
