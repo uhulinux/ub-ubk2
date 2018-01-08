@@ -1,11 +1,14 @@
 gobject-introspection-dev
 intltool
+ipython
 itstool
 libstemmer-dev
 libxml2-dev
 libyaml-dev
 meson
 protobuf-dev
+qt5-dev
+qt5-test-dev
 vala-dev
 xapian-dev
 xmlto
