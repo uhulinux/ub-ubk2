@@ -18,4 +18,5 @@ libxt-dev
 startup-notification-dev
 upower-dev
 xcb-util-dev
+xf86-input-libinput-dev
 xfconf-dev
