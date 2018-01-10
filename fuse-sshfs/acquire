@@ -1,4 +1,4 @@
 #!/usr/bin/env dl
 
-sshfs-fuse-${UB_VERSION}.tar.gz sshfs-fuse-${UB_VERSION}/
-	https://github.com/libfuse/sshfs/releases/download/sshfs_${UB_VERSION/./_}/
+sshfs-${UB_VERSION}.tar.gz sshfs-sshfs-${UB_VERSION}/
+	https://github.com/libfuse/sshfs/archive/
