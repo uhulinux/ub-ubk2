@@ -42,7 +42,6 @@ powertop
 vde
 bluez-hcidump
 xcalib
-molly-guard
 gptfdisk
 drbd-utils
 munin

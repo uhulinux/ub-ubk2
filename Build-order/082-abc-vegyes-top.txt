@@ -76,7 +76,6 @@ nfs-utils
 syslog-ng
 system-config-printer
 synaptic
-sympa
 gutenprint
 calibre
 networkmanager-openvpn
