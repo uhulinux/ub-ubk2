@@ -5,6 +5,7 @@ mysql-client
 mysql-common
 mysql-server
 perl-archive-zip
+perl-class-singleton
 perl-crypt-ciphersaber
 perl-dbd-mysql
 perl-dbd-pg

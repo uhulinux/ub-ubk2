@@ -1,4 +1,5 @@
 perl-archive-zip
+perl-class-singleton
 perl-crypt-ciphersaber
 perl-dbd-pg
 perl-db-file

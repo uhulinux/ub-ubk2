@@ -22,3 +22,4 @@ ub_install \
 
 # Don't generate different config file at each build.
 sed -i 's/^cookie\t[0-9]*$/cookie\t123456789/' "$UB_INSTALLDIR"/etc/sympa.conf
+rm -rf $UB_INSTALLDIR/var/lib/sympa/share
