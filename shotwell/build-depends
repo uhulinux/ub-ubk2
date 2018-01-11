@@ -5,6 +5,7 @@ gtk-dev
 intltool
 itstool
 json-glib-dev
+libgdata-dev
 libgee-dev
 libgphoto2-dev
 libgudev-dev
