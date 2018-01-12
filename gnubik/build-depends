@@ -4,5 +4,5 @@ glib-dev
 glu-dev
 gtk2-dev
 gtkglext-dev
-guile2.0-dev
+guile-dev
 mesa-dev
