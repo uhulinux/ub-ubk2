@@ -1,5 +1,3 @@
 #!/bin/sh -eux
 
-# a meson nem készít .la fájlt
-rm -f meson.build
 ub_compile
