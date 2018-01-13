@@ -8,16 +8,6 @@
 
 mv {usb,pci}.ids ma-{large,medium,small}.txt hwdb/
 
-# a meson build nem készít .la fájlokat
-libsystemd_version=$(grep "libsystemd_version =" meson.build | sed -e "s/libsystemd_version = //" -e "s/'//g")
-libsystemd_version_major=$(echo $libsystemd_version | cut -d. -f1)
-sed -i -e "s/@libsystemd_version@/$libsystemd_version/" libsystemd.la
-sed -i -e "s/@libsystemd_version_major@/$libsystemd_version_major/" libsystemd.la
-libudev_version=$(grep "libudev_version =" meson.build | sed -e "s/libudev_version = //" -e "s/'//g")
-libudev_version_major=$(echo $libudev_version | cut -d. -f1)
-sed -i -e "s/@libudev_version@/$libudev_version/" libudev.la
-sed -i -e "s/@libudev_version_major@/$libudev_version_major/" libudev.la
-
 ub_compile \
 	-Dpamlibdir=/lib/security \
 	-Dntp-servers=pool.ntp.org \
