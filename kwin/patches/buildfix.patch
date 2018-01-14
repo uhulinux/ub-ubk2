@@ -1,0 +1,19 @@
+diff -Naur orig/kcmkwin/kwinscripts/main.cpp patched/kcmkwin/kwinscripts/main.cpp
+--- orig/kcmkwin/kwinscripts/main.cpp	2018-01-02 13:34:16.000000000 +0100
++++ patched/kcmkwin/kwinscripts/main.cpp	2018-01-14 12:20:27.919000842 +0100
+@@ -22,3 +22,5 @@
+ 
+ K_PLUGIN_FACTORY(KcmKWinScriptsFactory,
+                  registerPlugin<Module>("kwin-scripts");)
++
++#include "main.moc"
+\ Nincs új sor a fájl végén
+diff -Naur orig/kcmkwin/kwinscripts/module.cpp patched/kcmkwin/kwinscripts/module.cpp
+--- orig/kcmkwin/kwinscripts/module.cpp	2018-01-02 13:34:16.000000000 +0100
++++ patched/kcmkwin/kwinscripts/module.cpp	2018-01-14 12:20:09.158841643 +0100
+@@ -165,5 +165,3 @@
+ 
+     emit changed(false);
+ }
+-
+-#include "module.moc"
