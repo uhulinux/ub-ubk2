@@ -1,1 +1,1 @@
-sflist searchmonkey Searchmonkey2 | splitver '^([0-9.]+).+$' | sort -V | tail -n 1
+urllist http://searchmonkey.embeddediq.com/index.php/download | splitver '^searchmonkey_src_v([0-9.]+).(tar.gz|zip)$' | sort -V | tail -n 1
