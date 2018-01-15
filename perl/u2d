@@ -1,2 +1,1 @@
-u2d http://www.cpan.org/src/5.0/
-
+_geturl https://www.cpan.org/src/README.html | grep Maint | grep tar | sed 's/.*\]//g' | parsever | sort -V | tail -n 1
