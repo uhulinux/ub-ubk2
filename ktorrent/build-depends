@@ -16,6 +16,8 @@ knotifyconfig-dev
 kross-dev
 kxmlgui-dev
 libktorrent-dev
+plasma-workspace-dev
 qt5-dev
 solid-dev
 sonnet-dev
+taglib-dev
