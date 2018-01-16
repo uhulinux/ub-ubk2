@@ -5,6 +5,7 @@ gnustep-base
 gnustep-make
 gnutls-dev
 icu-dev
+js185-dev
 libpng.dev
 libvorbis-dev
 libxslt-dev
