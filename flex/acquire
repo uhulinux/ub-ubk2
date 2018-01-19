@@ -15,5 +15,5 @@
 # 726c8da 2017.01.22 jó
 # b61b0fe 2017.01.22 jó
 
-v${UB_VERSION}.tar.gz flex-${UB_VERSION}/
-	https://github.com/westes/flex/archive/
+flex-${UB_VERSION}.tar.gz flex-${UB_VERSION}/
+	https://github.com/westes/flex/releases/download/v${UB_VERSION}/
