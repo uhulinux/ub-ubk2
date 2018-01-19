@@ -110,6 +110,10 @@ libxau
 libxdmcp
 xcb-proto #1
 libxslt #1
+curl #1
+cmake #1-no-system-libarchive
+libarchive
+cmake #2+libarchive-build-depends
 doxygen
 libpthread-stubs
 libxcb
@@ -124,7 +128,7 @@ docbook-dtds
 kmod
 libyaml
 psutils
-groff #-ghostscript
+groff #1-ghostscript
 freetype2
 gperf
 fontconfig
@@ -132,12 +136,47 @@ renderproto
 libxrender
 libxft
 scrnsaverproto
+bigreqsproto
+compositeproto
+damageproto
+dmxproto
+dri2proto
+dri3proto
+xextproto
+fixesproto
+fontsproto
+glproto
+inputproto
+kbproto
+presentproto
+xproto
+libxau
+printproto
+randrproto
+recordproto
+renderproto
+resourceproto
+scrnsaverproto
+videoproto
+xcmiscproto
+xf86bigfontproto
+xf86dgaproto
+xf86driproto
+xf86miscproto
+xf86vidmodeproto
+xineramaproto
+x.org-xtrans-dev
+gccmakedep
+lndir
+makedepend
+xorg-cf-files
+x.org-proto-dev
+libxext
 libxscrnsaver
 tk
 ruby
 docbook-xsl
 xmlto
-xproto
 libice
 libsm
 libxt
@@ -165,29 +204,31 @@ unixodbc
 libevent
 sharutils
 mysql
-cyrus-sasl2 #-ldapb
-openldap #-cyrus-sasl2
-postgresql #1
-openldap #2
-cyrus-sasl2 #2
-postgresql #2
-cyrus-sasl2 #3
-openldap #3
-postgresql #2
-cyrus-sasl2 #4
+openldap #--disable-slapd
+postgresql #--with-ldap#törlés
+cyrus-sasl2 #--disable-ldapb
+openldap #--enable-slapd
+cyrus-sasl2 #--enable-ldapb
+postgresql #--with-ldap
+openldap #készre
+postgresql #készre
+cyrus-sasl2 #készre
 curl
 gamin #1
 glib #2
 gamin #2
 pam
 pkgconfig
-util-linux #1
+util-linux #--without-systemd
 liblzo
 libunistring
 nettle
 trousers
 gc
 guile
+libtasn1
+libatomic-ops
+p11-kit
 gnutls
 meson
 python-lxml
@@ -205,6 +246,7 @@ python-chardet
 python-requests
 python-imagesize
 python-sphinxcontrib-websupport
+#eddig-vagyok-kész
 python-typing
 python-certifi
 python-idna
@@ -311,15 +353,10 @@ ca-certificates
 
 #003-x-csomagok.txt  chrootelemei
 
-libxext
 wayland-protocols
 libxkbcommon
 
 #004-gtkcsomagok.txt  chrootelemei
-
-libatomic-ops
-libtasn1
-p11-kit
 
 #005-alap3.txt  chrootelemei
 
