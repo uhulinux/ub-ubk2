@@ -8,7 +8,8 @@ CC="ccache gcc -m32"
 CXX="ccache g++ -m32"
 fi
 
-export LDFLAGS="-Wl,-rpath,/usr/lib/firefox/ -Wl,--no-keep-memory -Wl,-z,relro -Wl,-z,now"
+export LDFLAGS="-Wl,-rpath,/usr/lib/firefox/ -Wl,--no-keep-memory"
+# export LDFLAGS="-Wl,-rpath,/usr/lib/firefox/ -Wl,--no-keep-memory -Wl,-z,relro -Wl,-z,now"
 
 # új opciók:
 # --disable-clang-plugin
