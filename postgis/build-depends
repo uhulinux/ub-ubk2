@@ -13,5 +13,5 @@ openjpeg-dev
 pcre-dev
 postgresql-dev
 postgresql-server
-proj
+proj-dev
 sqlite-dev
