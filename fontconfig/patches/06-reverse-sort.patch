@@ -1,9 +1,7 @@
-Workaround for http://bugzilla.gnome.org/show_bug.cgi?id=334011
-
-diff -Naur fontconfig-2.3.94.orig/src/fcdir.c fontconfig-2.3.94/src/fcdir.c
---- fontconfig-2.3.94.orig/src/fcdir.c	2006-04-14 17:58:10.000000000 +0200
-+++ fontconfig-2.3.94/src/fcdir.c	2006-04-14 17:58:23.000000000 +0200
-@@ -107,7 +107,7 @@
+diff -Nur orig/src/fcdir.c mod/src/fcdir.c
+--- orig/src/fcdir.c	2018-01-25 15:22:10.000000000 +0100
++++ mod/src/fcdir.c	2018-01-25 15:53:57.507307291 +0100
+@@ -176,7 +176,7 @@
  static int
  cmpstringp(const void *p1, const void *p2)
  {
@@ -11,4 +9,4 @@ diff -Naur fontconfig-2.3.94.orig/src/fcdir.c fontconfig-2.3.94/src/fcdir.c
 +    return -strcmp(* (char **) p1, * (char **) p2);
  }
  
- /*
+ FcBool
