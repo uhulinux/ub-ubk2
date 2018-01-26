@@ -94,6 +94,7 @@ libaal
 libdaemon
 libffi
 libidn
+libidn2
 libjpeg-turbo
 libpng
 libsigsegv

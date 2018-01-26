@@ -53,6 +53,7 @@ gzip
 icu
 libffi
 libidn
+libidn2
 libpng
 libsigsegv
 libtool

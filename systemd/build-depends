@@ -14,7 +14,7 @@ kbd
 kmod-dev
 libcap-dev
 libgcrypt-dev
-libidn-dev
+libidn2-dev
 liblz4-dev
 libqrencode-dev
 libtasn1-dev
