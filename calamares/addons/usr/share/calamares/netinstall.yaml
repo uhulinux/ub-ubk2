@@ -468,6 +468,7 @@
                 - pavucontrol-qt
                 - pcmanfm-qt
                 - sddm
+                - icon-theme-adwaita
 
             -   name: "LXQT extra"
                 description: "LXQT extra packages"
