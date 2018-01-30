@@ -1,3 +1,5 @@
 #!/bin/sh -eux
 
 SBINDIR=/usr/bin ub_install
+# util-linux ütközés
+rm -rf $UB_INSTALLDIR/usr/share/man
