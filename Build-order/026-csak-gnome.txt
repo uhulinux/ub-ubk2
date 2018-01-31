@@ -111,6 +111,11 @@ file-roller
 gnome-maps
 sushi
 libgfbgraph
+tracker-miners
+dleyna-core
+dleyna-connector-dbus
+dleyna-renderer
+dleyna-server
 gnome-online-miners
 gom
 grilo-plugins
