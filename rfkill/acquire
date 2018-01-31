@@ -1,4 +1,0 @@
-#!/usr/bin/env dl
-
-rfkill-${UB_VERSION}.tar.bz2 rfkill-${UB_VERSION}/
-	https://kernel.org/pub/software/network/rfkill/

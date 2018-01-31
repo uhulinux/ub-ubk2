@@ -1,4 +1,3 @@
-rfkill
 cln
 exiv2
 desktop-file-utils
