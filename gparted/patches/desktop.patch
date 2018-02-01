@@ -6,7 +6,7 @@ diff -Nur orig/gparted.desktop mod/gparted.desktop
  Comment[zh_HK]=建立、編輯或刪除分割區
  Comment[zh_TW]=建立、編輯或刪除分割區
 -Exec=/usr/local/bin/gparted %f
-+Exec=gparted %f
++Exec=gparted-start %f
  Icon=gparted
  Terminal=false
  Type=Application
@@ -18,7 +18,7 @@ diff -Nur orig/gparted.desktop.in.in mod/gparted.desktop.in.in
  _X-GNOME-FullName=GParted Partition Editor
  _Comment=Create, reorganize, and delete partitions
 -Exec=@bindir@/gparted %f
-+Exec=gparted %f
++Exec=gparted-start %f
  Icon=gparted
  Terminal=false
  Type=Application
