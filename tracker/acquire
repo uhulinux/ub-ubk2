@@ -1,4 +1,4 @@
 #!/usr/bin/env dl
 
-tracker-${UB_VERSION}.tar.xz tracker-${UB_VERSION}/
-	https://download.gnome.org/sources/tracker/${UB_VERSION_HEAD2}/
+tracker-${UB_VERSION}.tar.gz tracker-94b98c7/
+    git://git.gnome.org/tracker.git@94b98c7

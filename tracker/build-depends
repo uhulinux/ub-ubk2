@@ -1,3 +1,4 @@
+bash-completion
 dbus-dev
 gobject-introspection-dev
 icu-dev
@@ -8,6 +9,7 @@ libpng-dev
 libsoup-dev
 libxml2-dev
 libxslt-dev
+meson
 networkmanager-dev
 sqlite-dev
 systemd-dev
