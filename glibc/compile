@@ -3,34 +3,29 @@
 export UB_MAKE_PROCS=1
 cd "$UB_OBJECTDIR"
 
-# The kernel version shipped with UHU-Linux 2.2 is 2.6.33.
-# Do not increase this version number for UHU-Linux 3.1, since we do want
-# the kernel of UHU-Linux 2.2 to be able to run binaries of UHU-Linux 3.1
-# (for example in chrooted builds).
+# The glibc 2.26 supports kernel versions 3.2.0 and above only.
+common_opts=(
+	--with-headers=/usr/include
+	--with-tls
+	--enable-add-ons
+	--enable-kernel=3.2.0
+	--enable-obsolete-rpc
+	--enable-obsolete-nsl
+	--disable-werror
+	--disable-timezone-tools
+)
 
 if [ "$UB_ARCH" == "amd64" ];then
 UB_CONFIGURE_DIR="$UB_COMPILEDIR" ub_configure \
-	--with-headers=/usr/include \
-	--with-tls \
-	--enable-add-ons \
-	--enable-kernel=2.6.33 \
-	--enable-obsolete-rpc \
-	--enable-obsolete-nsl \
+	${common_opts[@]} \
 	--enable-bind-now \
 	--disable-profile \
 	--enable-lock-elision \
-	--disable-werror \
 	libc_cv_slibdir=/lib
 else
 UB_CONFIGURE_DIR="$UB_COMPILEDIR" ub_configure \
-	--with-headers=/usr/include \
-	--with-tls \
-	--enable-add-ons \
-	--enable-kernel=2.6.33 \
-	--enable-obsolete-rpc \
-	--enable-obsolete-nsl \
-	--with-cpu=i686 \
-	--disable-werror
+	${common_opts[@]} \
+	--with-cpu=i686
 fi
 
 # glibc doesn't like -Os!

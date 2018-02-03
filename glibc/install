@@ -18,14 +18,11 @@ cp -p "$UB_COMPILEDIR"/posix/gai.conf    "$UB_INSTALLDIR"/etc/
 
 rm -f "$UB_INSTALLDIR"/etc/ld.so.cache
 rm -f "$UB_INSTALLDIR"/usr/libexec/pt_chown
-rm -f "$UB_INSTALLDIR"/usr/bin/tzselect
 
 # install nscd init scripts
 mkdir -p "$UB_INSTALLDIR"/usr/lib/tmpfiles.d/
 install -m 644 "$UB_COMPILEDIR"/nscd/nscd.tmpfiles "$UB_INSTALLDIR"/usr/lib/tmpfiles.d/nscd.conf
 install -m 644 "$UB_COMPILEDIR"/nscd/nscd.service "$UB_INSTALLDIR"/usr/lib/systemd/system
-
-#  ln -s /usr/include/locale.h "$UB_INSTALLDIR"/usr/include/xlocale.h
 
 if [ "$UB_ARCH" == "amd64" ];then
 mkdir -p "$UB_INSTALLDIR"/lib64
