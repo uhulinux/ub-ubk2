@@ -1,3 +1,5 @@
 #!/bin/sh -eux
 
-make DESTDIR="$UB_INSTALLDIR" install
+ub_install
+
+rm -Rf "$UB_INSTALLDIR"/usr/lib/pgkconfig
