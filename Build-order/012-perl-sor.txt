@@ -55,9 +55,11 @@ perl-io-stringy
 perl-ip-country
 perl-ipc-run
 perl-ipc-sharelite
+perl-ipc-simple
 perl-libintl
 perl-list-moreutils
 perl-log-log4perl
+perl-locale-maketext-lexicon
 perl-math-calc-units
 perl-mime-charset
 perl-mime-types
