@@ -49,7 +49,6 @@ reiser4progs
 reiserfsprogs
 file
 finger
-glibc-locales
 udftools
 udisks
 which
