@@ -1,4 +1,4 @@
 #!/usr/bin/env dl
 
-${UB_VERSION}.tar.gz OpenDungeons-${UB_VERSION}/
-	https://github.com/OpenDungeons/OpenDungeons/archive/
+OpenDungeons-${UB_VERSION}.tar.gz OpenDungeons-1314773/
+	git://github.com/OpenDungeons/OpenDungeons.git@1314773
