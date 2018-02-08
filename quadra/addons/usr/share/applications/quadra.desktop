@@ -2,7 +2,7 @@
 Name=Quadra
 Comment=Advanced multiplayer Tetris
 Comment[hu]=Tetris több játékossal
-Exec=quadra
+Exec=padsp quadra -nofullscreen
 Icon=/usr/share/pixmaps/quadra.xpm
 Terminal=false
 Type=Application
