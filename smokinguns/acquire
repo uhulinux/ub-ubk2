@@ -1,4 +1,5 @@
 #!/usr/bin/env dl
 
-v${UB_VERSION}.tar.gz SmokinGuns-${UB_VERSION}/
-	https://github.com/smokin-guns/SmokinGuns/archive/
+#gf5d9ec az utolsó, nem jó
+SmokinGuns-${UB_VERSION}.tar.gz SmokinGuns-9c44892/
+	git://github.com/smokin-guns/SmokinGuns.git@9c44892
