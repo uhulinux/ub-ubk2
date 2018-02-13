@@ -1,4 +1,4 @@
 #!/usr/bin/env dl
 
-v${UB_VERSION}.tar.gz bzflag-${UB_VERSION}/
-	https://github.com/BZFlag-Dev/bzflag/archive/
+bzflag-${UB_VERSION}.tar.gz bzflag-${UB_VERSION}/
+	http://downloads.sourceforge.net/bzflag/
