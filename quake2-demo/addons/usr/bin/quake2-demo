@@ -7,5 +7,5 @@ if [ ! -f ~/.quake2/baseq2/pak0.pak ]; then
     cp /usr/share/games/quake2/config.cfg ~/.quake2/baseq2/
   fi
 fi
-fi
+
 sdlquake2 +set basedir /usr/share/games/quake2
