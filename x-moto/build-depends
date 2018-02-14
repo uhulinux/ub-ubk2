@@ -6,7 +6,7 @@ libpng-dev
 libx11-dev
 libxdg-basedir-dev
 libxml2-dev
-lua51-dev
+lua52-dev
 mesa-dev
 sdl-dev
 sdl-mixer-dev
