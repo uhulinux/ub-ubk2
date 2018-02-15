@@ -151,6 +151,7 @@ gst-python
 pyatspi
 pycodestyle
 python-apt
+python-cycler
 python-matplotlib
 python-notify
 python-sqlalchemy-migrate

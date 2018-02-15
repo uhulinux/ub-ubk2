@@ -92,3 +92,4 @@ libmpeg2
 gst-plugins-bad
 gst-plugins-ugly
 gst-libav
+gst-validate
