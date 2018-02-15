@@ -1,12 +1,12 @@
-diff -Naur orig/src/makefile patched/src/makefile
---- orig/src/makefile	2017-10-06 18:08:51.134739579 +0200
-+++ patched/src/makefile	2017-10-15 02:41:46.999078125 +0200
-@@ -76,18 +76,18 @@
+diff -Nur orig/src/makefile mod/src/makefile
+--- orig/src/makefile	2018-02-11 06:29:59.000000000 +0100
++++ mod/src/makefile	2018-02-15 10:44:43.984915631 +0100
+@@ -88,18 +88,18 @@
+ 	#binary
  	install -m 0755 ${app_name}-gtk "$(DESTDIR)$(bindir)"
  	install -m 0755 gtk3-version-polo "$(DESTDIR)$(bindir)"
- 	install -m 0755 ${app_name}-chroot "$(DESTDIR)$(bindir)"
 -	install -m 0755 ${app_name}-uninstall "$(DESTDIR)$(bindir)"
-+	# install -m 0755 ${app_name}-uninstall "$(DESTDIR)$(bindir)"
++	#install -m 0755 ${app_name}-uninstall "$(DESTDIR)$(bindir)"
  
  	#shared files
  	cp -dpr --no-preserve=ownership -t "$(DESTDIR)$(sharedir)/${app_name}" ./share/${app_name}/*
@@ -21,14 +21,14 @@ diff -Naur orig/src/makefile patched/src/makefile
 -	install -m 0755 ./share/pixmaps/${app_name}.png "$(DESTDIR)$(sharedir)/pixmaps/"
 +	install -m 0644 ./share/pixmaps/${app_name}.png "$(DESTDIR)$(sharedir)/pixmaps/"
  
- 	#translations
- 	install -m 0644 ../po/${app_name}-de.mo $(DESTDIR)$(localedir)/de/LC_MESSAGES/${app_name}.mo
-@@ -100,7 +100,7 @@
+ 	# appdata
+ 	install -m 0755 ../debian/${app_name}-gtk.appdata.xml "$(DESTDIR)$(sharedir)/appdata"
+@@ -115,7 +115,7 @@
+ 	#binary
  	rm -f "$(DESTDIR)$(bindir)/${app_name}-gtk"
  	rm -f "$(DESTDIR)$(bindir)/gtk3-version-polo"
- 	rm -f "$(DESTDIR)$(bindir)/${app_name}-chroot"
 -	rm -f "$(DESTDIR)$(bindir)/${app_name}-uninstall"
-+	# rm -f "$(DESTDIR)$(bindir)/${app_name}-uninstall"
++	#rm -f "$(DESTDIR)$(bindir)/${app_name}-uninstall"
  
  	#shared files
  	rm -rf "$(DESTDIR)$(sharedir)/${app_name}"
