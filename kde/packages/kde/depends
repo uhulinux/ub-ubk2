@@ -2,6 +2,8 @@ bluedevil
 breeze
 breeze-gtk
 breeze-icons
+dolphin
+dolphin-plugins
 kde-cli-tools
 kdecoration
 kde-gtk-config
@@ -10,6 +12,7 @@ kgamma5
 khotkeys
 kinfocenter
 kmenuedit
+konsole
 kscreen
 kscreenlocker
 ksshaskpass
