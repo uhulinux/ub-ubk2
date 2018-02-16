@@ -1,5 +1,6 @@
 #!/bin/sh -eux
 
+./bootstrap
 ub_compile \
-	--with-ispell-dir=/usr/lib/ispell \
-	--with-myspell-dir=/usr/share/myspell
+	--with-aspell \
+	--with-hunspell
