@@ -29,6 +29,7 @@ threadweaver
 kwayland
 syntax-highlighting
 ki18n
+kholidays
 kfilemetadata
 kunitconversion
 kcoreaddons
@@ -78,7 +79,6 @@ kross
 kjsembed
 kio-extras
 kdegraphics-thumbnailers
-kholidays
 kactivitymanagerd
 plasma-workspace-wallpapers
 bluedevil
