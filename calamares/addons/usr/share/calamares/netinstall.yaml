@@ -232,7 +232,6 @@
             - x.org-input-keyboard
             - x.org-input-mouse
             - x.org-input-synaptics
-            - xf86-input-libinput
             - libevdev
             - mtdev
 
