@@ -32,5 +32,6 @@ scim-dev
 systemd-dev
 xkeyboard-config
 x.org-input-evdev
+x.org-input-libinput-dev
 x.org-input-synaptics
 x.org-server-dev
