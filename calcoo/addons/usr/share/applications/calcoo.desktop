@@ -6,4 +6,4 @@ Exec=calcoo
 Icon=/usr/share/pixmaps/calcoo.xpm
 Terminal=false
 Type=Application
-Categories=Utility;Calculator;
+Categories=Office;Calculator;
