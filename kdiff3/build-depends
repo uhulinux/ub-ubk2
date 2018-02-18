@@ -1,7 +1,6 @@
 extra-cmake-modules
-kcoreaddons-dev
-ki18n-dev
-kiconthemes-dev
+kconfig-dev
+kdoctools
 kparts-dev
 kwidgetsaddons-dev
 qt5-dev

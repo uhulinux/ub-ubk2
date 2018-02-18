@@ -1,6 +1,5 @@
 extra-cmake-modules
 kidletime-dev
 knotifyconfig-dev
-ninja
 python3-dev
 qt5-dev
