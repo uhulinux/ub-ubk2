@@ -1,6 +1,9 @@
 #!/usr/bin/env dl
 
-uhu-grub-bg.png
+uhu-grub-bg-dark.png
+	http://download.ubk.hu/src/ubk/backgrounds/grub/
+
+uhu-grub-bg-green.png
 	http://download.ubk.hu/src/ubk/backgrounds/grub/
 
 ubk-mate01.png
