@@ -155,7 +155,7 @@ mesa
 x.org-server
 glew
 glamor-egl
-xf86-input-libinput
+x.org-input-libinput
 x.org-input-acecad
 x.org-input-aiptek
 x.org-input-elographics
