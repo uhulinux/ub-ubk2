@@ -5,4 +5,5 @@ gnome-doc-utils
 gtk-dev
 intltool
 itstool
+meson
 upower-dev

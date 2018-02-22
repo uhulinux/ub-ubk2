@@ -1,4 +1,4 @@
 #!/usr/bin/env dl
 
-tracker-miners-${UB_VERSION}.tar.gz tracker-miners-8aebafa/
-	git://git.gnome.org/tracker-miners.git@8aebafa
+tracker-miners-${UB_VERSION}.tar.xz tracker-miners-${UB_VERSION}/
+    https://download.gnome.org/sources/tracker-miners/${UB_VERSION_HEAD2}/
