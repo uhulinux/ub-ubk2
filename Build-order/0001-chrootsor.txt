@@ -305,6 +305,7 @@ libxdamage
 libxi
 xf86vidmodeproto
 libxxf86vm
+libglvnd
 mesa #-lmsensors,-libva
 glu #1
 libva #1

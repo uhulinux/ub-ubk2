@@ -16,6 +16,7 @@ ub_compile \
 	--enable-gallium-llvm \
 	--enable-egl \
 	--with-platforms=x11,drm,wayland \
+	--enable-libglvnd \
 	--enable-llvm \
 	--enable-llvm-shared-libs \
 	--enable-shared-glapi \

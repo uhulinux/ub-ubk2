@@ -146,6 +146,7 @@ libart-lgpl
 rrdtool
 lmsensors
 libva
+libglvnd
 mesa
 glu
 libva
