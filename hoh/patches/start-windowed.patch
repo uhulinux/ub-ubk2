@@ -1,0 +1,34 @@
+diff -Nur orig/src/gui/GuiManager.cpp mod/src/gui/GuiManager.cpp
+--- orig/src/gui/GuiManager.cpp	2018-02-26 15:04:58.000000000 +0100
++++ mod/src/gui/GuiManager.cpp	2018-02-26 17:01:43.218395578 +0100
+@@ -248,12 +248,12 @@
+ 
+         // try 640 pixels x 480 pixels at full screen
+         // if that can’t be done use 640 pixels x 480 pixels in window
+-        this->atFullScreen = true;
+-        if ( set_gfx_mode( GFX_AUTODETECT_FULLSCREEN, 640, 480, 0, 0 ) != 0 )
++        this->atFullScreen = false;
++        if ( set_gfx_mode( GFX_AUTODETECT_WINDOWED, 640, 480, 0, 0 ) != 0 )
+         {
+-                fprintf( stdout, "can't get 640 pixels x 480 pixels at full screen\n" );
+-                this->atFullScreen = false;
+-                set_gfx_mode( GFX_AUTODETECT_WINDOWED, 640, 480, 0, 0 );
++                fprintf( stdout, "can't get 640 pixels x 480 pixels at windowed\n" );
++                this->atFullScreen = true;
++                set_gfx_mode( GFX_AUTODETECT_FULLSCREEN, 640, 480, 0, 0 );
+         }
+ 
+ #ifdef __WIN32
+@@ -273,9 +273,9 @@
+ 
+ void GuiManager::toggleFullScreenVideo ()
+ {
+-        int magicCard = GFX_AUTODETECT_FULLSCREEN;
+-        if ( this->atFullScreen )
+-                magicCard = GFX_AUTODETECT_WINDOWED;
++        int magicCard = GFX_AUTODETECT_WINDOWED;
++        if ( ! this->atFullScreen )
++                magicCard = GFX_AUTODETECT_FULLSCREEN;
+ 
+         set_gfx_mode( magicCard, 640, 480, 0, 0 );
+         this->atFullScreen = ! this->atFullScreen ;
