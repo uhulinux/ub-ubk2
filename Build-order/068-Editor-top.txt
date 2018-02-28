@@ -20,7 +20,7 @@ lyx
 texmaker
 xpad
 vile
-conglomerate
+qxmledit
 xe
 xed
 texmacs
