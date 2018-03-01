@@ -58,7 +58,6 @@ gnome-schedule
 libgnomekbd
 libgnomeprint2
 libgnomeprintui2
-gtksourceview18
 gnome-system-monitor
 tracker
 cairo-dock
