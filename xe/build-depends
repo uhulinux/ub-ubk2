@@ -1,14 +1,4 @@
 cups-dev
 glib-dev
-gnome2-vfs-dev
-gtk2-dev
-libffi-dev
-libgnomeprint2-dev
-libgnomeprintui2-dev
-libgnomeui2-dev
-libjpeg-turbo-dev
-libpng-dev
-libx11-dev
-libxml2-dev
-libxslt-dev
-openssl-dev
+gtk-dev
+libgnome2-dev
