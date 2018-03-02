@@ -2,5 +2,7 @@
 
 ub_install
 
-# remove empty dir
-rm -rf "$UB_INSTALLDIR"/usr/share/gtk-doc
+mkdir -p ${UB_INSTALLDIR}/usr/share/doc/Packages/planner
+mv ${UB_INSTALLDIR}/usr/share/doc/planner/* ${UB_INSTALLDIR}/usr/share/doc/Packages/planner/
+rm -rf ${UB_INSTALLDIR}/usr/share/doc/planner
+rm -rf ${UB_INSTALLDIR}/libplanner

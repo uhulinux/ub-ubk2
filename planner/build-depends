@@ -1,10 +1,9 @@
-gnome-doc-utils
+gconf2-dev
 intltool
-krb5-dev
 libglade2-dev
-libgnomeui2-dev
+libgnomecanvas2-dev
 libgsf-dev
 libxslt-dev
-openssl-dev
 pygtk-dev
+python-dev
 rarian-dev
