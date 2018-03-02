@@ -1,4 +1,0 @@
-#!/usr/bin/env dl
-
-libgnomeprintui-${UB_VERSION}.tar.gz libgnomeprintui-${UB_VERSION}/
-	https://download.gnome.org/sources/libgnomeprintui/${UB_VERSION_HEAD2}/

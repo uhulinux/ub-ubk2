@@ -1,4 +1,0 @@
-#!/usr/bin/env dl
-
-libgnomeprint-${UB_VERSION}.tar.gz libgnomeprint-${UB_VERSION}/
-	https://download.gnome.org/sources/libgnomeprint/${UB_VERSION_HEAD2}/

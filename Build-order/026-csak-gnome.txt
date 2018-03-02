@@ -56,8 +56,6 @@ libgxps
 gnome-bluetooth
 gnome-schedule
 libgnomekbd
-libgnomeprint2
-libgnomeprintui2
 gnome-system-monitor
 tracker
 cairo-dock
