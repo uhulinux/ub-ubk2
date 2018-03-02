@@ -1,11 +1,6 @@
 glib-dev
 gtk2-dev
 imagemagick
-intltool
-libgcrypt-dev
-libgnomeui2-dev
-libice-dev
 libx11-dev
 libxext-dev
 libxtst-dev
-openssl-dev

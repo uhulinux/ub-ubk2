@@ -8,4 +8,6 @@ ub_replace "test_cancel_LDADD = \$(GP_LIBS) \$(GTK_LIBS) ../src/libgtkam.a" \
 	"test_cancel_LDADD = \$(GP_LIBS) \$(GTK_LIBS) \$(EXIF_LIBS) ../src/libgtkam.a" \
 	"test/Makefile.in"
 
-ub_compile
+ub_compile \
+    --without-bonobo \
+    --without-gnome
