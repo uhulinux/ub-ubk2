@@ -1,4 +1,0 @@
-#!/usr/bin/env dl
-
-libgnome-${UB_VERSION}.tar.gz libgnome-${UB_VERSION}/
-	https://download.gnome.org/sources/libgnome/${UB_VERSION_HEAD2}/

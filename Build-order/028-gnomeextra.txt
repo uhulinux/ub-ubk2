@@ -56,7 +56,6 @@ gnome-builder
 rygel
 ekiga
 gnome-phone-manager
-gnome-commander
 gtranslator
 gthumb
 cairo-dock-plugins

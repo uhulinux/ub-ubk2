@@ -21,6 +21,5 @@ texmaker
 xpad
 vile
 qxmledit
-xe
 xed
 texmacs

@@ -1,4 +1,0 @@
-#!/usr/bin/env dl
-
-libgnomeui-${UB_VERSION}.tar.gz libgnomeui-${UB_VERSION}/
-	https://download.gnome.org/sources/libgnomeui/${UB_VERSION_HEAD2}/

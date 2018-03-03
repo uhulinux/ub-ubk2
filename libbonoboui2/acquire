@@ -1,4 +1,0 @@
-#!/usr/bin/env dl
-
-libbonoboui-${UB_VERSION}.tar.gz libbonoboui-${UB_VERSION}/
-	https://download.gnome.org/sources/libbonoboui/${UB_VERSION_HEAD2}/
