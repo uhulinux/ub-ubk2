@@ -1,10 +1,10 @@
 alsa-lib-dev
-gnome-doc-utils
 gst-plugins-base-dev
+gtk-dev
 intltool
 itstool
-libgnomeui2-dev
 libunwind-dev
 libv4l-dev
+libxml2-dev
 lirc-dev
 yelp-tools

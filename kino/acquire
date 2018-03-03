@@ -1,4 +1,4 @@
 #!/usr/bin/env dl
 
 kino-${UB_VERSION}.tar.gz kino-${UB_VERSION}/
-	http://download.sourceforge.net/kino/
+	https://astuteinternet.dl.sourceforge.net/project/kino/kino/${UB_VERSION}/

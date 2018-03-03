@@ -1,12 +1,10 @@
 glib-dev
 gmp-dev
-gnome2-vfs-dev
 gnome-doc-utils
 gtk2-dev
 gtksourceview-dev
 icon-theme-hicolor
 intltool
-libgnomeui2-dev
 mpfr-dev
 openssl-dev
 pango-dev

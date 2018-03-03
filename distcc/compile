@@ -1,10 +1,8 @@
 #!/bin/sh -eux
 
 ./autogen.sh
- ./configure --prefix=/usr \
+ ub_compile \
 	--with-gtk \
 	--sysconfdir=/etc \
 	--mandir=/usr/share/man \
-	--enable-rfc2553 \
-	--disable-Werror
-make
+	--enable-rfc2553

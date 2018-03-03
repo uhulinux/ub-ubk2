@@ -1,10 +1,9 @@
 boost-dev
 enchant-dev
 fribidi-dev
-gnome2-vfs-dev
+gobject-introspection-dev
 goffice-dev
 gucharmap-dev
-libgnomeui2-dev
 libjpeg-turbo-dev
 librsvg-dev
 libsm-dev
