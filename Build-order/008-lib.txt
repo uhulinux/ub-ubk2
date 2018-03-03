@@ -1,7 +1,6 @@
 libast
 libatasmart
 libidl2
-libbonobo2
 libcanberra
 libdbusmenu
 libdbusmenu-qt
