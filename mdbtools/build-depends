@@ -1,7 +1,3 @@
 glib-dev
-gnome-doc-utils
-libglade2-dev
-libgnomeui2-dev
-openssl-dev
 txt2man
 unixodbc-dev
