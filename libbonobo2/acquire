@@ -1,4 +1,0 @@
-#!/usr/bin/env dl
-
-libbonobo-${UB_VERSION}.tar.gz libbonobo-${UB_VERSION}/
-	https://download.gnome.org/sources/libbonobo/${UB_VERSION_HEAD2}/
