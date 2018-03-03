@@ -1,9 +1,6 @@
-docbook-dtds
-docbook-xsl
-gnome-doc-utils
 intltool
 itstool
-libgnomeui2-dev
+libxml2-dev
 pygtk-dev
 python-dev
 rarian-dev
