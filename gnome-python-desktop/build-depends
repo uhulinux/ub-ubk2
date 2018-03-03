@@ -1,6 +1,6 @@
 gnome-python
 gtk2-dev
-libgnomeui2-dev
+libgnome-keyring-dev
 libgtop2-dev
 librsvg-dev
 libwnck2-dev

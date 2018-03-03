@@ -1,4 +1,3 @@
 #!/bin/sh -eux
 
-./waf --prefix=/usr configure
-./waf build
+ub_compile
