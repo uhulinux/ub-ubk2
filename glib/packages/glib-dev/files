@@ -1,5 +1,4 @@
 	/lib/*.a
-	/lib/*.la
 @	/lib/*.so
 	/usr/bin/*-config
 	/usr/bin/gdbus-codegen
@@ -13,7 +12,6 @@
 	/usr/lib/*Conf.sh
 	/usr/lib/gdbus-2.0/codegen
 	/usr/lib/*/include
-	/usr/lib/**/*.la
 	/usr/lib/pkgconfig
 @	/usr/lib/**/*.so
 	/usr/share/aclocal
@@ -22,7 +20,6 @@
 	/usr/share/glib-2.0/gdb/*
 	/usr/share/glib-2.0/gettext/*
 	/usr/share/glib-2.0/schemas/gschema.dtd
-	/usr/share/gtk-doc
 	/usr/share/man/**/man1/
 	/usr/share/man/**/man1/*-config.1*
 	/usr/share/man/**/man1/gdbus-codegen.1

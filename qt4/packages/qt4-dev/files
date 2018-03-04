@@ -28,7 +28,6 @@
 	/usr/lib/qt4/bin/uic.debug
 	/usr/lib/qt4/include
 	/usr/lib/qt4/lib/*.a
-	/usr/lib/qt4/lib/*.la
 	/usr/lib/qt4/lib/pkgconfig/*
 	/usr/lib/qt4/lib/*.prl
 @	/usr/lib/qt4/lib/*.so

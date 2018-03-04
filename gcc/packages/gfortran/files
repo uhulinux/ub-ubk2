@@ -6,9 +6,7 @@
 	/usr/lib/**/finclude/omp_lib_kinds.mod
 	/usr/lib/**/finclude/omp_lib.mod
 	/usr/lib/**/libcaf_single.a
-	/usr/lib/**/libcaf_single.la
 	/usr/lib/**/libgfortran*.a
-	/usr/lib/**/libgfortran*.la
 	/usr/lib/**/libgfortran*.so
 	/usr/lib/libgfortran.spec
 	/usr/share/info/gfortran.info

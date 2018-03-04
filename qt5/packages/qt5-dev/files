@@ -8,7 +8,6 @@
 	/usr/lib/qt5/include
 	/usr/lib/qt5/lib/*.a
 	/usr/lib/qt5/lib/cmake
-	/usr/lib/qt5/lib/*.la
 	/usr/lib/qt5/lib/pkgconfig/*
 	/usr/lib/qt5/lib/*.prl
 @	/usr/lib/qt5/lib/*.so

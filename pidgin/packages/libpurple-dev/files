@@ -1,5 +1,4 @@
 	/usr/include/libpurple
-	/usr/lib/libpurple*.la
 @	/usr/lib/libpurple*.so
 	/usr/lib/pkgconfig/purple.pc
 	/usr/share/aclocal/purple.m4

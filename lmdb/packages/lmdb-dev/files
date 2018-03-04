@@ -1,5 +1,4 @@
 	/lib/*.a
-	/lib/*.la
 @	/lib/*.so
 	/usr/bin/*-config
 	/usr/include
@@ -7,11 +6,9 @@
 	/usr/lib/cmake
 	/usr/lib/*Conf.sh
 	/usr/lib/*/include
-	/usr/lib/**/*.la
 	/usr/lib/**/mkspecs
 	/usr/lib/pkgconfig
 @	/usr/lib/**/*.so
 	/usr/share/aclocal
-	/usr/share/gtk-doc
 	/usr/share/man/**/man1/*-config.1*
 	/usr/share/man/**/man3

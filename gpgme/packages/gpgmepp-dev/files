@@ -2,8 +2,6 @@
 	/usr/include/qgpgme
 	/usr/include/QGpgME
 	/usr/lib/cmake
-	/usr/lib/**/libgpgmepp.la
 @	/usr/lib/**/libgpgmepp.so
-	/usr/lib/**/libqgpgme.la
 @	/usr/lib/**/libqgpgme.so
 	/usr/lib/pkgconfig
