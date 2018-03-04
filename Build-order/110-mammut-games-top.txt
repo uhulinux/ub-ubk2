@@ -16,7 +16,8 @@ darkplaces-demodata
 dreamchess-music
 dreamchess
 eduke32
-enemy-territory
+enemy-territory-data
+etlegacy
 etracer
 fillets
 fillets-data
