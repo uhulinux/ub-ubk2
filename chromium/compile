@@ -99,4 +99,4 @@ out/Release/gn gen out/Release -v --script-executable=/usr/bin/python2 \
 # out/Release/gn args --list $UB_COMPILEDIR/out/Release
 
 # ninja
-LC_ALL=C ninja -C out/Release -v pdf chrome chrome_sandbox chromedriver
+LC_ALL=C ninja -j 2 -C out/Release -v pdf chrome chrome_sandbox chromedriver
