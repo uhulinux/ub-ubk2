@@ -25,7 +25,7 @@ emesene
 irssi
 deluge
 ytalk
-bittorrent
+qbittorrent
 clamz
 stunnel
 lftp
