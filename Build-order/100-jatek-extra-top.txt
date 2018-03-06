@@ -50,7 +50,6 @@ lincity
 komi
 xpenguins
 gtklife
-deflektor
 sdl-sopwith
 humphrey
 quadra
