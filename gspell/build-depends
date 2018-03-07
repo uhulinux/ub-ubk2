@@ -1,4 +1,5 @@
 enchant-dev
+gobject-introspection-dev
 gtk-dev
 gtksourceview-dev
 intltool
