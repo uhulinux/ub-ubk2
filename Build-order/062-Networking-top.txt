@@ -18,7 +18,6 @@ p0f
 tcptrack
 fetchmail
 whois
-genesis
 nrpe
 wput
 emesene
