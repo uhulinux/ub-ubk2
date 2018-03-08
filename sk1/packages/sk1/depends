@@ -1,4 +1,5 @@
 pycairo
-pygtk
+pycups
 python-pillow
 reportlab
+wxpython

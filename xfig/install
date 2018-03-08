@@ -7,3 +7,5 @@ make \
 	MANDIR=/usr/share/man/man1 \
 	XAPPLOADDIR=/usr/share/X11/app-defaults \
 install
+
+mv "$UB_INSTALLDIR"/usr/bin/xfig "$UB_INSTALLDIR"/usr/bin/xfig.bin
