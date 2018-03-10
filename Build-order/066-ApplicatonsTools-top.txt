@@ -67,7 +67,6 @@ cfv
 comparator
 imediff2
 bleachbit
-xqed
 xstickwin
 tmux
 txr
