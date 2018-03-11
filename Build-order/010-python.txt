@@ -74,7 +74,16 @@ pylibacl
 pylint
 pylirc
 pyogg
+python-enum34
+python-ipaddress
+python-asn1crypto
+pyasn1
+python-attrs
+python-constantly
+python-cryptography
 pyopenssl
+python-asn1-modules
+python-service-identity
 pyorbit
 pyparsing
 pypdf
@@ -93,7 +102,6 @@ python-cheetah
 python-cherrypy
 python-configobj
 python-enum
-python-cryptography
 python-cxfreeze
 python-cssselect
 python-dateutil
