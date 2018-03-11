@@ -170,3 +170,5 @@ pdfminer
 mutagen
 cssutils
 python-incremental
+python-regex
+python-html5-parser
