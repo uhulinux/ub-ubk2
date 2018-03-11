@@ -162,7 +162,7 @@ cldr-emoji-annotation
 emoji
 ibus
 fox1.6
-lesstif
+openmotif
 recordmydesktop
 zeitgeist
 graphicsmagick
