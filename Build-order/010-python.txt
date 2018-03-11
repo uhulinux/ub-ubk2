@@ -90,6 +90,7 @@ pypdf
 pypoppler
 pyqt4
 pysmbc
+pysocks
 pysqlite
 python3-psutil
 python-apsw
@@ -144,6 +145,7 @@ python-psutil
 python-ptyprocess
 python-qrcode
 python-rdflib
+python-pyaes
 python-pygments
 python-urllib3
 python-idna
