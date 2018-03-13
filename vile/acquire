@@ -1,7 +1,0 @@
-#!/usr/bin/env dl
-
-vilearn.tar .
-	http://www.houseofthud.com/vilearn.tar
-
-vile_${UB_VERSION}.orig.tar.gz vile-${UB_VERSION}/
-	http://ftp.debian.org/debian/pool/main/v/vile/
