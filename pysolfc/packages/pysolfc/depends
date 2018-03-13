@@ -1,5 +1,7 @@
+imagemagick
 pysol-sound-server
 python
 python-pillow
 python-random2
+python-six
 python-tkinter
