@@ -1,6 +1,4 @@
 #!/usr/bin/env dl
 
 valgrind-${UB_VERSION}.tar.bz2 valgrind-${UB_VERSION}/
-	http://valgrind.org/downloads/
-	http://valgrind.org/downloads/archive/
-    https://ftp.gwdg.de/pub/linux/sources.redhat.com/valgrind/
+	ftp://sourceware.org/pub/valgrind/
