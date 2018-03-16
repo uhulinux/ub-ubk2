@@ -8,7 +8,6 @@ itstool
 libgusb-dev
 libjpeg-turbo-dev
 meson
-packagekit-dev
 python-dev
 sane-backends-dev
 sqlite-dev
