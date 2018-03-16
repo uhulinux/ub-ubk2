@@ -38,7 +38,7 @@ njam
 xdaliclock
 vitetris
 xjig
-descent2
+d2x-rebirth
 pushover
 caph
 gav
