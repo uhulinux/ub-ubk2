@@ -2,4 +2,4 @@ fonts-ghostscript-std
 ghostscript
 hunspell
 recode
-texlive
+texlive-dev

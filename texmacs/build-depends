@@ -10,6 +10,6 @@ netpbm-dev
 python-dev
 qt4-dev
 shared-mime-info
-texlive
+texlive-dev
 transfig
 xfig
