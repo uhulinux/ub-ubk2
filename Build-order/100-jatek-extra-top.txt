@@ -42,7 +42,6 @@ d2x-rebirth
 pushover
 caph
 gav
-zaxxon
 bb
 xsnow
 miniracer

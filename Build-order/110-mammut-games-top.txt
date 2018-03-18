@@ -4,7 +4,7 @@ alephone
 alephone-marathon
 alien8
 angband
-arkanoidsb
+sdl-ball
 blobwars
 bzflag
 chessx
