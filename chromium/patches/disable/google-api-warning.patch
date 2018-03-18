@@ -1,13 +1,12 @@
-description: disable the google api key warning when those aren't found
-
---- a/chrome/browser/ui/startup/startup_browser_creator_impl.cc
-+++ b/chrome/browser/ui/startup/startup_browser_creator_impl.cc
-@@ -791,8 +791,6 @@ void StartupBrowserCreatorImpl::AddInfoB
-       !command_line_.HasSwitch(switches::kTestType) &&
-       !command_line_.HasSwitch(switches::kEnableAutomation)) {
+diff -Naur orig/chrome/browser/ui/startup/startup_browser_creator_impl.cc patched/chrome/browser/ui/startup/startup_browser_creator_impl.cc
+--- orig/chrome/browser/ui/startup/startup_browser_creator_impl.cc	2018-03-07 00:04:20.000000000 +0100
++++ patched/chrome/browser/ui/startup/startup_browser_creator_impl.cc	2018-03-07 23:49:14.729609546 +0100
+@@ -797,8 +797,6 @@
      chrome::ShowBadFlagsPrompt(browser);
--    GoogleApiKeysInfoBarDelegate::Create(InfoBarService::FromWebContents(
--        browser->tab_strip_model()->GetActiveWebContents()));
-     ObsoleteSystemInfoBarDelegate::Create(InfoBarService::FromWebContents(
-         browser->tab_strip_model()->GetActiveWebContents()));
- 
+     InfoBarService* infobar_service = InfoBarService::FromWebContents(
+         browser->tab_strip_model()->GetActiveWebContents());
+-    if (!google_apis::HasKeysConfigured())
+-      GoogleApiKeysInfoBarDelegate::Create(infobar_service);
+     if (ObsoleteSystem::IsObsoleteNowOrSoon()) {
+       PrefService* local_state = g_browser_process->local_state();
+       if (!local_state ||
