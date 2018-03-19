@@ -1,34 +1,35 @@
-diff -Nur orig/base/password.py mod/base/password.py
+diff -Naur orig/base/password.py patched/base/password.py
 --- orig/base/password.py	2017-11-23 13:10:20.000000000 +0100
-+++ mod/base/password.py	2017-12-22 22:13:50.939437501 +0100
++++ patched/base/password.py	2018-03-19 03:58:04.881091369 +0100
 @@ -55,6 +55,7 @@
               'gos':'sudo',
               'boss':'su',
               'lfs':'su',
-+             'uhu':'su',
++             'uhu-linux':'su',
               }
  
  
-diff -Nur orig/installer/distros.dat mod/installer/distros.dat
+diff -Naur orig/installer/distros.dat patched/installer/distros.dat
 --- orig/installer/distros.dat	2017-11-23 13:10:13.000000000 +0100
-+++ mod/installer/distros.dat	2017-12-22 22:21:16.534627391 +0100
++++ patched/installer/distros.dat	2018-03-19 04:04:27.464643414 +0100
 @@ -92,7 +92,7 @@
  # ****************************************
  
  [distros]
 -distros=unknown,mepis,debian,suse,mandriva,fedora,redhat,rhel,slackware,gentoo,redflag,ubuntu,xandros,freebsd,linspire,ark,pclinuxos,centos,igos,linuxmint,linpus,gos,boss,lfs
-+distros=unknown,mepis,debian,suse,mandriva,fedora,redhat,rhel,slackware,gentoo,redflag,ubuntu,xandros,freebsd,linspire,ark,pclinuxos,centos,igos,linuxmint,linpus,gos,boss,lfs,uhu
++distros=unknown,mepis,debian,suse,mandriva,fedora,redhat,rhel,slackware,gentoo,redflag,ubuntu,xandros,freebsd,linspire,ark,pclinuxos,centos,igos,linuxmint,linpus,gos,boss,lfs,uhu-linux
  
  # ****************************************
  
-@@ -10117,3 +10117,145 @@
+@@ -10117,3 +10117,157 @@
  [lfs:6:epm]
  packages=epm
  
++
 +# ****************************************
-+[uhu]
++[uhu-linux]
 +index=60
-+versions=3
++versions=UBK1,UBK2
 +display_name=UHU-Linux
 +alt_names=
 +display=1
@@ -46,7 +47,7 @@ diff -Nur orig/installer/distros.dat mod/installer/distros.dat
 +drv_dir=/usr/share/cups/drv/hp
 +
 +# ********************
-+[uhu:UBK2]
++[uhu-linux:UBK1]
 +code_name=RIA
 +supported=1
 +scan_supported=1
@@ -65,105 +66,116 @@ diff -Nur orig/installer/distros.dat mod/installer/distros.dat
 +drv_dir=/usr/share/cups/drv/hp
 +ui_toolkit=qt4
 +native_cups=1
-+policykit=0
++policykit=1
 +
 +
-+[uhu:UBK2:cups]
++[uhu-linux:UBK1:cups]
 +packages=cups
 +
-+[uhu:UBK2:cups-devel]
++[uhu-linux:UBK1:cups-devel]
 +packages=cups-dev
 +
-+[uhu:UBK2:gcc]
++[uhu-linux:UBK1:gcc]
 +packages=gcc
 +
-+[uhu:UBK2:gs]
++[uhu-linux:UBK1:gs]
 +packages=ghostscript
 +
-+[uhu:UBK2:libcrypto]
++[uhu-linux:UBK1:libcrypto]
 +packages=openssl-dev
 +
-+[uhu:UBK2:libjpeg-turbo]
++[uhu-linux:UBK1:libjpeg]
 +packages=libjpeg-turbo-dev
 +
-+[uhu:UBK2:libnetsnmp-devel]
++[uhu-linux:UBK1:libnetsnmp-devel]
 +packages=libnetsnmp-dev
 +
-+[uhu:UBK2:libpthread]
++[uhu-linux:UBK1:libpthread]
 +packages=glibc
 +
-+[uhu:UBK2:libtool]
++[uhu-linux:UBK1:libtool]
 +packages=libtool
 +
-+[uhu:UBK2:libusb]
++[uhu-linux:UBK1:libusb]
 +packages=libusb-dev
 +
-+[uhu:UBK2:make]
++[uhu-linux:UBK1:make]
 +packages=make
 +
-+[uhu:UBK2:pil]
++[uhu-linux:UBK1:pil]
 +packages=python-pillow
 +
-+[uhu:UBK2:ppdev]
++[uhu-linux:UBK1:ppdev]
 +packages=
 +commands=su -c "modprobe ppdev",su -c cp -f /etc/modules /etc/modules.hplip,echo ppdev | su -c tee -a /etc/modules
 +
-+[uhu:UBK2:python-devel]
++[uhu-linux:UBK1:python-devel]
 +packages=python-dev
 +
-+[suse:12.2:pyqt]
++[uhu-linux:UBK1:pyqt]
 +packages=
 +
-+[uhu:UBK2:pyqt4]
++[uhu-linux:UBK1:pyqt4]
 +packages=pyqt4
 +
-+[uhu:UBK2:pyqt4-dbus]
++[uhu-linux:UBK1:pyqt4-dbus]
 +packages=pyqt4
 +
-+[uhu:UBK2:python23]
++[uhu-linux:UBK1:python23]
 +packages=python
 +
-+[uhu:UBK2:python2x]
++[uhu-linux:UBK1:python2x]
 +packages=python
 +
-+[uhu:UBK2:reportlab]
++[uhu-linux:UBK1:reportlab]
 +packages=reportlab
 +
-+[uhu:UBK2:sane]
++[uhu-linux:UBK1:sane]
 +packages=sane
 +
-+[uhu:UBK2:sane-devel]
++[uhu-linux:UBK1:sane-devel]
 +packages=sane-dev
 +
-+[uhu:UBK2:scanimage]
++[uhu-linux:UBK1:scanimage]
 +packages=sane-backends
 +
-+[uhu:UBK2:xsane]
++[uhu-linux:UBK1:xsane]
 +packages=xsane
 +
-+[uhu:UBK2:cups-ddk]
++[uhu-linux:UBK1:cups-ddk]
 +packages=
 +
-+[uhu:UBK2:python-dbus]
++[uhu-linux:UBK1:python-dbus]
 +packages=dbus-python,pygobject
 +
-+[uhu:UBK2:dbus]
++[uhu-linux:UBK1:dbus]
 +packages=dbus-dev
 +
-+[uhu:UBK2:python-ctypes]
++[uhu-linux:UBK1:python-ctypes]
 +packages=
 +
-+[uhu:UBK2:cups-image]
++[uhu-linux:UBK1:cups-image]
 +packages=cups,cups-dev
 +
-+[uhu:UBK2:policykit]
++[uhu-linux:UBK1:policykit]
 +packages=policykit,policykit-gnome
 +
-+[uhu:UBK2:python-notify]
++[uhu-linux:UBK1:python-notify]
 +packages=python-notify
 +
-+[uhu:UBK2:network]
++[uhu-linux:UBK1:network]
 +packages=wget
 +
-+[uhu:UBK2:avahi-utils]
++[uhu-linux:UBK1:avahi-utils]
 +packages=avahi
++
++
++# ****************************************
++
++[uhu-linux:UBK2]
++code_name=RIA
++supported=1
++packaged_version=
++release_date=
++same_as_version=UBK1
++
