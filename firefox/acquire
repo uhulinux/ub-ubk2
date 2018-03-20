@@ -3,7 +3,7 @@
 #firefox-${UB_VERSION/~/}.source.tar.xz firefox-${UB_VERSION/~/}/
 #	http://ftp.mozilla.org/pub/firefox/releases/${UB_VERSION/~/}/source/
 
-c61f5f5ead48.tar.bz2 mozilla-release-c61f5f5ead48/
+3db9e3d52b17.tar.bz2 mozilla-release-3db9e3d52b17/
 	https://hg.mozilla.org/releases/mozilla-release/archive/
 
 hu-${UB_VERSION/~/}.xpi . :/langpack-hu

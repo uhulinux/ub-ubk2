@@ -8,18 +8,15 @@ CC="ccache gcc -m32"
 CXX="ccache g++ -m32"
 fi
 
-export LDFLAGS="-Wl,-rpath,/usr/lib/firefox/ -Wl,--no-keep-memory"
-# export LDFLAGS="-Wl,-rpath,/usr/lib/firefox/ -Wl,--no-keep-memory -Wl,-z,relro -Wl,-z,now"
+export LDFLAGS="-Wl,-rpath,/usr/lib/firefox/ -Wl,--no-keep-memory -Wl,-z,relro -Wl,-z,now"
 
 # új opciók:
 # --disable-clang-plugin
 # --disable-stylo : 32 biten alapból tiltva a rust bindgen miatt,
-#					de 64 biten külön tiltni kell
+#					de 64 biten külön tiltani kell
 : > .mozconfig
 cat > .mozconfig << _EOF_
 mk_add_options MOZ_OBJDIR=$UB_OBJECTDIR
-ac_add_options --host='i686-gnu-linux'
-ac_add_options --target='i686-gnu-linux'
 ac_add_options --prefix=/usr
 ac_add_options --enable-application=browser
 ac_add_options --enable-release
@@ -45,6 +42,7 @@ ac_add_options --disable-clang-plugin
 ac_add_options --disable-stylo
 ac_add_options --disable-debug
 ac_add_options --disable-gconf
+ac_add_options --disable-necko-wifi
 ac_add_options --disable-updater
 ac_add_options --disable-tests
 ac_add_options --disable-strip
@@ -53,7 +51,11 @@ ac_add_options --disable-elf-hack
 _EOF_
 
 if [ "$UB_ARCH" == "amd64" ];then
-	sed -i 's/i686-gnu-linux/x86_64-gnu-linux/' .mozconfig
+echo "ac_add_options --host=x86_64-gnu-linux" >> .mozconfig
+echo "ac_add_options --target=x86_64-gnu-linux" >> .mozconfig
+else
+echo "ac_add_options --host=i686-gnu-linux" >> .mozconfig
+echo "ac_add_options --target=i686-gnu-linux" >> .mozconfig
 fi
 
 # cd "$UB_OBJECTDIR"

@@ -1,7 +1,5 @@
 #!/bin/sh -eux
 
-export SHELL=/bin/bash
-
 cd "$UB_OBJECTDIR"
 
 ub_install
