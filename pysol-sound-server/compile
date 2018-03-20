@@ -1,4 +1,5 @@
 #!/bin/sh -eux
 
 cd src
+export PYTHON=/usr/bin/python3
 ub_compile
