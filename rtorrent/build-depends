@@ -6,4 +6,4 @@ libsigc++-dev
 libtorrent-dev
 libxml2-dev
 openssl-dev
-xmlrpc-c
+xmlrpc-c-dev
