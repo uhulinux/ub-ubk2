@@ -2,6 +2,6 @@ ca-certificates
 gpg
 libgcrypt-dev
 nss-dev
-openssl-1.0-dev
+openssl-dev
 qt5-dev
 qt5-test-dev

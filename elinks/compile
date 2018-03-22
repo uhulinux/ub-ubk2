@@ -1,6 +1,4 @@
 #!/bin/sh -eux
 
-export CFLAGS+=" -I/usr/include/openssl-1.0"
-export CPPFLAGS+=" -I/usr/include/openssl-1.0"
-export LDFLAGS+=" -L/usr/lib/openssl-1.0"
+./autogen.sh
 ub_compile

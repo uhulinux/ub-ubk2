@@ -2,7 +2,4 @@
 
 ub_compile \
 	-DCMAKE_PREFIX_PATH=/usr/lib/qt5 \
-	-DQCA_FEATURE_INSTALL_DIR=/usr/lib/qt5/mkspecs/features \
-    -DOPENSSL_INCLUDE_DIR=/usr/include/openssl-1.0 \
-    -DOPENSSL_SSL_LIBRARY=/usr/lib/openssl-1.0/libssl.so \
-    -DOPENSSL_CRYPTO_LIBRARY=/usr/lib/openssl-1.0/libcrypto.so
+	-DQCA_FEATURE_INSTALL_DIR=/usr/lib/qt5/mkspecs/features

@@ -3,7 +3,7 @@ amrnb-dev
 dahdi-linux-dev
 libgsm-dev
 mysql-dev
-openssl-1.0-dev
+openssl-dev
 php
 postgresql-dev
 ptlib-dev
