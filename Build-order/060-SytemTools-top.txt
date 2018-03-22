@@ -31,7 +31,6 @@ vlan
 blktrace
 freeipmi
 firecontrol
-ipsec-tools
 ipvsadm
 iscsitarget
 pcmciautils
