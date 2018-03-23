@@ -29,6 +29,7 @@ kwayland
 syntax-highlighting
 ki18n
 kholidays
+kirigami2
 kfilemetadata
 kunitconversion
 kcoreaddons
@@ -67,7 +68,6 @@ kdeclarative
 kcmutils
 kactivities
 kactivities-stats
-kirigami2
 qqc2-desktop-style
 plasma-framework
 krunner
