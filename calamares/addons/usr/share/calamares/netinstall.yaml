@@ -124,7 +124,6 @@
   selected: true
   packages:
     - exif
-    - gexif
     - xsane
     - gimp
     - gqview
@@ -760,7 +759,6 @@
     - scribus
     - abevjava
     - abiword
-    - adobe-reader
     - gnucash
     - efax-gtk
 
@@ -958,7 +956,6 @@
     - leafpad
     - mousepad
     - emacs
-    - xemacs
     - nano
     - yudit
 
