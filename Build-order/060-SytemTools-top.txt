@@ -60,3 +60,4 @@ asterisk
 xdotool
 libx86mu
 hwinfo
+libva-utils
