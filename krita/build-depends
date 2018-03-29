@@ -27,6 +27,5 @@ opencolorio-dev
 openexr-dev
 poppler-qt5-dev
 qt5-dev
-qt5-test-dev
 vc
 xcb-util-dev

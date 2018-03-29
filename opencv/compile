@@ -1,11 +1,5 @@
 #!/bin/sh -eux
 
-# A fordítás közbeni letöltés nem mindig megy, de csak 64 biten kell ez a fájl
-
-if [ "$UB_ARCH" == "amd64" ];then
-    mkdir -p .cache/ippicv
-    mv *.tgz .cache/ippicv/87cbdeb627415d8e4bc811156289fa3a-ippicv_2017u2_lnx_intel64_20170418.tgz
-fi
 ub_compile \
 	-DCMAKE_BUILD_TYPE=Release \
 	-DENABLE_SSE=OFF \
