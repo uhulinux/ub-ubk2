@@ -66,4 +66,4 @@ thunderbird
 chromium
 balsa
 ghetto-skype
-
+facebook-messenger
