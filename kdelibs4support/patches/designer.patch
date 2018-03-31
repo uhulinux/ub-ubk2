@@ -1,6 +1,6 @@
 diff -Naur orig/cmake/modules/ECMQt4To5Porting.cmake patched/cmake/modules/ECMQt4To5Porting.cmake
 --- orig/cmake/modules/ECMQt4To5Porting.cmake	2018-03-03 11:02:31.000000000 +0100
-+++ patched/cmake/modules/ECMQt4To5Porting.cmake	2018-03-29 23:43:13.013027019 +0200
++++ patched/cmake/modules/ECMQt4To5Porting.cmake	2018-03-31 01:55:31.952359428 +0200
 @@ -160,7 +160,6 @@
    DBus
    Network
@@ -11,7 +11,7 @@ diff -Naur orig/cmake/modules/ECMQt4To5Porting.cmake patched/cmake/modules/ECMQt
    UiTools
 diff -Naur orig/cmake/modules/FindQt5Transitional.cmake patched/cmake/modules/FindQt5Transitional.cmake
 --- orig/cmake/modules/FindQt5Transitional.cmake	2018-03-03 11:02:31.000000000 +0100
-+++ patched/cmake/modules/FindQt5Transitional.cmake	2018-03-29 23:43:22.429139089 +0200
++++ patched/cmake/modules/FindQt5Transitional.cmake	2018-03-31 01:55:31.952359428 +0200
 @@ -6,7 +6,6 @@
        Core
        Gui
@@ -22,7 +22,7 @@ diff -Naur orig/cmake/modules/FindQt5Transitional.cmake patched/cmake/modules/Fi
        ScriptTools
 diff -Naur orig/cmake/modules/KDE4Macros.cmake patched/cmake/modules/KDE4Macros.cmake
 --- orig/cmake/modules/KDE4Macros.cmake	2018-03-03 11:02:31.000000000 +0100
-+++ patched/cmake/modules/KDE4Macros.cmake	2018-03-29 23:43:55.621534023 +0200
++++ patched/cmake/modules/KDE4Macros.cmake	2018-03-31 01:55:31.952359428 +0200
 @@ -486,7 +486,6 @@
  include("${CMAKE_CURRENT_LIST_DIR}/KDECoreMacros.cmake")
  include("${CMAKE_CURRENT_LIST_DIR}/KDEUIMacros.cmake")
@@ -33,7 +33,7 @@ diff -Naur orig/cmake/modules/KDE4Macros.cmake patched/cmake/modules/KDE4Macros.
  macro (KDE4_AUTH_INSTALL_ACTIONS)
 diff -Naur orig/CMakeLists.txt patched/CMakeLists.txt
 --- orig/CMakeLists.txt	2018-03-03 11:02:31.000000000 +0100
-+++ patched/CMakeLists.txt	2018-03-29 23:42:56.020824737 +0200
++++ patched/CMakeLists.txt	2018-03-31 01:55:31.952359428 +0200
 @@ -20,13 +20,12 @@
  include(CMakeFindFrameworks)
  
@@ -51,7 +51,7 @@ diff -Naur orig/CMakeLists.txt patched/CMakeLists.txt
  find_package(KF5Emoticons ${KF5_DEP_VERSION} REQUIRED)
 diff -Naur orig/KF5KDELibs4SupportConfig.cmake.in patched/KF5KDELibs4SupportConfig.cmake.in
 --- orig/KF5KDELibs4SupportConfig.cmake.in	2018-03-03 11:02:31.000000000 +0100
-+++ patched/KF5KDELibs4SupportConfig.cmake.in	2018-03-29 23:42:31.568533554 +0200
++++ patched/KF5KDELibs4SupportConfig.cmake.in	2018-03-31 01:55:31.952359428 +0200
 @@ -11,7 +11,6 @@
  find_dependency(KF5ConfigWidgets "@KF5_DEP_VERSION@")
  find_dependency(KF5CoreAddons "@KF5_DEP_VERSION@")
@@ -62,8 +62,8 @@ diff -Naur orig/KF5KDELibs4SupportConfig.cmake.in patched/KF5KDELibs4SupportConf
  find_dependency(KF5GuiAddons "@KF5_DEP_VERSION@")
 diff -Naur orig/src/CMakeLists.txt patched/src/CMakeLists.txt
 --- orig/src/CMakeLists.txt	2018-03-03 11:02:31.000000000 +0100
-+++ patched/src/CMakeLists.txt	2018-03-29 23:46:19.431243173 +0200
-@@ -368,27 +368,6 @@
++++ patched/src/CMakeLists.txt	2018-03-31 01:58:13.086304563 +0200
+@@ -368,29 +368,6 @@
  )
  
  
@@ -88,12 +88,14 @@ diff -Naur orig/src/CMakeLists.txt patched/src/CMakeLists.txt
 -
 -##########
 -
- add_subdirectory(pics)
- 
+-add_subdirectory(pics)
+-
  install(TARGETS KF5KDELibs4Support
+         EXPORT KF5KDELibs4SupportTargets
+         ${KF5_INSTALL_TARGETS_DEFAULT_ARGS})
 diff -Naur orig/src/kdebug.areas patched/src/kdebug.areas
 --- orig/src/kdebug.areas	2018-03-03 11:02:31.000000000 +0100
-+++ patched/src/kdebug.areas	2018-03-29 23:47:44.108242941 +0200
++++ patched/src/kdebug.areas	2018-03-31 01:55:31.956359477 +0200
 @@ -379,7 +379,6 @@
  #9034        kdevelop (filecreate part)
  9035        kdevelop (konsole part)
@@ -104,7 +106,7 @@ diff -Naur orig/src/kdebug.areas patched/src/kdebug.areas
  9041        kdevelop (cpp duchain)
 diff -Naur orig/src/KDEUIMacros.cmake patched/src/KDEUIMacros.cmake
 --- orig/src/KDEUIMacros.cmake	2018-03-03 11:02:31.000000000 +0100
-+++ patched/src/KDEUIMacros.cmake	2018-03-29 23:45:38.766760177 +0200
++++ patched/src/KDEUIMacros.cmake	2018-03-31 01:55:31.956359477 +0200
 @@ -163,31 +163,6 @@
  endmacro (KDE4_INSTALL_ICONS)
  
