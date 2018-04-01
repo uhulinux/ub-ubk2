@@ -44,7 +44,6 @@ bluefish
 transmission
 links
 pidgin-libnotify
-qupzilla
 falkon
 opera
 hexchat
