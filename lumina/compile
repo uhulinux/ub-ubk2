@@ -3,10 +3,10 @@
 cp src-qt5/core/libLumina/LuminaOS-Debian.cpp src-qt5/core/libLumina/LuminaOS-UHU-Linux.cpp
 sed -i "s,Debian GNU/Linux,UHU-Linux," src-qt5/core/libLumina/LuminaOS-UHU-Linux.cpp
 
-if [ "$UB_ARCH" == "amd64" ]; then
-sed -i "s,\$\${QMAKE_HOST.arch},x86_64," src-qt5/OS-detect.pri
+if [ $UB_ARCH == "amd64" ]; then
+qmake -set QMAKE_XSPEC linux-g++-64
 else
-sed -i "s,\$\${QMAKE_HOST.arch},x86," src-qt5/OS-detect.pri
+qmake -set QMAKE_XSPEC linux-g++-32
 fi
 
 # QMAKE_CFLAGS_ISYSTEM=

@@ -4,6 +4,8 @@
 
 # qtwebengine: külön csomag
 
+# deps: hunspell, libwebp
+
 if [ "$UB_ARCH" == "amd64" ];then
 platform="-platform linux-g++-64"
 else
