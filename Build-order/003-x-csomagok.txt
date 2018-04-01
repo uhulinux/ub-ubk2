@@ -80,6 +80,7 @@ xcb-util-keysyms
 xcb-util-renderutil
 xcb-util-cursor
 xcb-util-wm
+xcb-util-xrm
 llvm
 libclc
 yasm
