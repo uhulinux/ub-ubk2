@@ -23,7 +23,6 @@ ndisgtk
 sddm-config-editor
 foxit
 grub-customizer
-falcon
 socnetv
 zhu3d
 librecad
