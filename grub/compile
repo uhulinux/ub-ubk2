@@ -21,6 +21,7 @@ else
 	--disable-silent-rules \
 	--build=x86_64-gnu-linux \
 	--host=x86_64-gnu-linux \
+	--enable-grub-mount \
     "
 
     cd grub-bios
