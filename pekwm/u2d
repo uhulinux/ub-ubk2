@@ -1,1 +1,3 @@
-u2d https://www.pekwm.org/ pekwm-
+curl -s -k https://raw.githubusercontent.com/pekdon/pekwm/23427db74daca90f054988a8559f4d99b2baa2dc/configure.ac | \
+    grep AC_INIT | sed 's/.* //' | sed s/\)// | sed s/-/~/
+
