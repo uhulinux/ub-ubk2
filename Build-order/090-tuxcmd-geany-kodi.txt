@@ -11,5 +11,3 @@ dvdstyler
 audacious
 audacious-plugins
 kodi
-vdr
-vdr-plugin-text2skin
