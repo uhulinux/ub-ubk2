@@ -1,0 +1,21 @@
+diff -Nur orig/scripts/temperatures.default mod/scripts/temperatures.default
+--- orig/scripts/temperatures.default	2018-03-03 09:03:00.000000000 +0100
++++ mod/scripts/temperatures.default	2018-05-16 21:15:21.281400156 +0200
+@@ -7,7 +7,7 @@
+ mkdir -p ${OUTPUTFLDR}
+ 
+ # if the script is executed from system_information script set the locale back for "°C"
+-LANG=de_DE.UTF-8
++#LANG=de_DE.UTF-8
+ 
+ # there can be 4 files, cpu, gpu, pccase, motherboard
+ 
+@@ -25,5 +25,8 @@
+ # nvidia gpu temp
+ # nvidia-settings must be run as the user of the x server
+ # GPU=`nvidia-settings -c :0 -t -query GPUCoreTemp | head -n 1`
++GPU="??"
++if [ -f /usr/bin/nvidia-smi ];then
+ GPU=`nvidia-smi --query-gpu=temperature.gpu --format=csv,noheader`
++fi
+ echo "${GPU}°C" > ${OUTPUTFLDR}/gpu
