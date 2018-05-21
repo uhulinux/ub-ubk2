@@ -136,7 +136,6 @@ system-tools-backends
 check
 js24
 autoconf2.13
-js38
 js52
 gjs
 ocaml
