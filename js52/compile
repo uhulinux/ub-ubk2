@@ -5,6 +5,12 @@ CXXFLAGS+=' -fno-delete-null-pointer-checks -fpermissive -fno-tree-vrp -fno-stri
 CFLAGS+=' -fno-delete-null-pointer-checks -fpermissive -fno-tree-vrp -fno-strict-aliasing -flto=3'
 export CC=gcc CXX=g++ PYTHON=/usr/bin/python2
 
+if [ "$UB_ARCH" == "amd64" ];then
+    arch=x86_64
+else
+    arch=i686
+fi
+
 cd js/src
 export JS_STANDALONE=1
 autoconf-2.13
@@ -22,5 +28,7 @@ autoconf-2.13
 	--disable-strip \
 	--disable-debug \
 	--enable-readline \
-	--enable-release
+	--enable-release \
+	--target=$arch-gnu-linux \
+	--host=$arch-gnu-linux
 ub_make
