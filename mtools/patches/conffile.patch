@@ -1,0 +1,12 @@
+diff -Naur mtools-4.0.18-orig/mtools.conf mtools-4.0.18/mtools.conf
+--- mtools-4.0.18-orig/mtools.conf	2009-03-01 00:01:03.000000000 +0100
++++ mtools-4.0.18/mtools.conf	2018-06-05 17:39:15.305963668 +0200
+@@ -16,7 +16,7 @@
+ 
+ # Example mtools.conf files.  Uncomment the lines which correspond to
+ # your architecture and comment out the "SAMPLE FILE" line below
+-SAMPLE FILE
++# SAMPLE FILE
+ 
+ # # Linux floppy drives
+ # drive a: file="/dev/fd0" exclusive
