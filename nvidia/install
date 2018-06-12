@@ -8,7 +8,11 @@ fi
 
 #célkönyvtárak
 cellibdir="$UB_INSTALLDIR"/usr/lib
-moduldir="$cellibdir"/modules/"$KVER"/kernel/drivers
+
+moduldir="$UB_INSTALLDIR"/lib/modules/"$KVER"/kernel/drivers
+
+#moduldir="$cellibdir"/modules/"$KVER"/kernel/drivers
+
 xmoduldir="$cellibdir"/xorg/modules
 sharedir="$UB_INSTALLDIR"/usr/share
 desktopdir="$sharedir"/applications
@@ -82,8 +86,14 @@ mv nvidia-persistenced-init/systemd/nvidia-persistenced.service.template \
 
 # minden áthelyezése a libekbe
 mv *.so.* "$cellibdir"/
-# remove conflicting mesa lib
-rm -f "$cellibdir"/libGLESv2.so.2
+
+# remove conflicting libglvnd libs      # package vs libglvnd
+rm -f "$cellibdir"/libGLESv2.so.2       # file vs link
+rm -f "$cellibdir"/libGL.so.1.0.0       # file vs file
+rm -f "$cellibdir"/libGLX.so.0          # file vs link
+rm -f "$cellibdir"/libGLdispatch.so.0   # file vs link
+rm -f "$cellibdir"/libOpenGL.so.0       # file vs link
+
 #linkgyártások
 cd "$cellibdir"
 
