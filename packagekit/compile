@@ -3,4 +3,10 @@
 ub_compile \
 	--disable-local \
 	--disable-tests \
-	--enable-aptcc
+	--enable-aptcc \
+	--disable-cron \
+	--enable-introspection \
+	--enable-gtk-module \
+	--enable-gstreamer-plugin \
+	--disable-gtk-doc \
+	--enable-systemd
