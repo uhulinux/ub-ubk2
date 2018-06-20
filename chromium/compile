@@ -6,16 +6,8 @@ if [ $((`stat -f -c "%a" .`*`stat -f -c "%s" .`/(1024*1024*1024))) -lt 7 ]; then
 fi
 
 if [ "$UB_ARCH" == "amd64" ];then
-# export CC="x86_64-gnu-linux-gcc"
-# export CXX="x86_64-gnu-linux-g++"
-# export AR="ar"
-# export NM="nm"
 cpu="x64"
 else
-# export CC="i686-gnu-linux-gcc"
-# export CXX="i686-gnu-linux-g++"
-# export AR="ar"
-# export NM="nm"
 cpu="x86"
 fi
 
