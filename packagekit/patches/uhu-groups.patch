@@ -1,6 +1,6 @@
 diff -Nur orig/backends/aptcc/apt-utils.cpp mod/backends/aptcc/apt-utils.cpp
 --- orig/backends/aptcc/apt-utils.cpp	2018-01-05 17:43:09.000000000 +0100
-+++ mod/backends/aptcc/apt-utils.cpp	2018-06-20 21:55:53.347273802 +0200
++++ mod/backends/aptcc/apt-utils.cpp	2018-06-21 13:26:45.384698586 +0200
 @@ -30,88 +30,108 @@
  
  PkGroupEnum get_enum_group(string group)
@@ -67,6 +67,8 @@ diff -Nur orig/backends/aptcc/apt-utils.cpp mod/backends/aptcc/apt-utils.cpp
 -    } else if (group.compare ("hamradio") == 0) {
 -        return PK_GROUP_ENUM_COMMUNICATION;
 -    } else if (group.compare ("interpreters") == 0) {
+-        return PK_GROUP_ENUM_PROGRAMMING;
+-    } else if (group.compare ("java") == 0) {
 +    } else if (group.compare ("Internet") == 0) {
 +        return PK_GROUP_ENUM_INTERNET;
 +    } else if (group.compare ("Networking") == 0) {
@@ -78,26 +80,25 @@ diff -Nur orig/backends/aptcc/apt-utils.cpp mod/backends/aptcc/apt-utils.cpp
 +    } else if (group.compare ("Archiving") == 0) {
 +        return PK_GROUP_ENUM_OTHER;
 +    } else if (group.compare ("Database") == 0) {
-+        return PK_GROUP_ENUM_OTHER;
++        return PK_GROUP_ENUM_MAPS;
 +    } else if (group.compare ("Artwork") == 0) {
 +        return PK_GROUP_ENUM_OTHER;
 +    } else if (group.compare ("UHU") == 0) {
-+        return PK_GROUP_ENUM_OTHER;
++        return PK_GROUP_ENUM_VENDOR;
 +    } else if (group.compare ("Data") == 0) {
 +        return PK_GROUP_ENUM_OTHER;
 +    } else if (group.compare ("Compilers") == 0) {
          return PK_GROUP_ENUM_PROGRAMMING;
--    } else if (group.compare ("java") == 0) {
-+    } else if (group.compare ("Headers") == 0) {
-         return PK_GROUP_ENUM_PROGRAMMING;
 -    } else if (group.compare ("javascript") == 0) {
++    } else if (group.compare ("Headers") == 0) {
++        return PK_GROUP_ENUM_LEGACY;
 +    } else if (group.compare ("Interpreters") == 0) {
          return PK_GROUP_ENUM_PROGRAMMING;
 -    } else if (group.compare ("kde") == 0) {
 -        return PK_GROUP_ENUM_DESKTOP_KDE;
 -    } else if (group.compare ("libdevel") == 0) {
 +    } else if (group.compare ("Sources") == 0) {
-+        return PK_GROUP_ENUM_PROGRAMMING;
++        return PK_GROUP_ENUM_LEGACY;
 +    } else if (group.compare ("Development") == 0) {
          return PK_GROUP_ENUM_PROGRAMMING;
 -    } else if (group.compare ("libs") == 0) {
@@ -123,9 +124,9 @@ diff -Nur orig/backends/aptcc/apt-utils.cpp mod/backends/aptcc/apt-utils.cpp
 +    } else if (group.compare ("Daemons") == 0) {
 +        return PK_GROUP_ENUM_SYSTEM;
 +    } else if (group.compare ("Printing") == 0) {
-+        return PK_GROUP_ENUM_SYSTEM;
++        return PK_GROUP_ENUM_ADMIN_TOOLS;
 +    } else if (group.compare ("Configuration") == 0) {
-+        return PK_GROUP_ENUM_SYSTEM;
++        return PK_GROUP_ENUM_ADMIN_TOOLS;
 +    } else if (group.compare ("Libraries") == 0) {
 +        return PK_GROUP_ENUM_SYSTEM;
 +    } else if (group.compare ("Scientific") == 0) {
@@ -179,8 +180,8 @@ diff -Nur orig/backends/aptcc/apt-utils.cpp mod/backends/aptcc/apt-utils.cpp
      }
 diff -Nur orig/backends/aptcc/pk-backend-aptcc.cpp mod/backends/aptcc/pk-backend-aptcc.cpp
 --- orig/backends/aptcc/pk-backend-aptcc.cpp	2018-04-03 14:29:51.000000000 +0200
-+++ mod/backends/aptcc/pk-backend-aptcc.cpp	2018-06-20 21:30:01.309328559 +0200
-@@ -113,24 +113,28 @@
++++ mod/backends/aptcc/pk-backend-aptcc.cpp	2018-06-21 13:20:36.209244967 +0200
+@@ -113,24 +113,29 @@
                  PK_GROUP_ENUM_ACCESSORIES,
                  PK_GROUP_ENUM_ADMIN_TOOLS,
                  PK_GROUP_ENUM_COMMUNICATION,
@@ -207,6 +208,7 @@ diff -Nur orig/backends/aptcc/pk-backend-aptcc.cpp mod/backends/aptcc/pk-backend
                  PK_GROUP_ENUM_SCIENCE,
 +                PK_GROUP_ENUM_SERVERS,
                  PK_GROUP_ENUM_SYSTEM,
++                PK_GROUP_ENUM_VENDOR,
 +                PK_GROUP_ENUM_EDUCATION,
                  -1);
  }
