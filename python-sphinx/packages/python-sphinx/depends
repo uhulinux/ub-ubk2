@@ -4,8 +4,10 @@ python-chardet
 python-docutils
 python-imagesize
 python-jinja2
+python-packaging
 python-pygments
 python-requests
+python-setuptools
 python-six
 python-snowballstemmer
 python-sphinx-alabaster-theme
