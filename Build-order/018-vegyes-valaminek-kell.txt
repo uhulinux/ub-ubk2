@@ -198,7 +198,6 @@ yaml-cpp
 pythonqt
 apache-mod-dnssd
 openal
-xerces-c
 consolekit
 colm
 ragel

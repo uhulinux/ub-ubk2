@@ -2,4 +2,5 @@ cinnamon-desktop
 py3cairo
 py3gobject
 python3-setproctitle
+python3-xapp
 xapps
