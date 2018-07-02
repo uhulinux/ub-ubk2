@@ -3,3 +3,4 @@ usb-modeswitch
 yate
 freepascal
 lazarus
+sbcl
