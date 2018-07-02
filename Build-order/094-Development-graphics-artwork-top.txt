@@ -92,3 +92,4 @@ hugin
 guvcview
 shotwell
 gtkam
+wxmaxima

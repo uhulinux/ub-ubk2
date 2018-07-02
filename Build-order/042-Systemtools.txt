@@ -4,3 +4,4 @@ yate
 freepascal
 lazarus
 sbcl
+maxima
