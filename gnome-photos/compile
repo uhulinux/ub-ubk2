@@ -1,4 +1,6 @@
 #!/bin/sh -eux
 
 autoreconf -vif
+export GEGL_CFLAGS=`pkg-config --cflags gegl-0.4`
+export GEGL_LIBS=`pkg-config --libs gegl-0.4`
 ub_compile
