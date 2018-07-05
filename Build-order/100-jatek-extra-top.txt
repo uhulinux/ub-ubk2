@@ -69,6 +69,7 @@ gnubik
 zdoom
 gzdoom
 vavoom
+zandronum
 openra
 spider
 pychess
