@@ -1,9 +1,10 @@
-diff -Naur orig/meson.build patched/meson.build
---- orig/meson.build	2018-01-16 15:04:42.000000000 +0100
-+++ patched/meson.build	2018-02-03 15:12:10.613009261 +0100
-@@ -138,4 +138,4 @@
- 	endif
+diff -Nur orig/meson.build mod/meson.build
+--- orig/meson.build	2018-03-09 15:22:59.000000000 +0100
++++ mod/meson.build	2018-06-06 21:41:29.196481720 +0200
+@@ -144,6 +144,3 @@
  endif
  subdir('man')
--subdir('docs')
-+# subdir('docs')
+ # has_exe_wrapper() is undefined if building natively
+-if not meson.is_cross_build() or not meson.has_exe_wrapper()
+-	subdir('docs')
+-endif
