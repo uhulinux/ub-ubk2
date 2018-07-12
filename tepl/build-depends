@@ -1,4 +1,4 @@
 gobject-introspection-dev
-gtksourceview-dev
+gtksourceview4-dev
 uchardet-dev
 vala-dev
