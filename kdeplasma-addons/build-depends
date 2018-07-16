@@ -18,4 +18,5 @@ kunitconversion-dev
 plasma-framework-dev
 plasma-workspace-dev
 qt5-dev
+qtwebengine-dev
 scim-dev
