@@ -7,4 +7,4 @@ chmod +x waf-1.9.8
 	--enable-libarchive \
 	--enable-cdda \
 	--enable-encoding
-./waf-1.9.8  build
+./waf-1.9.8 build
