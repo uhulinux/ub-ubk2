@@ -1,3 +1,6 @@
 #!/bin/sh -eux
 
-ub_compile
+ub_compile \
+    -Dwailand=true \
+    -Ddrm=true \
+    -Dx11=true
