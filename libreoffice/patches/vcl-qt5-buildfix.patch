@@ -1,0 +1,76 @@
+From 8c98a74906d3e132eaab349806627a9340edc191 Mon Sep 17 00:00:00 2001
+From: Katarina Behrens <Katarina.Behrens@cib.de>
+Date: Thu, 17 May 2018 12:55:55 +0200
+Subject: Unify Color -> QColor conversion
+
+this also resolves build failures on 32bit platforms
+
+Change-Id: I53fa2faae52a8cb322644c5bd5e5e84d71110d8e
+---
+ vcl/inc/qt5/Qt5Tools.hxx     | 6 ++++++
+ vcl/qt5/Qt5Graphics_GDI.cxx  | 2 +-
+ vcl/qt5/Qt5Graphics_Text.cxx | 2 +-
+ vcl/qt5/Qt5Painter.cxx       | 4 ++--
+ 4 files changed, 10 insertions(+), 4 deletions(-)
+
+diff --git a/vcl/qt5/Qt5Tools.hxx b/vcl/qt5/Qt5Tools.hxx
+index d632a5e..06c0257 100644
+--- a/vcl/qt5/Qt5Tools.hxx
++++ b/vcl/qt5/Qt5Tools.hxx
+@@ -26,6 +26,7 @@
+ 
+ #include <rtl/string.hxx>
+ #include <rtl/ustring.hxx>
++#include <tools/color.hxx>
+ #include <tools/gen.hxx>
+ 
+ #include <memory>
+@@ -55,6 +56,11 @@ inline QSize toQSize(const Size& rSize) { return QSize(rSize.Width(), rSize.Heig
+ 
+ inline Size toSize(const QSize& rSize) { return Size(rSize.width(), rSize.height()); }
+ 
++inline QColor toQColor(const Color& rColor)
++{
++    return QColor( rColor.GetRed(), rColor.GetGreen(), rColor.GetBlue(), rColor.GetTransparency() );
++}
++
+ static constexpr QImage::Format Qt5_DefaultFormat32 = QImage::Format_ARGB32;
+ 
+ inline QImage::Format getBitFormat(sal_uInt16 nBitCount)
+diff --git a/vcl/qt5/Qt5Graphics_GDI.cxx b/vcl/qt5/Qt5Graphics_GDI.cxx
+index 7bed0a4..61b92b1 100644
+--- a/vcl/qt5/Qt5Graphics_GDI.cxx
++++ b/vcl/qt5/Qt5Graphics_GDI.cxx
+@@ -172,7 +172,7 @@ void Qt5Graphics::drawPixel(long nX, long nY)
+ void Qt5Graphics::drawPixel(long nX, long nY, Color nColor)
+ {
+     Qt5Painter aPainter(*this);
+-    aPainter.setPen(QColor(QRgb(nColor)));
++    aPainter.setPen(toQColor(nColor));
+     aPainter.setPen(Qt::SolidLine);
+     aPainter.drawPoint(nX, nY);
+     aPainter.update(nX, nY, 1, 1);
+diff --git a/vcl/qt5/Qt5Painter.cxx b/vcl/qt5/Qt5Painter.cxx
+index 5bf0db2..88e9b10 100644
+--- a/vcl/qt5/Qt5Painter.cxx
++++ b/vcl/qt5/Qt5Painter.cxx
+@@ -37,7 +37,7 @@ Qt5Painter::Qt5Painter(Qt5Graphics& rGraphics, bool bPrepareBrush, sal_uInt8 nTr
+         setClipRegion(rGraphics.m_aClipRegion);
+     if (SALCOLOR_NONE != rGraphics.m_aLineColor)
+     {
+-        QColor aColor = QColor::fromRgb(QRgb(rGraphics.m_aLineColor));
++        QColor aColor = toQColor(rGraphics.m_aLineColor);
+         aColor.setAlpha(nTransparency);
+         setPen(aColor);
+     }
+@@ -45,7 +45,7 @@ Qt5Painter::Qt5Painter(Qt5Graphics& rGraphics, bool bPrepareBrush, sal_uInt8 nTr
+         setPen(Qt::NoPen);
+     if (bPrepareBrush && SALCOLOR_NONE != rGraphics.m_aFillColor)
+     {
+-        QColor aColor = QColor::fromRgb(QRgb(rGraphics.m_aFillColor));
++        QColor aColor = toQColor(rGraphics.m_aFillColor);
+         aColor.setAlpha(nTransparency);
+         setBrush(Qt::SolidPattern);
+         setBrush(aColor);
+-- 
+cgit v1.1

@@ -31,6 +31,8 @@ fi
 
 export QT5DIR=/usr/lib/qt5
 
+#export CFLAGS=-I/usr/include/harfbuzz
+
 # ha van a distro-configs alatt megfelelő tartalmú .conf fájl, ekkor az
 # ./autogen.sh --with-distro=<conffile> is használható
 # a LibreOfficeUHU.conf fájlhoz
@@ -67,6 +69,7 @@ export QT5DIR=/usr/lib/qt5
     --without-system-libfreehand \
     --without-system-libmspub \
     --without-system-libmwaw \
+    --without-system-libnumbertext \
     --without-system-libpagemaker \
     --without-system-libqxp \
     --without-system-libstaroffice \
@@ -92,6 +95,8 @@ export QT5DIR=/usr/lib/qt5
     --enable-ext-nlpsolver \
     --enable-gio \
     --enable-gtk3 \
+    --enable-gtk3-kde5 \
+    --enable-kde5 \
     --enable-qt5 \
     --enable-release-build
 
