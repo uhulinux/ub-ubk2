@@ -1,14 +1,26 @@
-beautifulsoup
-cssutils
-pyqt5
-python-apsw
-python-cssselect
-python-dateutil
-python-html5-parser
-python-lxml
-python-mechanize
-python-netifaces
-python-pillow
-python-regex
-python-six
-qtwebkit
+beautifulsoup >=
+cssutils >=
+dbus-python >=
+jxrlib >=
+pycrypto >=
+pyqt5 >=
+python-apsw >=
+python-chardet >=
+python-cssselect >=
+python-dateutil >=
+python-dukpy >=
+python-enum34 >=
+python-html5lib >=
+python-html5-parser >=
+python-lxml >=
+python-mechanize >=
+python-msgpack >=
+python-netifaces >=
+python-pillow >=
+python-psutil >=
+python-pygments >=
+python-regex >=
+python-six >=
+python-unrardll >=
+python-webencodings >=
+qtwebkit >=

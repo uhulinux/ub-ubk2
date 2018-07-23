@@ -32,3 +32,4 @@ libcfitsio
 libnova
 spglib
 libyajl
+jxlib

@@ -172,3 +172,8 @@ cssutils
 python-incremental
 python-regex
 python-html5-parser
+python-unrardll
+python-dukpy
+python-html5lib
+python-msgpack
+python-webencodings

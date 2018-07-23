@@ -1,0 +1,4 @@
+#!/bin/sh -eux
+
+python3 setup.py build --build-lib=build/python3
+python setup.py build --build-lib=build/python2
