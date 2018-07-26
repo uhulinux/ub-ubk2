@@ -139,3 +139,4 @@ xset
 x.org-server-utils
 xsetroot
 x.org-proto-dev
+x.org-apps
