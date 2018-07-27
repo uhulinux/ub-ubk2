@@ -94,7 +94,7 @@ diff -Nur jwm-2.3.7/example.jwmrc jwm-2.3.7.patched/example.jwmrc
 -        <Background type="solid">#111111</Background>
 +        <Background type="solid">#044044</Background>
 +        <Desktop>
-+                 <Background type="image">/usr/share/backgrounds/UHU/uhu-grub-bg-dark.png</Background>
++                 <Background type="gradient">#088088:#033033</Background>
 +        </Desktop>
      </Desktops>
  
