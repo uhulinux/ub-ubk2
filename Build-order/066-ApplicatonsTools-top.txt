@@ -85,7 +85,6 @@ ifuse
 xbindkeys
 vdpauinfo
 gourmet
-piedock
 rdiff-backup
 diffball
 translate-toolkit
