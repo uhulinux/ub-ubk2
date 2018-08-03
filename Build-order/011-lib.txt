@@ -1,4 +1,3 @@
-libnfsidmap
 libpseudo
 libspnav
 libt3key
