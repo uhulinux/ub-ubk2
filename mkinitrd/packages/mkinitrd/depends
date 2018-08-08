@@ -5,6 +5,7 @@ bash
 binutils
 btrfs-progs
 coreutils
+cpio
 cryptsetup
 dhcpcd
 e2fsprogs
