@@ -1,7 +1,7 @@
-diff -Nur orig/CMakeLists.txt mod/CMakeLists.txt
---- orig/CMakeLists.txt	2017-12-05 17:00:16.000000000 +0100
-+++ mod/CMakeLists.txt	2018-06-19 12:44:35.822802238 +0200
-@@ -142,7 +142,7 @@
+diff -Naur orig/CMakeLists.txt patched/CMakeLists.txt
+--- orig/CMakeLists.txt	2018-07-18 12:31:40.000000000 +0200
++++ patched/CMakeLists.txt	2018-08-10 12:47:50.841078184 +0200
+@@ -141,7 +141,7 @@
          string(REGEX REPLACE "[ \t\n]+" "" SYSTEMD_SYSTEM_UNIT_DIR ${SYSTEMD_SYSTEM_UNIT_DIR})
      endif()
  
@@ -10,20 +10,18 @@ diff -Nur orig/CMakeLists.txt mod/CMakeLists.txt
      set(HALT_COMMAND "/usr/bin/systemctl poweroff")
      set(REBOOT_COMMAND "/usr/bin/systemctl reboot")
  else()
-diff -Nur orig/services/sddm.service.in mod/services/sddm.service.in
---- orig/services/sddm.service.in	2017-12-05 17:00:16.000000000 +0100
-+++ mod/services/sddm.service.in	2018-06-19 12:45:46.286682825 +0200
-@@ -1,11 +1,13 @@
+diff -Naur orig/services/sddm.service.in patched/services/sddm.service.in
+--- orig/services/sddm.service.in	2018-07-18 12:31:40.000000000 +0200
++++ patched/services/sddm.service.in	2018-08-10 12:46:28.492062528 +0200
+@@ -1,11 +1,12 @@
  [Unit]
  Description=Simple Desktop Display Manager
  Documentation=man:sddm(1) man:sddm.conf(5)
 -Conflicts=getty@tty1.service
--After=systemd-user-sessions.service getty@tty1.service plymouth-quit.service
 +Conflicts=getty@tty7.service
-+After=systemd-user-sessions.service getty@tty1.service plymouth-quit.service systemd-logind.service
+ After=systemd-user-sessions.service getty@tty1.service plymouth-quit.service systemd-logind.service
  
  [Service]
-+
  ExecStart=@CMAKE_INSTALL_FULL_BINDIR@/sddm
 +ExecStartPre=/bin/sleep 5
  Restart=always
