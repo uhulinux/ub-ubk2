@@ -120,7 +120,7 @@ gnome-documents
 gnome-boxes
 gnome-python-extras
 gnome-dictionary
-evolition-ews
+evolution-ews
 anjuta-extras
 gnote
 
