@@ -120,5 +120,8 @@ gnome-documents
 gnome-boxes
 gnome-python-extras
 gnome-dictionary
+evolition-ews
+anjuta-extras
+gnote
 
 
