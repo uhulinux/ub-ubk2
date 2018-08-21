@@ -174,7 +174,6 @@ packagekit
 spice-gtk
 nagios-plugins
 pstoedit
-dmapi
 cups-filters
 foo2zjs
 sdl2-image
