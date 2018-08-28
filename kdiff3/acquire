@@ -1,4 +1,4 @@
 #!/usr/bin/env dl
 
-kdiff3git-${UB_VERSION}.tar.gz kdiff3-1ca11ad/
-	git://github.com/KDE/kdiff3.git@1ca11ad
+kdiff3git-${UB_VERSION}.tar.gz kdiff3-517cf1d/
+	git://github.com/KDE/kdiff3.git@517cf1d
