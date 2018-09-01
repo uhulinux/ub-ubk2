@@ -35,6 +35,9 @@ akonadi-calendar
 calendarsupport
 eventviews
 incidenceeditor
+akonadi-import-wizard
+kpkpass
+kitinerary
 kdepim-addons
 kalarmcal
 kdepim-runtime
@@ -44,7 +47,6 @@ kmail-account-wizard
 mbox-importer
 akonadi-calendar-tools
 akonadiconsole
-akonadi-import-wizard
 akregator
 kaddressbook
 kjots
