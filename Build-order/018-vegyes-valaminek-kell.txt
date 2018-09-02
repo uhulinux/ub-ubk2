@@ -201,6 +201,7 @@ consolekit
 colm
 ragel
 debhelper
+freecell-solver
 texlive
 hunspell-hu
 hunspell #hunspell-hu runtime-depends vissza
