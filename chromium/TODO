@@ -1,0 +1,17 @@
+clang (LLVM option parsing): Unknown command line argument '-m64'.  Try: 'clang (LLVM option parsing) -help'
+
+warning: unknown warning option '-Wno-null-pointer-arithmetic'; did you mean '-Wno-null-arithmetic'? [-Wunknown-warning-option]
+warning: unknown warning option '-Wno-enum-compare-switch'; did you mean '-Wno-enum-compare'? [-Wunknown-warning-option]
+warning: unknown warning option '-Wno-ignored-pragma-optimize'; did you mean '-Wno-ignored-pragma-intrinsic'? [-Wunknown-warning-option]
+
+llvm-ar: Unknown command line argument '-T'.  Try: '../../../../../../usr/bin/llvm-ar -help'
+llvm-ar: Did you mean '-M'?
+llvm-ar: Unknown command line argument '-r'.  Try: '../../../../../../usr/bin/llvm-ar -help'
+llvm-ar: Did you mean '-M'?
+llvm-ar: Unknown command line argument '-c'.  Try: '../../../../../../usr/bin/llvm-ar -help'
+llvm-ar: Did you mean '-M'?
+llvm-ar: Unknown command line argument '-s'.  Try: '../../../../../../usr/bin/llvm-ar -help'
+llvm-ar: Did you mean '-M'?
+llvm-ar: Unknown command line argument '-D'.  Try: '../../../../../../usr/bin/llvm-ar -help'
+llvm-ar: Did you mean '-M'?
+

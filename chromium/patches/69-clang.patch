@@ -1,0 +1,83 @@
+diff -Naur orig/build/config/compiler/BUILD.gn patched/build/config/compiler/BUILD.gn
+--- orig/build/config/compiler/BUILD.gn	2018-09-12 22:47:10.056145101 +0200
++++ patched/build/config/compiler/BUILD.gn	2018-09-13 09:09:22.797084125 +0200
+@@ -488,18 +488,6 @@
+     }
+   }
+ 
+-  if (is_clang && !is_nacl && current_toolchain == host_toolchain &&
+-      target_os != "chromeos") {
+-    cflags += [
+-      # TODO(hans): Remove this once Clang generates better optimized debug info
+-      # by default. https://crbug.com/765793
+-      "-Xclang",
+-      "-mllvm",
+-      "-Xclang",
+-      "-instcombine-lower-dbg-declare=0",
+-    ]
+-  }
+-
+   # Print absolute paths in diagnostics. There is no precedent for doing this
+   # on Linux/Mac (GCC doesn't support it), but MSVC does this with /FC and
+   # Windows developers rely on it (crbug.com/636109) so only do this on Windows.
+@@ -526,13 +514,6 @@
+     ]
+   }
+ 
+-  # Tells the compiler not to use absolute paths when passing the default
+-  # paths to the tools it invokes. We don't want this because we don't
+-  # really need it and it can mess up the goma cache entries.
+-  if (is_clang && !is_nacl) {
+-    cflags += [ "-no-canonical-prefixes" ]
+-  }
+-
+   # C11/C++11 compiler flags setup.
+   # ---------------------------
+   if (is_linux || is_android || (is_nacl && is_clang) || current_os == "aix") {
+@@ -711,7 +692,7 @@
+   if ((is_posix && !(is_mac || is_ios)) || is_fuchsia) {
+     # CPU architecture. We may or may not be doing a cross compile now, so for
+     # simplicity we always explicitly set the architecture.
+-    if (current_cpu == "x64") {
++    if (current_cpu == "x64" && !is_clang) {
+       cflags += [
+         "-m64",
+         "-march=x86-64",
+@@ -1465,25 +1446,6 @@
+           "-Wno-unused-lambda-capture",
+         ]
+       }
+-      if (current_toolchain == host_toolchain || !use_xcode_clang ||
+-          xcode_version_int >= 1000) {
+-        cflags += [
+-          # TODO(hans): https://crbug.com/766891
+-          "-Wno-null-pointer-arithmetic",
+-        ]
+-      }
+-      if (current_toolchain == host_toolchain || !use_xcode_clang) {
+-        # Flags NaCl (Clang 3.7) and Xcode 9.2 (Clang clang-900.0.39.2) do not
+-        # recognize.
+-        cflags += [
+-          # TODO(thakis): https://crbug.com/753973
+-          "-Wno-enum-compare-switch",
+-
+-          # Ignore warnings about MSVC optimization pragmas.
+-          # TODO(thakis): Only for no_chromium_code? http://crbug.com/505314
+-          "-Wno-ignored-pragma-optimize",
+-        ]
+-      }
+     }
+   }
+ }
+diff -Naur orig/build/toolchain/gcc_toolchain.gni patched/build/toolchain/gcc_toolchain.gni
+--- orig/build/toolchain/gcc_toolchain.gni	2018-09-11 21:09:21.000000000 +0200
++++ patched/build/toolchain/gcc_toolchain.gni	2018-09-13 01:20:46.627383091 +0200
+@@ -609,7 +609,7 @@
+     cxx = "$prefix/clang++"
+     ld = cxx
+     readelf = "${toolprefix}readelf"
+-    ar = "${prefix}/llvm-ar"
++    ar = "${prefix}/ar"
+     nm = "${toolprefix}nm"
+ 
+     forward_variables_from(invoker,
