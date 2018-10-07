@@ -28,7 +28,6 @@ fluxstyle
 windowmaker
 bmpanel2
 fbpanel
-piewm
 weston
 idesk
 idesk-extras
