@@ -1,3 +1,19 @@
 #!/bin/sh -eux
 
 ub_install
+
+mkdir -p ${UB_INSTALLDIR}/usr/lib/ccache/bin
+
+if [ "$UB_ARCH" == "amd64" ]; then
+_host="x86_64-linux-gnu"
+else
+_host="i686-linux-gnu"
+fi
+
+for _prog in gcc g++ c++; do
+    ln -s /usr/bin/ccache "${UB_INSTALLDIR}/usr/lib/ccache/bin/$_prog"
+    ln -s /usr/bin/ccache "${UB_INSTALLDIR}/usr/lib/ccache/bin/$_host-$_prog"
+done
+for _prog in cc clang clang++; do
+    ln -s /usr/bin/ccache "${UB_INSTALLDIR}/usr/lib/ccache/bin/$_prog"
+done

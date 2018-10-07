@@ -8,13 +8,7 @@ CC="ccache gcc -m32"
 CXX="ccache g++ -m32"
 fi
 
-# a bindgen fordításához az llvm c++ fejléceit használjuk,
-# azokat legalább megtalálja a clang...
-export BINDGEN_CFLAGS+="-I/usr/include/c++/v1"
 export LDFLAGS="-Wl,-rpath,/usr/lib/firefox/ -Wl,--no-keep-memory -Wl,-z,relro -Wl,-z,now"
-
-# új opciók:
-# --disable-clang-plugin
 
 : > .mozconfig
 cat > .mozconfig << _EOF_

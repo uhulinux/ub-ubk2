@@ -23,5 +23,6 @@ python-dev
 rust
 sqlite-dev
 startup-notification-dev
+wayland-dev
 yasm
 zip
