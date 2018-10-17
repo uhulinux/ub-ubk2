@@ -1,0 +1,12 @@
+diff -Nur orig/ext/curl/meson.build mod/ext/curl/meson.build
+--- orig/ext/curl/meson.build	2017-05-15 17:46:30.000000000 +0200
++++ mod/ext/curl/meson.build	2018-10-17 17:29:57.197033195 +0200
+@@ -16,7 +16,7 @@
+   gstcurl = library('gstcurl',
+     curl_sources,
+     c_args : gst_plugins_bad_args,
+-    include_directories : [configinc],
++    include_directories : [configinc, libsinc],
+     dependencies : [gstbase_dep, curl_dep] + winsock2,
+     install : true,
+     install_dir : plugins_install_dir,

@@ -1,0 +1,28 @@
+diff -Nur orig/ext/meson.build mod/ext/meson.build
+--- orig/ext/meson.build	2018-10-17 18:09:39.000000000 +0200
++++ mod/ext/meson.build	2018-10-17 19:15:07.196063742 +0200
+@@ -29,7 +29,7 @@
+ subdir('mpeg2enc')
+ subdir('mplex')
+ subdir('musepack')
+-#subdir('neon')
++subdir('neon')
+ #subdir('ofa')
+ #subdir('openal')
+ subdir('opencv')
+diff -Nur orig/ext/neon/meson.build mod/ext/neon/meson.build
+--- orig/ext/neon/meson.build	1970-01-01 01:00:00.000000000 +0100
++++ mod/ext/neon/meson.build	2018-10-17 19:24:14.051291832 +0200
+@@ -0,0 +1,12 @@
++neon_dep = dependency('neon', version: ['>= 0.27', '<= 0.30.99'],
++                      required : true)
++
++if neon_dep.found()
++  gstneon = library('gstneonhttpsrc',
++    'gstneonhttpsrc.c',
++    c_args : gst_plugins_bad_args,
++    include_directories : [configinc],
++    dependencies : [gstbase_dep, neon_dep],
++    install : true,
++    install_dir : plugins_install_dir)
++endif

@@ -1,0 +1,35 @@
+diff -Nur orig/ext/ladspa/meson.build mod/ext/ladspa/meson.build
+--- orig/ext/ladspa/meson.build	1970-01-01 01:00:00.000000000 +0100
++++ mod/ext/ladspa/meson.build	2018-10-17 17:20:55.133784669 +0200
+@@ -0,0 +1,19 @@
++ladspa_sources = [
++  'gstladspa.c',
++  'gstladspafilter.c',
++  'gstladspasource.c',
++  'gstladspasink.c',
++  'gstladspautils.c',
++]
++ladspa_dep = dependency('lrdf', required : false)
++if ladspa_dep.found()
++  gstrsvg = library('gstladspa',
++    ladspa_sources,
++    c_args : gst_plugins_bad_args,
++    link_args : noseh_link_args,
++    include_directories : [configinc, libsinc],
++    dependencies : [gstaudio_dep, gstbase_dep, gmodule_dep, ladspa_dep, mathlib],
++    install : true,
++    install_dir : plugins_install_dir,
++  )
++endif
+diff -Nur orig/ext/meson.build mod/ext/meson.build
+--- orig/ext/meson.build	2018-10-17 17:03:18.000000000 +0200
++++ mod/ext/meson.build	2018-10-17 17:21:20.441749584 +0200
+@@ -21,7 +21,7 @@
+ subdir('hls')
+ subdir('iqa')
+ subdir('kate')
+-#subdir('ladspa')
++subdir('ladspa')
+ subdir('libde265')
+ subdir('libmms')
+ #subdir('lv2')

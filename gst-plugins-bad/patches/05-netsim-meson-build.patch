@@ -1,0 +1,26 @@
+diff -Nur orig/gst/meson.build mod/gst/meson.build
+--- orig/gst/meson.build	2017-05-15 17:46:30.000000000 +0200
++++ mod/gst/meson.build	2018-10-17 18:06:48.793909898 +0200
+@@ -38,6 +38,7 @@
+ subdir('mpegtsdemux')
+ subdir('mpegtsmux')
+ subdir('mxf')
++subdir('netsim')
+ subdir('onvif')
+ subdir('pcapparse')
+ subdir('pnm')
+diff -Nur orig/gst/netsim/meson.build mod/gst/netsim/meson.build
+--- orig/gst/netsim/meson.build	1970-01-01 01:00:00.000000000 +0100
++++ mod/gst/netsim/meson.build	2018-10-17 18:07:48.297824835 +0200
+@@ -0,0 +1,11 @@
++netsim_sources = [
++  'gstnetsim.c',
++]
++gstnetsim = library('gstnetsim',
++  netsim_sources,
++  c_args : gst_plugins_bad_args,
++  include_directories : [configinc],
++  dependencies : [gstbase_dep],
++  install : true,
++  install_dir : plugins_install_dir,
++)

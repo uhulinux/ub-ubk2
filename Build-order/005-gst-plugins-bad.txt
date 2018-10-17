@@ -13,6 +13,7 @@ wavpack
 opencore-amr
 faac
 faad2
+libfdk-aac
 soundtouch
 fribidi
 recode
