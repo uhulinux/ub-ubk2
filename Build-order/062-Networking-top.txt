@@ -67,3 +67,5 @@ chromium
 balsa
 ghetto-skype
 facebook-messenger
+speedtest-cli
+
