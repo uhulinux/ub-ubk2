@@ -1,0 +1,61 @@
+diff -Nur orig/ext/aalib/meson.build mod/ext/aalib/meson.build
+--- orig/ext/aalib/meson.build	1970-01-01 01:00:00.000000000 +0100
++++ mod/ext/aalib/meson.build	2018-10-18 19:40:43.744532634 +0200
+@@ -0,0 +1,14 @@
++# Very much not going to implement all kinds of logic around aalib-config
++# or cater for non-standard prefixes.
++if cc.has_header('aalib.h')
++  libaa_dep = cc.find_library('aa', required : false)
++  if libaa_dep.found()
++    library('gstaasink', 'gstaasink.c',
++      c_args : gst_plugins_good_args,
++      link_args : noseh_link_args,
++      include_directories : [configinc],
++      dependencies : [gstvideo_dep, gstbase_dep, libaa_dep],
++      install : true,
++      install_dir : plugins_install_dir)
++  endif
++endif
+diff -Nur orig/ext/meson.build mod/ext/meson.build
+--- orig/ext/meson.build	2017-05-15 17:46:26.000000000 +0200
++++ mod/ext/meson.build	2018-10-18 19:54:26.119596320 +0200
+@@ -1,4 +1,4 @@
+-# subdir('aalib')
++subdir('aalib')
+ subdir('cairo')
+ subdir('flac')
+ subdir('gdk_pixbuf')
+@@ -10,7 +10,7 @@
+   subdir('dv')
+ endif
+ subdir('libpng')
+-# subdir('raw1394')
++subdir('raw1394')
+ subdir('pulse')
+ subdir('shout2')
+ subdir('soup')
+diff -Nur orig/ext/raw1394/meson.build mod/ext/raw1394/meson.build
+--- orig/ext/raw1394/meson.build	1970-01-01 01:00:00.000000000 +0100
++++ mod/ext/raw1394/meson.build	2018-10-18 19:54:19.943601273 +0200
+@@ -0,0 +1,21 @@
++
++raw1394_dep = dependency('libraw1394', version: '>= 2.0.0', required: false)
++avc1394_dep = dependency('libavc1394', version: '>= 0.5.4', required: false)
++iec61883_dep = dependency('libiec61883', version: '>= 1.0.0', required: false)
++have_1394 = false
++if raw1394_dep.found() and iec61883_dep.found() and avc1394_dep.found()
++  if cc.has_function('avc1394_send_command', dependencies: avc1394_dep)
++    if cc.has_function('rom1394_free_directory', dependencies: avc1394_dep)
++      have_1394 = true
++    endif
++  endif
++endif
++if have_1394
++  library('gst1394',
++    'gst1394.c', 'gst1394probe.c', 'gstdv1394src.c', 'gsthdv1394src.c', 'gst1394clock.c',
++    c_args : gst_plugins_good_args + ['-DHAVE_LIBIEC61883'],
++    include_directories : [configinc, libsinc],
++    dependencies : [gstvideo_dep, gstbase_dep, raw1394_dep, avc1394_dep, iec61883_dep],
++    install : true,
++    install_dir : plugins_install_dir)
++endif
