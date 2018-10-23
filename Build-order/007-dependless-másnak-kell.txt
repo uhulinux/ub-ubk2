@@ -46,6 +46,7 @@ mksh
 mp4v2
 nickle
 nomarch
+nss-mdns
 pcre2
 perl-algorithm-diff
 pkcs11
