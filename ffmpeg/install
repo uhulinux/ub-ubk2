@@ -15,3 +15,5 @@ done
 # ln -s postproc/postprocess.h "$UB_INSTALLDIR"/usr/include/
 
 cp config.h "$UB_INSTALLDIR"/usr/include/libavformat/
+
+rm -rf "$UB_INSTALLDIR"/usr/share/ffmpeg/examples
