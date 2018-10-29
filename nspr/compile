@@ -6,5 +6,5 @@ opts="--enable-64bit"
 fi
 
 ub_compile \
-	--includedir=/usr/include/nspr4 \
+	--includedir=/usr/include/nspr \
 	$opts
