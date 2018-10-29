@@ -82,6 +82,7 @@ xcb-util-cursor
 xcb-util-wm
 xcb-util-xrm
 llvm
+llvm7
 libclc
 yasm
 libomxil-bellagio
