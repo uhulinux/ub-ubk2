@@ -44,11 +44,11 @@ ac_add_options --disable-elf-hack
 _EOF_
 
 if [ "$UB_ARCH" == "amd64" ];then
-echo "ac_add_options --host=x86_64-gnu-linux" >> .mozconfig
-echo "ac_add_options --target=x86_64-gnu-linux" >> .mozconfig
+echo "ac_add_options --host=x86_64-linux-gnu" >> .mozconfig
+echo "ac_add_options --target=x86_64-linux-gnu" >> .mozconfig
 else
-echo "ac_add_options --host=i686-gnu-linux" >> .mozconfig
-echo "ac_add_options --target=i686-gnu-linux" >> .mozconfig
+echo "ac_add_options --host=i686-linux-gnu" >> .mozconfig
+echo "ac_add_options --target=i686-linux-gnu" >> .mozconfig
 fi
 
 # cd "$UB_OBJECTDIR"
