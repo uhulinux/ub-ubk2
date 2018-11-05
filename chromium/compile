@@ -11,11 +11,6 @@ else
 cpu="x86"
 fi
 
-export CC=gcc
-export CXX=g++
-
-# -Dcomponent="shared_library" -> is_component_build=true
-
 _google_api_key=AIzaSyDwr302FpOSkGRpLlUpPThNTDPbXcIn_FM
 _google_default_client_id=413772536636.apps.googleusercontent.com
 _google_default_client_secret=0ZChLK6AxeA3Isu96MkwqDR4
@@ -24,7 +19,7 @@ _flags=("
 host_cpu=\"${cpu}\"
 target_cpu=\"${cpu}\"
 is_debug=false
-is_clang=false
+is_clang=true
 clang_base_path=\"/usr\"
 clang_use_chrome_plugins=false
 linux_use_bundled_binutils=false
@@ -40,7 +35,7 @@ google_default_client_secret=\"${_google_default_client_secret}\"
 use_allocator=\"none\"
 use_jumbo_build=true
 use_gold=false
-use_lld=false
+use_lld=true
 use_sysroot=false
 enable_linux_installer=false
 enable_nacl=false
@@ -52,7 +47,6 @@ use_cups=true
 use_custom_libcxx=false
 use_gio=false
 use_gnome_keyring=false
-use_gtk3=true
 use_kerberos=false
 use_pulseaudio=true
 link_pulseaudio=true

@@ -17,6 +17,7 @@ libxml2-dev
 libxscrnsaver-dev
 libxslt-dev
 libxtst-dev
+llvm7
 mesa-dev
 ninja
 node
