@@ -14,21 +14,6 @@ ccache --max-size=12G
 # fi
 # mv *.{gz,zip,bz2,xz} src/
 
-# hostflags 32 és 64 bithez
-if [ "$UB_ARCH" == "amd64" ]; then
-	hostflags=(
-	--build=x86_64-linux
-	--host=x86_64-linux
-	--target=x86_64-linux
-	)
-else
-	hostflags=(
-	--build=i686-linux
-	--host=i686-linux
-	--target=i686-linux
-	)
-fi
-
 export QT5DIR=/usr/lib/qt5
 
 #export CFLAGS=-I/usr/include/harfbuzz
@@ -40,9 +25,12 @@ export QT5DIR=/usr/lib/qt5
 # egyébként az autogen.input a preferált (ebben felsorolni az opciókat),
 # csak ne legyenek idézőjelek az opciókban (pl. --prefix="/usr"), attól kiakad!
 
+if [ $UB_ARCH = "i386" ]; then
+_buildflags=" --host=i686-linux-gnu --target=i686-linux-gnu"
+fi
+
 # opciók a distro-configs/LibreOfficeUHU.conf-ból
 ./autogen.sh \
-    ${hostflags[@]} \
     --prefix=/usr \
     --sysconfdir=/etc \
     --localstatedir=/var \
@@ -98,7 +86,8 @@ export QT5DIR=/usr/lib/qt5
     --enable-gtk3-kde5 \
     --enable-kde5 \
     --enable-qt5 \
-    --enable-release-build
+    --enable-release-build \
+    $_buildflags
 
 # az unitcheck és a slowcheck nem kell
 make build-nocheck
