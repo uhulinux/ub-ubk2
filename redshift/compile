@@ -2,4 +2,5 @@
 
 autoreconf -vif
 intltoolize --force
-ub_compile
+ub_compile \
+    --enable-gui
