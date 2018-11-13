@@ -3,4 +3,9 @@
 autoreconf -vif
 intltoolize --force
 ub_compile \
-    --enable-gui
+    --enable-gui                \
+    --enable-drm                \
+    --enable-randr              \
+    --enable-vidmode            \
+    --enable-dummy              \
+    --enable-geoclue2
