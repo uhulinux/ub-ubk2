@@ -1,10 +1,6 @@
-accountsservice-dev
 cinnamon-desktop-dev
 clutter-dev
-docbook-dtds
-docbook-xsl
 glu-dev
-gnome-doc-utils
 gobject-introspection-dev
 intltool
 libcanberra-dev
