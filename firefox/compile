@@ -8,6 +8,7 @@ CC="ccache gcc -m32"
 CXX="ccache g++ -m32"
 fi
 
+export RUSTFLAGS="-Cdebuginfo=0"
 export LDFLAGS="-Wl,-rpath,/usr/lib/firefox/ -Wl,--no-keep-memory -Wl,-z,relro -Wl,-z,now"
 
 : > .mozconfig
