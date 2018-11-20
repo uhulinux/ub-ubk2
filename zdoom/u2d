@@ -1,1 +1,1 @@
-u2d https://github.com/rheit/zdoom/releases/
+urllist https://github.com/rheit/zdoom/releases/ | grep -E '[0-9]\.[0-9]\.tar\.gz' | sed s/.tar.gz//g | sort -V | tail -n 1
