@@ -1,0 +1,3 @@
+#!/bin/sh -eux
+
+pod2man dpkg-repack.pod dpkg-repack.1

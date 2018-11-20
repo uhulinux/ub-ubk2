@@ -25,3 +25,4 @@ yelp
 libpeas
 telepathy-mission-control
 gvfs
+amtk

@@ -1,5 +1,6 @@
-gconfmm2-dev
-gtkmm2-dev
+dbus-glib-dev
+gtkmm-dev
 intltool
 libglademm2-dev
+meson
 pulseaudio-dev

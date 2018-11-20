@@ -1,5 +1,4 @@
 #!/usr/bin/env dl
 
-cellwriter-${UB_VERSION}.tar.gz cellwriter-${UB_VERSION}/
-	https://sources.voidlinux.eu/CellWriter-${UB_VERSION}/
-	http://v1.risujin.org/pub/cellwriter/
+cellwriter_${UB_VERSION}.orig.tar.gz cellwriter-${UB_VERSION}/
+	http://ftp.debian.org/debian/pool/main/c/cellwriter/

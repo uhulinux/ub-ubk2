@@ -84,6 +84,7 @@ gtkspell2
 leptonica
 libwandio
 libtrace
+libopusenc
 opusfile
 osm-gps-map
 polkit-qt
