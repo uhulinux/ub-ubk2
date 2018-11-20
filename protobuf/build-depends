@@ -1,8 +1,5 @@
 gtest
-python-dateutil
-python-dev
-python-gflags
-python-google-apputils
+python3-setuptools
+python3-six
 python-setuptools
 python-six
-pytz
