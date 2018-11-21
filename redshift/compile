@@ -7,5 +7,4 @@ ub_compile \
     --enable-drm                \
     --enable-randr              \
     --enable-vidmode            \
-    --enable-dummy              \
     --enable-geoclue2
