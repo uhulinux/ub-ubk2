@@ -16,8 +16,6 @@ ccache --max-size=12G
 
 export QT5DIR=/usr/lib/qt5
 
-#export CFLAGS=-I/usr/include/harfbuzz
-
 # ha van a distro-configs alatt megfelelő tartalmú .conf fájl, ekkor az
 # ./autogen.sh --with-distro=<conffile> is használható
 # a LibreOfficeUHU.conf fájlhoz
@@ -27,6 +25,8 @@ export QT5DIR=/usr/lib/qt5
 
 if [ $UB_ARCH = "i386" ]; then
 _buildflags=" --host=i686-linux-gnu --target=i686-linux-gnu"
+else
+_buildflags=" --host=x86_64-linux-gnu --target=x86_64-linux-gnu"
 fi
 
 # opciók a distro-configs/LibreOfficeUHU.conf-ból
