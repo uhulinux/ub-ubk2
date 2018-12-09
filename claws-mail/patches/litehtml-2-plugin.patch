@@ -102,8 +102,8 @@ diff -Naur orig/src/plugins/litehtml_viewer/claws.def patched/src/plugins/liteht
 +subst_char
 diff -Naur orig/src/plugins/litehtml_viewer/container_linux.cpp patched/src/plugins/litehtml_viewer/container_linux.cpp
 --- orig/src/plugins/litehtml_viewer/container_linux.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ patched/src/plugins/litehtml_viewer/container_linux.cpp	2018-11-07 03:35:43.408719283 +0100
-@@ -0,0 +1,910 @@
++++ patched/src/plugins/litehtml_viewer/container_linux.cpp	2018-12-09 01:03:10.706349164 +0100
+@@ -0,0 +1,918 @@
 +/*
 + * Claws Mail -- A GTK+ based, lightweight, and fast e-mail client
 + * Copyright(C) 1999-2015 the Claws Mail Team
@@ -156,7 +156,9 @@ diff -Naur orig/src/plugins/litehtml_viewer/container_linux.cpp patched/src/plug
 +{
 +	litehtml::string_vector fonts;
 +	litehtml::split_string(faceName, fonts, ",");
-+	litehtml::trim(fonts[0]);
++	if (! fonts.empty()) {
++	    litehtml::trim(fonts[0]);
++	}
 +
 +	cairo_font_face_t* fnt = 0;
 +
@@ -246,8 +248,10 @@ diff -Naur orig/src/plugins/litehtml_viewer/container_linux.cpp patched/src/plug
 +
 +	cairo_save(m_temp_cr);
 +
-+	cairo_set_font_size(m_temp_cr, fnt->size);
-+	cairo_set_font_face(m_temp_cr, fnt->font);
++	if (fnt) {
++	    cairo_set_font_size(m_temp_cr, fnt->size);
++	    cairo_set_font_face(m_temp_cr, fnt->font);
++	}
 +	cairo_text_extents_t ext;
 +	cairo_text_extents(m_temp_cr, text, &ext);
 +
@@ -264,8 +268,10 @@ diff -Naur orig/src/plugins/litehtml_viewer/container_linux.cpp patched/src/plug
 +
 +	apply_clip(cr);
 +
-+	cairo_set_font_face(cr, fnt->font);
-+	cairo_set_font_size(cr, fnt->size);
++	if (fnt) {
++	    cairo_set_font_face(cr, fnt->font);
++	    cairo_set_font_size(cr, fnt->size);
++	}
 +	cairo_font_extents_t ext;
 +	cairo_font_extents(cr, &ext);
 +
@@ -279,20 +285,21 @@ diff -Naur orig/src/plugins/litehtml_viewer/container_linux.cpp patched/src/plug
 +
 +	int tw = 0;
 +
-+	if(fnt->underline || fnt->strikeout)
-+	{
++	if (fnt) {
++	    if(fnt->underline || fnt->strikeout)
++	    {
 +		tw = text_width(text, hFont);
-+	}
++	    }
 +
-+	if(fnt->underline)
-+	{
++	    if(fnt->underline)
++	    {
 +		cairo_set_line_width(cr, 1);
 +		cairo_move_to(cr, x, y + 1.5);
 +		cairo_line_to(cr, x + tw, y + 1.5);
 +		cairo_stroke(cr);
-+	}
-+	if(fnt->strikeout)
-+	{
++	    }
++	    if(fnt->strikeout)
++	    {
 +		cairo_text_extents_t tex;
 +		cairo_text_extents(cr, "x", &tex);
 +
@@ -302,7 +309,8 @@ diff -Naur orig/src/plugins/litehtml_viewer/container_linux.cpp patched/src/plug
 +		cairo_move_to(cr, x, (double) ln_y - 0.5);
 +		cairo_line_to(cr, x + tw, (double) ln_y - 0.5);
 +		cairo_stroke(cr);
-+	}
++	    }
++	}   
 +
 +	cairo_restore(cr);
 +}
@@ -1448,8 +1456,9 @@ diff -Naur orig/src/plugins/litehtml_viewer/css.inc patched/src/plugins/litehtml
 +}"
 diff -Naur orig/src/plugins/litehtml_viewer/http.cpp patched/src/plugins/litehtml_viewer/http.cpp
 --- orig/src/plugins/litehtml_viewer/http.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ patched/src/plugins/litehtml_viewer/http.cpp	2018-11-09 12:53:05.355005690 +0100
-@@ -0,0 +1,91 @@
++++ patched/src/plugins/litehtml_viewer/http.cpp	2018-12-09 01:03:10.706349164 +0100
+@@ -0,0 +1,93 @@
++#include <string.h>
 +#include "http.h"
 +
 +struct Data {
@@ -1478,10 +1487,10 @@ diff -Naur orig/src/plugins/litehtml_viewer/http.cpp patched/src/plugins/litehtm
 +    struct Data* data = (struct Data *) data_ptr;
 +    size_t realsize = size * nmemb;
 +    
-+    char *input = (char *) realloc(data->memory, data->size + realsize + 1);
++    char *input = (char *) g_realloc(data->memory, data->size + realsize + 1);
 +    if(input == NULL) {
 +        /* out of memory! */
-+        g_log(NULL, G_LOG_LEVEL_ERROR, "not enough memory (realloc returned NULL)");
++        g_log(NULL, G_LOG_LEVEL_WARNING, "not enough memory (realloc returned NULL)");
 +        return 0;
 +    }
 +    
@@ -1494,51 +1503,52 @@ diff -Naur orig/src/plugins/litehtml_viewer/http.cpp patched/src/plugins/litehtm
 +}
 +
 +void http::destroy_giostream(gpointer data) {
-+	GInputStream* gio;
-+	if (data) {
-+		gio = G_INPUT_STREAM(data);
-+		g_input_stream_close(gio, NULL, NULL);
-+		gio = NULL;
-+	}
++    GInputStream* gio;
++    if (data) {
++	gio = G_INPUT_STREAM(data);
++	g_input_stream_close(gio, NULL, NULL);
++	gio = NULL;
++    }
 +}
 +
 +GInputStream *http::load_url(const gchar *url, GError **error)
 +{
-+	GError* _error = NULL;
-+	CURLcode res = CURLE_OK;
-+	gsize len;
-+	gchar* content;
++    GError* _error = NULL;
++    CURLcode res = CURLE_OK;
++    gsize len;
++    gchar* content;
 +    GInputStream* stream = NULL;
 +    struct Data data;
 +
-+    data.memory = (char *) malloc(1);
++    data.memory = (char *) g_malloc(1);
 +    data.size = 0;
 +    
-+	if (!strncmp(url, "file:///", 8) || g_file_test(url, G_FILE_TEST_EXISTS)) {
-+		gchar* newurl = g_filename_from_uri(url, NULL, NULL);
-+		if (g_file_get_contents(newurl ? newurl : url, &content, &len, &_error)) {
-+			stream = g_memory_input_stream_new_from_data(content, len, http::destroy_giostream);
-+		} else {
-+			g_log(NULL, G_LOG_LEVEL_MESSAGE, "%s", _error->message);
-+		}
-+		g_free(newurl);
++    if (!strncmp(url, "file:///", 8) || g_file_test(url, G_FILE_TEST_EXISTS)) {
++	gchar* newurl = g_filename_from_uri(url, NULL, NULL);
++	if (g_file_get_contents(newurl ? newurl : url, &content, &len, &_error)) {
++	    stream = g_memory_input_stream_new_from_data(content, len, http::destroy_giostream);
 +	} else {
-+		if (!curl) return NULL;
-+	    curl_easy_setopt(curl, CURLOPT_URL, url);
-+	    curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, curl_write_data);
-+	    curl_easy_setopt(curl, CURLOPT_WRITEDATA, (void *)&data);
-+	    res = curl_easy_perform(curl);
-+	    if (res != CURLE_OK) {
-+		    _error = g_error_new_literal(G_FILE_ERROR, res, curl_easy_strerror(res));
-+	    } else {
-+	        stream = g_memory_input_stream_new_from_data(g_memdup(data.memory, data.size), data.size, http::destroy_giostream);
-+	        g_free(data.memory);
-+	    }
++	    g_log(NULL, G_LOG_LEVEL_MESSAGE, "%s", _error->message);
 +	}
++	g_free(newurl);
++    } else {
++	if (!curl) return NULL;
++	curl_easy_setopt(curl, CURLOPT_URL, url);
++	curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, curl_write_data);
++	curl_easy_setopt(curl, CURLOPT_WRITEDATA, (void *)&data);
++	res = curl_easy_perform(curl);
++	if (res != CURLE_OK) {
++	    _error = g_error_new_literal(G_FILE_ERROR, res, curl_easy_strerror(res));
++	} else {
++	    g_log(NULL, G_LOG_LEVEL_MESSAGE, "Image size: %d", data.size);
++	    stream = g_memory_input_stream_new_from_data(g_memdup(data.memory, data.size), data.size, http::destroy_giostream);
++	    g_free(data.memory);
++	}
++    }
 +
-+	if (error && _error) *error = _error;
++    if (error && _error) *error = _error;
 +
-+	return stream;
++    return stream;
 +}
 +
 diff -Naur orig/src/plugins/litehtml_viewer/http.h patched/src/plugins/litehtml_viewer/http.h
@@ -1573,8 +1583,8 @@ diff -Naur orig/src/plugins/litehtml_viewer/http.h patched/src/plugins/litehtml_
 +
 diff -Naur orig/src/plugins/litehtml_viewer/lh_viewer.c patched/src/plugins/litehtml_viewer/lh_viewer.c
 --- orig/src/plugins/litehtml_viewer/lh_viewer.c	1970-01-01 01:00:00.000000000 +0100
-+++ patched/src/plugins/litehtml_viewer/lh_viewer.c	2018-11-09 12:53:05.359005810 +0100
-@@ -0,0 +1,149 @@
++++ patched/src/plugins/litehtml_viewer/lh_viewer.c	2018-12-09 01:03:10.710349203 +0100
+@@ -0,0 +1,184 @@
 +/*
 + * Claws Mail -- A GTK+ based, lightweight, and fast e-mail client
 + * Copyright(C) 1999-2015 the Claws Mail Team
@@ -1601,6 +1611,8 @@ diff -Naur orig/src/plugins/litehtml_viewer/lh_viewer.c patched/src/plugins/lite
 +
 +#include <codeconv.h>
 +#include "common/utils.h"
++#include "mainwindow.h"
++#include "statusbar.h"
 +#include "lh_viewer.h"
 +
 +static gchar *content_types[] = { "text/html", NULL };
@@ -1621,20 +1633,32 @@ diff -Naur orig/src/plugins/litehtml_viewer/lh_viewer.c patched/src/plugins/lite
 +}
 +
 +static gchar *get_utf8_string(const gchar *string) {
-+        gchar *utf8;
++        gchar *utf8 = NULL;
 +        gsize length;
 +        GError *error = NULL;
++        gchar *locale = NULL;
 +
 +	if (!g_utf8_validate(string, -1, NULL)) {
 +		const gchar *cur_locale = conv_get_current_locale();
-+		utf8 = g_convert(string, -1, "utf-8", cur_locale, NULL, &length, &error);
-+		if (error) {
-+			debug_print("Failed convertion to current locale: %s", error->message);
-+			g_error_free(error);
-+			error = NULL;
++		gchar* split = g_strstr_len(cur_locale, -1, ".");
++		if (split) {
++		    locale = ++split;
++		} else {
++		    locale = (gchar *) cur_locale;
++		}
++		debug_print("Try converting to UTF-8 from %s\n", locale);
++		if (g_ascii_strcasecmp("utf-8", locale) != 0) {
++		    utf8 = g_convert(string, -1, "utf-8", locale, NULL, &length, &error);
++		    if (error) {
++			    debug_print("Failed convertion to current locale: %s\n", error->message);
++			    g_clear_error(&error);
++			}
++	    }
++	    if (!utf8) {
++	        debug_print("Use iso-8859-1 as last resort\n");
 +			utf8 = g_convert(string, -1, "utf-8", "iso-8859-1", NULL, &length, &error);
 +			if (error) {
-+				debug_print("Charset detection failed");
++				debug_print("Charset detection failed. Use text as is\n");
 +				utf8 = g_strdup(string);
 +				g_clear_error(&error);
 +			}
@@ -1698,6 +1722,14 @@ diff -Naur orig/src/plugins/litehtml_viewer/lh_viewer.c patched/src/plugins/lite
 +//	lh_widget_destroy(viewer->widget);
 +}
 +
++static void lh_print_viewer (MimeViewer *_viewer)
++{
++    debug_print("LH: print_viewer\n");
++    
++    LHViewer* viewer = (LHViewer *) _viewer;
++    lh_widget_print(viewer->widget);    
++}
++
 +/***************************************************************/
 +MimeViewer *lh_viewer_create()
 +{
@@ -1712,6 +1744,8 @@ diff -Naur orig/src/plugins/litehtml_viewer/lh_viewer.c patched/src/plugins/lite
 +
 +	viewer->mimeviewer.clear_viewer = lh_clear_viewer;
 +	viewer->mimeviewer.destroy_viewer = lh_destroy_viewer;
++	
++	viewer->mimeviewer.print = lh_print_viewer;
 +
 +	viewer->vbox = gtk_vbox_new(FALSE, 0);
 +
@@ -1724,6 +1758,17 @@ diff -Naur orig/src/plugins/litehtml_viewer/lh_viewer.c patched/src/plugins/lite
 +	return (MimeViewer *)viewer;
 +}
 +
++void lh_widget_statusbar_push(const gchar* msg)
++{
++	MainWindow *mainwin = mainwindow_get_mainwindow();
++	STATUSBAR_PUSH(mainwin, msg);
++}
++
++void lh_widget_statusbar_pop()
++{
++        MainWindow *mainwin = mainwindow_get_mainwindow();
++        STATUSBAR_POP(mainwin);
++}
 diff -Naur orig/src/plugins/litehtml_viewer/lh_viewer.h patched/src/plugins/litehtml_viewer/lh_viewer.h
 --- orig/src/plugins/litehtml_viewer/lh_viewer.h	1970-01-01 01:00:00.000000000 +0100
 +++ patched/src/plugins/litehtml_viewer/lh_viewer.h	2018-11-07 03:35:43.408719283 +0100
@@ -1742,8 +1787,8 @@ diff -Naur orig/src/plugins/litehtml_viewer/lh_viewer.h patched/src/plugins/lite
 +};
 diff -Naur orig/src/plugins/litehtml_viewer/lh_widget.cpp patched/src/plugins/litehtml_viewer/lh_widget.cpp
 --- orig/src/plugins/litehtml_viewer/lh_widget.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ patched/src/plugins/litehtml_viewer/lh_widget.cpp	2018-11-09 23:49:48.317435981 +0100
-@@ -0,0 +1,443 @@
++++ patched/src/plugins/litehtml_viewer/lh_widget.cpp	2018-12-09 01:03:10.710349203 +0100
+@@ -0,0 +1,472 @@
 +/*
 + * Claws Mail -- A GTK+ based, lightweight, and fast e-mail client
 + * Copyright(C) 1999-2015 the Claws Mail Team
@@ -1895,15 +1940,24 @@ diff -Naur orig/src/plugins/litehtml_viewer/lh_widget.cpp patched/src/plugins/li
 +	GdkPixbuf *pixbuf = NULL;
 +
 +	g_log(NULL, G_LOG_LEVEL_MESSAGE, "Loading... %s", url);
-+
-+    http http_loader;
-+    GInputStream *image = http_loader.load_url(url, &error);
-+    
-+	if (!image) return NULL;
++	gchar *msg = g_strdup_printf("Loading %s ...", url);
++        lh_widget_statusbar_push(msg);
++	g_free(msg);
 +	
++	http http_loader;
++	GInputStream *image = http_loader.load_url(url, &error);
++    
++	if (error || !image) {
++	    if (error) {
++		g_log(NULL, G_LOG_LEVEL_WARNING, "lh_widget::get_image: Could not create pixbuf %s", error->message);
++		g_clear_error(&error);
++	    }
++	    goto statusbar_pop;
++	}
++
 +	pixbuf = gdk_pixbuf_new_from_stream(image, NULL, &error);
 +	if (error) {
-+	    g_log(NULL, G_LOG_LEVEL_ERROR, "lh_widget::get_image: Could not create pixbuf %s", error->message);
++	    g_log(NULL, G_LOG_LEVEL_WARNING, "lh_widget::get_image: Could not create pixbuf %s", error->message);
 +	    //g_object_unref(pixbuf);
 +	    pixbuf = NULL;
 +	    g_clear_error(&error);
@@ -1913,18 +1967,23 @@ diff -Naur orig/src/plugins/litehtml_viewer/lh_widget.cpp patched/src/plugins/li
 +/*	if (redraw_on_ready) {
 +		redraw();
 +	}*/
++
++statusbar_pop:
++	lh_widget_statusbar_pop();
 +	
 +	return pixbuf;
 +}
 +
 +void lh_widget::open_html(const gchar *contents)
 +{
++	lh_widget_statusbar_push("Loading HTML part ...");
 +	m_html = litehtml::document::createFromString(contents, this, &m_context);
 +	m_rendered_width = 0;
 +	if (m_html != NULL) {
 +		g_log(NULL, G_LOG_LEVEL_MESSAGE, "lh_widget::open_html created document");
 +		redraw();
 +	}
++	lh_widget_statusbar_pop();
 +}
 +
 +void lh_widget::draw(cairo_t *cr)
@@ -2027,7 +2086,7 @@ diff -Naur orig/src/plugins/litehtml_viewer/lh_widget.cpp patched/src/plugins/li
 +
 +void lh_widget::set_cursor(const litehtml::tchar_t* cursor)
 +{
-+    g_log(NULL, G_LOG_LEVEL_MESSAGE, "lh_widget set_cursor %s:%s", m_cursor, cursor);
++    //g_log(NULL, G_LOG_LEVEL_MESSAGE, "lh_widget set_cursor %s:%s", m_cursor, cursor);
 +    if (cursor)
 +    {
 +	if (m_cursor != cursor)
@@ -2040,7 +2099,7 @@ diff -Naur orig/src/plugins/litehtml_viewer/lh_widget.cpp patched/src/plugins/li
 +
 +void lh_widget::update_cursor()
 +{
-+    g_log(NULL, G_LOG_LEVEL_MESSAGE, "lh_widget update_cursor %s", m_cursor);
++    //g_log(NULL, G_LOG_LEVEL_MESSAGE, "lh_widget update_cursor %s", m_cursor);
 +    GdkCursorType cursType = GDK_ARROW;
 +    if(m_cursor == _t("pointer"))
 +    {
@@ -2048,11 +2107,21 @@ diff -Naur orig/src/plugins/litehtml_viewer/lh_widget.cpp patched/src/plugins/li
 +    }
 +    if(cursType == GDK_ARROW)
 +    {
++	lh_widget_statusbar_pop();
 +        gdk_window_set_cursor(gtk_widget_get_window(m_drawing_area), NULL);
 +    } else
 +    {
++	if (!m_clicked_url.empty()) {
++	    lh_widget_statusbar_push(m_clicked_url.c_str());
++	}
 +        gdk_window_set_cursor(gtk_widget_get_window(m_drawing_area), gdk_cursor_new(cursType));
 +    }
++}
++
++void lh_widget::print()
++{
++    g_log(NULL, G_LOG_LEVEL_MESSAGE, "lh_widget print");
++    gtk_widget_realize(GTK_WIDGET(m_drawing_area));
 +}
 +
 +static gboolean expose_event_cb(GtkWidget *widget, GdkEvent *event,
@@ -2104,10 +2173,11 @@ diff -Naur orig/src/plugins/litehtml_viewer/lh_widget.cpp patched/src/plugins/li
 +    litehtml::position::vector redraw_boxes;
 +    lh_widget *w = (lh_widget *)user_data;
 +    
-+    g_log(NULL, G_LOG_LEVEL_MESSAGE, "lh_widget on_motion_notify_event");
++    //g_log(NULL, G_LOG_LEVEL_MESSAGE, "lh_widget on_motion_notify_event");
 +
 +    if(w->m_html)
 +    {    
++	//if(m_cursor == _t("pointer"))
 +        if(w->m_html->on_mouse_over((int) event->x, (int) event->y, (int) event->x, (int) event->y, redraw_boxes))
 +        {
 +            for (auto& pos : redraw_boxes)
@@ -2133,7 +2203,7 @@ diff -Naur orig/src/plugins/litehtml_viewer/lh_widget.cpp patched/src/plugins/li
 +	if(w->m_html)
 +	{
 +	    w->m_clicked_url.clear();
-+        if(w->m_html->on_lbutton_up((int) event->x, (int) event->y, (int) event->x, (int) event->y, redraw_boxes))
++	    if(w->m_html->on_lbutton_up((int) event->x, (int) event->y, (int) event->x, (int) event->y, redraw_boxes))
 +        {
 +            for (auto& pos : redraw_boxes)
 +            {
@@ -2149,7 +2219,7 @@ diff -Naur orig/src/plugins/litehtml_viewer/lh_widget.cpp patched/src/plugins/li
 +			     w->m_clicked_url.c_str(),
 +			     GDK_CURRENT_TIME, &error);
 +                if (error) {
-+                    g_log(NULL, G_LOG_LEVEL_ERROR, "Failed opening url(%s): %s", w->m_clicked_url, error->message);
++                    g_log(NULL, G_LOG_LEVEL_WARNING, "Failed opening url(%s): %s", w->m_clicked_url, error->message);
 +                    g_clear_error(&error);
 +                }
 +        }
@@ -2186,11 +2256,15 @@ diff -Naur orig/src/plugins/litehtml_viewer/lh_widget.cpp patched/src/plugins/li
 +	delete w;
 +}
 +
++void lh_widget_print(lh_widget_wrapped *w) {
++	w->print();
++}
++
 +} /* extern "C" */
 diff -Naur orig/src/plugins/litehtml_viewer/lh_widget.h patched/src/plugins/litehtml_viewer/lh_widget.h
 --- orig/src/plugins/litehtml_viewer/lh_widget.h	1970-01-01 01:00:00.000000000 +0100
-+++ patched/src/plugins/litehtml_viewer/lh_widget.h	2018-11-09 23:49:48.321436036 +0100
-@@ -0,0 +1,47 @@
++++ patched/src/plugins/litehtml_viewer/lh_widget.h	2018-12-09 01:03:10.710349203 +0100
+@@ -0,0 +1,48 @@
 +#include <gtk/gtk.h>
 +#include <glib.h>
 +#include <gio/gio.h>
@@ -2222,6 +2296,7 @@ diff -Naur orig/src/plugins/litehtml_viewer/lh_widget.h patched/src/plugins/lite
 +		void open_html(const gchar *contents);
 +		void clear();
 +		void update_cursor();
++		void print();
 +
 +		litehtml::document::ptr m_html;
 +		litehtml::tstring m_clicked_url;
@@ -2240,8 +2315,8 @@ diff -Naur orig/src/plugins/litehtml_viewer/lh_widget.h patched/src/plugins/lite
 +};
 diff -Naur orig/src/plugins/litehtml_viewer/lh_widget_wrapped.h patched/src/plugins/litehtml_viewer/lh_widget_wrapped.h
 --- orig/src/plugins/litehtml_viewer/lh_widget_wrapped.h	1970-01-01 01:00:00.000000000 +0100
-+++ patched/src/plugins/litehtml_viewer/lh_widget_wrapped.h	2018-11-07 03:35:43.408719283 +0100
-@@ -0,0 +1,20 @@
++++ patched/src/plugins/litehtml_viewer/lh_widget_wrapped.h	2018-12-09 01:03:10.710349203 +0100
+@@ -0,0 +1,23 @@
 +#ifndef __LH_WIDGET_WRAPPED_H
 +#define __LH_WIDGET_WRAPPED_H
 +
@@ -2256,6 +2331,9 @@ diff -Naur orig/src/plugins/litehtml_viewer/lh_widget_wrapped.h patched/src/plug
 +void lh_widget_open_html(lh_widget_wrapped *w, const gchar *path);
 +void lh_widget_clear(lh_widget_wrapped *w);
 +void lh_widget_destroy(lh_widget_wrapped *w);
++void lh_widget_statusbar_push(const gchar* msg);
++void lh_widget_statusbar_pop();
++void lh_widget_print(lh_widget_wrapped *w);
 +
 +#ifdef __cplusplus
 +} /* extern "C" */
@@ -2264,9 +2342,10 @@ diff -Naur orig/src/plugins/litehtml_viewer/lh_widget_wrapped.h patched/src/plug
 +#endif /* __LH_WIDGET_WRAPPED_H */
 diff -Naur orig/src/plugins/litehtml_viewer/litehtml/attributes.h patched/src/plugins/litehtml_viewer/litehtml/attributes.h
 --- orig/src/plugins/litehtml_viewer/litehtml/attributes.h	1970-01-01 01:00:00.000000000 +0100
-+++ patched/src/plugins/litehtml_viewer/litehtml/attributes.h	2018-11-07 03:35:43.408719283 +0100
-@@ -0,0 +1,32 @@
-+#pragma once
++++ patched/src/plugins/litehtml_viewer/litehtml/attributes.h	2018-12-09 01:03:10.710349203 +0100
+@@ -0,0 +1,35 @@
++#ifndef LH_ATTRIBUTES_H
++#define LH_ATTRIBUTES_H
 +
 +namespace litehtml
 +{
@@ -2298,10 +2377,11 @@ diff -Naur orig/src/plugins/litehtml_viewer/litehtml/attributes.h patched/src/pl
 +		}
 +	};
 +}
-\ Nincs új sor a fájl végén
++
++#endif  // LH_ATTRIBUTES_H
 diff -Naur orig/src/plugins/litehtml_viewer/litehtml/background.cpp patched/src/plugins/litehtml_viewer/litehtml/background.cpp
 --- orig/src/plugins/litehtml_viewer/litehtml/background.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ patched/src/plugins/litehtml_viewer/litehtml/background.cpp	2018-11-07 03:35:43.408719283 +0100
++++ patched/src/plugins/litehtml_viewer/litehtml/background.cpp	2018-12-09 01:03:10.710349203 +0100
 @@ -0,0 +1,79 @@
 +#include "html.h"
 +#include "background.h"
@@ -2384,9 +2464,11 @@ diff -Naur orig/src/plugins/litehtml_viewer/litehtml/background.cpp patched/src/
 +}
 diff -Naur orig/src/plugins/litehtml_viewer/litehtml/background.h patched/src/plugins/litehtml_viewer/litehtml/background.h
 --- orig/src/plugins/litehtml_viewer/litehtml/background.h	1970-01-01 01:00:00.000000000 +0100
-+++ patched/src/plugins/litehtml_viewer/litehtml/background.h	2018-11-07 03:35:43.408719283 +0100
-@@ -0,0 +1,54 @@
-+#pragma once
++++ patched/src/plugins/litehtml_viewer/litehtml/background.h	2018-12-09 01:03:10.710349203 +0100
+@@ -0,0 +1,58 @@
++#ifndef LH_BACKGROUND_H
++#define LH_BACKGROUND_H
++
 +#include "types.h"
 +#include "attributes.h"
 +#include "css_length.h"
@@ -2440,12 +2522,15 @@ diff -Naur orig/src/plugins/litehtml_viewer/litehtml/background.h patched/src/pl
 +	};
 +
 +}
-\ Nincs új sor a fájl végén
++
++#endif  // LH_BACKGROUND_H
 diff -Naur orig/src/plugins/litehtml_viewer/litehtml/borders.h patched/src/plugins/litehtml_viewer/litehtml/borders.h
 --- orig/src/plugins/litehtml_viewer/litehtml/borders.h	1970-01-01 01:00:00.000000000 +0100
-+++ patched/src/plugins/litehtml_viewer/litehtml/borders.h	2018-11-07 03:35:43.408719283 +0100
-@@ -0,0 +1,296 @@
-+#pragma once
++++ patched/src/plugins/litehtml_viewer/litehtml/borders.h	2018-12-09 01:03:10.710349203 +0100
+@@ -0,0 +1,300 @@
++#ifndef LH_BORDERS_H
++#define LH_BORDERS_H
++
 +#include "css_length.h"
 +#include "types.h"
 +
@@ -2741,9 +2826,11 @@ diff -Naur orig/src/plugins/litehtml_viewer/litehtml/borders.h patched/src/plugi
 +		}
 +	};
 +}
++
++#endif  // LH_BORDERS_H
 diff -Naur orig/src/plugins/litehtml_viewer/litehtml/box.cpp patched/src/plugins/litehtml_viewer/litehtml/box.cpp
 --- orig/src/plugins/litehtml_viewer/litehtml/box.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ patched/src/plugins/litehtml_viewer/litehtml/box.cpp	2018-11-07 03:35:43.408719283 +0100
++++ patched/src/plugins/litehtml_viewer/litehtml/box.cpp	2018-12-09 01:03:10.710349203 +0100
 @@ -0,0 +1,434 @@
 +#include "html.h"
 +#include "box.h"
@@ -3181,9 +3268,10 @@ diff -Naur orig/src/plugins/litehtml_viewer/litehtml/box.cpp patched/src/plugins
 +
 diff -Naur orig/src/plugins/litehtml_viewer/litehtml/box.h patched/src/plugins/litehtml_viewer/litehtml/box.h
 --- orig/src/plugins/litehtml_viewer/litehtml/box.h	1970-01-01 01:00:00.000000000 +0100
-+++ patched/src/plugins/litehtml_viewer/litehtml/box.h	2018-11-07 03:35:43.408719283 +0100
-@@ -0,0 +1,117 @@
-+#pragma once
++++ patched/src/plugins/litehtml_viewer/litehtml/box.h	2018-12-09 01:03:10.710349203 +0100
+@@ -0,0 +1,120 @@
++#ifndef LH_BOX_H
++#define LH_BOX_H
 +
 +namespace litehtml
 +{
@@ -3300,10 +3388,11 @@ diff -Naur orig/src/plugins/litehtml_viewer/litehtml/box.h patched/src/plugins/l
 +		bool						is_break_only();
 +	};
 +}
-\ Nincs új sor a fájl végén
++
++#endif  // LH_BOX_H
 diff -Naur orig/src/plugins/litehtml_viewer/litehtml/context.cpp patched/src/plugins/litehtml_viewer/litehtml/context.cpp
 --- orig/src/plugins/litehtml_viewer/litehtml/context.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ patched/src/plugins/litehtml_viewer/litehtml/context.cpp	2018-11-07 03:35:43.408719283 +0100
++++ patched/src/plugins/litehtml_viewer/litehtml/context.cpp	2018-12-09 01:03:10.710349203 +0100
 @@ -0,0 +1,12 @@
 +#include "html.h"
 +#include "context.h"
@@ -3319,9 +3408,11 @@ diff -Naur orig/src/plugins/litehtml_viewer/litehtml/context.cpp patched/src/plu
 +}
 diff -Naur orig/src/plugins/litehtml_viewer/litehtml/context.h patched/src/plugins/litehtml_viewer/litehtml/context.h
 --- orig/src/plugins/litehtml_viewer/litehtml/context.h	1970-01-01 01:00:00.000000000 +0100
-+++ patched/src/plugins/litehtml_viewer/litehtml/context.h	2018-11-07 03:35:43.408719283 +0100
-@@ -0,0 +1,16 @@
-+#pragma once
++++ patched/src/plugins/litehtml_viewer/litehtml/context.h	2018-12-09 01:03:10.710349203 +0100
+@@ -0,0 +1,20 @@
++#ifndef LH_CONTEXT_H
++#define LH_CONTEXT_H
++
 +#include "stylesheet.h"
 +
 +namespace litehtml
@@ -3337,10 +3428,11 @@ diff -Naur orig/src/plugins/litehtml_viewer/litehtml/context.h patched/src/plugi
 +		}
 +	};
 +}
-\ Nincs új sor a fájl végén
++
++#endif  // LH_CONTEXT_H
 diff -Naur orig/src/plugins/litehtml_viewer/litehtml/css_length.cpp patched/src/plugins/litehtml_viewer/litehtml/css_length.cpp
 --- orig/src/plugins/litehtml_viewer/litehtml/css_length.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ patched/src/plugins/litehtml_viewer/litehtml/css_length.cpp	2018-11-07 03:35:43.408719283 +0100
++++ patched/src/plugins/litehtml_viewer/litehtml/css_length.cpp	2018-12-09 01:03:10.710349203 +0100
 @@ -0,0 +1,54 @@
 +#include "html.h"
 +#include "css_length.h"
@@ -3398,9 +3490,11 @@ diff -Naur orig/src/plugins/litehtml_viewer/litehtml/css_length.cpp patched/src/
 +}
 diff -Naur orig/src/plugins/litehtml_viewer/litehtml/css_length.h patched/src/plugins/litehtml_viewer/litehtml/css_length.h
 --- orig/src/plugins/litehtml_viewer/litehtml/css_length.h	1970-01-01 01:00:00.000000000 +0100
-+++ patched/src/plugins/litehtml_viewer/litehtml/css_length.h	2018-11-07 03:35:43.412719336 +0100
-@@ -0,0 +1,131 @@
-+#pragma once
++++ patched/src/plugins/litehtml_viewer/litehtml/css_length.h	2018-12-09 01:03:10.710349203 +0100
+@@ -0,0 +1,135 @@
++#ifndef LH_CSS_LENGTH_H
++#define LH_CSS_LENGTH_H
++
 +#include "types.h"
 +
 +namespace litehtml
@@ -3531,12 +3625,15 @@ diff -Naur orig/src/plugins/litehtml_viewer/litehtml/css_length.h patched/src/pl
 +		return 0;
 +	}
 +}
-\ Nincs új sor a fájl végén
++
++#endif  // LH_CSS_LENGTH_H
 diff -Naur orig/src/plugins/litehtml_viewer/litehtml/css_margins.h patched/src/plugins/litehtml_viewer/litehtml/css_margins.h
 --- orig/src/plugins/litehtml_viewer/litehtml/css_margins.h	1970-01-01 01:00:00.000000000 +0100
-+++ patched/src/plugins/litehtml_viewer/litehtml/css_margins.h	2018-11-07 03:35:43.412719336 +0100
-@@ -0,0 +1,35 @@
-+#pragma once
++++ patched/src/plugins/litehtml_viewer/litehtml/css_margins.h	2018-12-09 01:03:10.710349203 +0100
+@@ -0,0 +1,39 @@
++#ifndef LH_CSS_MARGINS_H
++#define LH_CSS_MARGINS_H
++
 +#include "css_length.h"
 +
 +namespace litehtml
@@ -3571,12 +3668,15 @@ diff -Naur orig/src/plugins/litehtml_viewer/litehtml/css_margins.h patched/src/p
 +		}
 +	};
 +}
-\ Nincs új sor a fájl végén
++
++#endif  // LH_CSS_MARGINS_H
 diff -Naur orig/src/plugins/litehtml_viewer/litehtml/css_offsets.h patched/src/plugins/litehtml_viewer/litehtml/css_offsets.h
 --- orig/src/plugins/litehtml_viewer/litehtml/css_offsets.h	1970-01-01 01:00:00.000000000 +0100
-+++ patched/src/plugins/litehtml_viewer/litehtml/css_offsets.h	2018-11-07 03:35:43.412719336 +0100
-@@ -0,0 +1,35 @@
-+#pragma once
++++ patched/src/plugins/litehtml_viewer/litehtml/css_offsets.h	2018-12-09 01:03:10.710349203 +0100
+@@ -0,0 +1,39 @@
++#ifndef LH_CSS_OFFSETS_H
++#define LH_CSS_OFFSETS_H
++
 +#include "css_length.h"
 +
 +namespace litehtml
@@ -3611,12 +3711,15 @@ diff -Naur orig/src/plugins/litehtml_viewer/litehtml/css_offsets.h patched/src/p
 +		}
 +	};
 +}
-\ Nincs új sor a fájl végén
++
++#endif  // LH_CSS_OFFSETS_H
 diff -Naur orig/src/plugins/litehtml_viewer/litehtml/css_position.h patched/src/plugins/litehtml_viewer/litehtml/css_position.h
 --- orig/src/plugins/litehtml_viewer/litehtml/css_position.h	1970-01-01 01:00:00.000000000 +0100
-+++ patched/src/plugins/litehtml_viewer/litehtml/css_position.h	2018-11-07 03:35:43.412719336 +0100
-@@ -0,0 +1,35 @@
-+#pragma once
++++ patched/src/plugins/litehtml_viewer/litehtml/css_position.h	2018-12-09 01:03:10.710349203 +0100
+@@ -0,0 +1,39 @@
++#ifndef LH_CSS_POSITION_H
++#define LH_CSS_POSITION_H
++
 +#include "css_length.h"
 +
 +namespace litehtml
@@ -3651,10 +3754,11 @@ diff -Naur orig/src/plugins/litehtml_viewer/litehtml/css_position.h patched/src/
 +		}
 +	};
 +}
-\ Nincs új sor a fájl végén
++
++#endif  // LH_CSS_POSITION_H
 diff -Naur orig/src/plugins/litehtml_viewer/litehtml/css_selector.cpp patched/src/plugins/litehtml_viewer/litehtml/css_selector.cpp
 --- orig/src/plugins/litehtml_viewer/litehtml/css_selector.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ patched/src/plugins/litehtml_viewer/litehtml/css_selector.cpp	2018-11-07 03:35:43.412719336 +0100
++++ patched/src/plugins/litehtml_viewer/litehtml/css_selector.cpp	2018-12-09 01:03:10.710349203 +0100
 @@ -0,0 +1,266 @@
 +#include "html.h"
 +#include "css_selector.h"
@@ -3924,9 +4028,11 @@ diff -Naur orig/src/plugins/litehtml_viewer/litehtml/css_selector.cpp patched/sr
 +
 diff -Naur orig/src/plugins/litehtml_viewer/litehtml/css_selector.h patched/src/plugins/litehtml_viewer/litehtml/css_selector.h
 --- orig/src/plugins/litehtml_viewer/litehtml/css_selector.h	1970-01-01 01:00:00.000000000 +0100
-+++ patched/src/plugins/litehtml_viewer/litehtml/css_selector.h	2018-11-07 03:35:43.412719336 +0100
-@@ -0,0 +1,274 @@
-+#pragma once
++++ patched/src/plugins/litehtml_viewer/litehtml/css_selector.h	2018-12-09 01:03:10.710349203 +0100
+@@ -0,0 +1,278 @@
++#ifndef LH_CSS_SELECTOR_H
++#define LH_CSS_SELECTOR_H
++
 +#include "style.h"
 +#include "media_query.h"
 +
@@ -4200,10 +4306,11 @@ diff -Naur orig/src/plugins/litehtml_viewer/litehtml/css_selector.h patched/src/
 +		}
 +	};
 +}
-\ Nincs új sor a fájl végén
++
++#endif  // LH_CSS_SELECTOR_H
 diff -Naur orig/src/plugins/litehtml_viewer/litehtml/document.cpp patched/src/plugins/litehtml_viewer/litehtml/document.cpp
 --- orig/src/plugins/litehtml_viewer/litehtml/document.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ patched/src/plugins/litehtml_viewer/litehtml/document.cpp	2018-11-07 03:35:43.412719336 +0100
++++ patched/src/plugins/litehtml_viewer/litehtml/document.cpp	2018-12-09 01:03:10.710349203 +0100
 @@ -0,0 +1,930 @@
 +#include "html.h"
 +#include "document.h"
@@ -5137,9 +5244,11 @@ diff -Naur orig/src/plugins/litehtml_viewer/litehtml/document.cpp patched/src/pl
 +}
 diff -Naur orig/src/plugins/litehtml_viewer/litehtml/document.h patched/src/plugins/litehtml_viewer/litehtml/document.h
 --- orig/src/plugins/litehtml_viewer/litehtml/document.h	1970-01-01 01:00:00.000000000 +0100
-+++ patched/src/plugins/litehtml_viewer/litehtml/document.h	2018-11-07 03:35:43.412719336 +0100
-@@ -0,0 +1,124 @@
-+#pragma once
++++ patched/src/plugins/litehtml_viewer/litehtml/document.h	2018-12-09 01:03:10.710349203 +0100
+@@ -0,0 +1,128 @@
++#ifndef LH_DOCUMENT_H
++#define LH_DOCUMENT_H
++
 +#include "style.h"
 +#include "types.h"
 +#include "context.h"
@@ -5263,9 +5372,11 @@ diff -Naur orig/src/plugins/litehtml_viewer/litehtml/document.h patched/src/plug
 +		return lang == m_lang || lang == m_culture;
 +	}
 +}
++
++#endif  // LH_DOCUMENT_H
 diff -Naur orig/src/plugins/litehtml_viewer/litehtml/el_anchor.cpp patched/src/plugins/litehtml_viewer/litehtml/el_anchor.cpp
 --- orig/src/plugins/litehtml_viewer/litehtml/el_anchor.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ patched/src/plugins/litehtml_viewer/litehtml/el_anchor.cpp	2018-11-07 03:35:43.412719336 +0100
++++ patched/src/plugins/litehtml_viewer/litehtml/el_anchor.cpp	2018-12-09 01:03:10.710349203 +0100
 @@ -0,0 +1,31 @@
 +#include "html.h"
 +#include "el_anchor.h"
@@ -5300,9 +5411,11 @@ diff -Naur orig/src/plugins/litehtml_viewer/litehtml/el_anchor.cpp patched/src/p
 +}
 diff -Naur orig/src/plugins/litehtml_viewer/litehtml/el_anchor.h patched/src/plugins/litehtml_viewer/litehtml/el_anchor.h
 --- orig/src/plugins/litehtml_viewer/litehtml/el_anchor.h	1970-01-01 01:00:00.000000000 +0100
-+++ patched/src/plugins/litehtml_viewer/litehtml/el_anchor.h	2018-11-07 03:35:43.412719336 +0100
-@@ -0,0 +1,15 @@
-+#pragma once
++++ patched/src/plugins/litehtml_viewer/litehtml/el_anchor.h	2018-12-09 01:03:10.710349203 +0100
+@@ -0,0 +1,19 @@
++#ifndef LH_EL_ANCHOR_H
++#define LH_EL_ANCHOR_H
++
 +#include "html_tag.h"
 +
 +namespace litehtml
@@ -5317,10 +5430,11 @@ diff -Naur orig/src/plugins/litehtml_viewer/litehtml/el_anchor.h patched/src/plu
 +		virtual void	apply_stylesheet(const litehtml::css& stylesheet) override;
 +	};
 +}
-\ Nincs új sor a fájl végén
++
++#endif  // LH_EL_ANCHOR_H
 diff -Naur orig/src/plugins/litehtml_viewer/litehtml/el_base.cpp patched/src/plugins/litehtml_viewer/litehtml/el_base.cpp
 --- orig/src/plugins/litehtml_viewer/litehtml/el_base.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ patched/src/plugins/litehtml_viewer/litehtml/el_base.cpp	2018-11-07 03:35:43.412719336 +0100
++++ patched/src/plugins/litehtml_viewer/litehtml/el_base.cpp	2018-12-09 01:03:10.710349203 +0100
 @@ -0,0 +1,18 @@
 +#include "html.h"
 +#include "el_base.h"
@@ -5342,9 +5456,11 @@ diff -Naur orig/src/plugins/litehtml_viewer/litehtml/el_base.cpp patched/src/plu
 +}
 diff -Naur orig/src/plugins/litehtml_viewer/litehtml/el_base.h patched/src/plugins/litehtml_viewer/litehtml/el_base.h
 --- orig/src/plugins/litehtml_viewer/litehtml/el_base.h	1970-01-01 01:00:00.000000000 +0100
-+++ patched/src/plugins/litehtml_viewer/litehtml/el_base.h	2018-11-07 03:35:43.412719336 +0100
-@@ -0,0 +1,14 @@
-+#pragma once
++++ patched/src/plugins/litehtml_viewer/litehtml/el_base.h	2018-12-09 01:03:10.710349203 +0100
+@@ -0,0 +1,18 @@
++#ifndef LH_EL_BASE_H
++#define LH_EL_BASE_H
++
 +#include "html_tag.h"
 +
 +namespace litehtml
@@ -5358,9 +5474,11 @@ diff -Naur orig/src/plugins/litehtml_viewer/litehtml/el_base.h patched/src/plugi
 +		virtual void	parse_attributes() override;
 +	};
 +}
++
++#endif  // LH_EL_BASE_H
 diff -Naur orig/src/plugins/litehtml_viewer/litehtml/el_before_after.cpp patched/src/plugins/litehtml_viewer/litehtml/el_before_after.cpp
 --- orig/src/plugins/litehtml_viewer/litehtml/el_before_after.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ patched/src/plugins/litehtml_viewer/litehtml/el_before_after.cpp	2018-11-07 03:35:43.412719336 +0100
++++ patched/src/plugins/litehtml_viewer/litehtml/el_before_after.cpp	2018-12-09 01:03:10.710349203 +0100
 @@ -0,0 +1,200 @@
 +#include "html.h"
 +#include "el_before_after.h"
@@ -5564,9 +5682,11 @@ diff -Naur orig/src/plugins/litehtml_viewer/litehtml/el_before_after.cpp patched
 +}
 diff -Naur orig/src/plugins/litehtml_viewer/litehtml/el_before_after.h patched/src/plugins/litehtml_viewer/litehtml/el_before_after.h
 --- orig/src/plugins/litehtml_viewer/litehtml/el_before_after.h	1970-01-01 01:00:00.000000000 +0100
-+++ patched/src/plugins/litehtml_viewer/litehtml/el_before_after.h	2018-11-07 03:35:43.412719336 +0100
-@@ -0,0 +1,37 @@
-+#pragma once
++++ patched/src/plugins/litehtml_viewer/litehtml/el_before_after.h	2018-12-09 01:03:10.710349203 +0100
+@@ -0,0 +1,41 @@
++#ifndef LH_EL_BEFORE_AFTER_H
++#define LH_EL_BEFORE_AFTER_H
++
 +#include "html_tag.h"
 +
 +namespace litehtml
@@ -5603,10 +5723,11 @@ diff -Naur orig/src/plugins/litehtml_viewer/litehtml/el_before_after.h patched/s
 +		}
 +	};
 +}
-\ Nincs új sor a fájl végén
++
++#endif  // LH_EL_BEFORE_AFTER_H
 diff -Naur orig/src/plugins/litehtml_viewer/litehtml/el_body.cpp patched/src/plugins/litehtml_viewer/litehtml/el_body.cpp
 --- orig/src/plugins/litehtml_viewer/litehtml/el_body.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ patched/src/plugins/litehtml_viewer/litehtml/el_body.cpp	2018-11-07 03:35:43.412719336 +0100
++++ patched/src/plugins/litehtml_viewer/litehtml/el_body.cpp	2018-12-09 01:03:10.710349203 +0100
 @@ -0,0 +1,17 @@
 +#include "html.h"
 +#include "el_body.h"
@@ -5627,9 +5748,11 @@ diff -Naur orig/src/plugins/litehtml_viewer/litehtml/el_body.cpp patched/src/plu
 +}
 diff -Naur orig/src/plugins/litehtml_viewer/litehtml/el_body.h patched/src/plugins/litehtml_viewer/litehtml/el_body.h
 --- orig/src/plugins/litehtml_viewer/litehtml/el_body.h	1970-01-01 01:00:00.000000000 +0100
-+++ patched/src/plugins/litehtml_viewer/litehtml/el_body.h	2018-11-07 03:35:43.412719336 +0100
-@@ -0,0 +1,14 @@
-+#pragma once
++++ patched/src/plugins/litehtml_viewer/litehtml/el_body.h	2018-12-09 01:03:10.710349203 +0100
+@@ -0,0 +1,18 @@
++#ifndef LH_EL_BODY_H
++#define LH_EL_BODY_H
++
 +#include "html_tag.h"
 +
 +namespace litehtml
@@ -5643,10 +5766,11 @@ diff -Naur orig/src/plugins/litehtml_viewer/litehtml/el_body.h patched/src/plugi
 +		virtual bool is_body() const override;
 +	};
 +}
-\ Nincs új sor a fájl végén
++
++#endif  // LH_EL_BODY_H
 diff -Naur orig/src/plugins/litehtml_viewer/litehtml/el_break.cpp patched/src/plugins/litehtml_viewer/litehtml/el_break.cpp
 --- orig/src/plugins/litehtml_viewer/litehtml/el_break.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ patched/src/plugins/litehtml_viewer/litehtml/el_break.cpp	2018-11-07 03:35:43.412719336 +0100
++++ patched/src/plugins/litehtml_viewer/litehtml/el_break.cpp	2018-12-09 01:03:10.710349203 +0100
 @@ -0,0 +1,18 @@
 +#include "html.h"
 +#include "el_break.h"
@@ -5668,9 +5792,11 @@ diff -Naur orig/src/plugins/litehtml_viewer/litehtml/el_break.cpp patched/src/pl
 +
 diff -Naur orig/src/plugins/litehtml_viewer/litehtml/el_break.h patched/src/plugins/litehtml_viewer/litehtml/el_break.h
 --- orig/src/plugins/litehtml_viewer/litehtml/el_break.h	1970-01-01 01:00:00.000000000 +0100
-+++ patched/src/plugins/litehtml_viewer/litehtml/el_break.h	2018-11-07 03:35:43.412719336 +0100
-@@ -0,0 +1,14 @@
-+#pragma once
++++ patched/src/plugins/litehtml_viewer/litehtml/el_break.h	2018-12-09 01:03:10.710349203 +0100
+@@ -0,0 +1,18 @@
++#ifndef LH_EL_BREAK_H
++#define LH_EL_BREAK_H
++
 +#include "html_tag.h"
 +
 +namespace litehtml
@@ -5684,9 +5810,11 @@ diff -Naur orig/src/plugins/litehtml_viewer/litehtml/el_break.h patched/src/plug
 +		virtual bool is_break() const override;
 +	};
 +}
++
++#endif  // LH_EL_BREAK_H
 diff -Naur orig/src/plugins/litehtml_viewer/litehtml/el_cdata.cpp patched/src/plugins/litehtml_viewer/litehtml/el_cdata.cpp
 --- orig/src/plugins/litehtml_viewer/litehtml/el_cdata.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ patched/src/plugins/litehtml_viewer/litehtml/el_cdata.cpp	2018-11-07 03:35:43.412719336 +0100
++++ patched/src/plugins/litehtml_viewer/litehtml/el_cdata.cpp	2018-12-09 01:03:10.710349203 +0100
 @@ -0,0 +1,25 @@
 +#include "html.h"
 +#include "el_cdata.h"
@@ -5715,9 +5843,11 @@ diff -Naur orig/src/plugins/litehtml_viewer/litehtml/el_cdata.cpp patched/src/pl
 +}
 diff -Naur orig/src/plugins/litehtml_viewer/litehtml/el_cdata.h patched/src/plugins/litehtml_viewer/litehtml/el_cdata.h
 --- orig/src/plugins/litehtml_viewer/litehtml/el_cdata.h	1970-01-01 01:00:00.000000000 +0100
-+++ patched/src/plugins/litehtml_viewer/litehtml/el_cdata.h	2018-11-07 03:35:43.412719336 +0100
-@@ -0,0 +1,16 @@
-+#pragma once
++++ patched/src/plugins/litehtml_viewer/litehtml/el_cdata.h	2018-12-09 01:03:10.710349203 +0100
+@@ -0,0 +1,20 @@
++#ifndef LH_EL_CDATA_H
++#define LH_EL_CDATA_H
++
 +#include "html_tag.h"
 +
 +namespace litehtml
@@ -5733,9 +5863,11 @@ diff -Naur orig/src/plugins/litehtml_viewer/litehtml/el_cdata.h patched/src/plug
 +		virtual void	set_data(const tchar_t* data) override;
 +	};
 +}
++
++#endif  // LH_EL_CDATA_H
 diff -Naur orig/src/plugins/litehtml_viewer/litehtml/el_comment.cpp patched/src/plugins/litehtml_viewer/litehtml/el_comment.cpp
 --- orig/src/plugins/litehtml_viewer/litehtml/el_comment.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ patched/src/plugins/litehtml_viewer/litehtml/el_comment.cpp	2018-11-07 03:35:43.412719336 +0100
++++ patched/src/plugins/litehtml_viewer/litehtml/el_comment.cpp	2018-12-09 01:03:10.710349203 +0100
 @@ -0,0 +1,25 @@
 +#include "html.h"
 +#include "el_comment.h"
@@ -5764,9 +5896,11 @@ diff -Naur orig/src/plugins/litehtml_viewer/litehtml/el_comment.cpp patched/src/
 +}
 diff -Naur orig/src/plugins/litehtml_viewer/litehtml/el_comment.h patched/src/plugins/litehtml_viewer/litehtml/el_comment.h
 --- orig/src/plugins/litehtml_viewer/litehtml/el_comment.h	1970-01-01 01:00:00.000000000 +0100
-+++ patched/src/plugins/litehtml_viewer/litehtml/el_comment.h	2018-11-07 03:35:43.412719336 +0100
-@@ -0,0 +1,16 @@
-+#pragma once
++++ patched/src/plugins/litehtml_viewer/litehtml/el_comment.h	2018-12-09 01:03:10.714349243 +0100
+@@ -0,0 +1,20 @@
++#ifndef LH_EL_COMMENT_H
++#define LH_EL_COMMENT_H
++
 +#include "html_tag.h"
 +
 +namespace litehtml
@@ -5782,9 +5916,11 @@ diff -Naur orig/src/plugins/litehtml_viewer/litehtml/el_comment.h patched/src/pl
 +		virtual void	set_data(const tchar_t* data) override;
 +	};
 +}
++
++#endif  // LH_EL_COMMENT_H
 diff -Naur orig/src/plugins/litehtml_viewer/litehtml/el_div.cpp patched/src/plugins/litehtml_viewer/litehtml/el_div.cpp
 --- orig/src/plugins/litehtml_viewer/litehtml/el_div.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ patched/src/plugins/litehtml_viewer/litehtml/el_div.cpp	2018-11-07 03:35:43.412719336 +0100
++++ patched/src/plugins/litehtml_viewer/litehtml/el_div.cpp	2018-12-09 01:03:10.714349243 +0100
 @@ -0,0 +1,23 @@
 +#include "html.h"
 +#include "el_div.h"
@@ -5811,9 +5947,11 @@ diff -Naur orig/src/plugins/litehtml_viewer/litehtml/el_div.cpp patched/src/plug
 +}
 diff -Naur orig/src/plugins/litehtml_viewer/litehtml/el_div.h patched/src/plugins/litehtml_viewer/litehtml/el_div.h
 --- orig/src/plugins/litehtml_viewer/litehtml/el_div.h	1970-01-01 01:00:00.000000000 +0100
-+++ patched/src/plugins/litehtml_viewer/litehtml/el_div.h	2018-11-07 03:35:43.412719336 +0100
-@@ -0,0 +1,14 @@
-+#pragma once
++++ patched/src/plugins/litehtml_viewer/litehtml/el_div.h	2018-12-09 01:03:10.714349243 +0100
+@@ -0,0 +1,18 @@
++#ifndef LH_EL_DIV_H
++#define LH_EL_DIV_H
++
 +#include "html_tag.h"
 +
 +namespace litehtml
@@ -5827,10 +5965,11 @@ diff -Naur orig/src/plugins/litehtml_viewer/litehtml/el_div.h patched/src/plugin
 +		virtual void parse_attributes() override;
 +	};
 +}
-\ Nincs új sor a fájl végén
++
++#endif  // LH_EL_DIV_H
 diff -Naur orig/src/plugins/litehtml_viewer/litehtml/element.cpp patched/src/plugins/litehtml_viewer/litehtml/element.cpp
 --- orig/src/plugins/litehtml_viewer/litehtml/element.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ patched/src/plugins/litehtml_viewer/litehtml/element.cpp	2018-11-07 03:35:43.412719336 +0100
++++ patched/src/plugins/litehtml_viewer/litehtml/element.cpp	2018-12-09 01:03:10.714349243 +0100
 @@ -0,0 +1,409 @@
 +#include "html.h"
 +#include "element.h"
@@ -5887,7 +6026,7 @@ diff -Naur orig/src/plugins/litehtml_viewer/litehtml/element.cpp patched/src/plu
 +	{
 +		return def_color;
 +	}
-+	return web_color::from_string(clrstr);
++	return web_color::from_string(clrstr, get_document()->container());
 +}
 +
 +litehtml::position litehtml::element::get_placement() const
@@ -6243,9 +6382,11 @@ diff -Naur orig/src/plugins/litehtml_viewer/litehtml/element.cpp patched/src/plu
 +bool litehtml::element::have_inline_child() const									LITEHTML_RETURN_FUNC(false)
 diff -Naur orig/src/plugins/litehtml_viewer/litehtml/element.h patched/src/plugins/litehtml_viewer/litehtml/element.h
 --- orig/src/plugins/litehtml_viewer/litehtml/element.h	1970-01-01 01:00:00.000000000 +0100
-+++ patched/src/plugins/litehtml_viewer/litehtml/element.h	2018-11-07 03:35:43.412719336 +0100
-@@ -0,0 +1,399 @@
-+#pragma once
++++ patched/src/plugins/litehtml_viewer/litehtml/element.h	2018-12-09 01:03:10.714349243 +0100
+@@ -0,0 +1,403 @@
++#ifndef LH_ELEMENT_H
++#define LH_ELEMENT_H
++
 +#include <memory>
 +#include "stylesheet.h"
 +#include "css_offsets.h"
@@ -6644,9 +6785,11 @@ diff -Naur orig/src/plugins/litehtml_viewer/litehtml/element.h patched/src/plugi
 +		return m_doc.lock();
 +	}
 +}
++
++#endif  // LH_ELEMENT_H
 diff -Naur orig/src/plugins/litehtml_viewer/litehtml/el_font.cpp patched/src/plugins/litehtml_viewer/litehtml/el_font.cpp
 --- orig/src/plugins/litehtml_viewer/litehtml/el_font.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ patched/src/plugins/litehtml_viewer/litehtml/el_font.cpp	2018-11-07 03:35:43.412719336 +0100
++++ patched/src/plugins/litehtml_viewer/litehtml/el_font.cpp	2018-12-09 01:03:10.714349243 +0100
 @@ -0,0 +1,60 @@
 +#include "html.h"
 +#include "el_font.h"
@@ -6710,9 +6853,11 @@ diff -Naur orig/src/plugins/litehtml_viewer/litehtml/el_font.cpp patched/src/plu
 +}
 diff -Naur orig/src/plugins/litehtml_viewer/litehtml/el_font.h patched/src/plugins/litehtml_viewer/litehtml/el_font.h
 --- orig/src/plugins/litehtml_viewer/litehtml/el_font.h	1970-01-01 01:00:00.000000000 +0100
-+++ patched/src/plugins/litehtml_viewer/litehtml/el_font.h	2018-11-07 03:35:43.412719336 +0100
-@@ -0,0 +1,14 @@
-+#pragma once
++++ patched/src/plugins/litehtml_viewer/litehtml/el_font.h	2018-12-09 01:03:10.714349243 +0100
+@@ -0,0 +1,18 @@
++#ifndef LH_EL_FONT_H
++#define LH_EL_FONT_H
++
 +#include "html_tag.h"
 +
 +namespace litehtml
@@ -6726,10 +6871,11 @@ diff -Naur orig/src/plugins/litehtml_viewer/litehtml/el_font.h patched/src/plugi
 +		virtual void parse_attributes() override;
 +	};
 +}
-\ Nincs új sor a fájl végén
++
++#endif  // LH_EL_FONT_H
 diff -Naur orig/src/plugins/litehtml_viewer/litehtml/el_image.cpp patched/src/plugins/litehtml_viewer/litehtml/el_image.cpp
 --- orig/src/plugins/litehtml_viewer/litehtml/el_image.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ patched/src/plugins/litehtml_viewer/litehtml/el_image.cpp	2018-11-07 03:35:43.412719336 +0100
++++ patched/src/plugins/litehtml_viewer/litehtml/el_image.cpp	2018-12-09 01:03:10.714349243 +0100
 @@ -0,0 +1,255 @@
 +#include "html.h"
 +#include "el_image.h"
@@ -6988,9 +7134,10 @@ diff -Naur orig/src/plugins/litehtml_viewer/litehtml/el_image.cpp patched/src/pl
 +}
 diff -Naur orig/src/plugins/litehtml_viewer/litehtml/el_image.h patched/src/plugins/litehtml_viewer/litehtml/el_image.h
 --- orig/src/plugins/litehtml_viewer/litehtml/el_image.h	1970-01-01 01:00:00.000000000 +0100
-+++ patched/src/plugins/litehtml_viewer/litehtml/el_image.h	2018-11-07 03:35:43.412719336 +0100
-@@ -0,0 +1,23 @@
-+#pragma once
++++ patched/src/plugins/litehtml_viewer/litehtml/el_image.h	2018-12-09 01:03:10.714349243 +0100
+@@ -0,0 +1,26 @@
++#ifndef LH_EL_IMAGE_H
++#define LH_EL_IMAGE_H
 +
 +#include "html_tag.h"
 +
@@ -7013,9 +7160,11 @@ diff -Naur orig/src/plugins/litehtml_viewer/litehtml/el_image.h patched/src/plug
 +		virtual void	get_content_size(size& sz, int max_width) override;
 +	};
 +}
++
++#endif  // LH_EL_IMAGE_H
 diff -Naur orig/src/plugins/litehtml_viewer/litehtml/el_link.cpp patched/src/plugins/litehtml_viewer/litehtml/el_link.cpp
 --- orig/src/plugins/litehtml_viewer/litehtml/el_link.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ patched/src/plugins/litehtml_viewer/litehtml/el_link.cpp	2018-11-07 03:35:43.412719336 +0100
++++ patched/src/plugins/litehtml_viewer/litehtml/el_link.cpp	2018-12-09 01:03:10.714349243 +0100
 @@ -0,0 +1,44 @@
 +#include "html.h"
 +#include "el_link.h"
@@ -7063,9 +7212,11 @@ diff -Naur orig/src/plugins/litehtml_viewer/litehtml/el_link.cpp patched/src/plu
 +}
 diff -Naur orig/src/plugins/litehtml_viewer/litehtml/el_link.h patched/src/plugins/litehtml_viewer/litehtml/el_link.h
 --- orig/src/plugins/litehtml_viewer/litehtml/el_link.h	1970-01-01 01:00:00.000000000 +0100
-+++ patched/src/plugins/litehtml_viewer/litehtml/el_link.h	2018-11-07 03:35:43.412719336 +0100
-@@ -0,0 +1,15 @@
-+#pragma once
++++ patched/src/plugins/litehtml_viewer/litehtml/el_link.h	2018-12-09 01:03:10.714349243 +0100
+@@ -0,0 +1,19 @@
++#ifndef LH_EL_LINK_H
++#define LH_EL_LINK_H
++
 +#include "html_tag.h"
 +
 +namespace litehtml
@@ -7080,9 +7231,11 @@ diff -Naur orig/src/plugins/litehtml_viewer/litehtml/el_link.h patched/src/plugi
 +		virtual void	parse_attributes() override;
 +	};
 +}
++
++#endif  // LH_EL_LINK_H
 diff -Naur orig/src/plugins/litehtml_viewer/litehtml/el_para.cpp patched/src/plugins/litehtml_viewer/litehtml/el_para.cpp
 --- orig/src/plugins/litehtml_viewer/litehtml/el_para.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ patched/src/plugins/litehtml_viewer/litehtml/el_para.cpp	2018-11-07 03:35:43.412719336 +0100
++++ patched/src/plugins/litehtml_viewer/litehtml/el_para.cpp	2018-12-09 01:03:10.714349243 +0100
 @@ -0,0 +1,23 @@
 +#include "html.h"
 +#include "el_para.h"
@@ -7109,9 +7262,11 @@ diff -Naur orig/src/plugins/litehtml_viewer/litehtml/el_para.cpp patched/src/plu
 +}
 diff -Naur orig/src/plugins/litehtml_viewer/litehtml/el_para.h patched/src/plugins/litehtml_viewer/litehtml/el_para.h
 --- orig/src/plugins/litehtml_viewer/litehtml/el_para.h	1970-01-01 01:00:00.000000000 +0100
-+++ patched/src/plugins/litehtml_viewer/litehtml/el_para.h	2018-11-07 03:35:43.412719336 +0100
-@@ -0,0 +1,15 @@
-+#pragma once
++++ patched/src/plugins/litehtml_viewer/litehtml/el_para.h	2018-12-09 01:03:10.714349243 +0100
+@@ -0,0 +1,19 @@
++#ifndef LH_EL_PARA_H
++#define LH_EL_PARA_H
++
 +#include "html_tag.h"
 +
 +namespace litehtml
@@ -7126,10 +7281,11 @@ diff -Naur orig/src/plugins/litehtml_viewer/litehtml/el_para.h patched/src/plugi
 +
 +	};
 +}
-\ Nincs új sor a fájl végén
++
++#endif  // LH_EL_PARA_H
 diff -Naur orig/src/plugins/litehtml_viewer/litehtml/el_script.cpp patched/src/plugins/litehtml_viewer/litehtml/el_script.cpp
 --- orig/src/plugins/litehtml_viewer/litehtml/el_script.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ patched/src/plugins/litehtml_viewer/litehtml/el_script.cpp	2018-11-07 03:35:43.412719336 +0100
++++ patched/src/plugins/litehtml_viewer/litehtml/el_script.cpp	2018-12-09 01:03:10.714349243 +0100
 @@ -0,0 +1,30 @@
 +#include "html.h"
 +#include "el_script.h"
@@ -7163,9 +7319,11 @@ diff -Naur orig/src/plugins/litehtml_viewer/litehtml/el_script.cpp patched/src/p
 +}
 diff -Naur orig/src/plugins/litehtml_viewer/litehtml/el_script.h patched/src/plugins/litehtml_viewer/litehtml/el_script.h
 --- orig/src/plugins/litehtml_viewer/litehtml/el_script.h	1970-01-01 01:00:00.000000000 +0100
-+++ patched/src/plugins/litehtml_viewer/litehtml/el_script.h	2018-11-07 03:35:43.412719336 +0100
-@@ -0,0 +1,17 @@
-+#pragma once
++++ patched/src/plugins/litehtml_viewer/litehtml/el_script.h	2018-12-09 01:03:10.714349243 +0100
+@@ -0,0 +1,21 @@
++#ifndef LH_EL_SCRIPT_H
++#define LH_EL_SCRIPT_H
++
 +#include "html_tag.h"
 +
 +namespace litehtml
@@ -7182,9 +7340,11 @@ diff -Naur orig/src/plugins/litehtml_viewer/litehtml/el_script.h patched/src/plu
 +		virtual const tchar_t*	get_tagName() const override;
 +	};
 +}
++
++#endif  // LH_EL_SCRIPT_H
 diff -Naur orig/src/plugins/litehtml_viewer/litehtml/el_space.cpp patched/src/plugins/litehtml_viewer/litehtml/el_space.cpp
 --- orig/src/plugins/litehtml_viewer/litehtml/el_space.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ patched/src/plugins/litehtml_viewer/litehtml/el_space.cpp	2018-11-07 03:35:43.412719336 +0100
++++ patched/src/plugins/litehtml_viewer/litehtml/el_space.cpp	2018-12-09 01:03:10.714349243 +0100
 @@ -0,0 +1,39 @@
 +#include "html.h"
 +#include "document.h"
@@ -7227,9 +7387,11 @@ diff -Naur orig/src/plugins/litehtml_viewer/litehtml/el_space.cpp patched/src/pl
 +}
 diff -Naur orig/src/plugins/litehtml_viewer/litehtml/el_space.h patched/src/plugins/litehtml_viewer/litehtml/el_space.h
 --- orig/src/plugins/litehtml_viewer/litehtml/el_space.h	1970-01-01 01:00:00.000000000 +0100
-+++ patched/src/plugins/litehtml_viewer/litehtml/el_space.h	2018-11-07 03:35:43.412719336 +0100
-@@ -0,0 +1,16 @@
-+#pragma once
++++ patched/src/plugins/litehtml_viewer/litehtml/el_space.h	2018-12-09 01:03:10.714349243 +0100
+@@ -0,0 +1,20 @@
++#ifndef LH_EL_SPACE_H
++#define LH_EL_SPACE_H
++
 +#include "html_tag.h"
 +#include "el_text.h"
 +
@@ -7245,10 +7407,11 @@ diff -Naur orig/src/plugins/litehtml_viewer/litehtml/el_space.h patched/src/plug
 +		virtual bool	is_break() const override;
 +	};
 +}
-\ Nincs új sor a fájl végén
++
++#endif  // LH_EL_SPACE_H
 diff -Naur orig/src/plugins/litehtml_viewer/litehtml/el_style.cpp patched/src/plugins/litehtml_viewer/litehtml/el_style.cpp
 --- orig/src/plugins/litehtml_viewer/litehtml/el_style.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ patched/src/plugins/litehtml_viewer/litehtml/el_style.cpp	2018-11-07 03:35:43.412719336 +0100
++++ patched/src/plugins/litehtml_viewer/litehtml/el_style.cpp	2018-12-09 01:03:10.714349243 +0100
 @@ -0,0 +1,36 @@
 +#include "html.h"
 +#include "el_style.h"
@@ -7288,9 +7451,11 @@ diff -Naur orig/src/plugins/litehtml_viewer/litehtml/el_style.cpp patched/src/pl
 +}
 diff -Naur orig/src/plugins/litehtml_viewer/litehtml/el_style.h patched/src/plugins/litehtml_viewer/litehtml/el_style.h
 --- orig/src/plugins/litehtml_viewer/litehtml/el_style.h	1970-01-01 01:00:00.000000000 +0100
-+++ patched/src/plugins/litehtml_viewer/litehtml/el_style.h	2018-11-07 03:35:43.412719336 +0100
-@@ -0,0 +1,17 @@
-+#pragma once
++++ patched/src/plugins/litehtml_viewer/litehtml/el_style.h	2018-12-09 01:03:10.714349243 +0100
+@@ -0,0 +1,21 @@
++#ifndef LH_EL_STYLE_H
++#define LH_EL_STYLE_H
++
 +#include "html_tag.h"
 +
 +namespace litehtml
@@ -7307,9 +7472,11 @@ diff -Naur orig/src/plugins/litehtml_viewer/litehtml/el_style.h patched/src/plug
 +		virtual const tchar_t*	get_tagName() const override;
 +	};
 +}
++
++#endif  // LH_EL_STYLE_H
 diff -Naur orig/src/plugins/litehtml_viewer/litehtml/el_table.cpp patched/src/plugins/litehtml_viewer/litehtml/el_table.cpp
 --- orig/src/plugins/litehtml_viewer/litehtml/el_table.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ patched/src/plugins/litehtml_viewer/litehtml/el_table.cpp	2018-11-07 03:35:43.412719336 +0100
++++ patched/src/plugins/litehtml_viewer/litehtml/el_table.cpp	2018-12-09 01:03:10.714349243 +0100
 @@ -0,0 +1,108 @@
 +#include "html.h"
 +#include "el_table.h"
@@ -7421,9 +7588,11 @@ diff -Naur orig/src/plugins/litehtml_viewer/litehtml/el_table.cpp patched/src/pl
 +}
 diff -Naur orig/src/plugins/litehtml_viewer/litehtml/el_table.h patched/src/plugins/litehtml_viewer/litehtml/el_table.h
 --- orig/src/plugins/litehtml_viewer/litehtml/el_table.h	1970-01-01 01:00:00.000000000 +0100
-+++ patched/src/plugins/litehtml_viewer/litehtml/el_table.h	2018-11-07 03:35:43.412719336 +0100
-@@ -0,0 +1,23 @@
-+#pragma once
++++ patched/src/plugins/litehtml_viewer/litehtml/el_table.h	2018-12-09 01:03:10.714349243 +0100
+@@ -0,0 +1,27 @@
++#ifndef LH_EL_TABLE_H
++#define LH_EL_TABLE_H
++
 +#include "html_tag.h"
 +
 +namespace litehtml
@@ -7446,10 +7615,11 @@ diff -Naur orig/src/plugins/litehtml_viewer/litehtml/el_table.h patched/src/plug
 +		virtual void	parse_attributes() override;
 +	};
 +}
-\ Nincs új sor a fájl végén
++
++#endif  // LH_EL_TABLE_H
 diff -Naur orig/src/plugins/litehtml_viewer/litehtml/el_td.cpp patched/src/plugins/litehtml_viewer/litehtml/el_td.cpp
 --- orig/src/plugins/litehtml_viewer/litehtml/el_td.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ patched/src/plugins/litehtml_viewer/litehtml/el_td.cpp	2018-11-07 03:35:43.412719336 +0100
++++ patched/src/plugins/litehtml_viewer/litehtml/el_td.cpp	2018-12-09 01:03:10.714349243 +0100
 @@ -0,0 +1,49 @@
 +#include "html.h"
 +#include "el_td.h"
@@ -7502,9 +7672,11 @@ diff -Naur orig/src/plugins/litehtml_viewer/litehtml/el_td.cpp patched/src/plugi
 +
 diff -Naur orig/src/plugins/litehtml_viewer/litehtml/el_td.h patched/src/plugins/litehtml_viewer/litehtml/el_td.h
 --- orig/src/plugins/litehtml_viewer/litehtml/el_td.h	1970-01-01 01:00:00.000000000 +0100
-+++ patched/src/plugins/litehtml_viewer/litehtml/el_td.h	2018-11-07 03:35:43.412719336 +0100
-@@ -0,0 +1,14 @@
-+#pragma once
++++ patched/src/plugins/litehtml_viewer/litehtml/el_td.h	2018-12-09 01:03:10.714349243 +0100
+@@ -0,0 +1,18 @@
++#ifndef LH_EL_TD_H
++#define LH_EL_TD_H
++
 +#include "html_tag.h"
 +
 +namespace litehtml
@@ -7518,10 +7690,11 @@ diff -Naur orig/src/plugins/litehtml_viewer/litehtml/el_td.h patched/src/plugins
 +		virtual void parse_attributes() override;
 +	};
 +}
-\ Nincs új sor a fájl végén
++
++#endif  // LH_EL_TD_H
 diff -Naur orig/src/plugins/litehtml_viewer/litehtml/el_text.cpp patched/src/plugins/litehtml_viewer/litehtml/el_text.cpp
 --- orig/src/plugins/litehtml_viewer/litehtml/el_text.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ patched/src/plugins/litehtml_viewer/litehtml/el_text.cpp	2018-11-07 03:35:43.412719336 +0100
++++ patched/src/plugins/litehtml_viewer/litehtml/el_text.cpp	2018-12-09 01:03:10.714349243 +0100
 @@ -0,0 +1,188 @@
 +#include "html.h"
 +#include "el_text.h"
@@ -7713,9 +7886,10 @@ diff -Naur orig/src/plugins/litehtml_viewer/litehtml/el_text.cpp patched/src/plu
 +}
 diff -Naur orig/src/plugins/litehtml_viewer/litehtml/el_text.h patched/src/plugins/litehtml_viewer/litehtml/el_text.h
 --- orig/src/plugins/litehtml_viewer/litehtml/el_text.h	1970-01-01 01:00:00.000000000 +0100
-+++ patched/src/plugins/litehtml_viewer/litehtml/el_text.h	2018-11-07 03:35:43.412719336 +0100
-@@ -0,0 +1,35 @@
-+#pragma once
++++ patched/src/plugins/litehtml_viewer/litehtml/el_text.h	2018-12-09 01:03:10.714349243 +0100
+@@ -0,0 +1,38 @@
++#ifndef LH_EL_TEXT_H
++#define LH_EL_TEXT_H
 +
 +#include "html_tag.h"
 +
@@ -7750,10 +7924,11 @@ diff -Naur orig/src/plugins/litehtml_viewer/litehtml/el_text.h patched/src/plugi
 +		virtual void				get_content_size(size& sz, int max_width) override;
 +	};
 +}
-\ Nincs új sor a fájl végén
++
++#endif  // LH_EL_TEXT_H
 diff -Naur orig/src/plugins/litehtml_viewer/litehtml/el_title.cpp patched/src/plugins/litehtml_viewer/litehtml/el_title.cpp
 --- orig/src/plugins/litehtml_viewer/litehtml/el_title.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ patched/src/plugins/litehtml_viewer/litehtml/el_title.cpp	2018-11-07 03:35:43.412719336 +0100
++++ patched/src/plugins/litehtml_viewer/litehtml/el_title.cpp	2018-12-09 01:03:10.714349243 +0100
 @@ -0,0 +1,20 @@
 +#include "html.h"
 +#include "el_title.h"
@@ -7777,9 +7952,11 @@ diff -Naur orig/src/plugins/litehtml_viewer/litehtml/el_title.cpp patched/src/pl
 +}
 diff -Naur orig/src/plugins/litehtml_viewer/litehtml/el_title.h patched/src/plugins/litehtml_viewer/litehtml/el_title.h
 --- orig/src/plugins/litehtml_viewer/litehtml/el_title.h	1970-01-01 01:00:00.000000000 +0100
-+++ patched/src/plugins/litehtml_viewer/litehtml/el_title.h	2018-11-07 03:35:43.412719336 +0100
-@@ -0,0 +1,15 @@
-+#pragma once
++++ patched/src/plugins/litehtml_viewer/litehtml/el_title.h	2018-12-09 01:03:10.714349243 +0100
+@@ -0,0 +1,19 @@
++#ifndef LH_EL_TITLE_H
++#define LH_EL_TITLE_H
++
 +#include "html_tag.h"
 +
 +namespace litehtml
@@ -7794,9 +7971,11 @@ diff -Naur orig/src/plugins/litehtml_viewer/litehtml/el_title.h patched/src/plug
 +		virtual void	parse_attributes() override;
 +	};
 +}
++
++#endif  // LH_EL_TITLE_H
 diff -Naur orig/src/plugins/litehtml_viewer/litehtml/el_tr.cpp patched/src/plugins/litehtml_viewer/litehtml/el_tr.cpp
 --- orig/src/plugins/litehtml_viewer/litehtml/el_tr.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ patched/src/plugins/litehtml_viewer/litehtml/el_tr.cpp	2018-11-07 03:35:43.412719336 +0100
++++ patched/src/plugins/litehtml_viewer/litehtml/el_tr.cpp	2018-12-09 01:03:10.714349243 +0100
 @@ -0,0 +1,51 @@
 +#include "html.h"
 +#include "el_tr.h"
@@ -7851,9 +8030,11 @@ diff -Naur orig/src/plugins/litehtml_viewer/litehtml/el_tr.cpp patched/src/plugi
 +}
 diff -Naur orig/src/plugins/litehtml_viewer/litehtml/el_tr.h patched/src/plugins/litehtml_viewer/litehtml/el_tr.h
 --- orig/src/plugins/litehtml_viewer/litehtml/el_tr.h	1970-01-01 01:00:00.000000000 +0100
-+++ patched/src/plugins/litehtml_viewer/litehtml/el_tr.h	2018-11-07 03:35:43.412719336 +0100
-@@ -0,0 +1,15 @@
-+#pragma once
++++ patched/src/plugins/litehtml_viewer/litehtml/el_tr.h	2018-12-09 01:03:10.714349243 +0100
+@@ -0,0 +1,19 @@
++#ifndef LH_EL_TR_H
++#define LH_EL_TR_H
++
 +#include "html_tag.h"
 +
 +namespace litehtml
@@ -7868,10 +8049,11 @@ diff -Naur orig/src/plugins/litehtml_viewer/litehtml/el_tr.h patched/src/plugins
 +		virtual void	get_inline_boxes(position::vector& boxes) override;
 +	};
 +}
-\ Nincs új sor a fájl végén
++
++#endif  // LH_EL_TR_H
 diff -Naur orig/src/plugins/litehtml_viewer/litehtml/html.cpp patched/src/plugins/litehtml_viewer/litehtml/html.cpp
 --- orig/src/plugins/litehtml_viewer/litehtml/html.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ patched/src/plugins/litehtml_viewer/litehtml/html.cpp	2018-11-07 03:35:43.412719336 +0100
++++ patched/src/plugins/litehtml_viewer/litehtml/html.cpp	2018-12-09 01:03:10.714349243 +0100
 @@ -0,0 +1,169 @@
 +#include "html.h"
 +#include "types.h"
@@ -7882,12 +8064,12 @@ diff -Naur orig/src/plugins/litehtml_viewer/litehtml/html.cpp patched/src/plugin
 +	tstring::size_type pos = s.find_first_not_of(_t(" \n\r\t"));
 +	if(pos != tstring::npos)
 +	{
-+		s.erase(s.begin(), s.begin() + pos);
++	    s.erase(s.begin(), s.begin() + pos);
 +	}
 +	pos = s.find_last_not_of(_t(" \n\r\t"));
 +	if(pos != tstring::npos)
 +	{
-+		s.erase(s.begin() + pos + 1, s.end());
++	    s.erase(s.begin() + pos + 1, s.end());
 +	}
 +}
 +
@@ -8044,9 +8226,10 @@ diff -Naur orig/src/plugins/litehtml_viewer/litehtml/html.cpp patched/src/plugin
 +}
 diff -Naur orig/src/plugins/litehtml_viewer/litehtml/html.h patched/src/plugins/litehtml_viewer/litehtml/html.h
 --- orig/src/plugins/litehtml_viewer/litehtml/html.h	1970-01-01 01:00:00.000000000 +0100
-+++ patched/src/plugins/litehtml_viewer/litehtml/html.h	2018-11-07 03:35:43.412719336 +0100
-@@ -0,0 +1,92 @@
-+#pragma once
++++ patched/src/plugins/litehtml_viewer/litehtml/html.h	2018-12-09 01:03:10.714349243 +0100
+@@ -0,0 +1,96 @@
++#ifndef LH_HTML_H
++#define LH_HTML_H
 +
 +#include <stdlib.h>
 +#include <string>
@@ -8108,6 +8291,7 @@ diff -Naur orig/src/plugins/litehtml_viewer/litehtml/html.h patched/src/plugins/
 +
 +		virtual void				get_media_features(litehtml::media_features& media) const = 0;
 +		virtual void				get_language(litehtml::tstring& language, litehtml::tstring & culture) const = 0;
++		virtual litehtml::tstring	resolve_color(const litehtml::tstring& color) const  { return litehtml::tstring(); }
 +	};
 +
 +	void trim(tstring &s);
@@ -8138,9 +8322,11 @@ diff -Naur orig/src/plugins/litehtml_viewer/litehtml/html.h patched/src/plugins/
 +		return int_val;
 +	}
 +}
++
++#endif  // LH_HTML_H
 diff -Naur orig/src/plugins/litehtml_viewer/litehtml/html_tag.cpp patched/src/plugins/litehtml_viewer/litehtml/html_tag.cpp
 --- orig/src/plugins/litehtml_viewer/litehtml/html_tag.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ patched/src/plugins/litehtml_viewer/litehtml/html_tag.cpp	2018-11-07 03:35:43.416719389 +0100
++++ patched/src/plugins/litehtml_viewer/litehtml/html_tag.cpp	2018-12-09 01:03:10.718349283 +0100
 @@ -0,0 +1,4663 @@
 +#include "html.h"
 +#include "html_tag.h"
@@ -8559,16 +8745,16 @@ diff -Naur orig/src/plugins/litehtml_viewer/litehtml/html_tag.cpp patched/src/pl
 +	m_css_borders.top.width.fromString(		get_style_property(_t("border-top-width"),		false,	_t("medium")), border_width_strings);
 +	m_css_borders.bottom.width.fromString(	get_style_property(_t("border-bottom-width"),	false,	_t("medium")), border_width_strings);
 +
-+	m_css_borders.left.color = web_color::from_string(get_style_property(_t("border-left-color"),	false,	_t("")));
++	m_css_borders.left.color = web_color::from_string(get_style_property(_t("border-left-color"),	false,	_t("")), doc->container());
 +	m_css_borders.left.style = (border_style) value_index(get_style_property(_t("border-left-style"), false, _t("none")), border_style_strings, border_style_none);
 +
-+	m_css_borders.right.color = web_color::from_string(get_style_property(_t("border-right-color"),	false,	_t("")));
++    m_css_borders.right.color = web_color::from_string(get_style_property(_t("border-right-color"), false, _t("")), doc->container());
 +	m_css_borders.right.style = (border_style) value_index(get_style_property(_t("border-right-style"), false, _t("none")), border_style_strings, border_style_none);
 +
-+	m_css_borders.top.color = web_color::from_string(get_style_property(_t("border-top-color"),	false,	_t("")));
++    m_css_borders.top.color = web_color::from_string(get_style_property(_t("border-top-color"), false, _t("")), doc->container());
 +	m_css_borders.top.style = (border_style) value_index(get_style_property(_t("border-top-style"), false, _t("none")), border_style_strings, border_style_none);
 +
-+	m_css_borders.bottom.color = web_color::from_string(get_style_property(_t("border-bottom-color"),	false,	_t("")));
++    m_css_borders.bottom.color = web_color::from_string(get_style_property(_t("border-bottom-color"), false, _t("")), doc->container());
 +	m_css_borders.bottom.style = (border_style) value_index(get_style_property(_t("border-bottom-style"), false, _t("none")), border_style_strings, border_style_none);
 +
 +	m_css_borders.radius.top_left_x.fromString(get_style_property(_t("border-top-left-radius-x"), false, _t("0")));
@@ -12807,9 +12993,10 @@ diff -Naur orig/src/plugins/litehtml_viewer/litehtml/html_tag.cpp patched/src/pl
 +}
 diff -Naur orig/src/plugins/litehtml_viewer/litehtml/html_tag.h patched/src/plugins/litehtml_viewer/litehtml/html_tag.h
 --- orig/src/plugins/litehtml_viewer/litehtml/html_tag.h	1970-01-01 01:00:00.000000000 +0100
-+++ patched/src/plugins/litehtml_viewer/litehtml/html_tag.h	2018-11-07 03:35:43.416719389 +0100
-@@ -0,0 +1,246 @@
-+#pragma once
++++ patched/src/plugins/litehtml_viewer/litehtml/html_tag.h	2018-12-09 01:03:10.718349283 +0100
+@@ -0,0 +1,248 @@
++#ifndef LH_HTML_TAG_H
++#define LH_HTML_TAG_H
 +
 +#include "element.h"
 +#include "style.h"
@@ -12905,7 +13092,7 @@ diff -Naur orig/src/plugins/litehtml_viewer/litehtml/html_tag.h patched/src/plug
 +		int						m_border_spacing_y;
 +		border_collapse			m_border_collapse;
 +
-+		virtual void			select_all(const css_selector& selector, elements_vector& res);
++		virtual void			select_all(const css_selector& selector, elements_vector& res) override;
 +
 +	public:
 +		html_tag(const std::shared_ptr<litehtml::document>& doc);
@@ -13055,9 +13242,10 @@ diff -Naur orig/src/plugins/litehtml_viewer/litehtml/html_tag.h patched/src/plug
 +	}
 +}
 +
++#endif  // LH_HTML_TAG_H
 diff -Naur orig/src/plugins/litehtml_viewer/litehtml/iterators.cpp patched/src/plugins/litehtml_viewer/litehtml/iterators.cpp
 --- orig/src/plugins/litehtml_viewer/litehtml/iterators.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ patched/src/plugins/litehtml_viewer/litehtml/iterators.cpp	2018-11-07 03:35:43.416719389 +0100
++++ patched/src/plugins/litehtml_viewer/litehtml/iterators.cpp	2018-12-09 01:03:10.718349283 +0100
 @@ -0,0 +1,94 @@
 +#include "html.h"
 +#include "iterators.h"
@@ -13155,9 +13343,10 @@ diff -Naur orig/src/plugins/litehtml_viewer/litehtml/iterators.cpp patched/src/p
 +}
 diff -Naur orig/src/plugins/litehtml_viewer/litehtml/iterators.h patched/src/plugins/litehtml_viewer/litehtml/iterators.h
 --- orig/src/plugins/litehtml_viewer/litehtml/iterators.h	1970-01-01 01:00:00.000000000 +0100
-+++ patched/src/plugins/litehtml_viewer/litehtml/iterators.h	2018-11-07 03:35:43.416719389 +0100
-@@ -0,0 +1,87 @@
-+#pragma once
++++ patched/src/plugins/litehtml_viewer/litehtml/iterators.h	2018-12-09 01:03:10.718349283 +0100
+@@ -0,0 +1,90 @@
++#ifndef LH_ITERATORS_H
++#define LH_ITERATORS_H
 +
 +#include "types.h"
 +
@@ -13244,6 +13433,8 @@ diff -Naur orig/src/plugins/litehtml_viewer/litehtml/iterators.h patched/src/plu
 +		virtual bool select(const element::ptr& el);
 +	};
 +}
++
++#endif  // LH_ITERATORS_H
 diff -Naur orig/src/plugins/litehtml_viewer/litehtml/LICENSE patched/src/plugins/litehtml_viewer/litehtml/LICENSE
 --- orig/src/plugins/litehtml_viewer/litehtml/LICENSE	1970-01-01 01:00:00.000000000 +0100
 +++ patched/src/plugins/litehtml_viewer/litehtml/LICENSE	2018-11-07 03:35:43.408719283 +0100
@@ -13274,18 +13465,20 @@ diff -Naur orig/src/plugins/litehtml_viewer/litehtml/LICENSE patched/src/plugins
 +SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 diff -Naur orig/src/plugins/litehtml_viewer/litehtml/litehtml.h patched/src/plugins/litehtml_viewer/litehtml/litehtml.h
 --- orig/src/plugins/litehtml_viewer/litehtml/litehtml.h	1970-01-01 01:00:00.000000000 +0100
-+++ patched/src/plugins/litehtml_viewer/litehtml/litehtml.h	2018-11-07 03:35:43.416719389 +0100
-@@ -0,0 +1,10 @@
-+#pragma once
++++ patched/src/plugins/litehtml_viewer/litehtml/litehtml.h	2018-12-09 01:03:10.718349283 +0100
+@@ -0,0 +1,12 @@
++#ifndef LITEHTML_H
++#define LITEHTML_H
 +
-+#include "litehtml/os_types.h"
-+#include "litehtml/types.h"
 +#include "litehtml/html.h"
-+#include "litehtml/element.h"
 +#include "litehtml/document.h"
-+#include "litehtml/context.h"
++#include "litehtml/html_tag.h"
++#include "litehtml/stylesheet.h"
++#include "litehtml/stylesheet.h"
 +#include "litehtml/element.h"
++#include "litehtml/html_tag.h"
 +
++#endif  // LITEHTML_H
 diff -Naur orig/src/plugins/litehtml_viewer/litehtml/Makefile.am patched/src/plugins/litehtml_viewer/litehtml/Makefile.am
 --- orig/src/plugins/litehtml_viewer/litehtml/Makefile.am	1970-01-01 01:00:00.000000000 +0100
 +++ patched/src/plugins/litehtml_viewer/litehtml/Makefile.am	2018-11-07 03:35:43.408719283 +0100
@@ -13357,7 +13550,7 @@ diff -Naur orig/src/plugins/litehtml_viewer/litehtml/Makefile.am patched/src/plu
 +	README.md
 diff -Naur orig/src/plugins/litehtml_viewer/litehtml/media_query.cpp patched/src/plugins/litehtml_viewer/litehtml/media_query.cpp
 --- orig/src/plugins/litehtml_viewer/litehtml/media_query.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ patched/src/plugins/litehtml_viewer/litehtml/media_query.cpp	2018-11-07 03:35:43.416719389 +0100
++++ patched/src/plugins/litehtml_viewer/litehtml/media_query.cpp	2018-12-09 01:03:10.718349283 +0100
 @@ -0,0 +1,432 @@
 +#include "html.h"
 +#include "media_query.h"
@@ -13793,9 +13986,10 @@ diff -Naur orig/src/plugins/litehtml_viewer/litehtml/media_query.cpp patched/src
 +}
 diff -Naur orig/src/plugins/litehtml_viewer/litehtml/media_query.h patched/src/plugins/litehtml_viewer/litehtml/media_query.h
 --- orig/src/plugins/litehtml_viewer/litehtml/media_query.h	1970-01-01 01:00:00.000000000 +0100
-+++ patched/src/plugins/litehtml_viewer/litehtml/media_query.h	2018-11-07 03:35:43.416719389 +0100
-@@ -0,0 +1,74 @@
-+#pragma once
++++ patched/src/plugins/litehtml_viewer/litehtml/media_query.h	2018-12-09 01:03:10.718349283 +0100
+@@ -0,0 +1,77 @@
++#ifndef LH_MEDIA_QUERY_H
++#define LH_MEDIA_QUERY_H
 +
 +namespace litehtml
 +{
@@ -13869,12 +14063,14 @@ diff -Naur orig/src/plugins/litehtml_viewer/litehtml/media_query.h patched/src/p
 +	}
 +
 +}
-\ Nincs új sor a fájl végén
++
++#endif  // LH_MEDIA_QUERY_H
 diff -Naur orig/src/plugins/litehtml_viewer/litehtml/os_types.h patched/src/plugins/litehtml_viewer/litehtml/os_types.h
 --- orig/src/plugins/litehtml_viewer/litehtml/os_types.h	1970-01-01 01:00:00.000000000 +0100
-+++ patched/src/plugins/litehtml_viewer/litehtml/os_types.h	2018-11-07 03:35:43.416719389 +0100
-@@ -0,0 +1,83 @@
-+#pragma once
++++ patched/src/plugins/litehtml_viewer/litehtml/os_types.h	2018-12-09 01:03:10.718349283 +0100
+@@ -0,0 +1,86 @@
++#ifndef LH_OS_TYPES_H
++#define LH_OS_TYPES_H
 +
 +namespace litehtml
 +{
@@ -13957,6 +14153,8 @@ diff -Naur orig/src/plugins/litehtml_viewer/litehtml/os_types.h patched/src/plug
 +
 +#endif
 +}
++
++#endif  // LH_OS_TYPES_H
 diff -Naur orig/src/plugins/litehtml_viewer/litehtml/README.md patched/src/plugins/litehtml_viewer/litehtml/README.md
 --- orig/src/plugins/litehtml_viewer/litehtml/README.md	1970-01-01 01:00:00.000000000 +0100
 +++ patched/src/plugins/litehtml_viewer/litehtml/README.md	2018-11-07 03:35:43.408719283 +0100
@@ -14005,8 +14203,8 @@ diff -Naur orig/src/plugins/litehtml_viewer/litehtml/README.md patched/src/plugi
 +![BitCoin](https://www.tordex.com/assets/images/litehtml-bitcoin.png)
 diff -Naur orig/src/plugins/litehtml_viewer/litehtml/style.cpp patched/src/plugins/litehtml_viewer/litehtml/style.cpp
 --- orig/src/plugins/litehtml_viewer/litehtml/style.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ patched/src/plugins/litehtml_viewer/litehtml/style.cpp	2018-11-07 03:35:43.416719389 +0100
-@@ -0,0 +1,654 @@
++++ patched/src/plugins/litehtml_viewer/litehtml/style.cpp	2018-12-09 01:03:10.718349283 +0100
+@@ -0,0 +1,656 @@
 +#include "html.h"
 +#include "style.h"
 +#include <functional>
@@ -14141,18 +14339,20 @@ diff -Naur orig/src/plugins/litehtml_viewer/litehtml/style.cpp patched/src/plugi
 +				add_property(_t("border-bottom-style"), tok->c_str(), baseurl, important);
 +			} else
 +			{
-+				if(web_color::is_color(tok->c_str()))
-+				{
-+					add_property(_t("border-left-color"), tok->c_str(), baseurl, important);
-+					add_property(_t("border-right-color"), tok->c_str(), baseurl, important);
-+					add_property(_t("border-top-color"), tok->c_str(), baseurl, important);
-+					add_property(_t("border-bottom-color"), tok->c_str(), baseurl, important);
-+				} else
++				if (t_isdigit((*tok)[0]) || (*tok)[0] == _t('.') ||
++					value_in_list((*tok), _t("thin;medium;thick")))
 +				{
 +					add_property(_t("border-left-width"), tok->c_str(), baseurl, important);
 +					add_property(_t("border-right-width"), tok->c_str(), baseurl, important);
 +					add_property(_t("border-top-width"), tok->c_str(), baseurl, important);
 +					add_property(_t("border-bottom-width"), tok->c_str(), baseurl, important);
++				} 
++				else
++				{
++					add_property(_t("border-left-color"), tok->c_str(), baseurl, important);
++					add_property(_t("border-right-color"), tok->c_str(), baseurl, important);
++					add_property(_t("border-top-color"), tok->c_str(), baseurl, important);
++					add_property(_t("border-bottom-color"), tok->c_str(), baseurl, important);
 +				}
 +			}
 +		}
@@ -14507,10 +14707,7 @@ diff -Naur orig/src/plugins/litehtml_viewer/litehtml/style.cpp patched/src/plugi
 +	bool origin_found = false;
 +	for(string_vector::iterator tok = tokens.begin(); tok != tokens.end(); tok++)
 +	{
-+		if(web_color::is_color(tok->c_str()))
-+		{
-+			add_parsed_property(_t("background-color"), *tok, important);
-+		} else if(tok->substr(0, 3) == _t("url"))
++		if(tok->substr(0, 3) == _t("url"))
 +		{
 +			add_parsed_property(_t("background-image"), *tok, important);
 +			if(baseurl)
@@ -14547,6 +14744,9 @@ diff -Naur orig/src/plugins/litehtml_viewer/litehtml/style.cpp patched/src/plugi
 +			{
 +				add_parsed_property(_t("background-position"), *tok, important);
 +			}
++		} else if (web_color::is_color(tok->c_str()))
++		{
++			add_parsed_property(_t("background-color"), *tok, important);
 +		}
 +	}
 +}
@@ -14663,9 +14863,11 @@ diff -Naur orig/src/plugins/litehtml_viewer/litehtml/style.cpp patched/src/plugi
 +}
 diff -Naur orig/src/plugins/litehtml_viewer/litehtml/style.h patched/src/plugins/litehtml_viewer/litehtml/style.h
 --- orig/src/plugins/litehtml_viewer/litehtml/style.h	1970-01-01 01:00:00.000000000 +0100
-+++ patched/src/plugins/litehtml_viewer/litehtml/style.h	2018-11-07 03:35:43.416719389 +0100
-@@ -0,0 +1,91 @@
-+#pragma once
++++ patched/src/plugins/litehtml_viewer/litehtml/style.h	2018-12-09 01:03:10.718349283 +0100
+@@ -0,0 +1,95 @@
++#ifndef LH_STYLE_H
++#define LH_STYLE_H
++
 +#include "attributes.h"
 +#include <string>
 +
@@ -14756,10 +14958,11 @@ diff -Naur orig/src/plugins/litehtml_viewer/litehtml/style.h patched/src/plugins
 +		void remove_property(const tstring& name, bool important);
 +	};
 +}
-\ Nincs új sor a fájl végén
++
++#endif  // LH_STYLE_H
 diff -Naur orig/src/plugins/litehtml_viewer/litehtml/stylesheet.cpp patched/src/plugins/litehtml_viewer/litehtml/stylesheet.cpp
 --- orig/src/plugins/litehtml_viewer/litehtml/stylesheet.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ patched/src/plugins/litehtml_viewer/litehtml/stylesheet.cpp	2018-11-07 03:35:43.416719389 +0100
++++ patched/src/plugins/litehtml_viewer/litehtml/stylesheet.cpp	2018-12-09 01:03:10.718349283 +0100
 @@ -0,0 +1,219 @@
 +#include "html.h"
 +#include "stylesheet.h"
@@ -14786,7 +14989,7 @@ diff -Naur orig/src/plugins/litehtml_viewer/litehtml/stylesheet.cpp patched/src/
 +		while(pos != tstring::npos && text[pos] == _t('@'))
 +		{
 +			tstring::size_type sPos = pos;
-+			pos = text.find_first_of(_t("{"), pos);
++			pos = text.find_first_of(_t("{;"), pos);
 +			if(pos != tstring::npos && text[pos] == _t('{'))
 +			{
 +				pos = find_close_bracket(text, pos, _t('{'), _t('}'));
@@ -14982,9 +15185,11 @@ diff -Naur orig/src/plugins/litehtml_viewer/litehtml/stylesheet.cpp patched/src/
 +}
 diff -Naur orig/src/plugins/litehtml_viewer/litehtml/stylesheet.h patched/src/plugins/litehtml_viewer/litehtml/stylesheet.h
 --- orig/src/plugins/litehtml_viewer/litehtml/stylesheet.h	1970-01-01 01:00:00.000000000 +0100
-+++ patched/src/plugins/litehtml_viewer/litehtml/stylesheet.h	2018-11-07 03:35:43.416719389 +0100
-@@ -0,0 +1,50 @@
-+#pragma once
++++ patched/src/plugins/litehtml_viewer/litehtml/stylesheet.h	2018-12-09 01:03:10.718349283 +0100
+@@ -0,0 +1,54 @@
++#ifndef LH_STYLESHEET_H
++#define LH_STYLESHEET_H
++
 +#include "style.h"
 +#include "css_selector.h"
 +
@@ -15034,9 +15239,11 @@ diff -Naur orig/src/plugins/litehtml_viewer/litehtml/stylesheet.h patched/src/pl
 +	}
 +
 +}
++
++#endif  // LH_STYLESHEET_H
 diff -Naur orig/src/plugins/litehtml_viewer/litehtml/table.cpp patched/src/plugins/litehtml_viewer/litehtml/table.cpp
 --- orig/src/plugins/litehtml_viewer/litehtml/table.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ patched/src/plugins/litehtml_viewer/litehtml/table.cpp	2018-11-07 03:35:43.416719389 +0100
++++ patched/src/plugins/litehtml_viewer/litehtml/table.cpp	2018-12-09 01:03:10.718349283 +0100
 @@ -0,0 +1,566 @@
 +#include "html.h"
 +#include "table.h"
@@ -15606,9 +15813,10 @@ diff -Naur orig/src/plugins/litehtml_viewer/litehtml/table.cpp patched/src/plugi
 +}
 diff -Naur orig/src/plugins/litehtml_viewer/litehtml/table.h patched/src/plugins/litehtml_viewer/litehtml/table.h
 --- orig/src/plugins/litehtml_viewer/litehtml/table.h	1970-01-01 01:00:00.000000000 +0100
-+++ patched/src/plugins/litehtml_viewer/litehtml/table.h	2018-11-07 03:35:43.416719389 +0100
-@@ -0,0 +1,238 @@
-+#pragma once
++++ patched/src/plugins/litehtml_viewer/litehtml/table.h	2018-12-09 01:03:10.718349283 +0100
+@@ -0,0 +1,241 @@
++#ifndef LH_TABLE_H
++#define LH_TABLE_H
 +
 +namespace litehtml
 +{
@@ -15846,12 +16054,14 @@ diff -Naur orig/src/plugins/litehtml_viewer/litehtml/table.h patched/src/plugins
 +		void			calc_rows_height(int blockHeight, int borderSpacingY);
 +	};
 +}
-\ Nincs új sor a fájl végén
++
++#endif  // LH_TABLE_H
 diff -Naur orig/src/plugins/litehtml_viewer/litehtml/types.h patched/src/plugins/litehtml_viewer/litehtml/types.h
 --- orig/src/plugins/litehtml_viewer/litehtml/types.h	1970-01-01 01:00:00.000000000 +0100
-+++ patched/src/plugins/litehtml_viewer/litehtml/types.h	2018-11-07 03:35:43.416719389 +0100
-@@ -0,0 +1,733 @@
-+#pragma once
++++ patched/src/plugins/litehtml_viewer/litehtml/types.h	2018-12-09 01:03:10.722349322 +0100
+@@ -0,0 +1,736 @@
++#ifndef LH_TYPES_H
++#define LH_TYPES_H
 +
 +#include <stdlib.h>
 +#include <memory>
@@ -16584,9 +16794,11 @@ diff -Naur orig/src/plugins/litehtml_viewer/litehtml/types.h patched/src/plugins
 +	// List of the Void Elements (can't have any contents)
 +	const litehtml::tchar_t* const void_elements = _t("area;base;br;col;command;embed;hr;img;input;keygen;link;meta;param;source;track;wbr");
 +}
++
++#endif  // LH_TYPES_H
 diff -Naur orig/src/plugins/litehtml_viewer/litehtml/utf8_strings.cpp patched/src/plugins/litehtml_viewer/litehtml/utf8_strings.cpp
 --- orig/src/plugins/litehtml_viewer/litehtml/utf8_strings.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ patched/src/plugins/litehtml_viewer/litehtml/utf8_strings.cpp	2018-11-07 03:35:43.416719389 +0100
++++ patched/src/plugins/litehtml_viewer/litehtml/utf8_strings.cpp	2018-12-09 01:03:10.722349322 +0100
 @@ -0,0 +1,97 @@
 +#include "html.h"
 +#include "utf8_strings.h"
@@ -16687,9 +16899,10 @@ diff -Naur orig/src/plugins/litehtml_viewer/litehtml/utf8_strings.cpp patched/sr
 +}
 diff -Naur orig/src/plugins/litehtml_viewer/litehtml/utf8_strings.h patched/src/plugins/litehtml_viewer/litehtml/utf8_strings.h
 --- orig/src/plugins/litehtml_viewer/litehtml/utf8_strings.h	1970-01-01 01:00:00.000000000 +0100
-+++ patched/src/plugins/litehtml_viewer/litehtml/utf8_strings.h	2018-11-07 03:35:43.416719389 +0100
-@@ -0,0 +1,48 @@
-+#pragma once
++++ patched/src/plugins/litehtml_viewer/litehtml/utf8_strings.h	2018-12-09 01:03:10.722349322 +0100
+@@ -0,0 +1,51 @@
++#ifndef LH_UTF8_STRINGS_H
++#define LH_UTF8_STRINGS_H
 +
 +namespace litehtml
 +{
@@ -16737,11 +16950,12 @@ diff -Naur orig/src/plugins/litehtml_viewer/litehtml/utf8_strings.h patched/src/
 +#define litehtml_to_utf8(str)		wchar_to_utf8(str)
 +#endif
 +}
-\ Nincs új sor a fájl végén
++
++#endif  // LH_UTF8_STRINGS_H
 diff -Naur orig/src/plugins/litehtml_viewer/litehtml/web_color.cpp patched/src/plugins/litehtml_viewer/litehtml/web_color.cpp
 --- orig/src/plugins/litehtml_viewer/litehtml/web_color.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ patched/src/plugins/litehtml_viewer/litehtml/web_color.cpp	2018-11-07 03:35:43.416719389 +0100
-@@ -0,0 +1,251 @@
++++ patched/src/plugins/litehtml_viewer/litehtml/web_color.cpp	2018-12-09 01:03:10.722349322 +0100
+@@ -0,0 +1,256 @@
 +#include "html.h"
 +#include "web_color.h"
 +#include <string.h>
@@ -16898,9 +17112,9 @@ diff -Naur orig/src/plugins/litehtml_viewer/litehtml/web_color.cpp patched/src/p
 +};
 +
 +
-+litehtml::web_color litehtml::web_color::from_string( const tchar_t* str )
++litehtml::web_color litehtml::web_color::from_string(const tchar_t* str, litehtml::document_container* callback)
 +{
-+	if(!str)
++	if(!str || !str[0])
 +	{
 +		return web_color(0, 0, 0);
 +	}
@@ -16960,34 +17174,39 @@ diff -Naur orig/src/plugins/litehtml_viewer/litehtml/web_color.cpp patched/src/p
 +		return clr;
 +	} else
 +	{
-+		const tchar_t* rgb = resolve_name(str);
-+		if(rgb)
++		tstring rgb = resolve_name(str, callback);
++		if(!rgb.empty())
 +		{
-+			return from_string(rgb);
++			return from_string(rgb.c_str(), callback);
 +		}
 +	}
 +	return web_color(0, 0, 0);
 +}
 +
-+const litehtml::tchar_t* litehtml::web_color::resolve_name( const tchar_t* name )
++litehtml::tstring litehtml::web_color::resolve_name(const tchar_t* name, litehtml::document_container* callback)
 +{
 +	for(int i=0; g_def_colors[i].name; i++)
 +	{
 +		if(!t_strcasecmp(name, g_def_colors[i].name))
 +		{
-+			return g_def_colors[i].rgb;
++            return std::move(litehtml::tstring(g_def_colors[i].rgb));
 +		}
 +	}
-+	return 0;
++    if (callback)
++    {
++        litehtml::tstring clr = callback->resolve_color(name);
++        return std::move(clr);
++    }
++    return std::move(litehtml::tstring());
 +}
 +
-+bool litehtml::web_color::is_color( const tchar_t* str )
++bool litehtml::web_color::is_color(const tchar_t* str)
 +{
 +	if(!t_strncasecmp(str, _t("rgb"), 3) || str[0] == _t('#'))
 +	{
 +		return true;
 +	}
-+	if(resolve_name(str))
++    if (!t_isdigit(str[0]) && str[0] != _t('.'))
 +	{
 +		return true;
 +	}
@@ -16995,9 +17214,10 @@ diff -Naur orig/src/plugins/litehtml_viewer/litehtml/web_color.cpp patched/src/p
 +}
 diff -Naur orig/src/plugins/litehtml_viewer/litehtml/web_color.h patched/src/plugins/litehtml_viewer/litehtml/web_color.h
 --- orig/src/plugins/litehtml_viewer/litehtml/web_color.h	1970-01-01 01:00:00.000000000 +0100
-+++ patched/src/plugins/litehtml_viewer/litehtml/web_color.h	2018-11-07 03:35:43.416719389 +0100
-@@ -0,0 +1,56 @@
-+#pragma once
++++ patched/src/plugins/litehtml_viewer/litehtml/web_color.h	2018-12-09 01:03:10.722349322 +0100
+@@ -0,0 +1,61 @@
++#ifndef LH_WEB_COLOR_H
++#define LH_WEB_COLOR_H
 +
 +namespace litehtml
 +{
@@ -17008,6 +17228,8 @@ diff -Naur orig/src/plugins/litehtml_viewer/litehtml/web_color.h patched/src/plu
 +	};
 +
 +	extern def_color g_def_colors[];
++
++    class document_container;
 +
 +	struct web_color
 +	{
@@ -17048,12 +17270,13 @@ diff -Naur orig/src/plugins/litehtml_viewer/litehtml/web_color.h patched/src/plu
 +			alpha	= val.alpha;
 +			return *this;
 +		}
-+		static web_color		from_string(const tchar_t* str);
-+		static const tchar_t*	resolve_name(const tchar_t* name);
-+		static bool				is_color(const tchar_t* str);
++        static web_color            from_string(const tchar_t* str, litehtml::document_container* callback);
++		static litehtml::tstring    resolve_name(const tchar_t* name, litehtml::document_container* callback);
++        static bool                 is_color(const tchar_t* str);
 +	};
 +}
-\ Nincs új sor a fájl végén
++
++#endif  // LH_WEB_COLOR_H
 diff -Naur orig/src/plugins/litehtml_viewer/Makefile.am patched/src/plugins/litehtml_viewer/Makefile.am
 --- orig/src/plugins/litehtml_viewer/Makefile.am	1970-01-01 01:00:00.000000000 +0100
 +++ patched/src/plugins/litehtml_viewer/Makefile.am	2018-11-09 12:53:05.355005690 +0100

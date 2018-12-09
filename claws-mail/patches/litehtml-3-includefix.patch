@@ -1,9 +1,0 @@
-diff -Naur orig/src/plugins/litehtml_viewer/http.h patched/src/plugins/litehtml_viewer/http.h
---- orig/src/plugins/litehtml_viewer/http.h	2018-11-09 12:53:05.355005690 +0100
-+++ patched/src/plugins/litehtml_viewer/http.h	2018-11-10 01:59:58.834770551 +0100
-@@ -1,3 +1,5 @@
-+#include <stdlib.h>
-+#include <string.h>
- #include <glib.h>
- #include <glib/gstdio.h>
- #include <fcntl.h>
