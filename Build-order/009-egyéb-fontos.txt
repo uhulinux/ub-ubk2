@@ -48,3 +48,5 @@ cryptsetup
 systemd # a cryptsetup után kötelező
 fbgetty
 gtest
+epson-printer-driver
+epson-scanner-driver
