@@ -1,0 +1,21 @@
+diff -Nur orig/libgksu/libgksu.c mod/libgksu/libgksu.c
+--- orig/libgksu/libgksu.c	2019-01-01 16:27:48.000000000 +0100
++++ mod/libgksu/libgksu.c	2019-01-01 16:41:01.138621925 +0100
+@@ -1976,7 +1976,7 @@
+       gchar **cmd = g_malloc (sizeof(gchar*)*7);
+ 
+       setsid();   // make us session leader
+-      cmd[i] = g_strdup ("/bin/su"); i++;
++      cmd[i] = g_strdup ("/usr/bin/su"); i++;
+       if (context->login_shell)
+ 	{
+ 	  cmd[i] = g_strdup ("-"); i++;
+@@ -1998,7 +1998,7 @@
+       if (execv (cmd[0], cmd) == -1)
+ 	{
+ 	  fprintf (stderr,
+-		   "Unable to run /bin/su: %s",
++		   "Unable to run /usr/bin/su: %s",
+ 		   strerror(errno));
+ 	}
+ 

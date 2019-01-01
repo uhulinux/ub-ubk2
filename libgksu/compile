@@ -1,4 +1,6 @@
 #!/bin/sh -eux
 
+touch NEWS README
+autoreconf -vif
 ub_compile \
     --disable-gtk-doc

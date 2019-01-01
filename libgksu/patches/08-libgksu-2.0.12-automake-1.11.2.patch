@@ -1,0 +1,14 @@
+diff -Nur orig/libgksu/Makefile.am mod/libgksu/Makefile.am
+--- orig/libgksu/Makefile.am	2019-01-01 16:23:00.000000000 +0100
++++ mod/libgksu/Makefile.am	2019-01-01 16:26:04.815908414 +0100
+@@ -22,8 +22,8 @@
+ pkgconfigdir = ${libdir}/pkgconfig
+ pkgconfig_DATA = libgksu2.pc
+ 
+-pkglibdir = ${libdir}/${PACKAGE}
+-pkglib_PROGRAMS = gksu-run-helper
++gksulibdir = ${libdir}/${PACKAGE}
++gksulib_PROGRAMS = gksu-run-helper
+ gksu_run_helper_LDFLAGS = `pkg-config --libs glib-2.0`
+ gksu_run_helper_SOURCES = gksu-run-helper.c
+ 
