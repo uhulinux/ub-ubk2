@@ -68,4 +68,4 @@ balsa
 ghetto-skype
 facebook-messenger
 speedtest-cli
-
+google-earth
