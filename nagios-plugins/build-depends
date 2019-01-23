@@ -3,7 +3,7 @@ bind-utils
 fping
 iputils
 krb5-dev
-mysql-client
+mysql-server
 mysql-common
 mysql-dev
 openldap-dev
