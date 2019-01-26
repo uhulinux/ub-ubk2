@@ -46,6 +46,7 @@ links
 pidgin-libnotify
 falkon
 opera
+opera-i386
 hexchat
 ettercap
 libfilezilla
