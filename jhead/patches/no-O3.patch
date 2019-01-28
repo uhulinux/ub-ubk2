@@ -1,0 +1,12 @@
+diff -Nur orig/makefile mod/makefile
+--- orig/makefile	2018-12-31 19:45:54.000000000 +0100
++++ mod/makefile	2019-01-28 20:59:17.459731574 +0100
+@@ -3,7 +3,7 @@
+ #--------------------------------
+ OBJ=.
+ SRC=.
+-CFLAGS:= $(CFLAGS) -O3 -Wall
++CFLAGS:= $(CFLAGS) -O2 -Wall
+ 
+ all: jhead
+ 
