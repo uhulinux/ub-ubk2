@@ -207,3 +207,5 @@ texlive
 hunspell-hu
 hunspell #hunspell-hu runtime-depends vissza
 hunspell-hu #mégegyszer
+ostree
+flatpak
