@@ -1,6 +1,5 @@
 appstream-glib-dev
-docbook-dtds
-docbook-xsl
+flatpak-dev
 gdk-pixbuf-dev
 gnome-desktop-dev
 gtk-dev

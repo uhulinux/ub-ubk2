@@ -2,8 +2,14 @@
 
 ub_compile \
     -Denable-fwupd=false \
-    -Denable-flatpak=false \
-    -Denable-ostree=false \
     -Denable-ubuntu-reviews=false \
+    -Denable-ubuntuone=false \
     -Denable-odrs=false \
-    -Denable-gtk-doc=false
+    -Denable-steam=false \
+    -Denable-limba=false \
+    -Denable-rpm=false \
+    -Denable-rpm-ostree=false \
+    -Denable-enable-external-appstream=false \
+    -Denable-tests=false \
+    -Denable-gtk-doc=false \
+    -Denable-man=false
