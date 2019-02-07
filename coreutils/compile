@@ -1,6 +1,7 @@
 #!/bin/sh -eux
 
 # groups, su: shadow
+# hostname: inetutils
 # kill, uptime: procps
 # su: util-linux
 
