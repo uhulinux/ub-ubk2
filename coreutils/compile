@@ -2,7 +2,7 @@
 
 # groups, su: shadow
 # kill, uptime: procps
+# su: util-linux
 
 ub_compile \
-	--enable-install-program=hostname \
-	--enable-no-install-program=arch,coreutils,groups,kill,su,uptime
+	--enable-no-install-program=groups,hostname,kill,su,uptime
