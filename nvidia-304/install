@@ -1,4 +1,5 @@
 #!/bin/bash -eux
+
 #kernel verzió
 if [ "$UB_ARCH" == "amd64" ];then
 KVER="$(ls -1 /lib/modules | grep x86_64)"

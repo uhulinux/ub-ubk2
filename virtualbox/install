@@ -1,5 +1,8 @@
 #!/bin/bash -eux
 
+kernelsrc64="$(echo /lib/modules/*.x86_64/build)"
+kernelsrc32="$(echo /lib/modules/*.i386/build)"
+
 source ./env.sh
 
 # we install the kernel module
@@ -8,7 +11,7 @@ if [ $UB_ARCH = "amd64" ]; then
 	make \
 		DESTDIR="$UB_INSTALLDIR" \
 		INSTALL_MOD_PATH="$UB_INSTALLDIR" \
-		KERN_DIR="/usr/src/`readlink /usr/src/linux`" \
+		KERN_DIR=$kernelsrc64 \
 		MODULE_DIR="${UB_INSTALLDIR}`ls -1d /lib/modules/*.x86_64`/kernel/drivers/misc/" \
 		install
 else
@@ -16,7 +19,7 @@ else
 	make \
 		DESTDIR="$UB_INSTALLDIR" \
 		INSTALL_MOD_PATH="$UB_INSTALLDIR" \
-		KERN_DIR="/usr/src/`readlink /usr/src/linux`" \
+		KERN_DIR=$kernelsrc32 \
 		MODULE_DIR="${UB_INSTALLDIR}`ls -1d /lib/modules/*.i386`/kernel/drivers/misc/" \
 		install
 fi

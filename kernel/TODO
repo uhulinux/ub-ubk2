@@ -5,3 +5,5 @@ nvidia-340
 nvidia-304
 nvidia
 virtualbox
+
+CONFIG_RETPOLINE

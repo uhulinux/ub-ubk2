@@ -9,6 +9,7 @@ iasl
 kernel-dev
 kmod
 libcap-dev
+libelf-dev
 libidl2-dev
 libvpx-dev
 libxalan-dev
@@ -19,6 +20,7 @@ libxmu-dev
 libxslt-dev
 lvm-dev
 makeself
+opus-dev
 pulseaudio-dev
 python-dev
 qt5-dev
