@@ -1,0 +1,15 @@
+diff -Nur apper-1.0.0/libapper/CMakeLists.txt apper-1.0.0.patched/libapper/CMakeLists.txt
+--- apper-1.0.0/libapper/CMakeLists.txt	2018-02-20 21:12:16.000000000 +0100
++++ apper-1.0.0.patched/libapper/CMakeLists.txt	2018-08-05 20:52:40.241976358 +0200
+@@ -59,7 +59,10 @@
+     KF5::I18n
+     Qt5::Core
+     PK::packagekitqt5
+-    AppStreamQt
+ )
+ 
++if(APPSTREAM)
++    target_link_libraries(apper_private AppStreamQt)
++endif()
++
+ install(TARGETS apper_private DESTINATION ${CMAKE_INSTALL_LIBDIR}/apper)

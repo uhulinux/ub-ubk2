@@ -107,6 +107,8 @@ kdeplasma-addons
 khotkeys
 kmenuedit
 plasma-desktop
+packagekit-qt5
+apper
 polkit-kde-agent-1
 powerdevil
 sddm-kcm
