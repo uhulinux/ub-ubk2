@@ -1,0 +1,361 @@
+diff -Nur orig/Apper/ApperKCM.cpp mod/Apper/ApperKCM.cpp
+--- orig/Apper/ApperKCM.cpp	2018-02-20 21:12:16.000000000 +0100
++++ mod/Apper/ApperKCM.cpp	2019-02-23 14:55:20.000000000 +0100
+@@ -67,8 +67,8 @@
+ ApperKCM::ApperKCM(QWidget *parent) :
+     QWidget(parent),
+     ui(new Ui::ApperKCM),
+-    m_findIcon(QIcon::fromTheme(QLatin1String("edit-find"))),
+-    m_cancelIcon(QIcon::fromTheme(QLatin1String("dialog-cancel")))
++    m_findIcon(QIcon::fromTheme(QLatin1String("/usr/share/apper/icons/hicolor/edit-find"))),
++    m_cancelIcon(QIcon::fromTheme(QLatin1String("/usr/share/apper/icons/hicolor/dialog-cancel")))
+ {
+     ui->setupUi(this);
+ 
+@@ -79,7 +79,7 @@
+     Daemon::global()->setHints(QLatin1String("locale=") + QLocale::system().name() + QLatin1String(".UTF-8"));
+ 
+     // Browse TAB
+-    ui->backTB->setIcon(QIcon::fromTheme(QLatin1String("go-previous")));
++    ui->backTB->setIcon(QIcon::fromTheme(QLatin1String("/usr/share/apper/icons/hicolor/go-previous")));
+ 
+     // create our toolbar
+     auto toolBar = new QToolBar(this);
+@@ -140,7 +140,7 @@
+     // install the backend filters
+     ui->filtersTB->setMenu(m_filtersMenu = new FiltersMenu(this));
+     connect(m_filtersMenu, &FiltersMenu::filtersChanged, this, &ApperKCM::search);
+-    ui->filtersTB->setIcon(QIcon::fromTheme(QLatin1String("view-filter")));
++    ui->filtersTB->setIcon(QIcon::fromTheme(QLatin1String("/usr/share/apper/icons/hicolor/view-filter")));
+     ApplicationSortFilterModel *proxy = ui->browseView->proxy();
+     proxy->setApplicationFilter(m_filtersMenu->filterApplications());
+     connect(m_filtersMenu, QOverload<bool>::of(&FiltersMenu::filterApplications), proxy, &ApplicationSortFilterModel::setApplicationFilter);
+@@ -196,17 +196,17 @@
+ 
+     auto menu = new QMenu(this);
+     ui->settingsTB->setMenu(menu);
+-    ui->settingsTB->setIcon(QIcon::fromTheme(QLatin1String("preferences-other")));
++    ui->settingsTB->setIcon(QIcon::fromTheme(QLatin1String("/usr/share/apper/icons/hicolor/preferences-other")));
+ 
+     auto signalMapper = new QSignalMapper(this);
+     connect(signalMapper, QOverload<const QString &>::of(&QSignalMapper::mapped), this, &ApperKCM::setPage);
+ 
+     QAction *action;
+-    action = menu->addAction(QIcon::fromTheme(QLatin1String("view-history")), i18n("History"));
++    action = menu->addAction(QIcon::fromTheme(QLatin1String("/usr/share/apper/icons/hicolor/edit-find")), i18n("History"));
+     signalMapper->setMapping(action, QLatin1String("history"));
+     connect(action, &QAction::triggered, signalMapper, QOverload<>::of(&QSignalMapper::map));
+ 
+-    action = menu->addAction(QIcon::fromTheme(QLatin1String("preferences-other")), i18n("Settings"));
++    action = menu->addAction(QIcon::fromTheme(QLatin1String("/usr/share/apper/icons/hicolor/preferences-other")), i18n("Settings"));
+     signalMapper->setMapping(action, QLatin1String("settings"));
+     connect(action, &QAction::triggered, signalMapper, QOverload<>::of(&QSignalMapper::map));
+ 
+@@ -280,8 +280,8 @@
+         ui->actionFindFile->setText(i18n("Find by f&ile name"));
+         ui->actionFindDescription->setText(i18n("Find by &description"));
+         // Define actions icon
+-        ui->actionFindFile->setIcon(QIcon::fromTheme(QLatin1String("document-open")));
+-        ui->actionFindDescription->setIcon(QIcon::fromTheme(QLatin1String("document-edit")));
++        ui->actionFindFile->setIcon(QIcon::fromTheme(QLatin1String("/usr/share/apper/icons/hicolor/document-open")));
++        ui->actionFindDescription->setIcon(QIcon::fromTheme(QLatin1String("/usr/share/apper/icons/hicolor/document-edit")));
+         ui->actionFindName->setIcon(m_findIcon);
+         m_genericActionK->setIcon(m_findIcon);
+         if (m_currentAction) {
+@@ -530,10 +530,10 @@
+                 connect(m_updaterPage, &Updater::downloadSize, ui->downloadL, &QLabel::setText);
+ //                connect(m_updaterPage, &Updater::changed, this, &ApperKCM::checkChanged);
+                 ui->stackedWidget->addWidget(m_updaterPage);
+-                ui->checkUpdatesPB->setIcon(QIcon::fromTheme(QLatin1String("view-refresh")));
++                ui->checkUpdatesPB->setIcon(QIcon::fromTheme(QLatin1String("/usr/share/apper/icons/hicolor/view-refresh")));
+                 connect(ui->checkUpdatesPB, &QPushButton::clicked, this, &ApperKCM::refreshCache);
+ 
+-                ui->updatePB->setIcon(QIcon::fromTheme(QLatin1String("system-software-update")));
++                ui->updatePB->setIcon(QIcon::fromTheme(QLatin1String("/usr/share/apper/icons/hicolor/system-software-update")));
+                 connect(ui->updatePB, &QPushButton::clicked, this, &ApperKCM::save);
+                 connect(m_updaterPage, &Updater::changed, ui->updatePB, &QPushButton::setEnabled);
+             }
+diff -Nur orig/Apper/BackendDetails.cpp mod/Apper/BackendDetails.cpp
+--- orig/Apper/BackendDetails.cpp	2018-02-20 21:12:16.000000000 +0100
++++ mod/Apper/BackendDetails.cpp	2019-02-23 15:14:13.000000000 +0100
+@@ -34,7 +34,7 @@
+     ui->setupUi(this);
+ 
+     setWindowTitle(i18n("Backend Details"));
+-    setWindowIcon(QIcon::fromTheme(QLatin1String("help-about")));
++    setWindowIcon(QIcon::fromTheme(QLatin1String("/usr/share/apper/icons/hicolor/help-about")));
+ 
+     // update information about PackageKit backend
+     connect(Daemon::global(), &Daemon::changed, this, &BackendDetails::daemonChanged);
+diff -Nur orig/Apper/BrowseView.cpp mod/Apper/BrowseView.cpp
+--- orig/Apper/BrowseView.cpp	2018-02-20 21:12:16.000000000 +0100
++++ mod/Apper/BrowseView.cpp	2019-02-23 15:16:29.000000000 +0100
+@@ -78,8 +78,8 @@
+     ApplicationsDelegate *delegate = new ApplicationsDelegate(packageView);
+     packageView->setItemDelegate(delegate);
+ 
+-    exportInstalledPB->setIcon(QIcon::fromTheme(QLatin1String("document-export")));
+-    importInstalledPB->setIcon(QIcon::fromTheme(QLatin1String("document-import")));
++    exportInstalledPB->setIcon(QIcon::fromTheme(QLatin1String("/usr/share/apper/icons/hicolor/document-export")));
++    importInstalledPB->setIcon(QIcon::fromTheme(QLatin1String("/usr/share/apper/icons/hicolor/document-import")));
+ 
+     KConfig config(QLatin1String("apper"));
+     KConfigGroup viewGroup(&config, "BrowseView");
+diff -Nur orig/Apper/CategoryModel.cpp mod/Apper/CategoryModel.cpp
+--- orig/Apper/CategoryModel.cpp	2018-02-20 21:12:16.000000000 +0100
++++ mod/Apper/CategoryModel.cpp	2019-02-23 14:22:08.000000000 +0100
+@@ -53,7 +53,7 @@
+     item->setData(Transaction::RoleGetPackages, SearchRole);
+     item->setData(i18n("Lists"), KCategorizedSortFilterProxyModel::CategoryDisplayRole);
+     item->setData(0, KCategorizedSortFilterProxyModel::CategorySortRole);
+-    item->setIcon(QIcon::fromTheme(QLatin1String("dialog-ok-apply")));
++    item->setIcon(QIcon::fromTheme(QLatin1String("/usr/share/apper/icons/hicolor/dialog-ok-apply")));
+     appendRow(item);
+ 
+     item = new QStandardItem(i18n("Updates"));
+@@ -61,7 +61,7 @@
+     item->setData(Transaction::RoleGetUpdates, SearchRole);
+     item->setData(i18n("Lists"), KCategorizedSortFilterProxyModel::CategoryDisplayRole);
+     item->setData(0, KCategorizedSortFilterProxyModel::CategorySortRole);
+-    item->setIcon(QIcon::fromTheme(QLatin1String("system-software-update")));
++    item->setIcon(QIcon::fromTheme(QLatin1String("/usr/share/apper/icons/hicolor/system-software-update")));
+     appendRow(item);
+ 
+ #ifdef HAVE_APPSTREAM
+diff -Nur orig/Apper/PackageDetails.cpp mod/Apper/PackageDetails.cpp
+--- orig/Apper/PackageDetails.cpp	2018-02-20 21:12:16.000000000 +0100
++++ mod/Apper/PackageDetails.cpp	2019-02-23 15:10:49.000000000 +0100
+@@ -82,7 +82,7 @@
+    m_hasFileList(false)
+ {
+     ui->setupUi(this);
+-    ui->hideTB->setIcon(QIcon::fromTheme(QLatin1String("window-close")));
++    ui->hideTB->setIcon(QIcon::fromTheme(QLatin1String("/usr/share/apper/icons/hicolor/window-close")));
+     connect(ui->hideTB, SIGNAL(clicked()), this, SLOT(hide()));
+ 
+     auto menu = new QMenu(i18n("Display"), this);
+@@ -163,7 +163,7 @@
+ 
+     // Set the menu
+     ui->menuTB->setMenu(menu);
+-    ui->menuTB->setIcon(QIcon::fromTheme(QLatin1String("help-about")));
++    ui->menuTB->setIcon(QIcon::fromTheme(QLatin1String("/usr/share/apper/icons/hicolor/help-about")));
+     connect(m_actionGroup, SIGNAL(triggered(QAction*)),
+             this, SLOT(actionActivated(QAction*)));
+ 
+diff -Nur orig/Apper/ScreenShotViewer.cpp mod/Apper/ScreenShotViewer.cpp
+--- orig/Apper/ScreenShotViewer.cpp	2018-02-20 21:12:16.000000000 +0100
++++ mod/Apper/ScreenShotViewer.cpp	2019-02-23 15:24:54.000000000 +0100
+@@ -47,7 +47,7 @@
+     setFrameShadow(Plain);
+     setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
+     setWidget(m_screenshotL);
+-    setWindowIcon(QIcon::fromTheme(QLatin1String("layer-visible-on")));
++    setWindowIcon(QIcon::fromTheme(QLatin1String("/usr/share/apper/icons/hicolor/layer-visible-on")));
+ 
+     auto tempFile = new QTemporaryFile(QDir::tempPath() + QLatin1String("/apper.XXXXXX.png"));
+     tempFile->open();
+diff -Nur orig/libapper/ApplicationsDelegate.cpp mod/libapper/ApplicationsDelegate.cpp
+--- orig/libapper/ApplicationsDelegate.cpp	2018-02-20 21:12:16.000000000 +0100
++++ mod/libapper/ApplicationsDelegate.cpp	2019-02-23 17:05:42.467973455 +0100
+@@ -40,13 +40,13 @@
+   : QStyledItemDelegate(parent),
+     m_viewport(parent->viewport()),
+     // loads it here to be faster when displaying items
+-    m_installIcon(QIcon::fromTheme(QLatin1String("go-down"))),
++    m_installIcon(QIcon::fromTheme(QLatin1String("/usr/share/apper/icons/hicolor/go-down"))),
+     m_installString(i18n("Install")),
+-    m_removeIcon(QIcon::fromTheme(QLatin1String("edit-delete"))),
++    m_removeIcon(QIcon::fromTheme(QLatin1String("/usr/share/apper/icons/hicolor/edit-delete"))),
+     m_removeString(i18n("Remove")),
+-    m_undoIcon(QIcon::fromTheme(QLatin1String("edit-undo"))),
++    m_undoIcon(QIcon::fromTheme(QLatin1String("/usr/share/apper/icons/hicolor/edit-undo"))),
+     m_undoString(i18n("Deselect")),
+-    m_checkedIcon(QIcon::fromTheme(QLatin1String("dialog-ok")))
++    m_checkedIcon(QIcon::fromTheme(QLatin1String("/usr/share/apper/icons/hicolor/dialog-ok-apply")))
+ {
+     m_viewport->setAttribute(Qt::WA_Hover, true);
+     QPushButton button, button2;
+diff -Nur orig/libapper/ChangesDelegate.cpp mod/libapper/ChangesDelegate.cpp
+--- orig/libapper/ChangesDelegate.cpp	2018-02-20 21:12:16.000000000 +0100
++++ mod/libapper/ChangesDelegate.cpp	2019-02-23 17:10:00.771587032 +0100
+@@ -49,15 +49,15 @@
+     KExtendableItemDelegate(parent),
+     m_viewport(parent->viewport()),
+     // loads it here to be faster when displaying items
+-    m_packageIcon(QIcon::fromTheme(QLatin1String("package"))),
+-    m_collectionIcon(QIcon::fromTheme(QLatin1String("package-orign"))),
+-    m_installIcon(QIcon::fromTheme(QLatin1String("dialog-cancel"))),
++    m_packageIcon(QIcon::fromTheme(QLatin1String("/usr/share/apper/icons/hicolor/48x48/actions/package"))),
++    m_collectionIcon(QIcon::fromTheme(QLatin1String("usr/share/apper/icons/hicolor/48x48/actions/package-orign"))),
++    m_installIcon(QIcon::fromTheme(QLatin1String("/usr/share/apper/icons/hicolor/dialog-cancel"))),
+     m_installString(i18n("Do not Install")),
+-    m_removeIcon(QIcon::fromTheme(QLatin1String("dialog-cancel"))),
++    m_removeIcon(QIcon::fromTheme(QLatin1String("/usr/share/apper/icons/hicolor/dialog-cancel"))),
+     m_removeString(i18n("Do not Remove")),
+-    m_undoIcon(QIcon::fromTheme(QLatin1String("edit-undo"))),
++    m_undoIcon(QIcon::fromTheme(QLatin1String("/usr/share/apper/icons/hicolor/edit-undo"))),
+     m_undoString(i18n("Deselect")),
+-    m_checkedIcon(QIcon::fromTheme(QLatin1String("dialog-ok-apply")))
++    m_checkedIcon(QIcon::fromTheme(QLatin1String("/usr/share/apper/icons/hicolor/dialog-ok-apply")))
+ {
+     // maybe rename or copy it to package-available
+     if (QApplication::isRightToLeft()) {
+diff -Nur orig/libapper/PkIcons.cpp mod/libapper/PkIcons.cpp
+--- orig/libapper/PkIcons.cpp	2018-02-20 21:12:16.000000000 +0100
++++ mod/libapper/PkIcons.cpp	2019-02-23 13:37:47.123657826 +0100
+@@ -231,44 +231,44 @@
+         PkIcons::configure();
+     }
+     switch (group) {
+-    case Transaction::GroupUnknown         : return QIcon::fromTheme(QLatin1String("unknown"));
+-    case Transaction::GroupAccessibility   : return QIcon::fromTheme(QLatin1String("preferences-desktop-accessibility"));
+-    case Transaction::GroupAccessories     : return QIcon::fromTheme(QLatin1String("applications-accessories"));
+-    case Transaction::GroupAdminTools      : return QIcon::fromTheme(QLatin1String("dialog-password"));
+-    case Transaction::GroupCommunication   : return QIcon::fromTheme(QLatin1String("network-workgroup"));//FIXME
+-    case Transaction::GroupDesktopGnome    : return QIcon::fromTheme(QLatin1String("kpk-desktop-gnome"));
+-    case Transaction::GroupDesktopKde      : return QIcon::fromTheme(QLatin1String("kde"));
+-    case Transaction::GroupDesktopOther    : return QIcon::fromTheme(QLatin1String("user-desktop"));
+-    case Transaction::GroupDesktopXfce     : return QIcon::fromTheme(QLatin1String("kpk-desktop-xfce"));
+-    case Transaction::GroupDocumentation   : return QIcon::fromTheme(QLatin1String("accessories-dictionary"));//FIXME
+-    case Transaction::GroupEducation       : return QIcon::fromTheme(QLatin1String("applications-education"));
+-    case Transaction::GroupElectronics     : return QIcon::fromTheme(QLatin1String("media-flash"));
+-    case Transaction::GroupFonts           : return QIcon::fromTheme(QLatin1String("preferences-desktop-font"));
+-    case Transaction::GroupGames           : return QIcon::fromTheme(QLatin1String("applications-games"));
+-    case Transaction::GroupGraphics        : return QIcon::fromTheme(QLatin1String("applications-graphics"));
+-    case Transaction::GroupInternet        : return QIcon::fromTheme(QLatin1String("applications-internet"));
+-    case Transaction::GroupLegacy          : return QIcon::fromTheme(QLatin1String("media-floppy"));
+-    case Transaction::GroupLocalization    : return QIcon::fromTheme(QLatin1String("applications-education-language"));
+-    case Transaction::GroupMaps            : return QIcon::fromTheme(QLatin1String("Maps"));//FIXME
+-    case Transaction::GroupCollections     : return QIcon::fromTheme(QLatin1String("package-orign"));
+-    case Transaction::GroupMultimedia      : return QIcon::fromTheme(QLatin1String("applications-multimedia"));
+-    case Transaction::GroupNetwork         : return QIcon::fromTheme(QLatin1String("network-wired"));
+-    case Transaction::GroupOffice          : return QIcon::fromTheme(QLatin1String("applications-office"));
+-    case Transaction::GroupOther           : return QIcon::fromTheme(QLatin1String("applications-other"));
+-    case Transaction::GroupPowerManagement : return QIcon::fromTheme(QLatin1String("battery"));
+-    case Transaction::GroupProgramming     : return QIcon::fromTheme(QLatin1String("applications-development"));
+-    case Transaction::GroupPublishing      : return QIcon::fromTheme(QLatin1String("accessories-text-editor"));
+-    case Transaction::GroupRepos           : return QIcon::fromTheme(QLatin1String("application-x-compressed-tar"));
+-    case Transaction::GroupScience         : return QIcon::fromTheme(QLatin1String("applications-science"));
+-    case Transaction::GroupSecurity        : return QIcon::fromTheme(QLatin1String("security-high"));
+-    case Transaction::GroupServers         : return QIcon::fromTheme(QLatin1String("network-server"));
+-    case Transaction::GroupSystem          : return QIcon::fromTheme(QLatin1String("applications-system"));
+-    case Transaction::GroupVirtualization  : return QIcon::fromTheme(QLatin1String("cpu"));
+-    case Transaction::GroupVendor          : return QIcon::fromTheme(QLatin1String("application-certificate"));
+-    case Transaction::GroupNewest          : return QIcon::fromTheme(QLatin1String("dialog-information"));
++    case Transaction::GroupUnknown         : return QIcon::fromTheme(QLatin1String("/usr/share/apper/icons/hicolor/unknown"));
++    case Transaction::GroupAccessibility   : return QIcon::fromTheme(QLatin1String("/usr/share/apper/icons/hicolor/cinnamon"));
++    case Transaction::GroupAccessories     : return QIcon::fromTheme(QLatin1String("/usr/share/apper/icons/hicolor/applications-accessories"));
++    case Transaction::GroupAdminTools      : return QIcon::fromTheme(QLatin1String("/usr/share/apper/icons/hicolor/dialog-password"));
++    case Transaction::GroupCommunication   : return QIcon::fromTheme(QLatin1String("/usr/share/apper/icons/hicolor/network-workgroup"));//FIXME
++    case Transaction::GroupDesktopGnome    : return QIcon::fromTheme(QLatin1String("/usr/share/apper/icons/hicolor/48x48/categories/kpk-desktop-gnome"));
++    case Transaction::GroupDesktopKde      : return QIcon::fromTheme(QLatin1String("/usr/share/apper/icons/hicolor/kde"));
++    case Transaction::GroupDesktopOther    : return QIcon::fromTheme(QLatin1String("/usr/share/apper/icons/hicolor/user-desktop"));
++    case Transaction::GroupDesktopXfce     : return QIcon::fromTheme(QLatin1String("/usr/share/apper/icons/hicolor/48x48/categories/kpk-desktop-xfce"));
++    case Transaction::GroupDocumentation   : return QIcon::fromTheme(QLatin1String("/usr/share/apper/icons/hicolor/accessories-dictionary"));//FIXME
++    case Transaction::GroupEducation       : return QIcon::fromTheme(QLatin1String("/usr/share/apper/icons/hicolor/applications-education"));
++    case Transaction::GroupElectronics     : return QIcon::fromTheme(QLatin1String("/usr/share/apper/icons/hicolor/lxqt"));
++    case Transaction::GroupFonts           : return QIcon::fromTheme(QLatin1String("/usr/share/apper/icons/hicolor/preferences-desktop-font"));
++    case Transaction::GroupGames           : return QIcon::fromTheme(QLatin1String("/usr/share/apper/icons/hicolor/applications-games"));
++    case Transaction::GroupGraphics        : return QIcon::fromTheme(QLatin1String("/usr/share/apper/icons/hicolor/applications-graphics"));
++    case Transaction::GroupInternet        : return QIcon::fromTheme(QLatin1String("/usr/share/apper/icons/hicolor/applications-internet"));
++    case Transaction::GroupLegacy          : return QIcon::fromTheme(QLatin1String("/usr/share/apper/icons/hicolor/media-floppy"));
++    case Transaction::GroupLocalization    : return QIcon::fromTheme(QLatin1String("/usr/share/apper/icons/hicolor/mate"));
++    case Transaction::GroupMaps            : return QIcon::fromTheme(QLatin1String("/usr/share/apper/icons/hicolor/database"));//FIXME
++    case Transaction::GroupCollections     : return QIcon::fromTheme(QLatin1String("/usr/share/apper/icons/hicolor/48x48/actions/package-orign"));
++    case Transaction::GroupMultimedia      : return QIcon::fromTheme(QLatin1String("/usr/share/apper/icons/hicolor/applications-multimedia"));
++    case Transaction::GroupNetwork         : return QIcon::fromTheme(QLatin1String("/usr/share/apper/icons/hicolor/network-wired"));
++    case Transaction::GroupOffice          : return QIcon::fromTheme(QLatin1String("/usr/share/apper/icons/hicolor/applications-office"));
++    case Transaction::GroupOther           : return QIcon::fromTheme(QLatin1String("/usr/share/apper/icons/hicolor/applications-other"));
++    case Transaction::GroupPowerManagement : return QIcon::fromTheme(QLatin1String("/usr/share/apper/icons/hicolor/battery"));
++    case Transaction::GroupProgramming     : return QIcon::fromTheme(QLatin1String("/usr/share/apper/icons/hicolor/applications-development"));
++    case Transaction::GroupPublishing      : return QIcon::fromTheme(QLatin1String("/usr/share/apper/icons/hicolor/kwrite"));
++    case Transaction::GroupRepos           : return QIcon::fromTheme(QLatin1String("/usr/share/apper/icons/hicolor/application-x-compressed-tar"));
++    case Transaction::GroupScience         : return QIcon::fromTheme(QLatin1String("/usr/share/apper/icons/hicolor/applications-science"));
++    case Transaction::GroupSecurity        : return QIcon::fromTheme(QLatin1String("/usr/share/apper/icons/hicolor/xarchiver"));
++    case Transaction::GroupServers         : return QIcon::fromTheme(QLatin1String("/usr/share/apper/icons/hicolor/network-server"));
++    case Transaction::GroupSystem          : return QIcon::fromTheme(QLatin1String("/usr/share/apper/icons/hicolor/applications-system"));
++    case Transaction::GroupVirtualization  : return QIcon::fromTheme(QLatin1String("/usr/share/apper/icons/hicolor/cpu"));
++    case Transaction::GroupVendor          : return QIcon::fromTheme(QLatin1String("/usr/share/apper/icons/hicolor/application-certificate"));
++    case Transaction::GroupNewest          : return QIcon::fromTheme(QLatin1String("/usr/share/apper/icons/hicolor/dialog-information"));
+     }
+     qCDebug(APPER_LIB) << "group unrecognised: " << group;
+-    return QIcon::fromTheme(QLatin1String("unknown"));
++    return QIcon::fromTheme(QLatin1String("/usr/share/apper/icons/hicolor/unknown"));
+ }
+ 
+ QIcon PkIcons::packageIcon(Transaction::Info info)
+@@ -284,9 +284,9 @@
+     case Transaction::InfoSecurity    : return QIcon::fromTheme(QLatin1String("security-low"));
+     case Transaction::InfoNormal      : return QIcon::fromTheme(QLatin1String("emblem-new"));
+     case Transaction::InfoBlocked     : return QIcon::fromTheme(QLatin1String("dialog-cancel"));
+-    case Transaction::InfoAvailable   : return QIcon::fromTheme(QLatin1String("package-download"));
+-    case Transaction::InfoInstalled   : return QIcon::fromTheme(QLatin1String("package-installed"));
+-    default                    : return QIcon::fromTheme(QLatin1String("package"));
++    case Transaction::InfoAvailable   : return QIcon::fromTheme(QLatin1String("/usr/share/apper/icons/hicolor/48x48/actions/package-download"));
++    case Transaction::InfoInstalled   : return QIcon::fromTheme(QLatin1String("/usr/share/apper/icons/hicolor/48x48/actions/package-installed"));
++    default                    : return QIcon::fromTheme(QLatin1String("/usr/share/apper/icons/hicolor/48x48/actions/package"));
+     }
+ }
+ 
+diff -Nur orig/libapper/PkStrings.cpp mod/libapper/PkStrings.cpp
+--- orig/libapper/PkStrings.cpp	2018-02-20 21:12:16.000000000 +0100
++++ mod/libapper/PkStrings.cpp	2019-02-21 19:10:05.000000000 +0100
+@@ -752,7 +752,7 @@
+ {
+     switch (group) {
+     case Transaction::GroupAccessibility :
+-        return i18nc("The group type", "Accessibility");
++        return i18nc("The group type", "CINNAMON");
+     case Transaction::GroupAccessories :
+         return i18nc("The group type", "Accessories");
+     case Transaction::GroupEducation :
+@@ -780,9 +780,9 @@
+     case Transaction::GroupDesktopXfce :
+         return i18nc("The group type", "XFCE desktop");
+     case Transaction::GroupDesktopOther :
+-        return i18nc("The group type", "Other desktops");
++        return i18nc("The group type", "Gyors grafikus környezet");
+     case Transaction::GroupPublishing :
+-        return i18nc("The group type", "Publishing");
++        return i18nc("The group type", "Editorok");
+     case Transaction::GroupServers :
+         return i18nc("The group type", "Servers");
+     case Transaction::GroupFonts :
+@@ -790,21 +790,21 @@
+     case Transaction::GroupAdminTools :
+         return i18nc("The group type", "Admin tools");
+     case Transaction::GroupLegacy :
+-        return i18nc("The group type", "Legacy");
++        return i18nc("The group type", "Fejlécek és függvénytárak");
+     case Transaction::GroupLocalization :
+-        return i18nc("The group type", "Localization");
++        return i18nc("The group type", "MATE");
+     case Transaction::GroupVirtualization :
+-        return i18nc("The group type", "Virtualization");
++        return i18nc("The group type", "Emulátorok");
+     case Transaction::GroupSecurity :
+-        return i18nc("The group type", "Security");
++        return i18nc("The group type", "Tömörítők");
+     case Transaction::GroupPowerManagement :
+-        return i18nc("The group type", "Power management");
++        return i18nc("The group type", "X");
+     case Transaction::GroupCommunication :
+         return i18nc("The group type", "Communication");
+     case Transaction::GroupNetwork :
+         return i18nc("The group type", "Network");
+     case Transaction::GroupMaps :
+-        return i18nc("The group type", "Maps");
++        return i18nc("The group type", "Adatbázisok");
+     case Transaction::GroupRepos :
+         return i18nc("The group type", "Software sources");
+     case Transaction::GroupScience :
+@@ -812,7 +812,7 @@
+     case Transaction::GroupDocumentation :
+         return i18nc("The group type", "Documentation");
+     case Transaction::GroupElectronics :
+-        return i18nc("The group type", "Electronics");
++        return i18nc("The group type", "LXDE, LXQT");
+     case Transaction::GroupCollections ://TODO check this one
+         return i18nc("The group type", "Package collections");
+     case Transaction::GroupVendor :
