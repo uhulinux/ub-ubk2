@@ -109,6 +109,7 @@ kmenuedit
 plasma-desktop
 packagekit-qt5
 apper
+discover
 polkit-kde-agent-1
 powerdevil
 sddm-kcm
