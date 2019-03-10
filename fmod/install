@@ -2,10 +2,8 @@
 
 mkdir -p ${UB_INSTALLDIR}/usr/lib
 mkdir -p ${UB_INSTALLDIR}/usr/include/fmodex
-mkdir -p ${UB_INSTALLDIR}/usr/share/doc/fmodex
 cp -d api/lib/* "$UB_INSTALLDIR"/usr/lib/
 cp -d api/inc/* "$UB_INSTALLDIR"/usr/include/fmodex
-cp -r documentation examples ${UB_INSTALLDIR}/usr/share/doc/fmodex/
 if [ "$UB_ARCH" == "amd64" ];then
 arch=64
 else
