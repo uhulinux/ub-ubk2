@@ -5,7 +5,6 @@ jmoney
 min1200w
 fish
 audio-entropyd
-newlisp
 aspell-dict-english
 aspell-dict-german
 aspell-dict-hungarian
