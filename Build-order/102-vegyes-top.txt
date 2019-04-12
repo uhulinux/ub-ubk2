@@ -1,7 +1,5 @@
 funny-manpages
-hoc
 htdig
-jmoney
 min1200w
 fish
 audio-entropyd
@@ -13,8 +11,6 @@ mathomatic
 postgresql-odbc
 shared-desktop-ontologies
 media-player-info
-abevjava
-fet
 lightdm-gtk-greeter-settings
 euler
 smart
@@ -24,20 +20,14 @@ grub-customizer
 socnetv
 zhu3d
 librecad
-efax-gtk
 postgis
 pgadmin3
 systemd-ui
-qpdfview
 lightdm-another-gtk-greeter
 nvidia-304
 nvidia-340
 nvidia-390
 nvidia
 synapse
-gnucash
-abiword
 genius
-libreoffice
-master-pdf-editor
 calamares

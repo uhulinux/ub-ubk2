@@ -1,0 +1,8 @@
+xephem
+phun
+klavaro
+xplanet
+celestia
+hoc
+stellarium
+sweethome3d
