@@ -1,3 +1,6 @@
 #!/bin/sh -eux
 
+# A transgui 32 bites módban -O3 esetén nem fordul le.
+ub_replace -O3 -O2 ide/compileroptions.pp
+
 make OPT="-Fl/usr/lib" FPC=/usr/bin/fpc LCL_PLATFORM=gtk2 clean bigide
