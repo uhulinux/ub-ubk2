@@ -107,6 +107,7 @@ python-configobj
 python-enum
 python-cxfreeze
 python-cssselect
+python-css-parser
 python-dateutil
 python-decorator
 python-distutils-extra
