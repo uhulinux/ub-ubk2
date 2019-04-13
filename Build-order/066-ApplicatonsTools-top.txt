@@ -28,7 +28,6 @@ qshutdown
 rand
 redis
 sgrep
-simple-screen-recorder
 statifier
 supercat
 symlinks
@@ -97,7 +96,6 @@ gdmap
 qt5ct
 keepassx
 clamtk
-gtk-recordmydesktop
 testdisk
 rsw
 igotu2gpx
@@ -115,7 +113,6 @@ wammu
 unibrow
 moserial
 qjson
-qt-recordmydesktop
 hardinfo
 eterm
 trend
@@ -131,7 +128,6 @@ electrum
 mount-gtk
 gencfsm
 easytag
-ffdiaporama
 gdesklets
 bclock
 converseen
@@ -141,7 +137,6 @@ rss-glx
 deb-gview
 alltray
 cmark
-mkvtoolnix
 sane-frontends
 simple-scan
 sakura

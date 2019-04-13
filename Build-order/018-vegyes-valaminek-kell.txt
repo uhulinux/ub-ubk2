@@ -188,7 +188,6 @@ sfml
 autotrace
 mftrace
 foomatic-db-engine
-qemu
 reiserfsprogs
 jfsutils
 apmd
