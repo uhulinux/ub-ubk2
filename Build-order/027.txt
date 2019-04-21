@@ -10,6 +10,7 @@ xmms2
 libmypaint
 mypaint-brushes
 gimp
+twolame
 mplayer
 openimageio
 xsane
