@@ -9,6 +9,7 @@ cdtest
 checkinstall
 cksfv
 cw
+figlet
 gmakeself
 gocr
 ico2xpm

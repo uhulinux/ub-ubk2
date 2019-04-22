@@ -5,7 +5,6 @@ dbedit
 dbview
 doom1-demodata
 fairymax
-figlet
 fortune
 fortune-hu
 golems
