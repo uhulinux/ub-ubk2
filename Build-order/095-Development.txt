@@ -12,6 +12,9 @@ discount
 dpkg-repack
 f2c
 hla
+indent
+latexmk
+openmpi
 patchutils
 shc
 sparse

@@ -6,8 +6,6 @@ fonts-symbola
 freepats
 soundfont-fluid
 geos
-indent
-latexmk
 lexmark7000linux
 lm1100
 lrzsz
@@ -116,7 +114,6 @@ colord-gtk
 glfw2
 goffice08
 openssh
-openmpi
 gtkspell
 fonts-ghostscript-std
 icon-theme-tango
