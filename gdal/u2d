@@ -1,1 +1,1 @@
-urllist http://download.osgeo.org/gdal/ | grep -E '^[0-9.]+$' | sort -V | tail -n 1
+u2dsubdir http://download.osgeo.org/gdal/ gdal-
