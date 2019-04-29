@@ -1,5 +1,7 @@
 libnotify-dev
 libsm-dev
 nautilus-dev
+py3gobject
+pygobject-dev
 pygtk-dev
-python-docutils
+python3-docutils

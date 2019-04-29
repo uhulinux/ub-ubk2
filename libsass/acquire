@@ -3,5 +3,5 @@
 ${UB_VERSION}.tar.gz libsass-${UB_VERSION}/
 	https://github.com/sass/libsass/archive/${UB_VERSION}.tar.gz
 
-sassc-${UB_VERSION}.tar.gz sassc-${UB_VERSION}/ :sassc
-	https://github.com/sass/sassc/archive/${UB_VERSION}.tar.gz
+3.5.0.tar.gz sassc-3.5.0/ :sassc
+	https://github.com/sass/sassc/archive/
