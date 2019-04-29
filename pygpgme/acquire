@@ -1,0 +1,4 @@
+#!/usr/bin/env dl
+
+pygpgme-${UB_VERSION}.tar.gz pygpgme-${UB_VERSION}/ :py2
+	https://pypi.io/packages/source/p/pygpgme/

@@ -181,3 +181,4 @@ python-html5lib
 python-msgpack
 python-webencodings
 python3-gnupg
+pygpgme
