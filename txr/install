@@ -2,3 +2,5 @@
 
 cp -a txr "$UB_INSTALLDIR"/usr/bin/
 cp -a txr.1 "$UB_INSTALLDIR"/usr/share/man/man1/
+mkdir -p "$UB_INSTALLDIR"/usr/share/txr/stdlib
+cp  share/txr/stdlib/* "$UB_INSTALLDIR"/usr/share/txr/stdlib/
