@@ -65,3 +65,4 @@ diffuse
 regexxer
 git-extras
 newlisp
+txr

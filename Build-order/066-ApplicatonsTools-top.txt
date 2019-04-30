@@ -56,7 +56,6 @@ imediff2
 bleachbit
 xstickwin
 tmux
-txr
 shash
 h5utils
 toilet
