@@ -1,4 +1,7 @@
-pyqt4
+pyqt5
+python3-aiohttp
+python3-aiohttp-socks
+python3-aiorpcx
 python3-certifi
 python3-dnspython
 python3-ecdsa
@@ -7,6 +10,7 @@ python3-pbkdf2
 python3-protobuf
 python3-pyaes
 python3-pysocks
+python3-qdarkstyle
 python3-qrcode
 python3-requests
 python-slowaes

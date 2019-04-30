@@ -1,0 +1,4 @@
+#!/usr/bin/env dl
+
+v${UB_VERSION}.tar.gz idna-ssl-${UB_VERSION}/
+	https://github.com/aio-libs/idna-ssl/archive/
