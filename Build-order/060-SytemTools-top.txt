@@ -19,6 +19,7 @@ psacct
 rdate
 read-edid
 rkhunter
+libp11
 rng-tools
 schedtool
 sdparm
