@@ -27,7 +27,6 @@ libiodbc
 libisofs
 liblangtag
 liblensfun
-libmatroska
 libmediaart
 libmicrohttpd
 libmikmod

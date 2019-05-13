@@ -3,6 +3,8 @@ libspectre
 clucene-core
 libgtkhtml2
 pcsc-lite
+aribb24
+aribb25
 vte2
 libmusicbrainz3
 libgnomecanvas2

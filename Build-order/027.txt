@@ -15,6 +15,13 @@ mplayer
 openimageio
 xsane
 opencolorio
+shine
+livemedia
+arrib24
+arrib25
+srt
+fmt
+libmatroska
 vlc
 pidgin
 telepathy-farstream
