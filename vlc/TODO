@@ -1,6 +1,21 @@
-crystalhd
-freerdp
-goom
-live555
-mfx
-lua53
+dav1d # UBK2 meson kevés
+asdcplib
+fluidlite
+freerdp-0.1 # freerdp sok
+libgoom2 # Zene vizualizáció
+libcrystalhd
+libdsm
+libmfx
+libplacebo
+libsidplay2 # csak C64 zene
+libvcd
+libvncclient
+libvxsu
+microdns
+mmal
+protoc
+protobuf-lite
+shout
+spatialaudio
+tiger
+x262 # x264 with mpeg2 support

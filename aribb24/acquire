@@ -1,0 +1,4 @@
+#!/usr/bin/env dl
+
+v${UB_VERSION}.tar.gz aribb24-${UB_VERSION}/
+	https://github.com/nkoriyama/aribb24/archive/

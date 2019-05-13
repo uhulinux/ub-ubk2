@@ -1,4 +1,7 @@
 aalib-dev
+aom-dev
+aribb24-dev
+aribb25-dev
 db4-dev
 faad2
 ffmpeg-dev
@@ -9,6 +12,7 @@ lame
 liba52-dev
 libarchive-dev
 libavc1394-dev
+libbluray-dev
 libcddb-dev
 libdca-dev
 libdvbpsi-dev
@@ -16,6 +20,7 @@ libdvdnav-dev
 libfaad2-dev
 libgsf-dev
 libid3tag-dev
+libidn-dev
 libmad-dev
 libmatroska-dev
 libmpeg2-dev
@@ -24,7 +29,9 @@ libnfs-dev
 libnotify-dev
 libproxy-dev
 librsvg-dev
+libsecret-dev
 libsoxr-dev
+libsrtp-dev
 libssh2-dev
 libsysfs-dev
 libunistring-dev
@@ -37,7 +44,8 @@ libxt-dev
 libxvmc-dev
 libxxf86vm-dev
 lirc-dev
-lua52-dev
+livemedia
+lua53-dev
 mpg123-dev
 musepack-dev
 opencv-dev
@@ -46,11 +54,16 @@ opus-dev
 pango-dev
 popt-dev
 portaudio-dev
+projectm-dev
 qt5-dev
 samba-dev
+schroedinger-dev
 sdl-image-dev
+shine-dev
 speexdsp-dev
+srt-dev
 taglib-dev
+twolame-dev
 vcdimager-dev
 x11vnc
 xcb-util-keysyms-dev

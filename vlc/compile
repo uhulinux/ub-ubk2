@@ -1,17 +1,14 @@
 #!/bin/sh -eux
 
-export BUILDCC="/usr/bin/gcc -std=gnu99"
+ub_replace -O3 -O2 configure.ac
 ./bootstrap
-export LUAC=luac5.2
+export BUILDCC="/usr/bin/gcc -std=gnu99"
+export LUA_CFLAGS=`pkg-config --cflags lua53`
+export LUA_LIBS=`pkg-config --libs lua53`
+export LUAC=luac5.3
 ub_compile \
-	--enable-flac \
-	--enable-faad \
-	--enable-svg \
 	--enable-jack \
 	--enable-lirc \
-	--enable-xcb \
-	--enable-libva \
 	--enable-nls \
-	--enable-sftp \
 	--disable-update-check \
     --enable-qt=5

@@ -1,0 +1,4 @@
+#!/usr/bin/env dl
+
+aribb25-${UB_VERSION}.tar.bz2 aribb25-${UB_VERSION}/
+	https://code.videolan.org/videolan/aribb25/-/archive/${UB_VERSION}/
