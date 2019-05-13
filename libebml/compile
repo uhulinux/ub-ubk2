@@ -1,4 +1,7 @@
 #!/bin/sh -eux
 
-autoreconf -vif
-ub_compile
+ub_compile \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_INSTALL_LIBDIR=/usr/lib \
+    -DBUILD_SHARED_LIBS=ON
