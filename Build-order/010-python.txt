@@ -189,3 +189,4 @@ python-async-timeout
 python-idna-ssl
 python-multidict
 python-yarl
+python-distro
