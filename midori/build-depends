@@ -1,8 +1,10 @@
 gcr-dev
 gtk-dev
 intltool
+json-glib-dev
+libarchive-dev
 libpeas-dev
-libsoup-gnome-dev
+libsoup-dev
 libxml2
 sqlite-dev
 vala-dev
