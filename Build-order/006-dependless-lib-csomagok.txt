@@ -33,3 +33,4 @@ libnova
 spglib
 libyajl
 jxrlib
+pugixml

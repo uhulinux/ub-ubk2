@@ -1,0 +1,4 @@
+#!/usr/bin/env dl
+
+${UB_VERSION}.tar.gz text-unidecode-${UB_VERSION}/
+	https://github.com/kmike/text-unidecode/archive/
