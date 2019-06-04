@@ -1,0 +1,36 @@
+# Fixed asserting free disk space in case there is no local timer currently recording.
+#
+--- ./timers.c	2018/03/17 10:07:19	5.0
++++ ./timers.c	2019/05/23 09:46:32
+@@ -819,7 +819,7 @@
+ 
+ int cTimers::GetMaxPriority(void) const
+ {
+-  int n = 0;
++  int n = -1;
+   for (const cTimer *ti = First(); ti; ti = Next(ti)) {
+       if (!ti->Remote() && ti->Recording())
+          n = max(n, ti->Priority());
+--- ./timers.h	2018/02/27 13:57:26	5.0
++++ ./timers.h	2019/05/23 09:47:19
+@@ -178,6 +178,7 @@
+   cTimer *GetMatch(const cEvent *Event, eTimerMatch *Match = NULL) { return const_cast<cTimer *>(static_cast<const cTimers *>(this)->GetMatch(Event, Match)); }
+   int GetMaxPriority(void) const;
+       ///< Returns the maximum priority of all local timers that are currently recording.
++      ///< If there is no local timer currently recording, -1 is returned.
+   const cTimer *GetNextActiveTimer(void) const;
+   const cTimer *UsesChannel(const cChannel *Channel) const;
+   bool SetEvents(const cSchedules *Schedules);
+--- ./vdr.c	2019/03/18 11:17:07	5.4
++++ ./vdr.c	2019/05/23 09:48:35
+@@ -1182,7 +1182,9 @@
+           if (Timers->DeleteExpired())
+              TimersModified = true;
+           // Make sure there is enough free disk space for ongoing recordings:
+-          AssertFreeDiskSpace(Timers->GetMaxPriority());
++          int MaxPriority = Timers->GetMaxPriority();
++          if (MaxPriority >= 0)
++             AssertFreeDiskSpace(MaxPriority);
+           TimersStateKey.Remove(TimersModified);
+         }
+         // Recordings:

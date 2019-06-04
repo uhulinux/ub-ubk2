@@ -1,0 +1,17 @@
+# Fixed handling remote timers in case the response to LSTT is '550 No timers defined'.
+#
+--- a/svdrp.c	2018/04/19 09:45:08	5.1
++++ b/svdrp.c	2019/05/06 15:11:15
+@@ -508,9 +508,10 @@
+          int Code = SVDRPCode(s);
+          if (Code == 250)
+             strshift(s, 4);
++         else if (Code == 550)
++            Response.Clear();
+          else {
+-            if (Code != 550)
+-               esyslog("ERROR: %s: %s", ServerName(), s);
++            esyslog("ERROR: %s: %s", ServerName(), s);
+             return false;
+             }
+          }

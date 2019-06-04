@@ -1,0 +1,25 @@
+# Reverted the change "The EIT filter no longer parses data from "other TS"...". It led to
+# missing EPG data on channels from Canal Digital Norway.
+#
+--- a/eit.c	2018/03/31 13:40:32	5.0
++++ b/eit.c	2018/11/15 16:33:58	5.1
+@@ -388,8 +388,7 @@
+ 
+ cEitFilter::cEitFilter(void)
+ {
+-//Set(0x12, 0x40, 0xC0);  // event info now&next actual/other TS (0x4E/0x4F), future actual/other TS (0x5X/0x6X) // TODO: remove later
+-  Set(0x12, 0x40, 0xE0);  // event info now&next actual/other TS (0x4E/0x4F), future actual TS (0x5X)
++  Set(0x12, 0x40, 0xC0);  // event info now&next actual/other TS (0x4E/0x4F), future actual/other TS (0x5X/0x6X)
+   Set(0x14, 0x70);        // TDT
+ }
+ 
+@@ -416,8 +415,7 @@
+      }
+   switch (Pid) {
+     case 0x12: {
+-       //if (Tid >= 0x4E && Tid <= 0x6F) // TODO: remove later
+-         if (Tid == 0x4E || Tid >= 0x50 && Tid <= 0x5F)
++         if (Tid >= 0x4E && Tid <= 0x6F)
+             cEIT EIT(sectionSyncerHash, Source(), Tid, Data);
+          }
+          break;

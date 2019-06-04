@@ -1,0 +1,13 @@
+# Fixed a wrong variable name in cFileName::cFileName().
+#
+--- a/recording.c	2019/05/07 09:22:34	5.4
++++ b/recording.c	2019/05/28 21:47:32
+@@ -2896,7 +2896,7 @@
+   // Prepare the file name:
+   fileName = MALLOC(char, strlen(FileName) + RECORDFILESUFFIXLEN);
+   if (!fileName) {
+-     esyslog("ERROR: can't copy file name '%s'", fileName);
++     esyslog("ERROR: can't copy file name '%s'", FileName);
+      return;
+      }
+   strcpy(fileName, FileName);

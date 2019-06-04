@@ -1,0 +1,35 @@
+# Fixed updating the cursor position when switching channels with the Channel+/- keys
+# while the Channels menu is open.
+#
+--- a/menu.c	2018/07/16 09:29:57	5.4
++++ b/menu.c	2019/03/18 16:14:06	5.5
+@@ -576,7 +576,7 @@
+          break;
+     default:
+          if (state == osUnknown) {
+-            switch (Key) {
++            switch (int(Key)) {
+               case k0 ... k9:
+                             return Number(Key);
+               case kOk:     return Switch();
+@@ -586,6 +586,20 @@
+               case kBlue:   if (!HasSubMenu())
+                                Mark();
+                             break;
++              case kChanUp|k_Repeat:
++              case kChanUp:
++              case kChanDn|k_Repeat:
++              case kChanDn: {
++                   LOCK_CHANNELS_READ;
++                   int CurrentChannelNr = cDevice::CurrentChannel();
++                   for (cMenuChannelItem *ci = (cMenuChannelItem *)First(); ci; ci = (cMenuChannelItem *)ci->Next()) {
++                       if (!ci->Channel()->GroupSep() && ci->Channel()->Number() == CurrentChannelNr) {
++                          SetCurrent(ci);
++                          Display();
++                          break;
++                          }
++                       }
++                   }
+               default: break;
+               }
+             }

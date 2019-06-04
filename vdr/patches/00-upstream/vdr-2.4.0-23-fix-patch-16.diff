@@ -1,0 +1,13 @@
+# Fixed a copy/paste error in patch #16.
+#
+--- a/nit.c	2019/03/12 14:00:52	5.2
++++ b/nit.c	2019/03/18 10:29:09
+@@ -196,7 +196,7 @@
+                                      }
+                                   }
+                               }
+-                           if (!ISTRANSPONDER(Frequency / 1000000, transponder))
++                           if (!ISTRANSPONDER(Frequency / 1000, transponder))
+                               continue; // a channel with obsolete/wrong/other(?) transponder
+                            found = true;
+                            if (ISTRANSPONDER(transponder, Transponder())) // only modify channels if we're actually receiving this transponder

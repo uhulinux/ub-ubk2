@@ -1,0 +1,41 @@
+# Fixed triggering the SDT filter when parsing the NIT.
+#
+--- a/nit.c	2019/03/12 13:01:33	5.1
++++ b/nit.c	2019/03/12 14:00:52
+@@ -153,8 +153,6 @@
+                            }
+                        }
+                     }
+-                 if (ISTRANSPONDER(cChannel::Transponder(Frequency, dtp.Polarization()), Transponder()))
+-                    sdtFilter->Trigger(Source);
+                  }
+                  break;
+             case SI::S2SatelliteDeliverySystemDescriptorTag: {
+@@ -218,8 +216,6 @@
+                            }
+                        }
+                     }
+-                 if (ISTRANSPONDER(Frequency / 1000, Transponder()))
+-                    sdtFilter->Trigger(Source);
+                  }
+                  break;
+             case SI::TerrestrialDeliverySystemDescriptorTag: {
+@@ -286,8 +282,6 @@
+                            }
+                        }
+                     }
+-                 if (ISTRANSPONDER(Frequency / 1000000, Transponder()))
+-                    sdtFilter->Trigger(Source);
+                  }
+                  break;
+             case SI::ExtensionDescriptorTag: {
+@@ -367,5 +361,9 @@
+           delete d;
+           }
+       }
++  if (nit.getSectionNumber() == nit.getLastSectionNumber()) {
++     dbgnit("    trigger sdtFilter for current tp %d\n", Transponder());
++     sdtFilter->Trigger(Source());
++     }
+   StateKey.Remove(ChannelsModified);
+ }

@@ -1,0 +1,33 @@
+# Fixed processing SI::T2DeliverySystemDescriptor when typecasting it over an
+# SI::ExtensionDescriptor.
+#
+--- ./libsi/descriptor.c	2013/10/30 10:16:18	5.0
++++ ./libsi/descriptor.c	2019/03/15 16:12:43
+@@ -870,6 +870,11 @@
+ void ExtensionDescriptor::Parse() {
+    int offset=0;
+    data.setPointerAndOffset<const descr_extension>(s, offset);
++   extended_data_flag = s->descriptor_length > 0x04;
++}
++
++int ExtensionDescriptor::getExtendedDataFlag() const {
++  return extended_data_flag;
+ }
+ 
+ int ExtensionDescriptor::getExtensionDescriptorTag() const {
+--- ./libsi/descriptor.h	2014/02/08 12:44:17	5.0
++++ ./libsi/descriptor.h	2019/03/15 16:12:09
+@@ -529,11 +529,13 @@
+ 
+ class ExtensionDescriptor : public Descriptor {
+ public:
++   int getExtendedDataFlag() const;
+    int getExtensionDescriptorTag() const;
+ protected:
+    virtual void Parse();
+ private:
+    const descr_extension *s;
++   int extended_data_flag;
+ };
+ 
+ class T2DeliverySystemDescriptor : public Descriptor {

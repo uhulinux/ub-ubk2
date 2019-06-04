@@ -1,0 +1,26 @@
+# The default maximum size of a cPixmap has been raised to the maximum possible value.
+#
+--- ./osd.c	2018/04/06 08:43:15	5.0
++++ ./osd.c	2019/05/24 21:28:35
+@@ -1643,7 +1643,7 @@
+ int cOsd::osdTop = 0;
+ int cOsd::osdWidth = 0;
+ int cOsd::osdHeight = 0;
+-cSize cOsd::maxPixmapSize(2048, 2048);
++cSize cOsd::maxPixmapSize(INT_MAX, INT_MAX);
+ cVector<cOsd *> cOsd::Osds;
+ cMutex cOsd::mutex;
+ 
+--- ./osd.h	2017/11/02 14:59:19	5.0
++++ ./osd.h	2019/05/24 21:28:35
+@@ -833,6 +833,10 @@
+        ///< If this is a true color OSD, this function does nothing.
+   virtual const cSize &MaxPixmapSize(void) const;
+        ///< Returns the maximum possible size of a pixmap this OSD can create.
++       ///< Derived classes can reimplement this function if their implementation
++       ///< of cPixmap can only provide pixmaps up to a certain size.
++       ///< The default implementation returns a cSize object of maximal size
++       ///< (INT_MAX). However, memory restrictions may still apply.
+   virtual cPixmap *CreatePixmap(int Layer, const cRect &ViewPort, const cRect &DrawPort = cRect::Null);
+        ///< Creates a new true color pixmap on this OSD (see cPixmap for details).
+        ///< The caller must not delete the returned object, it will be deleted when

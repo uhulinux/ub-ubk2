@@ -1,0 +1,14 @@
+--- a/recording.c	2018/03/17 10:56:13	5.0
++++ b/recording.c	2019/03/17 16:01:13
+@@ -1022,9 +1022,9 @@
+ {
+   cRecording *r = (cRecording *)&ListObject;
+   if (Setup.RecSortingDirection == rsdAscending)
+-     return strcasecmp(SortName(), r->SortName());
++     return strcmp(SortName(), r->SortName());
+   else
+-     return strcasecmp(r->SortName(), SortName());
++     return strcmp(r->SortName(), SortName());
+ }
+ 
+ bool cRecording::IsInPath(const char *Path) const

@@ -1,0 +1,351 @@
+# Fixed inconsistent behavior in case only certain devices are used (selected by the '-D'
+# option).
+# 
+diff -u -r5.4 ./ci.c
+--- ./ci.c	2019/05/06 11:47:42	5.4
++++ ./ci.c	2019/05/28 15:01:29
+@@ -2233,14 +2233,14 @@
+   return false;
+ }
+ 
+-bool cCamSlot::Devices(cVector<int> &CardIndexes)
++bool cCamSlot::Devices(cVector<int> &DeviceNumbers)
+ {
+   cMutexLock MutexLock(&mutex);
+   if (mtdHandler)
+-     return mtdHandler->Devices(CardIndexes);
++     return mtdHandler->Devices(DeviceNumbers);
+   if (assignedDevice)
+-     CardIndexes.Append(assignedDevice->CardIndex());
+-  return CardIndexes.Size() > 0;
++     DeviceNumbers.Append(assignedDevice->DeviceNumber());
++  return DeviceNumbers.Size() > 0;
+ }
+ 
+ void cCamSlot::NewConnection(void)
+diff -u -r5.1 ./ci.h
+--- ./ci.h	2019/03/17 17:41:17	5.1
++++ ./ci.h	2019/05/28 14:58:08
+@@ -331,9 +331,9 @@
+        ///< class function.
+   cDevice *Device(void) { return assignedDevice; }
+        ///< Returns the device this CAM slot is currently assigned to.
+-  bool Devices(cVector<int> &CardIndexes);
+-       ///< Adds the card indexes of any devices that currently use this CAM to
+-       ///< the given CardIndexes. This can be more than one in case of MTD.
++  bool Devices(cVector<int> &DeviceNumbers);
++       ///< Adds the numbers of any devices that currently use this CAM to
++       ///< the given DeviceNumbers. This can be more than one in case of MTD.
+        ///< Returns true if the array is not empty.
+   bool WantsTsData(void) const { return caPidReceiver != NULL; }
+        ///< Returns true if this CAM slot wants to receive the TS data through
+diff -u -r5.2 ./device.c
+--- ./device.c	2019/05/06 13:10:36	5.2
++++ ./device.c	2019/05/28 14:50:11
+@@ -75,9 +75,9 @@
+ :patPmtParser(true)
+ {
+   cardIndex = nextCardIndex++;
+-  dsyslog("new device number %d", CardIndex() + 1);
++  dsyslog("new device number %d (card index %d)", numDevices + 1, CardIndex() + 1);
+ 
+-  SetDescription("device %d receiver", CardIndex() + 1);
++  SetDescription("device %d receiver", numDevices + 1);
+ 
+   mute = false;
+   volume = Setup.CurrentVolume;
+@@ -230,11 +230,11 @@
+   int MaxNumProvidedSystems = (1 << AvailableBits) - 1;
+   int NumProvidedSystems = Device->NumProvidedSystems();
+   if (NumProvidedSystems > MaxNumProvidedSystems) {
+-     esyslog("ERROR: device %d supports %d modulation systems but cDevice::GetDevice() currently only supports %d delivery systems which should be fixed", Device->CardIndex() + 1, NumProvidedSystems, MaxNumProvidedSystems);
++     esyslog("ERROR: device %d supports %d modulation systems but cDevice::GetDevice() currently only supports %d delivery systems which should be fixed", Device->DeviceNumber() + 1, NumProvidedSystems, MaxNumProvidedSystems);
+      NumProvidedSystems = MaxNumProvidedSystems;
+      }
+   else if (NumProvidedSystems <= 0) {
+-     esyslog("ERROR: device %d reported an invalid number (%d) of supported delivery systems - assuming 1", Device->CardIndex() + 1, NumProvidedSystems);
++     esyslog("ERROR: device %d reported an invalid number (%d) of supported delivery systems - assuming 1", Device->DeviceNumber() + 1, NumProvidedSystems);
+      NumProvidedSystems = 1;
+      }
+   return NumProvidedSystems;
+@@ -272,7 +272,7 @@
+       if (NumUsableSlots && SlotPriority[j] > MAXPRIORITY)
+          continue; // there is no CAM available in this slot
+       for (int i = 0; i < numDevices; i++) {
+-          if (Channel->Ca() && Channel->Ca() <= CA_DVB_MAX && Channel->Ca() != device[i]->CardIndex() + 1)
++          if (Channel->Ca() && Channel->Ca() <= CA_DVB_MAX && Channel->Ca() != device[i]->DeviceNumber() + 1)
+              continue; // a specific card was requested, but not this one
+           bool HasInternalCam = device[i]->HasInternalCam();
+           if (InternalCamNeeded && !HasInternalCam)
+@@ -525,7 +525,7 @@
+   PixelAspect = 1.0;
+ }
+ 
+-//#define PRINTPIDS(s) { char b[500]; char *q = b; q += sprintf(q, "%d %s ", CardIndex(), s); for (int i = 0; i < MAXPIDHANDLES; i++) q += sprintf(q, " %s%4d %d", i == ptOther ? "* " : "", pidHandles[i].pid, pidHandles[i].used); dsyslog("%s", b); }
++//#define PRINTPIDS(s) { char b[500]; char *q = b; q += sprintf(q, "%d %s ", DeviceNumber() + 1, s); for (int i = 0; i < MAXPIDHANDLES; i++) q += sprintf(q, " %s%4d %d", i == ptOther ? "* " : "", pidHandles[i].pid, pidHandles[i].used); dsyslog("%s", b); }
+ #define PRINTPIDS(s)
+ 
+ bool cDevice::HasPid(int Pid) const
+@@ -560,7 +560,7 @@
+            // It's a special PID that may have to be switched into "tap" mode
+            PRINTPIDS("A");
+            if (!SetPid(&pidHandles[n], n, true)) {
+-              esyslog("ERROR: can't set PID %d on device %d", Pid, CardIndex() + 1);
++              esyslog("ERROR: can't set PID %d on device %d", Pid, DeviceNumber() + 1);
+               if (PidType <= ptTeletext)
+                  DetachAll(Pid);
+               DelPid(Pid, PidType);
+@@ -581,7 +581,7 @@
+         n = a;
+         }
+      else {
+-        esyslog("ERROR: no free slot for PID %d on device %d", Pid, CardIndex() + 1);
++        esyslog("ERROR: no free slot for PID %d on device %d", Pid, DeviceNumber() + 1);
+         return false;
+         }
+      if (n >= 0) {
+@@ -590,7 +590,7 @@
+         pidHandles[n].used = 1;
+         PRINTPIDS("C");
+         if (!SetPid(&pidHandles[n], n, true)) {
+-           esyslog("ERROR: can't set PID %d on device %d", Pid, CardIndex() + 1);
++           esyslog("ERROR: can't set PID %d on device %d", Pid, DeviceNumber() + 1);
+            if (PidType <= ptTeletext)
+               DetachAll(Pid);
+            DelPid(Pid, PidType);
+@@ -1758,7 +1758,7 @@
+ #ifdef WAIT_FOR_TUNER_LOCK
+ #define TUNER_LOCK_TIMEOUT 5000 // ms
+   if (!HasLock(TUNER_LOCK_TIMEOUT)) {
+-     esyslog("ERROR: device %d has no lock, can't attach receiver!", CardIndex() + 1);
++     esyslog("ERROR: device %d has no lock, can't attach receiver!", DeviceNumber() + 1);
+      return false;
+      }
+ #endif
+@@ -1849,11 +1849,11 @@
+ 
+ // --- cTSBuffer -------------------------------------------------------------
+ 
+-cTSBuffer::cTSBuffer(int File, int Size, int CardIndex)
++cTSBuffer::cTSBuffer(int File, int Size, int DeviceNumber)
+ {
+-  SetDescription("device %d TS buffer", CardIndex);
++  SetDescription("device %d TS buffer", DeviceNumber);
+   f = File;
+-  cardIndex = CardIndex;
++  deviceNumber = DeviceNumber;
+   delivered = 0;
+   ringBuffer = new cRingBufferLinear(Size, TS_SIZE, true, "TS");
+   ringBuffer->SetTimeouts(100, 100);
+@@ -1878,7 +1878,7 @@
+               int r = ringBuffer->Read(f);
+               if (r < 0 && FATALERRNO) {
+                  if (errno == EOVERFLOW)
+-                    esyslog("ERROR: driver buffer overflow on device %d", cardIndex);
++                    esyslog("ERROR: driver buffer overflow on device %d", deviceNumber);
+                  else {
+                     LOG_ERROR;
+                     break;
+@@ -1909,7 +1909,7 @@
+                }
+             }
+         ringBuffer->Del(Count);
+-        esyslog("ERROR: skipped %d bytes to sync on TS packet on device %d", Count, cardIndex);
++        esyslog("ERROR: skipped %d bytes to sync on TS packet on device %d", Count, deviceNumber);
+         return NULL;
+         }
+      delivered = TS_SIZE;
+diff -u -r5.0 ./device.h
+--- ./device.h	2017/11/02 14:47:33	5.0
++++ ./device.h	2019/05/28 14:47:09
+@@ -861,12 +861,12 @@
+ class cTSBuffer : public cThread {
+ private:
+   int f;
+-  int cardIndex;
++  int deviceNumber;
+   int delivered;
+   cRingBufferLinear *ringBuffer;
+   virtual void Action(void);
+ public:
+-  cTSBuffer(int File, int Size, int CardIndex);
++  cTSBuffer(int File, int Size, int DeviceNumber);
+   virtual ~cTSBuffer();
+   uchar *Get(int *Available = NULL, bool CheckAvailable = false);
+      ///< Returns a pointer to the first TS packet in the buffer. If Available is given,
+diff -u -r5.4 ./dvbdevice.c
+--- ./dvbdevice.c	2019/03/15 14:49:44	5.4
++++ ./dvbdevice.c	2019/05/28 14:40:49
+@@ -738,7 +738,7 @@
+      Channel = &channel;
+   cDvbTransponderParameters dtp(Channel->Parameters());
+   if (Setup.DiSEqC) {
+-     if (const cDiseqc *diseqc = Diseqcs.Get(device->CardIndex() + 1, Channel->Source(), Channel->Frequency(), dtp.Polarization(), NULL))
++     if (const cDiseqc *diseqc = Diseqcs.Get(device->DeviceNumber() + 1, Channel->Source(), Channel->Frequency(), dtp.Polarization(), NULL))
+         return diseqc->Commands();
+      }
+   else {
+@@ -1558,7 +1558,7 @@
+   if (frontendType == SYS_DVBS || frontendType == SYS_DVBS2) {
+      int frequency = channel.Frequency();
+      if (Setup.DiSEqC) {
+-        if (const cDiseqc *diseqc = Diseqcs.Get(device->CardIndex() + 1, channel.Source(), frequency, dtp.Polarization(), &scr)) {
++        if (const cDiseqc *diseqc = Diseqcs.Get(device->DeviceNumber() + 1, channel.Source(), frequency, dtp.Polarization(), &scr)) {
+            frequency -= diseqc->Lof();
+            if (diseqc != lastDiseqc || diseqc->IsScr() || diseqc->Position() >= 0 && channel.Source() != lastSource) {
+               if (IsBondedMaster()) {
+@@ -1939,8 +1939,10 @@
+                  while ((f = AdapterDir.Next()) != NULL) {
+                        if (strstr(f->d_name, DEV_DVB_FRONTEND) == f->d_name) {
+                           int Frontend = strtol(f->d_name + strlen(DEV_DVB_FRONTEND), NULL, 10);
+-                          if (access(DvbName(DEV_DVB_DEMUX, Adapter, Frontend), F_OK) == 0) // we only create devices for actual demuxes
++                          if (access(DvbName(DEV_DVB_DEMUX, Adapter, Frontend), F_OK) == 0) { // we only create devices for actual demuxes
++                             dsyslog("detected /dev/dvb/adapter%d/frontend%d", Adapter, Frontend);
+                              Nodes.Append(strdup(cString::sprintf("%2d %2d", Adapter, Frontend)));
++                             }
+                           }
+                        }
+                  }
+@@ -1962,8 +1964,10 @@
+                      if (Probe(Adapter, Frontend))
+                         Used++;
+                      }
+-                  else
++                  else {
++                     dsyslog("skipped /dev/dvb/adapter%d/frontend%d", Adapter, Frontend);
+                      NextCardIndex(1); // skips this one
++                     }
+                   }
+                }
+             }
+@@ -2037,18 +2041,18 @@
+            if (dvbTuner && Device->dvbTuner && dvbTuner->Bond(Device->dvbTuner)) {
+               bondedDevice = Device->bondedDevice ? Device->bondedDevice : Device;
+               Device->bondedDevice = this;
+-              dsyslog("device %d bonded with device %d", CardIndex() + 1, bondedDevice->CardIndex() + 1);
++              dsyslog("device %d bonded with device %d", DeviceNumber() + 1, bondedDevice->DeviceNumber() + 1);
+               return true;
+               }
+            }
+         else
+-           esyslog("ERROR: can't bond device %d with device %d (only DVB-S(2) devices can be bonded)", CardIndex() + 1, Device->CardIndex() + 1);
++           esyslog("ERROR: can't bond device %d with device %d (only DVB-S(2) devices can be bonded)", DeviceNumber() + 1, Device->DeviceNumber() + 1);
+         }
+      else
+-        esyslog("ERROR: can't bond device %d with itself", CardIndex() + 1);
++        esyslog("ERROR: can't bond device %d with itself", DeviceNumber() + 1);
+      }
+   else
+-     esyslog("ERROR: device %d already bonded with device %d, can't bond with device %d", CardIndex() + 1, bondedDevice->CardIndex() + 1, Device->CardIndex() + 1);
++     esyslog("ERROR: device %d already bonded with device %d, can't bond with device %d", DeviceNumber() + 1, bondedDevice->DeviceNumber() + 1, Device->DeviceNumber() + 1);
+   return false;
+ }
+ 
+@@ -2058,7 +2062,7 @@
+   if (cDvbDevice *d = bondedDevice) {
+      if (dvbTuner)
+         dvbTuner->UnBond();
+-     dsyslog("device %d unbonded from device %d", CardIndex() + 1, bondedDevice->CardIndex() + 1);
++     dsyslog("device %d unbonded from device %d", DeviceNumber() + 1, bondedDevice->DeviceNumber() + 1);
+      while (d->bondedDevice != this)
+            d = d->bondedDevice;
+      if (d == bondedDevice)
+@@ -2174,7 +2178,7 @@
+      return false; // requires modulation system which frontend doesn't provide
+   cDvbTransponderParameters dtp(Channel->Parameters());
+   if (!cSource::IsSat(Channel->Source()) ||
+-     (!Setup.DiSEqC || Diseqcs.Get(CardIndex() + 1, Channel->Source(), Channel->Frequency(), dtp.Polarization(), NULL)))
++     (!Setup.DiSEqC || Diseqcs.Get(DeviceNumber() + 1, Channel->Source(), Channel->Frequency(), dtp.Polarization(), NULL)))
+      return DeviceHooksProvidesTransponder(Channel);
+   return false;
+ }
+@@ -2298,7 +2302,7 @@
+   CloseDvr();
+   fd_dvr = DvbOpen(DEV_DVB_DVR, adapter, frontend, O_RDONLY | O_NONBLOCK, true);
+   if (fd_dvr >= 0)
+-     tsBuffer = new cTSBuffer(fd_dvr, MEGABYTE(5), CardIndex() + 1);
++     tsBuffer = new cTSBuffer(fd_dvr, MEGABYTE(5), DeviceNumber() + 1);
+   return fd_dvr >= 0;
+ }
+ 
+diff -u -r5.5 ./menu.c
+--- ./menu.c	2019/03/18 16:14:06	5.5
++++ ./menu.c	2019/05/28 15:24:43
+@@ -3892,16 +3892,16 @@
+   else if (camSlot->IsActivating())
+      // TRANSLATORS: note the leading blank!
+      Activating = tr(" (activating)");
+-  cVector<int> CardIndexes;
++  cVector<int> DeviceNumbers;
+   for (cCamSlot *CamSlot = CamSlots.First(); CamSlot; CamSlot = CamSlots.Next(CamSlot)) {
+       if (CamSlot == camSlot || CamSlot->MasterSlot() == camSlot)
+-         CamSlot->Devices(CardIndexes);
++         CamSlot->Devices(DeviceNumbers);
+       }
+-  if (CardIndexes.Size() > 0) {
++  if (DeviceNumbers.Size() > 0) {
+      AssignedDevice = cString::sprintf(" %s", tr("@ device"));
+-     CardIndexes.Sort(CompareInts);
+-     for (int i = 0; i < CardIndexes.Size(); i++)
+-         AssignedDevice = cString::sprintf("%s %d", *AssignedDevice, CardIndexes[i] + 1);
++     DeviceNumbers.Sort(CompareInts);
++     for (int i = 0; i < DeviceNumbers.Size(); i++)
++         AssignedDevice = cString::sprintf("%s %d", *AssignedDevice, DeviceNumbers[i]);
+      }
+ 
+   cString buffer = cString::sprintf(" %d %s%s%s", camSlot->SlotNumber(), CamName, *AssignedDevice, Activating);
+@@ -5231,7 +5231,7 @@
+   if (!timer) {
+      timer = new cTimer(true, Pause);
+      Timers->Add(timer);
+-     instantId = cString::sprintf(cDevice::NumDevices() > 1 ? "%s - %d" : "%s", timer->Channel()->Name(), device->CardIndex() + 1);
++     instantId = cString::sprintf(cDevice::NumDevices() > 1 ? "%s - %d" : "%s", timer->Channel()->Name(), device->DeviceNumber() + 1);
+      }
+   timer->SetPending(true);
+   timer->SetRecording(true);
+diff -u -r5.1 ./mtd.c
+--- ./mtd.c	2019/05/05 13:56:46	5.1
++++ ./mtd.c	2019/05/28 14:59:47
+@@ -127,11 +127,11 @@
+   return false;
+ }
+ 
+-bool cMtdHandler::Devices(cVector<int> &CardIndexes)
++bool cMtdHandler::Devices(cVector<int> &DeviceNumbers)
+ {
+   for (int i = 0; i < camSlots.Size(); i++)
+-      camSlots[i]->Devices(CardIndexes);
+-  return CardIndexes.Size() > 0;
++      camSlots[i]->Devices(DeviceNumbers);
++  return DeviceNumbers.Size() > 0;
+ }
+ 
+ void cMtdHandler::UnAssignAll(void)
+diff -u -r5.0 ./mtd.h
+--- ./mtd.h	2017/05/01 09:19:21	5.0
++++ ./mtd.h	2019/05/28 15:00:10
+@@ -136,9 +136,9 @@
+       ///< Tells all active MTD CAM slots to cancel activation.
+   bool IsActivating(void);
+       ///< Returns true if any of the active MTD CAM slots is currently activating.
+-  bool Devices(cVector<int> &CardIndexes);
+-      ///< Adds the card indexes of the devices of any active MTD CAM slots to
+-      ///< the given CardIndexes.
++  bool Devices(cVector<int> &DeviceNumbers);
++      ///< Adds the numbers of the devices of any active MTD CAM slots to
++      ///< the given DeviceNumbers.
+       ///< Returns true if the array is not empty.
+   void UnAssignAll(void);
+       ///< Unassigns all MTD CAM slots from their devices.
+diff -u -r5.0 ./sections.c
+--- ./sections.c	2015/01/14 11:35:53	5.0
++++ ./sections.c	2019/05/28 14:09:04
+@@ -44,7 +44,7 @@
+ {
+   shp = new cSectionHandlerPrivate;
+   device = Device;
+-  SetDescription("device %d section handler", device->CardIndex() + 1);
++  SetDescription("device %d section handler", device->DeviceNumber() + 1);
+   statusCount = 0;
+   on = false;
+   waitForLock = false;
