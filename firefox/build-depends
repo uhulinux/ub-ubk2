@@ -1,6 +1,7 @@
 alsa-lib-dev
 autoconf2.13
 cbindgen
+clang
 curl-dev
 dbus-glib-dev
 gtk2-dev
