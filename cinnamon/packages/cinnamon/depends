@@ -28,5 +28,6 @@ python3-pam
 python3-pexpect
 python3-pillow
 python3-pyinotify
+python-tinycss
 udisks
 xapps

@@ -192,3 +192,4 @@ python-yarl
 python-distro
 python-text-unicode
 python-slugify
+python-tinycss
