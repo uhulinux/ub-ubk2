@@ -1,7 +1,7 @@
 diff -Nur orig/settings.conf mod/settings.conf
---- orig/settings.conf	2018-09-04 14:03:59.000000000 +0200
-+++ mod/settings.conf	2018-12-25 17:00:51.397426724 +0100
-@@ -78,6 +78,7 @@
+--- orig/settings.conf	2019-08-07 12:58:22.000000000 +0200
++++ mod/settings.conf	2019-09-07 15:39:29.483937053 +0200
+@@ -93,6 +93,7 @@
    - partition
    - users
  #  - tracking
@@ -9,7 +9,7 @@ diff -Nur orig/settings.conf mod/settings.conf
    - summary
  - exec:
  #  - dummycpp
-@@ -86,25 +87,21 @@
+@@ -101,25 +102,21 @@
  #  - dummypythonqt
    - partition
    - mount
@@ -38,11 +38,14 @@ diff -Nur orig/settings.conf mod/settings.conf
  #  - grubcfg
    - bootloader
    - umount
-@@ -146,3 +143,7 @@
- #
+@@ -164,6 +161,10 @@
  # YAML: boolean.
  dont-chroot: false
-+
+ 
 +packageOperations:
 +  -install
 +  -remove
++
+ # If this is set to true, Calamares refers to itself as a "setup program"
+ # rather than an "installer". Defaults to the value of dont-chroot, but
+ # Calamares will complain if this is not explicitly set.
