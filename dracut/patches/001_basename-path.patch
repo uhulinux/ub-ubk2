@@ -1,0 +1,18 @@
+diff -Nur orig/modules.d/35network-manager/nm-run.sh mod/modules.d/35network-manager/nm-run.sh
+--- orig/modules.d/35network-manager/nm-run.sh	2018-10-08 15:38:33.000000000 +0200
++++ mod/modules.d/35network-manager/nm-run.sh	2019-08-26 21:07:54.598801759 +0200
+@@ -1,4 +1,5 @@
+ #!/bin/sh
++export PATH=/usr/sbin:/usr/bin:/sbin:/bin
+ 
+ if getargbool 0 rd.debug -d -y rdinitdebug -d -y rdnetdebug; then
+     /usr/sbin/NetworkManager --configure-and-quit=initrd --debug --log-level=trace
+diff -Nur orig/modules.d/90kernel-modules-extra/module-setup.sh mod/modules.d/90kernel-modules-extra/module-setup.sh
+--- orig/modules.d/90kernel-modules-extra/module-setup.sh	2018-10-08 15:38:33.000000000 +0200
++++ mod/modules.d/90kernel-modules-extra/module-setup.sh	2019-08-26 21:08:14.830688388 +0200
+@@ -1,4 +1,5 @@
+ #!/bin/bash
++export PATH=/usr/sbin:/usr/bin:/sbin:/bin
+ 
+ # called by dracut
+ #

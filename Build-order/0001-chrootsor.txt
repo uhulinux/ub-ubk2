@@ -9,6 +9,7 @@ gcc
 kmod #-docbook-dtds,-docbook-xsl,-libxslt-dev
 inetutils
 pciutils
+dracut
 kernel
 cppp
 cracklib

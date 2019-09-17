@@ -10,6 +10,7 @@ gcc
 kmod
 inetutils
 pciutils
+dracut
 kernel
 cracklib
 pcre

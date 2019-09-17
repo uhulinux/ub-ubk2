@@ -1,0 +1,7 @@
+asciidoc
+bash-completion
+docbook-dtds
+docbook-xsl
+kmod-dev
+libxslt-dev
+systemd-dev
