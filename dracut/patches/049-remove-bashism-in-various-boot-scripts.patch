@@ -58,19 +58,6 @@ index b85ed2b8..c051b430 100755
          GNUPGHOME="$gpghome" gpg-connect-agent 1>/dev/null killagent /bye
      fi
  
-diff --git a/modules.d/95dcssblk/parse-dcssblk.sh b/modules.d/95dcssblk/parse-dcssblk.sh
-index 8f174408..27ac1d8d 100644
---- a/modules.d/95dcssblk/parse-dcssblk.sh
-+++ b/modules.d/95dcssblk/parse-dcssblk.sh
-@@ -2,7 +2,7 @@
- # -*- mode: shell-script; indent-tabs-mode: nil; sh-basic-offset: 4; -*-
- # ex: ts=8 sw=4 sts=4 et filetype=sh
- dcssblk_arg=$(getarg rd.dcssblk=)
--if [ $? == 0 ];then
-+if [ $? = 0 ];then
- 	info "Loading dcssblk segments=$dcssblk_arg"
- 	modprobe dcssblk segments=$dcssblk_arg
- fi
 diff --git a/modules.d/98syslog/rsyslogd-start.sh b/modules.d/98syslog/rsyslogd-start.sh
 index c64f2121..86ad50ea 100755
 --- a/modules.d/98syslog/rsyslogd-start.sh
