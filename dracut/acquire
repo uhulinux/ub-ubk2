@@ -2,3 +2,13 @@
 
 ${UB_VERSION}.tar.gz dracut-${UB_VERSION}/
 	https://github.com/dracutdevs/dracut/archive/
+
+#dracut-${UB_VERSION}.tar.gz dracut-b7058d0/
+#	git://github.com/dracutdevs/dracut.git@b7058d0
+
+# a0799ff 046-release 2017-08-11 jó
+# b7058d0 2017-10-03 jó
+# 2840177 2017-10-06 rossz, de már valami továbblódult, de továbbra is megáll
+# 1ec2e34 2017-11-06 rossz
+# d842d5c 2018-01-16 rossz
+# 8ae8652 047-release 2018-02-19 rossz
