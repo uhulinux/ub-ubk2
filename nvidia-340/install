@@ -6,7 +6,7 @@ else
 KVER="$(ls -1 /lib/modules | grep i386)"
 fi
 #célkönyvtárak
-moduldir="$UB_INSTALLDIR"/lib/modules/"$KVER"/kernel/drivers
+moduldir="$UB_INSTALLDIR"/lib/modules/"$KVER"/kernel/drivers/video
 cellibdir="$UB_INSTALLDIR"/usr/lib
 xmoduldir="$cellibdir"/xorg/modules
 desktopdir="$UB_INSTALLDIR"/usr/share/applications

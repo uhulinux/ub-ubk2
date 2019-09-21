@@ -8,7 +8,7 @@ else
 KVER="$(ls -1 /lib/modules | grep i386)"
 forras="NVIDIA-Linux-x86-${UB_VERSION}"
 fi
-moduldir="$UB_COMPILEDIR/lib/modules/"$KVER"/kernel/drivers"
+moduldir="$UB_COMPILEDIR/lib/modules/"$KVER"/kernel/drivers/video"
 mkdir -p $moduldir
 #kicsomagolás és belépés
 chmod +x $forras.run
