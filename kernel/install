@@ -21,22 +21,22 @@ export KBUILD_BUILD_TIMESTAMP="$(LC_ALL=C LANG=C date)"
 
 # mkinitrd
 
-if [ "$UB_ARCH" != "amd64" ];then
+arch="i386"
+
+if [ "$UB_ARCH" = "amd64" ];then
+    arch="x86_64"
+fi
 
 cat >"$UB_INSTALLDIR"/usr/sbin/mkinitrd-installedkernel <<END
 #!/bin/sh
 
-mkinitrd $VERSION.i386
-mkinitrd $VERSION.x86_64
+dracut -f -H /boot/initrd-$VERSION.$arch.img $UB_VERSION-$UB_RELEASE.$arch
 
-rm -f /boot/initrd.i386.gz
-ln -s initrd-$VERSION.i386.gz /boot/initrd.i386.gz
+rm -f /boot/initrd.$arch
+ln -s initrd-$VERSION.$arch.img /boot/initrd.$arch
 
-rm -f /boot/initrd.x86_64.gz
-ln -s initrd-$VERSION.x86_64.gz /boot/initrd.x86_64.gz
-
-rm -f /boot/initrd.gz
-ln -s initrd.i386.gz /boot/initrd.gz
+rm -f /boot/initrd
+ln -s initrd.$arch /boot/initrd
 
 # update grub config
 if [ -f /boot/grub/grub.cfg ]; then
@@ -45,33 +45,21 @@ fi
 exec grub-mkconfig -o /boot/grub/grub.cfg
 
 END
-
-else
-
-cat >"$UB_INSTALLDIR"/usr/sbin/mkinitrd-installedkernel <<END
-#!/bin/sh
-
-mkinitrd $VERSION.x86_64
-
-rm -f /boot/initrd.x86_64.gz
-ln -s initrd-$VERSION.x86_64.gz /boot/initrd.x86_64.gz
-
-rm -f /boot/initrd.gz
-ln -s initrd.x86_64.gz /boot/initrd.gz
-
-# update grub config
-if [ -f /boot/grub/grub.cfg ]; then
-	mv /boot/grub/grub.cfg /boot/grub/grub.cfg.`date '+%F'`
-fi
-exec grub-mkconfig -o /boot/grub/grub.cfg
-
-END
-
-fi
 
 chmod 755 "$UB_INSTALLDIR"/usr/sbin/mkinitrd-installedkernel
 
 cp -al "$UB_OBJECTDIR"/. "$UB_INSTALLDIR"/
+
+# szükségtelen arch törlése
+
+if [ "$arch" = "i386" ];then
+
+rm -f "$UB_INSTALLDIR"/boot/*.x86_64
+rm -rf "$UB_INSTALLDIR"/lib/modules/*.x86_64
+rm -rf "$UB_INSTALLDIR"/usr/src/*.x86_64
+linuxdir=$(ls -d "$UB_INSTALLDIR"/usr/src/linux-* | sed s%.*/%%)
+ln -sf $linuxdir "$UB_INSTALLDIR"/usr/src/linux
+fi
 
 chmod -R a+rX,u+w,go-w "$UB_INSTALLDIR"
 

@@ -1,16 +1,23 @@
 diff -Nur orig/settings.conf mod/settings.conf
 --- orig/settings.conf	2019-08-07 12:58:22.000000000 +0200
-+++ mod/settings.conf	2019-09-07 15:39:29.483937053 +0200
-@@ -93,6 +93,7 @@
++++ mod/settings.conf	2019-09-19 12:36:28.699121139 +0200
+@@ -87,40 +87,27 @@
+ sequence:
+ - show:
+   - welcome
+-#  - dummypythonqt
+   - locale
+   - keyboard
    - partition
    - users
- #  - tracking
+-#  - tracking
 +  - netinstall
    - summary
  - exec:
- #  - dummycpp
-@@ -101,25 +102,21 @@
- #  - dummypythonqt
+-#  - dummycpp
+-#  - dummyprocess
+-#  - dummypython
+-#  - dummypythonqt
    - partition
    - mount
 -  - unpackfs
@@ -22,10 +29,10 @@ diff -Nur orig/settings.conf mod/settings.conf
    - locale
 -  - keyboard
    - localecfg
- #  - luksbootkeyfile
- #  - luksopenswaphookcfg
- #  - dracutlukscfg
- #  - plymouthcfg
+-#  - luksbootkeyfile
+-#  - luksopenswaphookcfg
+-#  - dracutlukscfg
+-#  - plymouthcfg
 -  - initcpiocfg
 -  - initcpio
    - users
@@ -33,12 +40,15 @@ diff -Nur orig/settings.conf mod/settings.conf
 -  - networkcfg
    - hwclock
 -  - services-systemd
- #  - dracut
+-#  - dracut
 -  - initramfs
- #  - grubcfg
+-#  - grubcfg
++  - dracut
++  - grubcfg
    - bootloader
    - umount
-@@ -164,6 +161,10 @@
+ - show:
+@@ -164,6 +151,10 @@
  # YAML: boolean.
  dont-chroot: false
  

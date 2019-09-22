@@ -130,7 +130,6 @@ zip
 7zip
 po4a
 dpkg
-mkinitrd
 optipng
 coreutils
 sqlite
