@@ -4,7 +4,7 @@ diff -Naur orig/index.theme.in.in patched/index.theme.in.in
 @@ -2,7 +2,7 @@
  _Name=MATE
  _Comment=Default MATE Theme
- Example=start-here
+ Example=folder
 -
 +Inherits=gnome
  # KDE Specific Stuff
