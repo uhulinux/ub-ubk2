@@ -37,4 +37,6 @@ libev
 confuse
 i3status
 i3-wm
+i3lock
 nitrogen
+feh
