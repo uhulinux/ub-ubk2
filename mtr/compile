@@ -1,4 +1,4 @@
 #!/bin/sh -eux
 
-./bootstrap.sh
+autoreconf -vif
 ub_compile
