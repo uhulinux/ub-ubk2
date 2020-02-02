@@ -1,10 +1,7 @@
-alsa-lib-dev
 asciidoc
 fribidi-dev
 gdk-pixbuf-dev
 glfw-dev
-libao-dev
-librsvg-dev
 libsndfile-dev
 libxcomposite-dev
 libxdamage-dev
