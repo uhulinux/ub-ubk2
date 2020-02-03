@@ -1,0 +1,12 @@
+diff -Nur orig/help/Makefile.in mod/help/Makefile.in
+--- orig/help/Makefile.in	2020-01-04 16:54:31.000000000 +0100
++++ mod/help/Makefile.in	2020-02-03 13:18:57.101094432 +0100
+@@ -309,7 +309,7 @@
+ 
+ 
+ # Add linguas to be ignored, e.g. IGNORE_HELP_LINGUAS = ca de es fr
+-IGNORE_HELP_LINGUAS = 
++IGNORE_HELP_LINGUAS = af am ar as ast az be bg bn bn_IN br bs ca ca@valencia cmn crh cy da dz el en_AU en_CA en_GB eo et eu fa ga gl gu he hi hy id is it ja ka kk kn ko ku ky li lt lv mai mg mk ml mn mr ms nb ne nl nn nso oc or pa pl pt_BR si sq ta te th tk tr ug ur vi wa xh zh_CN zh_HK zh_TW zu
+ HELP_LINGUAS = $(if $(IGNORE_HELP_LINGUAS), \
+ 	$(filter-out $(IGNORE_HELP_LINGUAS),$(subst /,,$(dir $(wildcard */*.po)))), \
+ 	$(subst /,,$(dir $(wildcard */*.po))) )
