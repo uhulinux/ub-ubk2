@@ -6,4 +6,5 @@ libgcrypt-dev
 libxkbfile-dev
 meson
 pulseaudio-dev
+samurai
 xkeyboard-config

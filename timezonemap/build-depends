@@ -1,0 +1,6 @@
+gnome-common
+gobject-introspection-dev
+gtk-dev
+json-glib-dev
+librsvg-dev
+libsoup-dev

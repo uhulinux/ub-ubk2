@@ -9,6 +9,7 @@ libtiff-dev
 meson
 nemo-dev
 poppler-glib-dev
+samurai
 webkit2gtk-dev
 xapps-dev
 yelp
