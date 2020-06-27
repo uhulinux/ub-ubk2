@@ -1,4 +1,5 @@
 asciidoc
+cpio
 fribidi-dev
 gdk-pixbuf-dev
 glfw-dev
@@ -11,4 +12,5 @@ libxpm-dev
 libxrandr-dev
 libxt-dev
 linuxdoc-tools
+rpm
 x.org-font-utils

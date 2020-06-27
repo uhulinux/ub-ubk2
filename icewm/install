@@ -3,3 +3,33 @@
 ub_install
 #mv ${UB_INSTALLDIR}/usr/share/doc/icewm/preferences ${UB_INSTALLDIR}/usr/share/icewm/
 cp src/genpref ${UB_INSTALLDIR}/usr/bin/
+icewmmappa=${UB_INSTALLDIR}/usr/share/icewm
+
+# Win témák
+cp -r data/{SilverXP,xp,xp-new,Windows7ice1} $icewmmappa/themes/
+
+# win95 háttér
+cp Original-Windows-951.jpg $icewmmappa/themes/win95/win95.jpg
+
+# xp hátterek
+cp windows-xp-bliss-4k-lu.jpg $icewmmappa/themes/xp/winxp.jpg
+ln -s $icewmmappa/themes/xp/winxp.jpg $icewmmappa/themes/xp-new/winxp.jpg
+ln -s $icewmmappa/themes/xp/winxp.jpg $icewmmappa/themes/SilverXP/winxp.jpg
+
+# hiányzó xpm
+rm -f $icewmmappa/themes/xp/icons/folder* $icewmmappa/themes/xp-new/icons/folder*
+cp -r data/CoolSteel/icons/folder_32x32.xpm $icewmmappa/themes/xp/icons/
+cp -r data/CoolSteel/icons/folder_32x32.xpm $icewmmappa/themes/xp-new/icons/
+cp -r data/blueHeart/icons/folder_16x16.xpm $icewmmappa/themes/xp/icons/
+cp -r data/blueHeart/icons/folder_16x16.xpm $icewmmappa/themes/xp-new/icons/
+
+# win95 indítógomb
+cp -r data/fake95/taskbar $icewmmappa/themes/win95/
+
+# nem kell html
+rm -rf ${UB_INSTALLDIR}/usr/share/doc/icewm
+
+# nem kellenek idegenek
+rm -rf $icewmmappa/themes/SilverXP/FreeBSD
+rm -f $icewmmappa/taskbar/xfreeos2.xpm
+rm -f $icewmmappa/taskbar/debian.xpm
