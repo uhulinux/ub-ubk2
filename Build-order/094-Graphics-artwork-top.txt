@@ -2,7 +2,6 @@ gkrellm-themes
 griffith-extra-artwork
 icon-theme-snow-apple
 pekwm-themes-hewphoria
-pekwm-win-themes
 sddm-theme-chili
 sddm-theme-deepspace
 sddm-theme-futuristic
