@@ -61,6 +61,8 @@ supertux
 supertuxkart
 tomatoes
 trigger-rally
+speed-dreams
+torcs
 tsc
 tuxracer
 ultimatestunts
