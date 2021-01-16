@@ -8,4 +8,7 @@ dvdauthor
 dvdstyler
 audacious
 audacious-plugins
+repidjson
+libfstrcmp
+waylandpp
 kodi

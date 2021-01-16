@@ -1,4 +1,4 @@
 #!/usr/bin/env dl
 
-pvr.vdr.vnsi-${UB_VERSION}.tar.gz pvr.vdr.vnsi-e5dc3dd62942900dac839be986a11283220e3e38/
-  git://github.com/kodi-pvr/pvr.vdr.vnsi.git@e5dc3dd62942900dac839be986a11283220e3e38
+${UB_VERSION}-Leia.tar.gz pvr.vdr.vnsi-${UB_VERSION}-Leia/
+    https://github.com/kodi-pvr/pvr.vdr.vnsi/archive/
