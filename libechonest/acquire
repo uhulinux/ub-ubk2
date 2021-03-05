@@ -1,4 +1,4 @@
 #!/usr/bin/env dl
 
-libechonest-${UB_VERSION}.tar.bz2 libechonest-${UB_VERSION}/
-	http://files.lfranchi.com/
+${UB_VERSION}.tar.gz libechonest-${UB_VERSION}/
+	https://github.com/lfranchi/libechonest/archive/
