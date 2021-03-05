@@ -1,10 +1,5 @@
 #!/bin/sh -eux
 
-autoreconf -vif
-#ub_configure \
-#        --enable-gtk3
-#sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
-#make
-export UB_MAKE_PROCS=1
+export CFLAGS+='-Wno-deprecated-declarations'
 ub_compile \
         --enable-gtk3
