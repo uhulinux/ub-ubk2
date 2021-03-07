@@ -1,3 +1,5 @@
+kmod-dev
 open-isns
 openssl-dev
+systemd-dev
 util-linux-dev
