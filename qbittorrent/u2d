@@ -1,1 +1,2 @@
-sflist qbittorrent qbittorrent | sed s/qbittorrent-//g | sort -V | tail -n 1
+echo 4.3.3
+# noupdate: CMake 3.16 or higher is required.  You are running version 3.11.4
