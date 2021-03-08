@@ -1,1 +1,2 @@
-u2d http://pawsa.fedorapeople.org/balsa/download.html
+echo 2.5.10
+# noupdate : Requested 'gtk+-3.0 >= 3.24.0' but version of GTK+ is 3.22.26

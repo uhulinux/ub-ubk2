@@ -26,9 +26,9 @@ ln -s /etc/xdg/etlegacy/etmain/{etl_server,legacy,{campaign,lms,mapvote,objectiv
 
 # melyik etlegacy architektúra ?
 if [ "$UB_ARCH" == "amd64" ];then
-tarfile="87"
+tarfile="234"
 else
-tarfile="85"
+tarfile="236"
 fi
 
 # kibontás
@@ -38,7 +38,7 @@ rm -f $tarfile
 # etlegacy fájlok eljhelyezése
 cd etlegacy*
 mkdir -p $UB_INSTALLDIR/usr/lib/etlegacy/legacy
-cp legacy/{etl_bin,pak3}_v$UB_VERSION.pk3 $UB_INSTALLDIR/usr/lib/etlegacy/legacy/
+cp legacy/legacy_v$UB_VERSION.pk3 $UB_INSTALLDIR/usr/lib/etlegacy/legacy/
 cp legacy/qagame.mp.*.so $UB_INSTALLDIR/usr/lib/etlegacy/legacy/
 
 # Geiop helyadatok

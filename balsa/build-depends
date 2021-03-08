@@ -12,6 +12,7 @@ intltool
 krb5-dev
 libcanberra-dev
 libesmtp-dev
+libical-dev
 libnotify-dev
 libsecret-dev
 libxshmfence-dev

@@ -4,6 +4,8 @@ gobject-introspection-dev
 gstreamer-dev
 gtkmm-dev
 intltool
+libdbusmenu-gtk3-dev
+libindicator3-dev
 libsm-dev
 libxext-dev
 libxscrnsaver-dev
@@ -11,4 +13,4 @@ libxtst-dev
 mate-panel-dev
 pulseaudio-dev
 python3-jinja2
-python-cheetah
+xfce4-panel-dev

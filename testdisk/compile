@@ -1,3 +1,4 @@
 #!/bin/sh -eux
 
+export CFLAGS+=' -Wno-unused-parameter -Wno-sign-compare '
 ub_compile
