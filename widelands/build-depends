@@ -1,14 +1,14 @@
 boost-dev
-bzr
 glew-dev
 glu-dev
 icu-dev
 libogg-dev
 libpng-dev
 libtiff-dev
+llvm
 lua51-dev
-ninja
 python3-dev
+sdl2-dev
 sdl2-gfx-dev
 sdl2-image-dev
 sdl2-mixer-dev

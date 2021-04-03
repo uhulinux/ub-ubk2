@@ -1,6 +1,10 @@
 #!/bin/sh -eux
 
+export CXXFLAGS+=' -DU_USING_ICU_NAMESPACE=1 -I/usr/include/SDL2/'
 ub_compile \
-	-DCMAKE_BUILD_TYPE=Release \
-	-DWL_INSTALL_DATADIR=/usr/share/widelands \
-	-DWL_INSTALL_BASEDIR=/usr
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DWL_INSTALL_BASEDIR=/usr \
+    -DWL_INSTALL_DATADIR=/usr/share/widelands \
+    -DOPTION_BUILD_WEBSITE_TOOLS=OFF \
+    -DOpenGL_GL_PREFERENCE=LEGACY \
+    -DBoost_USE_MULTITHREADED=OFF
