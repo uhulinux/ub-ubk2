@@ -1,1 +1,11 @@
-u2dgnome tracker-miners
+#u2dgnome tracker-miners
+project=tracker-miners
+reg="02468"
+ver="$(urllist "https://download.gnome.org/sources/$project/" | grep -E '^[0-9]+\.[0-9]*['$reg'](\.[0-9.])?$' | sort -Vr)"
+for mappa in $ver;do
+verzio=$(u2d https://download.gnome.org/sources/$project/$mappa)
+if [ "$verzio"  ];then
+echo $verzio
+exit
+fi
+done
