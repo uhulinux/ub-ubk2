@@ -1,4 +1,4 @@
 #!/usr/bin/env dl
 
-archive.tar.gz griffith-${UB_VERSION}-95e25ba9bddbc81d2eedf54d50cd461509dca893/
-	https://gitlab.com/Strit/griffith/repository/${UB_VERSION}/
+griffith-${UB_VERSION}.tar.bz2 griffith-${UB_VERSION}/
+	https://gitlab.com/Strit/griffith/-/archive/${UB_VERSION}/

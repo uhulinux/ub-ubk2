@@ -1,0 +1,38 @@
+diff -Nur orig/configure.ac mod/configure.ac
+--- orig/configure.ac	2021-05-12 07:59:58.000000000 +0200
++++ mod/configure.ac	2021-06-14 10:50:12.683280449 +0200
+@@ -1,7 +1,7 @@
+ #                                               -*- Autoconf -*-
+ # Process this file with autoconf to produce a configure script.
+ 
+-AC_PREREQ([2.71])
++AC_PREREQ([2.69])
+ AC_INIT([blackbox],[0.77],[http://github.com/bbidulock/blackboxwm],[blackbox],[http://github.com/bbidulock/blackboxwm/issues])
+ AC_REVISION([0.77])
+ 
+@@ -30,7 +30,7 @@
+ AC_SUBST([BRANCH])
+ 
+ # Initialize Automake
+-AM_INIT_AUTOMAKE([gnits 1.16 dist-lzip no-dist-gzip std-options -Wall color-tests silent-rules tar-pax])
++AM_INIT_AUTOMAKE([gnits 1.15.1 dist-lzip no-dist-gzip std-options -Wall color-tests silent-rules tar-pax])
+ AM_MAINTAINER_MODE
+ AM_SILENT_RULES([yes])
+ 
+@@ -89,7 +89,7 @@
+ LT_LANG([C++])
+ AC_SUBST([LIBTOOL_DEPS])
+ 
+-AM_GNU_GETTEXT_VERSION([0.21])
++AM_GNU_GETTEXT_VERSION([0.19])
+ AM_GNU_GETTEXT([external])
+ 
+ AC_LANG([C++])
+@@ -98,7 +98,6 @@
+ 
+ # Checks for header files.
+ AS_BOX([Header Files])
+-AC_CHECK_INCLUDES_DEFAULT
+ 
+ AC_PATH_X
+ AC_PATH_XTRA
