@@ -1,5 +1,10 @@
 #!/bin/sh -eux
 
 ub_install
-mkdir -p $UB_INSTALLDIR}/usr/share/pixmaps
 cp packaging/OSX/sd-icon-mac-256.png ${UB_INSTALLDIR}/usr/share/pixmaps/sd2.png
+
+# nem kell csomó hülyeség
+cd ${UB_INSTALLDIR}/usr
+rm -rf include
+rm -rf share/games/speed-dreams-2/cmake
+rm share/games/speed-dreams-2/*.txt

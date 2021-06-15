@@ -1,0 +1,85 @@
+diff -Nur orig/cmake/macros.cmake mod/cmake/macros.cmake
+--- orig/cmake/macros.cmake	2020-04-18 15:57:44.000000000 +0200
++++ mod/cmake/macros.cmake	2021-06-15 12:43:24.566419033 +0200
+@@ -72,13 +72,13 @@
+ 
+ # Determine the default value of the user settings folder.
+ IF(WIN32)
+-  SET(SD_LOCALDIR "~/speed-dreams-2.settings" CACHE PATH "Where the user settings files should go")
++  SET(SD_LOCALDIR "~/speed-dreams-2.settings" CACHE DOC "Where the user settings files should go")
+ ELSE(WIN32) #UNIX
+-  SET(SD_LOCALDIR "~/.speed-dreams-2" CACHE PATH "Where the user settings files should go")
++  SET(SD_LOCALDIR "~/.speed-dreams-2" CACHE DOC "Where the user settings files should go")
+ ENDIF(WIN32)
+ 
+ # Determine the default value of the tools executable file prefix.
+-SET(SD_TOOLS_EXECPREFIX "sd2-" CACHE PATH "Prefix for the tools executable names")
++SET(SD_TOOLS_EXECPREFIX "sd2-" CACHE DOC "Prefix for the tools executable names")
+ MARK_AS_ADVANCED(SD_TOOLS_EXECPREFIX)
+ 
+ # Determine the default value of the data, bin and lib (and man) folders.
+@@ -206,8 +206,6 @@
+ 
+   ENDIF(MSVC)
+ 
+-  SET_PROPERTY(GLOBAL APPEND PROPERTY SD_EXE_LIST "${SD_BINDIR}/${TARGET_NAME}${CMAKE_EXECUTABLE_SUFFIX}")
+-
+   # Make the "settings_versions" target depend on this target,
+   # in order settings_versions is built after them.
+   ADD_DEPENDENCIES(settings_versions ${TARGET_NAME})
+@@ -226,8 +224,6 @@
+ # * TARGET_TYPE type arg is mandatory (no default).
+ MACRO(SD_ADD_LIBRARY TARGET_NAME TARGET_TYPE)
+ 
+-  #MESSAGE(STATUS "SD_ADD_LIBRARY : TARGET_NAME = ${TARGET_NAME} TARGET_TYPE = ${TARGET_TYPE} ARGN = ${ARGN}")
+-
+   # Standard ADD_EXECUTABLE command.
+   IF(${TARGET_TYPE} STREQUAL "ROBOT")
+     ADD_LIBRARY(${TARGET_NAME} MODULE ${ARGN})
+@@ -237,6 +233,7 @@
+ 
+   # Determine target location (for running in build-tree without installing).
+   IF(${TARGET_TYPE} STREQUAL "SHARED")
++
+     IF(WIN32)
+       SET(_TGT_DIR "${CMAKE_BINARY_DIR}/${SD_BINDIR}")
+     ELSE()
+@@ -244,17 +241,25 @@
+     ENDIF()
+ 
+   ELSEIF(${TARGET_TYPE} STREQUAL "MODULE")
+-    SET(_TGT_LOC ${CMAKE_CURRENT_SOURCE_DIR})
++    IF(CMAKE_MAJOR_VERSION GREATER 2)
++		cmake_policy(SET CMP0026 OLD)
++		cmake_policy(SET CMP0045 OLD)
++	ENDIF()
++	
++    GET_TARGET_PROPERTY(_TGT_LOC ${TARGET_NAME} LOCATION)
+     GET_FILENAME_COMPONENT(_TGT_TYPE ${_TGT_LOC} PATH)
++    GET_FILENAME_COMPONENT(_TGT_TYPE ${_TGT_TYPE} PATH)
++    IF(MSVC)
++      # Take care of the build config-specific Debug/Release/... folder.
++      GET_FILENAME_COMPONENT(_TGT_TYPE ${_TGT_TYPE} PATH)
++    ENDIF()
+     GET_FILENAME_COMPONENT(_TGT_TYPE ${_TGT_TYPE} NAME)
++
+     SET(_TGT_DIR "${CMAKE_BINARY_DIR}/${SD_LIBDIR}/modules/${_TGT_TYPE}")
+-    SET_PROPERTY(GLOBAL APPEND PROPERTY SD_MODULE_LIST "${SD_LIBDIR}/modules/${_TGT_TYPE}/${TARGET_NAME}${CMAKE_SHARED_MODULE_SUFFIX}")
+-    SET_TARGET_PROPERTIES(${TARGET_NAME} PROPERTIES SD_TYPE "MODULE")
+ 
+   ELSEIF(${TARGET_TYPE} STREQUAL "ROBOT")
+ 
+     SET(_TGT_DIR "${CMAKE_BINARY_DIR}/${SD_LIBDIR}/drivers/${TARGET_NAME}")
+-    SET_PROPERTY(GLOBAL APPEND PROPERTY SD_ROBOT_LIST "${SD_LIBDIR}/drivers/${TARGET_NAME}/${TARGET_NAME}${CMAKE_SHARED_MODULE_SUFFIX}")
+ 
+   ELSEIF(NOT ${TARGET_TYPE} STREQUAL "STATIC")
+ 
+@@ -277,8 +282,6 @@
+     ENDFOREACH()
+ 
+   ENDIF(MSVC)
+-  
+-  #MESSAGE(STATUS "SD_ADD_LIBRARY : _TGT_DIR = ${_TGT_DIR}")
+ 
+   # No prefix for module and robot DLLs.
+   IF(${TARGET_TYPE} STREQUAL "MODULE" OR ${TARGET_TYPE} STREQUAL "ROBOT")
