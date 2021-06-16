@@ -1,14 +1,8 @@
 #!/bin/bash -eux
 
 #előkészület
-
-if [ ! "$UB_ARCH" == "amd64" ];then
-echo "Ez a csomag 32 bitre nem készíthető el!"
-exit 1
-fi
-
 KVER="$(ls -1 /lib/modules | grep x86_64)"
-moduldir="$UB_COMPILEDIR/lib/modules/"$KVER"/kernel/drivers"
+moduldir="$UB_COMPILEDIR/lib/modules/"$KVER"/kernel/drivers/video"
 mkdir -p $moduldir
 forras="NVIDIA-Linux-x86_64-${UB_VERSION}-no-compat32"
 #kicsomagolás és belépés
@@ -16,12 +10,14 @@ chmod +x $forras.run
 ./"$forras".run -x
 mv $forras/* ./
 rm -f $forras.run
-sed -i 's/__NV_VK_ICD__/libGLX_nvidia.so.0/' nvidia_icd.json.template
+rm -rf $forras
+rm nvidia-settings*
 bsdtar -xf nvidia-persistenced-init.tar.bz2
-patch -i "$UB_SRCDIR"/patches/menu.patch.skip
 cd kernel
-patch -i "$UB_SRCDIR"/patches/kernel-4.16.patch.skip
-cd common/inc
-patch -i "$UB_SRCDIR"/patches/kernel-4.16-2.patch.skip
-cd -
 make IGNORE_CC_MISMATCH=yes SYSSRC=/usr/src/linux-$KVER KERNEL_UNAME="$KVER" MODULE_ROOT=$moduldir module
+cd ../nvsett
+export NV_USE_BUNDLED_LIBJANSSON=0
+export PREFIX=/usr
+ub_compile
+cd src/libXNVCtrl
+ub_compile

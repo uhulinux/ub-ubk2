@@ -14,12 +14,11 @@ mkdir -p $moduldir
 chmod +x $forras.run
 ./$forras.run -x
 rm *.run
-cd $forras
-patch -i "$UB_SRCDIR"/patches/menu.patch.skip
-cd kernel
+cd $forras/kernel
 patch -i "$UB_SRCDIR"/patches/kernel-4.14.patch.skip
 patch -i "$UB_SRCDIR"/patches/kernel-4.15.patch.skip
 patch -i "$UB_SRCDIR"/patches/disable-mtrr.patch.skip
+patch -i "$UB_SRCDIR"/patches/silencium.patch.skip
 make SYSSRC=/usr/src/linux-$KVER KERNEL_UNAME="$KVER" MODULE_ROOT=$moduldir module
 #akdályok leküzdése a telepítéshez
 sed -e 's/suser-sanity-check //g' -i Makefile.kbuild
@@ -28,3 +27,13 @@ sed -e 's/depmod -ae/true/g' -i Makefile.kbuild
 make SYSSRC=/usr/src/linux-$KVER KERNEL_UNAME="$KVER" MODULE_ROOT=$moduldir module-install
 #ez minek? De legyen..
 make clean
+
+cd ../../nvsett
+cd src/libXNVCtrl
+make clean
+make
+cd ../..
+export NV_USE_BUNDLED_LIBJANSSON=0
+export PREFIX=/usr
+export CFLAGS+=' -Wno-deprecated-declarations '
+ub_compile
