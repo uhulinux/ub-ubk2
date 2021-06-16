@@ -1,10 +1,8 @@
 glu-dev
 gtk2-dev
-jansson-dev
 kernel-dev
 libelf-dev
-libvdpau-dev
-libxv-dev
-libxvmc-dev
+libxv
+libxvmc
 x.org-server
 x.org-server-dev

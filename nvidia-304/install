@@ -11,40 +11,29 @@ fi
 #célkönyvtárak
 #libek
 cellibdir="$UB_INSTALLDIR"/usr/lib
+#xmodul
 xmoduldir="$cellibdir"/xorg/modules
+#desktop
 desktopdir="$UB_INSTALLDIR"/usr/share/applications
+#kézikönyv
 mandir="$UB_INSTALLDIR"/usr/share/man/man1/
+#forgalmazó
 vendordir="$UB_INSTALLDIR"/etc/OpenCL/vendors
+#pixmap
 pixmapdir="$UB_INSTALLDIR"/usr/share/pixmaps/
-shnvdir="$UB_INSTALLDIR"/usr/share/nvidia
-vdpaudir=$cellibdir/vdpau
-
 #könyvtárgyártás
 mkdir -p "$cellibdir"/nvidia \
 	"$xmoduldir"/{drivers,extensions} \
 	"$desktopdir" \
 	"$mandir" \
 	"$vendordir" \
-	"$pixmapdir" \
-	"$shnvdir" \
-	"$vdpaudir"
-
-#nvidia-settings cucc
-cd nvsett
-export NV_USE_BUNDLED_LIBJANSSON=0
-export PREFIX=/usr
-ub_install
-mv	doc/nvidia-settings.desktop "$desktopdir"/
-mv	doc/nvidia-settings.png "$pixmapdir"/
-gunzip	$mandir/nvidia-settings.1.gz
-cd ..
-
+	"$pixmapdir"
 # installált kernel modul a csomagba
 mv lib $UB_INSTALLDIR/
 
 # utils csomag kézi installálása
 cd $forras
-#doksik a doc szkriptnek
+#doksik
 mv html LICENSE NVIDIA_Changelog README.txt ../
 # biztonságba helyezés a régi módon
 mv libglx.so."$UB_VERSION" "$cellibdir"/nvidia/
@@ -55,22 +44,28 @@ mv nvidia_drv.so "$xmoduldir"/drivers/
 # ez fog ütközni az xorg libglx.so fájljával
 #ln -s libglx.so.${UB_VERSION} $xmoduldir/extensions/libglx.so
 mv tls "$cellibdir"
-mv libnvidia-wfb.so."$UB_VERSION" $xmoduldir/
-# ütközik az x.org.server modullal
-# ln -s libnvidia-wfb.so."$UB_VERSION" "$xmoduldir"/libwfb.so
-# vdpau cuccok
-mv libvdpau_nvidia.so.${UB_VERSION} $vdpaudir
+ln -s libwfb.so "$xmoduldir"/libnvidia-wfb.so."$UB_VERSION"
 
+# remove conflicting vdpau lib
+#rm "libvdpau.so.$UB_VERSION"
+#rm "libvdpau_trace.so.$UB_VERSION"
 # minden áthelyezése a libekbe
 mv *.so.* "$cellibdir"/
 
+ln -s "libvdpau_nvidia.so.$UB_VERSION" "$cellibdir"/libvdpau_nvidia.so
+ln -s "libnvcuvid.so.$UB_VERSION" "$cellibdir"/libnvcuvid.so
 #segédprogram futtatható előre gyártott binárisainak elhelyezése
 mv nvidia-xconfig \
+  nvidia-settings \
   nvidia-bug-report.sh \
   nvidia-smi \
   tls_test \
   tls_test_dso.so \
   "$UB_INSTALLDIR"/usr/bin/
+#desktop helyrerázása
+#sed -e 's%__UTILS_PATH__/%%g' -i nvidia-settings.desktop
+#sed -e 's%__PIXMAP_PATH__%/usr/share/pixmaps%g' -i nvidia-settings.desktop
+mv nvidia-settings.desktop "$desktopdir"/
 
 gunzip *.1.gz
 mv *.1 "$mandir"/
@@ -85,47 +80,14 @@ mv nvidia.icd "$vendordir"
 
 mv nvidia-settings.png "$pixmapdir"/
 
-#libxnvctrl
+######Arch linkgyár eljárás
+create_links() {
+    # create soname links
+    while read -d '' _lib; do
+        _soname="$(dirname "${_lib}")/$(readelf -d "${_lib}" | sed -nr 's/.*Library soname: \[(.*)\].*/\1/p')"
+        [[ -e "${_soname}" ]] || ln -s "$(basename "${_lib}")" "${_soname}"
+        [[ -e "${_soname/.[0-9]*/}" ]] || ln -s "$(basename "${_soname}")" "${_soname/.[0-9]*/}"
+    done < <(find "${UB_INSTALLDIR}" -type f -name '*.so*' -print0)
+}
 
-cd ../nvsett/src/libXNVCtrl
-mkdir -p "${UB_INSTALLDIR}"/usr/{include/NVCtrl,lib/pkgconfig}
-cp nv_control.h NVCtrl{,Lib}.h "${UB_INSTALLDIR}"/usr/include/NVCtrl/
-cp libXNVCtrl.a "${cellibdir}"/
-
-# pc rendberakás
-cat <<'EOF' > "${UB_INSTALLDIR}"/usr/lib/pkgconfig/libXNVCtrl.pc
-prefix=/usr
-libdir=${prefix}/lib
-includedir=${prefix}/include/NVCtrl
-
-Name: libXNVCtrl
-Description: Library for accessing NV-CONTROL extension in NVIDIA's kurrent drivers.
-Version: %version%
-Libs: -L${libdir} -lXNVCtrl
-Cflags: -I${includedir}
-EOF
-
-sed -i -e "s/%version%/$UB_VERSION/" "${UB_INSTALLDIR}"/usr/lib/pkgconfig/libXNVCtrl.pc
-
-#linkgyártások
-cd "$cellibdir"
-ln -s xorg/modules/libnvidia-wfb.so."$UB_VERSION" libwfb.so
-ln -s "libcuda.so.$UB_VERSION" libcuda.so
-
-for i in `ls -1 libnv*`;do
-lib=$(echo $i | sed s/\.${UB_VERSION}//g)
-solink=$(echo $lib | sed s/so\..*/so/)
-ln -s $i $lib.1
-ln -s $lib.1 $solink
-done
-
-cd $vdpaudir
-for i in `ls -1 libvdpau*`;do
-lib=$(echo $i | sed s/\.${UB_VERSION}//g)
-solink=$(echo $lib | sed s/so\..*/so/)
-ln -s $i $lib.1
-ln -s $lib.1 $solink
-done
-
-# Támogatott chepkhez a verzió beillesztése a csomag leírásába
-sed "s/version/${UB_VERSION}/g" -i ${UB_SRCDIR}/packages/nvidia-304/description/hu
+#    create_links
