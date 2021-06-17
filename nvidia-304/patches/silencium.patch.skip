@@ -1,0 +1,12 @@
+diff -Nur orig/Makefile.kbuild mod/Makefile.kbuild
+--- orig/Makefile.kbuild	2021-06-16 12:57:01.000000000 +0200
++++ mod/Makefile.kbuild	2021-06-16 13:03:41.551698862 +0200
+@@ -64,7 +64,7 @@
+ #
+ 
+ EXTRA_CFLAGS += -I$(src)
+-EXTRA_CFLAGS += -Wall -MD $(DEFINES) $(INCLUDES) -Wsign-compare -Wno-cast-qual -Wno-error
++EXTRA_CFLAGS += -Wall -MD $(DEFINES) $(INCLUDES) -Wno-sign-compare -Wno-cast-qual -Wno-error
+ 
+ #
+ # We rely on these two definitions below; if they aren't set, we set them to
