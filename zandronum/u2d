@@ -1,1 +1,6 @@
-urllist https://github.com/ZandronumEx/zandronumex/releases/ | grep ZA_ | sed s/.*ZA_// | sed s/_.*// | sort -V | tail -n 1
+#urllist https://github.com/ZandronumEx/zandronumex/releases/ | grep ZA_ | sed s/.*ZA_// | sed s/_.*// | sort -V | tail -n 1
+lista=$(curl -k -s https://raw.githubusercontent.com/TorrSamaho/zandronum/master/src/version.h | grep VERSION)
+MAJOR=$(echo "$lista" | grep MAJOR_VERSION | sed 's/.*MAJOR_VERSION //')
+MINOR=$(echo "$lista" | grep MINOR_VERSION | sed 's/.*MINOR_VERSION //')
+GAMEVER=$(echo "$lista" | grep GAMEVER_STRING  | sed 's/.*-/~/' | sed s/\"//)
+echo $MAJOR.$MINOR$GAMEVER

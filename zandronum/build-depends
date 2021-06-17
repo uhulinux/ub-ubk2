@@ -1,4 +1,5 @@
 cmake
+dumb
 fluidsynth-dev
 fmod
 glew-dev

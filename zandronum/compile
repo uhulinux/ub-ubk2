@@ -4,12 +4,14 @@ mkdir -p {client,server}
 cd client
 cmake \
     -DFORCE_INTERNAL_GME=OFF \
+    -DOpenGL_GL_PREFERENCE=GLVND \
 ..
-make
+ub_make
 
 cd ../server
 cmake \
-        -DSERVERONLY=ON \
+    -DSERVERONLY=ON \
     -DFORCE_INTERNAL_GME=OFF \
+    -DOpenGL_GL_PREFERENCE=GLVND \
 ..
-make
+ub_make
