@@ -1,5 +1,13 @@
 #!/bin/bash -eux
 
+function alprogi {
+	cd $1
+    export PREFIX=/usr
+    ub_install
+    gunzip	$mandir/nvidia-$1.1.gz
+    cd -
+}
+
 #kernel verzió
 if [ "$UB_ARCH" == "amd64" ];then
 KVER="$(ls -1 /lib/modules | grep x86_64)"
@@ -8,74 +16,83 @@ else
 KVER="$(ls -1 /lib/modules | grep i386)"
 forras="NVIDIA-Linux-x86-${UB_VERSION}"
 fi
+
 #célkönyvtárak
-#libek
+moduldir="$UB_INSTALLDIR"/lib/modules/"$KVER"/kernel/drivers/video
+xconfdir="$UB_INSTALLDIR"/usr/share/X11/x.org.conf.d
 cellibdir="$UB_INSTALLDIR"/usr/lib
+celbindir="$UB_INSTALLDIR"/usr/bin
 xmoduldir="$cellibdir"/xorg/modules
 desktopdir="$UB_INSTALLDIR"/usr/share/applications
 mandir="$UB_INSTALLDIR"/usr/share/man/man1/
-vendordir="$UB_INSTALLDIR"/etc/OpenCL/vendors
 pixmapdir="$UB_INSTALLDIR"/usr/share/pixmaps/
-shnvdir="$UB_INSTALLDIR"/usr/share/nvidia
 vdpaudir=$cellibdir/vdpau
 
 #könyvtárgyártás
 mkdir -p "$cellibdir"/nvidia \
 	"$xmoduldir"/{drivers,extensions} \
+	"$xconfdir" \
 	"$desktopdir" \
 	"$mandir" \
-	"$vendordir" \
 	"$pixmapdir" \
-	"$shnvdir" \
 	"$vdpaudir"
 
-#nvidia-settings cucc
-cd nvsett
 export NV_USE_BUNDLED_LIBJANSSON=0
-export PREFIX=/usr
-ub_install
-mv	doc/nvidia-settings.desktop "$desktopdir"/
-mv	doc/nvidia-settings.png "$pixmapdir"/
-gunzip	$mandir/nvidia-settings.1.gz
-cd ..
+alprogi settings
+alprogi xconfig
+
+# desktop
+mv	settings/doc/nvidia-settings.desktop "$desktopdir"/
+mv	settings/doc/nvidia-settings.png "$pixmapdir"/
 
 # installált kernel modul a csomagba
 mv lib $UB_INSTALLDIR/
 
 # utils csomag kézi installálása
-cd $forras
 #doksik a doc szkriptnek
+cd $forras
 mv html LICENSE NVIDIA_Changelog README.txt ../
-# biztonságba helyezés a régi módon
-mv libglx.so."$UB_VERSION" "$cellibdir"/nvidia/
-#Áthelyezzük a nem a $cellibdir alá kerülő *.so-kat
-mv nvidia_drv.so "$xmoduldir"/drivers/
+
 #mv libglx.so."$UB_VERSION" "$xmoduldir"/extensions/
 # link, hogy  X meg is találja a glx -et, mivel ő libglx.so fájlt keres
 # ez fog ütközni az xorg libglx.so fájljával
 #ln -s libglx.so.${UB_VERSION} $xmoduldir/extensions/libglx.so
-mv tls "$cellibdir"
-mv libnvidia-wfb.so."$UB_VERSION" $xmoduldir/
 # ütközik az x.org.server modullal
 # ln -s libnvidia-wfb.so."$UB_VERSION" "$xmoduldir"/libwfb.so
+
+# wrapped-software-rendering lib. Postinstből lehet majd rá libcwfb.so link, ha
+# nem ütközik az x.org-server által szállítottal libcwfb.so fájllal
+mv libnvidia-wfb.so.${UB_VERSION} $xmoduldir
+
+# biztonságba helyezés a régi módon
+mv	libglx.so."$UB_VERSION" "$cellibdir"/nvidia/
+
+#Áthelyezzük a nem a $cellibdir alá kerülő *.so-kat
+mv	nvidia_drv.so "$xmoduldir"/drivers/
+mv	tls "$cellibdir"
+
 # vdpau cuccok
-mv libvdpau_nvidia.so.${UB_VERSION} $vdpaudir
+mv libvdpau_n*.so.${UB_VERSION} $vdpaudir
 
 # minden áthelyezése a libekbe
 mv *.so.* "$cellibdir"/
+# XVMC statikus lib
+mv libXvMCNVIDIA.a "$cellibdir"/
 
-#segédprogram futtatható előre gyártott binárisainak elhelyezése
-mv nvidia-xconfig \
-  nvidia-bug-report.sh \
-  nvidia-smi \
-  tls_test \
-  tls_test_dso.so \
-  "$UB_INSTALLDIR"/usr/bin/
+# binárisok elhelyezése #nvidia-smi,nvidia-cuda-proxy-control
+binaries="nvidia-smi nvidia-cuda-proxy-control"
+for binari in $binaries;do
+    mv $binari $celbindir/
+    gunzip ${binari}.1.gz
+    mv $binari.1 $mandir/
+done
 
-gunzip *.1.gz
-mv *.1 "$mandir"/
+#tls_test
+mv tls_test $celbindir/
+mv tls_test_dso.so $celbindir/
 
-mv nvidia.icd "$vendordir"
+#
+mv nvidia-drm-outputclass.conf $xconfdir/
 
 # mkdir -p "$UB_INSTALLDIR"/usr/include/CL/
 # mv cl*.h "$UB_INSTALLDIR"/usr/include/CL/
@@ -87,7 +104,7 @@ mv nvidia-settings.png "$pixmapdir"/
 
 #libxnvctrl
 
-cd ../nvsett/src/libXNVCtrl
+cd ../settings/src/libXNVCtrl
 mkdir -p "${UB_INSTALLDIR}"/usr/{include/NVCtrl,lib/pkgconfig}
 cp nv_control.h NVCtrl{,Lib}.h "${UB_INSTALLDIR}"/usr/include/NVCtrl/
 cp libXNVCtrl.a "${cellibdir}"/
@@ -109,8 +126,6 @@ sed -i -e "s/%version%/$UB_VERSION/" "${UB_INSTALLDIR}"/usr/lib/pkgconfig/libXNV
 
 #linkgyártások
 cd "$cellibdir"
-ln -s xorg/modules/libnvidia-wfb.so."$UB_VERSION" libwfb.so
-ln -s "libcuda.so.$UB_VERSION" libcuda.so
 
 for i in `ls -1 libnv*`;do
 lib=$(echo $i | sed s/\.${UB_VERSION}//g)
@@ -119,13 +134,25 @@ ln -s $i $lib.1
 ln -s $lib.1 $solink
 done
 
-cd $vdpaudir
-for i in `ls -1 libvdpau*`;do
-lib=$(echo $i | sed s/\.${UB_VERSION}//g)
-solink=$(echo $lib | sed s/so\..*/so/)
-ln -s $i $lib.1
-ln -s $lib.1 $solink
-done
+# libXvMCNVIDIA
+ln -s libXvMCNVIDIA.so.${UB_VERSION} libXvMCNVIDIA.so.1
+ln -s libXvMCNVIDIA.so.1 libXvMCNVIDIA.so
+
+# cuda
+ln -s libcuda.so.${UB_VERSION} libcuda.so.1
+ln -s libcuda.so.1 libcuda.so
+
+# libOpenCL
+ln -s libOpenCL.so.1.0.0 libOpenCL.so.1
+ln -s libOpenCL.so.1 libOpenCL.so
+
+# tls
+ln -s libnvidia-tls.so.${UB_VERSION} tls/libnvidia-tls.so.1
+ln -s libnvidia-tls.so.1 tls/libnvidia-tls.so
+
+# vdpau
+ln -s libvdpau_nvidia.so.${UB_VERSION} vdpau/libvdpau_nvidia.so.1
+ln -s libvdpau_nvidia.so.1 vdpau/libvdpau_nvidia.so
 
 # Támogatott chepkhez a verzió beillesztése a csomag leírásába
 sed "s/version/${UB_VERSION}/g" -i ${UB_SRCDIR}/packages/nvidia-304/description/hu

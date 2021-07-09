@@ -1,6 +1,17 @@
 #!/bin/bash -eux
 
+function alprogi {
+	cd $1
+    export PREFIX=/usr
+    ub_compile
+    cd -
+}
+
 #előkészület
+if [ ! ${UB_ARCH} == "amd64" ];then
+    echo csak 64 bites verzió lehetséges
+    exit 1
+fi
 KVER="$(ls -1 /lib/modules | grep x86_64)"
 moduldir="$UB_COMPILEDIR/lib/modules/"$KVER"/kernel/drivers/video"
 mkdir -p $moduldir
@@ -12,12 +23,14 @@ mv $forras/* ./
 rm -f $forras.run
 rm -rf $forras
 rm nvidia-settings*
-bsdtar -xf nvidia-persistenced-init.tar.bz2
+#bsdtar -xf nvidia-persistenced-init.tar.bz2
 cd kernel
 make IGNORE_CC_MISMATCH=yes SYSSRC=/usr/src/linux-$KVER KERNEL_UNAME="$KVER" MODULE_ROOT=$moduldir module
-cd ../nvsett
+cd ..
 export NV_USE_BUNDLED_LIBJANSSON=0
 export PREFIX=/usr
-ub_compile
-cd src/libXNVCtrl
-ub_compile
+alprogi settings
+alprogi settings/src/libXNVCtrl
+alprogi xconfig
+alprogi modprobe
+alprogi persistenced

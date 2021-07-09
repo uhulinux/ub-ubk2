@@ -1,5 +1,12 @@
 #!/bin/bash -eux
 
+function alprogi {
+	cd $1
+    export PREFIX=/usr
+    ub_compile
+    cd -
+}
+
 #előkészület
 if [ "$UB_ARCH" == "amd64" ];then
 KVER="$(ls -1 /lib/modules | grep x86_64)"
@@ -28,12 +35,9 @@ make SYSSRC=/usr/src/linux-$KVER KERNEL_UNAME="$KVER" MODULE_ROOT=$moduldir modu
 #ez minek? De legyen..
 make clean
 
-cd ../../nvsett
-cd src/libXNVCtrl
-make clean
-make
 cd ../..
+alprogi settings/src/libXNVCtrl
 export NV_USE_BUNDLED_LIBJANSSON=0
-export PREFIX=/usr
 export CFLAGS+=' -Wno-deprecated-declarations '
-ub_compile
+alprogi settings
+alprogi xconfig
